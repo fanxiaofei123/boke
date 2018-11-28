@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="WarehouseKeeper" FormType="Entity" Authenticate="false">
+    <DataSource>
+        <DataObject Caption="仓管员" Key="WarehouseKeeper" PrimaryTableKey="LRP_WarehouseKeeper">
+            <TableCollection>
+                <Table Caption="仓管员" Key="LRP_WarehouseKeeper" SourceType="Query" Persist="false">
+                    <Column Key="AvatarUrl" Caption="头像路径" DataType="Varchar" Length="200"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+                    <TableFilter>
+                        <![CDATA[LRP_WarehouseKeeper.OID=?]]>
+                    </TableFilter>
+                    <ParameterCollection>
+                        <Parameter Formula="GetUserOperator()"/>
+                    </ParameterCollection>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Key="AppStatus" Description="更新仓管员登录状态">
+            <Statement>
+                <![CDATA[update LRP_WarehouseKeeper set AppStatus = 0 where oid = ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root_pnl">
+                <TableView Key="root" X="0" Y="0">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="r1">
+                            <GridLayoutPanel Key="header" Height="200px">
+                                <Format BackColor="#f1f3f8"/>
+                                <Image Key="mylogo" Caption="我的头像" Stretch="true" ImageScaleType="Fit_XY" PromptImage="5.png" X="1" Y="1" BorderStyle="none">
+                                    <DataBinding TableKey="LRP_WarehouseKeeper" ColumnKey="AvatarUrl"/>
+                                    <Format BackColor="#f1f3f8"/>
+                                    <OnClick>
+                                        <![CDATA[
+											if ( !IsLogin() ) {
+												Show('WarehouseKeeperLogin')
+											} else {
+												Show('WarehouseKeeperInfo')
+											}
+										]]>
+                                    </OnClick>
+                                </Image>
+                                <Label Key="myTip" Caption="点击登录" X="1" Y="2">
+                                    <DataBinding TableKey="LRP_WarehouseKeeper" ColumnKey="Name"/>
+                                    <Format ForeColor="#f14c52" HAlign="Center">
+                                        <Font Size="14"/>
+                                    </Format>
+                                </Label>
+                                <RowDefCollection>
+                                    <RowDef Height="50px"/>
+                                    <RowDef Height="120px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="120px"/>
+                                    <ColumnDef Width="50%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r5" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2">
+                            <LinearLayoutPanel Key="contact_panel" Height="50px" Orientation="Horizontal">
+                                <Button Key="contact_icon" Icon="my_contactus.png" Width="50px" Height="auto" BorderStyle="none">
+                                    <Format BackColor="transparent"/>
+                                </Button>
+                                <Label Key="contact_label" Caption="关于我们" Width="10px" Weight="1.0" Height="auto">
+                                    <Format ForeColor="#969696">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Button Key="contact_more" Icon="more_arrow.png" OnlyIcon="True" Width="20px" Height="auto" BorderStyle="none">
+                                    <Format BackColor="transparent"/>
+                                </Button>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Show('AboutWarehouseKeeper')]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <GridLayoutPanel Key="Out_layout" X="0" Y="1" Height="50px" Visible="myTip!=''">
+                    <Format BackColor="#f1f3f8"/>
+                    <Button Key="Out" Caption="退出当前登录" X="1" Y="0" Visible="myTip!=''">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[DBNamedUpdate('AppStatus',GetOperator());
+GuestLogout();
+LoadData();
+ShowToast('已注销当前登录');
+						]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection>
+                        <RowDef Height="50px"/>
+                        <RowDef Height="10px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="20px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="60px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <EventHandlerCollection>
+        <EventHandler Key="SessionChanged" Trigger="Show" MergeEvent="true">
+            <![CDATA[LoadData()]]>
+        </EventHandler>
+        <EventHandler Key="UserInfoChanged" Trigger="Show" MergeEvent="true">
+            <![CDATA[LoadData()]]>
+        </EventHandler>
+    </EventHandlerCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom" HasLeftButton="false">
+        <BarItem Key="TitleCenter_bar" Caption="我的" Location="Center">
+            <Label Key="TitleCenter" Caption="我的" Width="60px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

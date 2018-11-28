@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Entry>
+        <LogisticsOrder_LogisticsOrder>LogisticsOrder</LogisticsOrder_LogisticsOrder>
+        <LogisticsOrder_V_LogisticsOrder>LogisticsOrder</LogisticsOrder_V_LogisticsOrder>
+        <LogisticsOrder_LogisticsOrder_V_LogisticsOrderView>LogisticsOrderView</LogisticsOrder_LogisticsOrder_V_LogisticsOrderView>
+        <LogisticsOrder_V_SalesOrder>SalesOrder</LogisticsOrder_V_SalesOrder>
+        <LogisticsOrder_LogisticsOrder_V_SalesOrderView>SalesOrderView</LogisticsOrder_LogisticsOrder_V_SalesOrderView>
+        <LogisticsOrder_V_SellOrder>SellOrder</LogisticsOrder_V_SellOrder>
+        <LogisticsOrder_LogisticsOrder_V_SellOrderView>SellOrderView</LogisticsOrder_LogisticsOrder_V_SellOrderView>
+		<LogisticsOrder_LogisticsOrder_logisticStatusQuery>logisticStatusQuery</LogisticsOrder_LogisticsOrder_logisticStatusQuery>
+		      
+    </Entry>
+</StringTable>

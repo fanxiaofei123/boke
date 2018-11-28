@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="CHCS_Transfer_H" Caption="调拨单" PrimaryTableKey="CHCS_Transfer_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="CHCS_Transfer_H" Caption="调拨单">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+            <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+            <Column Key="BillDate" Caption="单据日期" DataType="DateTime"/>
+            <Column Key="Creator" Caption="制单人" DataType="Long" Description="保存人员" ItemKey="Operator"/>
+            <Column Key="CreateTime" Caption="制单日期" DataType="DateTime"/>
+            <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+            <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Out_Warehouse" Caption="调出仓库" DataType="Long"/>
+            <Column Key="In_Warehouse" Caption="调入仓库" DataType="Long"/>
+            <Column Key="Replenishment_Application_Number" Caption="补货申请单号" DataType="Varchar"/>
+            <Column Key="Applicant" Caption="申请人" DataType="Long"/>
+            <Column Key="Application_Department" Caption="申请部门" DataType="Long"/>
+            <Column Key="Flight_Number" Caption="航班号" DataType="Long"/>
+            <Column Key="Flight_Date" Caption="航班日期" DataType="DateTime"/>
+            <Column Key="Aircraft_Number" Caption="飞机号" DataType="Long"/>
+            <Column Key="Aircraft_Type_Number" Caption="机型" DataType="Varchar"/>
+            <Column Key="Out_Date" Caption="出库日期" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+            <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+        </Table>
+        <Table Key="CHCS_Transfer_L" Caption="调拨单明细" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Material_Name" Caption="物资名称" DataType="Long"/>
+            <Column Key="Specification_Model" Caption="规格型号" DataType="Varchar"/>
+            <Column Key="Quantity" Caption="数量" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Unit" Caption="单位" DataType="Long"/>
+            <Column Key="Urgency" Caption="紧急程度" DataType="Integer"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar"/>
+            <Column Key="Real_Quantity" Caption="实配数量" DataType="Numeric" Precision="16" Scale="0"/>
+        </Table>
+    </TableCollection>
+</DataObject>

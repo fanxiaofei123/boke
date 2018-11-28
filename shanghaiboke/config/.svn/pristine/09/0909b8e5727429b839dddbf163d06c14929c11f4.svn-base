@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DriverChangeOrder" FormType="Entity">
+    <DataSource RefObjectKey="LRP_TransportOrder"/>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#f1f3f8"/>
+                <TableView Key="RouteName_table" X="0" Y="0">
+                    <TableRowCollection>
+                        <TableRow Key="r0" SeparatorStyle="solid none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_Code" Orientation="Horizontal" Height="48px" LeftPadding="10px">
+                                <Label Key="spec_sel_c" Width="40px" Height="auto" BorderStyle="none">
+                                    <Format BackColor="transparent"/>
+                                </Label>
+                                <Label Key="L_No" Caption="订单号" Width="70px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="OID" Visible="false" Caption="订单id" Width="70px" Height="auto">
+                                    <DataBinding ColumnKey="OID" TableKey="LRP_TransportOrder_H"/>
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="OrderType" Visible="false" Caption="订单类型" Width="70px" Height="auto">
+                                    <DataBinding ColumnKey="OrderType" TableKey="LRP_TransportOrder_H"/>
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="No" Width="180px" Weight="1.0" Height="auto">
+                                    <DataBinding ColumnKey="No" TableKey="LRP_TransportOrder_H"/>
+                                    <Format ForeColor="#ff5000" HAlign="Center">
+                                        <Font Size="12"/>
+                                    </Format>
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r1" SeparatorStyle="solid none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pa" Orientation="Horizontal" Height="50px" LeftPadding="5px">
+                                <Image Key="spec_sel_a" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="17.png" Margin="7px" ImageScaleType="Fit_Center"/>
+                                <!-- <Label Key="spec_sel_a" Icon="17.png" OnlyIcon="True" Width="30px" Margin="5px" Height="auto" BorderStyle="none"> -->
+                                <!--    <Format BackColor="transparent"/>
+                                </Label> -->
+                                <Label Key="Time_1" Caption="用车时间" Width="70px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <DatePicker Key="Time" Caption="现在" Width="180px" Weight="1.0" Height="auto" Margin="1px">
+                                    <DataBinding ColumnKey="ExpectArriveTime" TableKey="LRP_TransportOrder_H"/>
+                                    <Format ForeColor="#f14c52" HAlign="Center">
+                                        <Font Size="12"/>
+                                    </Format>
+                                </DatePicker>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r2" TopMargin="5px" SeparatorStyle="solid none" Enable="true" SeparatorColor="#b8becc">
+                            <GridLayoutPanel Key="GridLayoutPanel1" Padding="5px" Caption="GridLayoutPanel1">
+                                <Image Key="SendImage" Caption="SendImage" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="10.png" Margin="5px" ImageScaleType="Fit_Center" X="0" Y="0" YSpan="2" HasBorder="true"/>
+                                <Label Key="lbl_send" Caption="请输入始发地" Width="80px" Height="auto" Visible="SendOrgId == ''" X="1" Y="0" XSpan="2" YSpan="2">
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <Label Key="SendOrgId" Visible="False" Width="80px" Height="auto" X="1" Y="0">
+                                    <DataBinding ColumnKey="SendPartyName" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendAddress" Visible="False" Width="80px" Height="auto" X="2" Y="0">
+                                    <DataBinding ColumnKey="SendAddress" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendAddress2" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="IIF(SendAddress=='',SendOrgId,SendOrgId&amp;'('&amp;SendAddress&amp;')')"/>
+                                    <Format HAlign="Left">
+                                        <Font Size="15"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="SendContact" Width="80px" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="SendContactor" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendTel" Width="80px" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="SendContactTel" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendProvinceId" Caption="发货省" Width="80px" Visible="False" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="SendProvinceId" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendCityId" Caption="发货市" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="SendCityId" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendDistrictId" Caption="发货区县" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="SendDistrictId" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendLongitude" Caption="发货地经度" Width="80px" Visible="False" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="SendLongitude" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="SendLatitude" Caption="发货地纬度" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="SendLatitude" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Button Key="spec_sel1" OnlyIcon="True" Enable="true" Width="20px" Height="auto" BorderStyle="none" X="3" BorderColor="#ffffff" Y="0" YSpan="2" Icon="more_arrow.png">
+                                    <Format BackColor="Transparent" ForeColor="#994d00"/>
+                                </Button>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="33px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="30px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowClick>
+                                <![CDATA[
+                                       PushPara('Type',0);	
+									   PushPara('OrderType',GetValue('OrderType'));
+									   if(SendOrgId != '')
+									   {
+											Show('SendInformation');
+									   }else{
+									       Show('SendRouteInformation');
+									   }
+								]]>
+                            </RowClick>
+                        </TableRow>
+                        <TableRow Key="list" TopMargin="5px" SeparatorStyle="none none solid none" Enable="true" RowType="Detail" SeparatorColor="#b8becc" TableKey="LRP_TransportOrderRoute_L">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Padding="5px" Caption="GridLayoutPanel1">
+                                <Image Key="Image1" Caption="Image1" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="38.png" Margin="5px" ImageScaleType="Fit_Center" X="0" Y="0" YSpan="2" HasBorder="true"/>
+                                <Label Key="lbl_destl" Caption="请输入途经地" Width="80px" Height="auto" Visible="OrgId == ''" X="1" Y="0" XSpan="2" YSpan="2">
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <Label Key="OrgId" Caption="地址名称" Visible="False" Width="80px" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="AddressName"/>
+                                </Label>
+                                <Label Key="Address" Caption="地址" Visible="False" Width="80px" Height="auto" X="2" Y="0">
+                                    <DataBinding ColumnKey="Address"/>
+                                </Label>
+                                <Label Key="Address2" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="IIF(Address=='',OrgId,OrgId&amp;'('&amp;Address&amp;')')"/>
+                                    <Format HAlign="Left">
+                                        <Font Size="15"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Contact" Width="80px" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="Contact"/>
+                                </Label>
+                                <Label Key="Tel" Width="80px" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="Tel"/>
+                                </Label>
+                                <Label Key="Latitude" Width="80px" Visible="False" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="Latitude"/>
+                                </Label>
+                                <Label Key="Longitude" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="Longitude"/>
+                                </Label>
+                                <Label Key="ProvinceId" Width="80px" Visible="False" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="ProvinceId"/>
+                                </Label>
+                                <Label Key="CityId" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="CityId"/>
+                                </Label>
+                                <Label Key="DistrictId" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="DistrictId"/>
+                                </Label>
+                                <Button Key="spec_sel3" Caption="删除" Enable="true" Width="38px" Height="auto" BorderStyle="solid" X="3" Y="0" YSpan="2" BorderColor="#ffffff" BorderRadius="4" HasBorder="true">
+                                    <Format BackColor="Transparent" ForeColor="#000000">
+                                        <Font Size="15"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[
+									       ShowConfirm('确定删除该途径地吗?', 'YES_NO', 
+												{
+													YES: {
+														DeleteRow('list', GetRowIndex('list'));
+														ShowToast('已删除');
+													}, 
+													NO: {} 
+												}
+											)
+											
+									     ]]>
+                                    </OnClick>
+                                </Button>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="38px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowClick>
+                                <![CDATA[
+								PushPara('rowcount',GetRowCount('list'));
+								PushPara('rowIndex',GetRowIndex('list'));
+								PushPara('formkey','Order');								
+								PushPara('RecType',1);
+								SetPara('Type',0);
+								PushPara('OrderType',GetValue('OrderType'));
+								Show('RecInformation');
+								
+								
+								]]>
+                            </RowClick>
+                        </TableRow>
+                        <TableRow Key="r3" TopMargin="5px" SeparatorStyle="none none solid none" Enable="true" SeparatorColor="#b8becc">
+                            <GridLayoutPanel Key="GridLayoutPanel2" Padding="5px" Caption="GridLayoutPanel1">
+                                <Image Key="DestImage" Caption="DestImage" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="11.png" Margin="5px" ImageScaleType="Fit_Center" X="0" Y="0" YSpan="2" HasBorder="true"/>
+                                <Label Key="lbl_dest" Caption="请输入目的地" Width="80px" Height="auto" Visible="DestOrgId == ''" X="1" Y="0" XSpan="2" YSpan="2">
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <Label Key="DestOrgId" Visible="False" Width="80px" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="RecvPartyName" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestAddress" Visible="False" Width="80px" Height="auto" X="2" Y="0">
+                                    <DataBinding ColumnKey="RecvAddress" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestAddress2" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="IIF(DestAddress=='',DestOrgId,DestOrgId&amp;'('&amp;DestAddress&amp;')')"/>
+                                    <Format HAlign="Left">
+                                        <Font Size="15"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="DestContact" Width="80px" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="RecvContactor" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestTel" Width="80px" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="RecvContactTel" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestProvinceId" Caption="收货省" Width="80px" Visible="False" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="RecvProvinceId" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestCityId" Caption="收货市" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="RecvCityId" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestDistrictId" Caption="收货区县" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="RecvDistrictId" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestLongitude" Caption="收货地经度" Width="80px" Visible="False" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="RecvLongitude" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Label Key="DestLatitude" Caption="收货地纬度" Width="80px" Visible="False" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="RecvLatitude" TableKey="LRP_TransportOrder_H"/>
+                                </Label>
+                                <Button Key="spec_sel2" Icon="more_arrow.png" OnlyIcon="True" Width="20px" Height="auto" BorderStyle="none" X="3" Y="0" Enable="true" YSpan="2"/>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="33px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowClick>
+                                <![CDATA[
+								      PushPara('Type',0);
+                                       var count = -1;
+									   PushPara('rowcount',count);
+									   PushPara('formkey','Order');	
+									   PushPara('OrderType',GetValue('OrderType'));									  
+									   if(DestOrgId != '')
+									   {
+										   Show('RecInformation');
+									   }else{ 
+										   Show('RecvRouteInformation');
+									   }
+								]]>
+                            </RowClick>
+                        </TableRow>
+                        <TableRow Key="r4" TopMargin="5px" SeparatorStyle="none none solid none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spet" Orientation="Horizontal" Height="50px" LeftPadding="10px">
+                                <Button Key="order1" Caption="+添加途经地" Enable="true" Width="pref" Height="auto" BorderStyle="solid" BorderColor="#808080" BorderRadius="4" HasBorder="true" Margin="5px">
+                                    <Format BackColor="#ffffff" ForeColor="#000000">
+                                        <Font Size="15"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[
+										InsertRow('list');	
+										
+									]]>
+                                    </OnClick>
+                                </Button>
+                                <Label Key="Dest" Caption="请按卸货顺序填写以便估计价格(长按删除)" SingleLine="false" Width="pref" Height="auto">
+                                    <Format ForeColor="#000000">
+                                        <Font Size="11"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_see1" Width="0px" Weight="1.0" Height="auto"/>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r5" TopMargin="5px" SeparatorStyle="none none none none" SeparatorColor="#b8becc">
+                            <GridLayoutPanel Key="GridLayoutPanel5" Caption="GridLayoutPanel1">
+                                <Label Key="LoadWeight" Caption="重量" Height="auto" Width="60px" X="1" Y="0"/>
+                                <NumberEditor Key="spec_sel_LoadWeight" Caption="重量" Precision="5" Scale="1" Width="pref" Height="auto" Enable="true" X="2" Y="0">
+                                    <DataBinding ColumnKey="Weight" TableKey="LRP_TransportMaterial_L"/>
+                                    <!-- InvokeService("LRP_BillStatusChange", false, false,"LRP_ExpenseStatement",OID,900,-1); -->
+                                </NumberEditor>
+                                <Label Key="LoadCubage" Caption="体积" Height="auto" Width="60px" X="3" Y="0"/>
+                                <NumberEditor Key="spec_sel_LoadCubage" Caption="体积" Precision="5" Scale="1" Width="pref" Height="auto" Enable="true" X="4" Y="0">
+                                    <DataBinding ColumnKey="Cubage" TableKey="LRP_TransportMaterial_L"/>
+                                </NumberEditor>
+                                <Label Key="Freight" Caption="运费" Height="auto" Width="60px" Visible="False" X="1" Y="0"/>
+                                <NumberEditor Key="spec_sel_Freight" Precision="5" Scale="1" Visible="False" Width="pref" Height="auto" X="2" Y="0">
+                                    <DataBinding ColumnKey="Freight" TableKey="LRP_TransportMaterial_L"/>
+                                </NumberEditor>
+                                <Label Key="TransferFee" Caption="转运费" Height="auto" Width="60px" Visible="False" X="3" Y="0"/>
+                                <NumberEditor Key="spec_sel_TransferFee" Precision="5" Scale="1" Visible="False" Width="pref" Height="auto" X="4" Y="0">
+                                    <DataBinding ColumnKey="TransferFee" TableKey="LRP_TransportMaterial_L"/>
+                                </NumberEditor>
+                                <Label Key="DeliveryFee" Caption="送货费" Height="auto" Width="60px" Visible="False" X="1" Y="0"/>
+                                <NumberEditor Key="spec_sel_DeliveryFee" Precision="5" Scale="1" Visible="False" Width="pref" Height="auto" X="2" Y="0">
+                                    <DataBinding ColumnKey="DeliveryFee" TableKey="LRP_TransportMaterial_L"/>
+                                </NumberEditor>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="50%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r7" TopMargin="5px" SeparatorStyle="none none none none" SeparatorColor="#b8becc">
+                            <GridLayoutPanel Key="spec_sel_pane11" Caption="spec_sel_pane11">
+                                <LinearLayoutPanel Key="spec_sel_pane111" Orientation="Horizontal" X="1" Y="0">
+                                    <Label Key="Mileage" Caption="里程" Width="70px" Height="auto"/>
+                                    <NumberEditor Key="spec_sel_Mileage" Precision="5" Scale="1" Enable="true" Width="pref" Height="auto" BorderStyle="none">
+                                        <DataBinding ColumnKey="Mileage" TableKey="LRP_TransportOrder_H"/>
+                                        <Format BackColor="transparent"/>
+                                    </NumberEditor>
+                                    <Label Key="Mi" Caption="公里" Width="60px" Height="auto"/>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Key="spec_sel_pane112" Orientation="Horizontal" X="2" Y="0">
+                                    <Label Key="MaterialTotalQty" Caption="货物总数量" Width="70px" Height="auto"/>
+                                    <NumberEditor Key="spec_sel_MaterialTotalQty" Precision="5" Scale="1" Height="auto" Weight="1.0" Enable="true">
+                                        <DataBinding ColumnKey="MaterialTotalQty" TableKey="LRP_TransportOrder_H"/>
+                                        <Format BackColor="transparent"/>
+                                    </NumberEditor>
+                                </LinearLayoutPanel>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="50%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r8" TopMargin="5px" SeparatorStyle="none none solid none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane12" Orientation="Horizontal" Height="38px" LeftPadding="10px">
+                                <Label Key="Payment" Caption="运费支付方式" Width="100px" Height="auto"/>
+                                <ComboBox Key="spec_sel_Payment" Caption="运费支付方式" Enable="true" Height="auto" Weight="1.0" Margin="1px">
+                                    <DataBinding ColumnKey="PayMethod" TableKey="LRP_TransportOrder_H" Required="true"/>
+                                    <Item Caption="发货时付款" Key="3" Value="3"/>
+                                    <Item Caption="收货时付款" Key="5" Value="5"/>
+                                </ComboBox>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r88" TopMargin="5px" SeparatorStyle="none none solid none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane122" Orientation="Horizontal" Height="38px" LeftPadding="10px">
+                                <Label Key="PayChannel" Caption="付款方式" Width="100px" Height="auto"/>
+                                <ComboBox Key="spec_sel_PayChannel" Caption="付款方式" Enable="true" Height="auto" Weight="1.0" Margin="1px">
+                                    <DataBinding ColumnKey="PayChannel" TableKey="LRP_TransportOrder_H" Required="true"/>
+                                    <Item Caption="微信" Key="wechat" Value="wechat"/>
+                                    <Item Caption="支付宝" Key="alipay" Value="alipay"/>
+                                    <Item Caption="余额" Key="amount" Value="amount"/>
+                                    <Item Caption="现金" Key="cash" Value="cash"/>
+                                    <Item Caption="转账" Key="transfer" Value="transfer"/>
+                                    <Item Caption="票据" Key="voucher" Value="voucher"/>
+                                    <Item Caption="网络支付" Key="internet" Value="internet"/>
+                                </ComboBox>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r9" TopMargin="5px" SeparatorStyle="none none none none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane13" Orientation="Horizontal" Height="38px" LeftPadding="10px">
+                                <Label Key="Remark" Caption="备注" Width="60px" Height="auto"/>
+                                <TextEditor Key="spec_sel_Remark" Width="auto" Enable="true" Height="auto" BorderStyle="none">
+                                    <DataBinding ColumnKey="Remark" TableKey="LRP_TransportOrder_H"/>
+                                    <Format BackColor="transparent"/>
+                                </TextEditor>
+                                <Label Key="lbl_spec_sel_Remark" Width="0px" Weight="1.0" Height="auto"/>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r10" TopMargin="5px" SeparatorStyle="solid none" Enable="true" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane14" Orientation="Horizontal" Height="40px" LeftPadding="10px">
+                                <Image Key="spec_sel_Service" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="18.png" Margin="7px" ImageScaleType="Fit_Center"/>
+                                <Label Key="ExtraService" Caption="额外服务" Width="80px" Height="auto">
+                                    <Format BackColor="transparent" ForeColor="#000000">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_sel_Service" Width="0px" Weight="1.0" Height="auto"/>
+                                <Label Key="Serv" Caption="装卸、回单回款等服务" Width="pref" Height="auto" Margin="10px">
+                                    <DataBinding DefaultFormulaValue="AppGetExtraServiceString();"/>
+                                    <Format ForeColor="#f14c52">
+                                        <Font Size="12"/>
+                                    </Format>
+                                </Label>
+                                <Button Key="spec_ExtraService" Icon="more_arrow.png" Enable="true" OnlyIcon="True" Width="30px" Height="auto" BorderStyle="none">
+                                    <Format BackColor="transparent"/>
+                                </Button>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[
+                                 Show("ExtraService");
+								]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <GridLayoutPanel Key="GridLayoutPanel4" Padding="5px" Height="pref" X="0" Y="1" Caption="GridLayoutPanel1" Width="pref">
+                    <Format BackColor="#ffffff"/>
+                    <Label Key="j" X="0" Y="0" Height="auto">
+                        <Format BackColor="#ffffff" ForeColor="#bbbbbb">
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <Label Key="jine" Caption="约￥" X="1" Y="0" Height="auto">
+                        <Format BackColor="#ffffff" ForeColor="#f14c52" HAlign="Right">
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <NumberEditor Key="spec_sel_fee" X="2" Y="0" Precision="5" Scale="1" Enable="false" Width="auto" Height="auto">
+                        <DataBinding ColumnKey="Freight" TableKey="LRP_TransportMaterial_L"/>
+                        <Format BackColor="#ffffff" ForeColor="#f14c52" HAlign="Left">
+                            <Font Size="16"/>
+                        </Format>
+                    </NumberEditor>
+                    <Label Key="ji" X="3" Y="0" Height="auto">
+                        <Format BackColor="#ffffff" ForeColor="#bbbbbb">
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <Label Key="des" Caption="实际费用可能因实际行驶里程/等候时间等因素而异" X="0" Y="1" Height="auto" BorderStyle="solid" BorderColor="Transparent" HasBorder="true" XSpan="4">
+                        <Format BackColor="#ffffff" ForeColor="#bbbbbb" HAlign="Center">
+                            <Font Size="12"/>
+                        </Format>
+                    </Label>
+                    <RowDefCollection RowGap="1">
+                        <RowDef Height="50px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="3">
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="25%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <LinearLayoutPanel Key="opt_pane2" X="0" Y="2" Orientation="Horizontal" BorderStyle="solid none" Width="100%">
+                    <Format BackColor="Transparent"/>
+                    <Button Key="order" Caption="下一步" Enable="True" Width="100%" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff"/>
+                        <OnClick>
+                            <![CDATA[
+							if(GetValue('SendOrgId') == ""){
+							   ShowToast("请先输入始发地");
+							   return true;
+							}
+							if(GetValue('DestOrgId') == ""){
+							  ShowToast("请先输入目的地");
+							  return true;
+							}
+							var count = GetRowCount('list');
+							var index = 0;
+							while(index < count){
+								if(GetCellValue('list',index,'OrgId') == ''){
+									index = index + 1;	
+									ShowToast("请先输入第"+index+"条途径地");
+									return true;
+								}
+								index = index + 1;
+							}
+							
+							if(GetValue('spec_sel_fee')<0){
+							  ShowToast("费用计算失败");
+							  return true;
+							}
+							
+							
+							PushPara('rowcount',count);
+							PushPara('rowIndex',GetRowIndex('list'));
+							PushPara('DestOrgId1',GetValue('DestOrgId'));
+							PushPara('No1',GetValue('No'));
+                            PushPara('Time1',GetValue('Time'));
+                            PushPara('SendOrgId1',GetValue('SendOrgId'));
+							PushPara('SendAddress1',GetValue('SendAddress'));
+                            PushPara('SendContact1',GetValue('SendContact'));
+							PushPara('SendTel1',GetValue('SendTel'));
+							PushPara('spec_sel_fee1',GetValue('spec_sel_fee'));
+                            
+							PushPara('DestAddress1',GetValue('DestAddress'));
+                            PushPara('DestContact1',GetValue('DestContact'));
+							PushPara('DestTel1',GetValue('DestTel'));
+							PushPara('OrderLoadWeight1',GetValue('spec_sel_LoadWeight'));
+							PushPara('spec_sel_LoadCubage1',GetValue('spec_sel_LoadCubage'));
+							PushPara('spec_sel_Mileage1',GetValue('spec_sel_Mileage'));
+							PushPara('spec_sel_Payment1',GetValue('spec_sel_Payment'));
+							PushPara('spec_sel_Remark1',GetValue('spec_sel_Remark'));
+							PushPara('Serv1',GetValue('Serv'));						
+							Show('DriverConfirmedOrder');
+							]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="90px"/>
+                    <RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[ 	              	
+            SetValue('spec_sel_Payment',3);	
+		]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="修改订单信息" Location="Center">
+            <Label Key="TitleCenter" Caption="修改订单信息" Width="100%">
+                <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

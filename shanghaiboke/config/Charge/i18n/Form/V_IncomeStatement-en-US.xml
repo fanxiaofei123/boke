@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+		<QuoteQuant>AddChargeDetails</QuoteQuant>
+    </Opt>
+    <UI>
+		<V_IncomeStatement>IncomeStatement</V_IncomeStatement>
+		
+        <L_No>No</L_No>
+        <L_StatementName>StatementName</L_StatementName>
+        <L_CompanyCodeId>CompanyCodeId</L_CompanyCodeId>
+        <L_OwnerId>OwnerId</L_OwnerId>
+        <L_SettlementId>SettlementId</L_SettlementId>
+        <Lab_TotalAmount>TotalAmount</Lab_TotalAmount>
+        <L_OrderDate>OrderDate</L_OrderDate>
+        <L_FinishDate>FinishDate</L_FinishDate>
+        <L_Status>Status</L_Status>
+        <Lab_Remark>Remark</Lab_Remark>
+		
+        <Grid0>Charges detail</Grid0>
+		
+    </UI>
+	
+    <GridColumn>
+		<IncomeLineId>IncomeLineId</IncomeLineId>
+		<IncomeId>IncomeId</IncomeId>
+		<DispatchOrgId>DispatchOrgId</DispatchOrgId>
+		<WarehouseCenterId>WarehouseCenterId</WarehouseCenterId>
+		<OwnerId_d>OwnerId</OwnerId_d>
+		<SettlementId_d>SettlementId</SettlementId_d>
+		<BizDate>BizDate</BizDate>
+		<BizQty>BizQty</BizQty>
+        <CalculationAmount>CalculationAmount</CalculationAmount>
+		<AdjustAmount>AdjustAmount</AdjustAmount>
+        <GenMethod>GenMethod</GenMethod>
+        <SourceType>SourceType</SourceType>
+        <BillNo>BillNo</BillNo>
+        <IncomeContractTermName>ContractTermName</IncomeContractTermName>
+        <TermLineName>TermLineName</TermLineName>
+        <IncomeContractName>ContractName</IncomeContractName>
+    </GridColumn>
+	
+	
+    <Items-cmb_amounttype>
+		<Item-10>default</Item-10>
+		<Item-20>price</Item-20>
+		<Item-30>amount</Item-30>
+    </Items-cmb_amounttype>
+	
+	
+</StringTable>

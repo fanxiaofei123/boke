@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="库存预留字段" Key="V_QuantUserDefFields_LRP" FormType="View" InitState="Default">
+    <DataSource RefObjectKey="LRP_QuantUserDefFields"/>
+    <OperationCollection>
+        <Operation Caption="保存" Key="Save" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[                      
+								SaveData();
+								UpdateView();
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel0" Key="TabPanel0" Height="100%">
+                    <Grid Caption="库存预留自定义字段" Key="Grid3">
+                        <GridColumnCollection>
+                            <GridColumn Caption="代码" Key="column-0" Width="80px"/>
+                            <GridColumn Caption="是否显示" Key="column-1" Width="80px"/>
+                            <GridColumn Caption="显示名称" Key="column-2" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R3" TableKey="LRP_QuantUserDefFields">
+                                <GridCell Caption="代码" CellType="TextEditor" Enable="false" Key="FieldKey">
+                                    <DataBinding ColumnKey="FieldKey"/>
+                                </GridCell>
+                                <GridCell Caption="是否显示" CellType="CheckBox" Enable="false" Key="IsShow"/>
+                                <GridCell Caption="显示名称" CellType="TextEditor" Key="DisplayName">
+                                    <DataBinding ColumnKey="DisplayName"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+		LoadData();ShowData();
+	]]>
+    </OnLoad>
+    <OnPostShow>
+        <![CDATA[
+		loop"Grid3"(true){
+			if(FieldKey == "batch_no"){
+				IsShow = ToBool(GetSessionPara('BatchNo_IsShow'));
+			}			
+			if(FieldKey == "manuf_date"){
+				IsShow = ToBool(GetSessionPara('ManufDate_IsShow'));
+			}			
+			if(FieldKey == "expire_date"){
+				IsShow = ToBool(GetSessionPara('ExpireDate_IsShow'));
+			}
+			if(FieldKey == "project"){
+				IsShow = ToBool(GetSessionPara('ProjectId_IsShow'));
+			}
+			if(FieldKey == "str_user_def1"){
+				IsShow = ToBool(GetSessionPara('StrUserDef1_IsShow'));
+			}
+			if(FieldKey == "str_user_def2"){
+				IsShow = ToBool(GetSessionPara('StrUserDef2_IsShow'));
+			}
+			if(FieldKey == "str_user_def3"){
+				IsShow = ToBool(GetSessionPara('StrUserDef3_IsShow'));
+			}
+			if(FieldKey == "str_user_def4"){
+				IsShow = ToBool(GetSessionPara('StrUserDef4_IsShow'));
+			}
+			if(FieldKey == "str_user_def5"){
+				IsShow = ToBool(GetSessionPara('StrUserDef5_IsShow'));
+			}
+			if(FieldKey == "dict_user_def1"){
+				IsShow = ToBool(GetSessionPara('DictUserDef1_IsShow'));
+			}
+			if(FieldKey == "dict_user_def2"){
+				IsShow = ToBool(GetSessionPara('DictUserDef2_IsShow'));
+			}
+			if(FieldKey == "dict_user_def3"){
+				IsShow = ToBool(GetSessionPara('DictUserDef3_IsShow'));
+			}
+			if(FieldKey == "dict_user_def4"){
+				IsShow = ToBool(GetSessionPara('DictUserDef4_IsShow'));
+			}
+			if(FieldKey == "dict_user_def5"){
+				IsShow = ToBool(GetSessionPara('DictUserDef5_IsShow'));
+			}
+			if(FieldKey == "date_user_def1"){
+				IsShow = ToBool(GetSessionPara('DateUserDef1_IsShow'));
+			}
+			if(FieldKey == "date_user_def2"){
+				IsShow = ToBool(GetSessionPara('DateUserDef2_IsShow'));
+			}
+			if(FieldKey == "num_user_def1"){
+				IsShow = ToBool(GetSessionPara('NumUserDef1_IsShow'));
+			}
+			if(FieldKey == "num_user_def2"){
+				IsShow = ToBool(GetSessionPara('NumUserDef2_IsShow'));
+			}
+			if(FieldKey == "num_user_def3"){
+				IsShow = ToBool(GetSessionPara('NumUserDef3_IsShow'));
+			}
+			if(FieldKey == "recv_date"){
+				IsShow = ToBool(GetSessionPara('RecvDate_IsShow'));
+			}
+		}
+	]]>
+    </OnPostShow>
+</Form>

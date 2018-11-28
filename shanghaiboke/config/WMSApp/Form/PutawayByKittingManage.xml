@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="PutawayByKittingManage" FormType="View">
+    <DataSource>
+        <DataObject Key="LRP_PutawayByKittingManage" Caption="按加工区库存上架" PrimaryTableKey="LRP_Putaway_H">
+            <TableCollection>
+                <Table Key="LRP_Putaway_H" Caption="查找通知单" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Key="OwnerCode" Caption="货主代码" DataType="Varchar"/>
+                    <Column Key="OwnerName" Caption="货主名称" DataType="Varchar" Length="200"/>
+                    <Column Key="SumQty" Caption="加工区总量" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="IsShow" Caption="IsShow" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetPara('WarehouseCenterId')" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT * FROM(
+ select 
+    h.OID,
+    h.Status,
+    h.CREATETIME,
+    h.No,
+    h.WarehouseCenterId,
+    h.OwnerId,
+    Sum(q.ONHANDQTY) SumQty,
+    o.Code as OwnerCode,
+    o.Name as OwnerName
+from LRP_KittingNotice_H h 
+left join LRP_KittingNoticeProduct_L l
+on h.OID = l.SOID
+left join LRP_Quant q
+on l.OID = q.REFLineOID
+left join LRP_Owner o 
+on o.oid = h.OwnerId
+GROUP BY h.NO, h.OID, h.Status, h.CREATETIME, h.WarehouseCenterId, 
+h.OwnerId, o.Name, o.Code)a
+where a.WarehouseCenterId = ? and a.Status = 500 and SumQty > 0]]>
+                    </Statement>
+                </Table>
+                <Table Key="LRP_Putaway_HHis" Caption="上架历史" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="事务单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="事务类型" DataType="Long" Key="TxTypeId"/>
+                    <Column Caption="事务代码" DataType="Varchar" Key="TxTypeCode" Length="10"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="NoticeNo" Length="100"/>
+                    <Column Caption="关联单号" DataType="Varchar" Key="RefNo" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Key="OwnerName" Caption="货主名称" DataType="Varchar" Length="200"/>
+                    <Column Caption="事务日期时间" DataType="DateTime" Key="TxDateTime"/>
+                    <Column Caption="仓管员id" DataType="Long" Key="WarehouseKeeperId"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetUserOperator()" DataType="Long"/>
+                        <Parameter Formula="GetPara('WarehouseCenterId')" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[
+select 
+    h.OID,
+	h.Status,
+	h.CREATETIME,
+    h.No,
+    h.TxTypeId,
+    h.TxTypeCode,
+    h.OwnerNo,
+    h.NoticeNo,
+    h.RefNo,
+    h.WarehouseCenterId,
+	h.OwnerId,
+	o.Name as OwnerName,
+    h.TxDateTime,
+	h.WarehouseKeeperId,
+	h.Remark
+from LRP_WMTx_H h join LRP_Owner o on o.oid = h.OwnerId
+    where
+        h.TxTypeCode ='114' and h.WarehouseKeeperId = ? and h.WarehouseCenterId = ? and h.status = 900 order by h.TxDateTime desc
+	
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="OwnerName" Description="查询货主名称">
+            <Statement>
+                <![CDATA[select l.code as N_KEY,l.name as N_NAME from  LRP_Owner l]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#f1f3f8"/>
+                <Label Key="ShowValue" X="0" Y="0" Visible="false"/>
+                <TabGroup Caption="按加工区库存上架" Key="TabPanel1" IndicatorColor="#ff5000" X="0" Y="0">
+                    <TabItem Text="查找通知单">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 0);]]>
+                        </Action>
+                    </TabItem>
+                    <TabItem Text="上架历史">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 1);]]>
+                        </Action>
+                    </TabItem>
+                </TabGroup>
+                <TableView Key="RouteName_table" X="0" Y="1" Visible="ShowValue==0">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="r1" SeparatorStyle="none none solid none" SeparatorColor="#cccccc" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel" Height="50px" Orientation="Horizontal" Margin="5px">
+                                <Label Key="lab_NoticeNo3" Caption="通知单号：" LeftPadding="5px" Height="auto">
+                                    <Format HAlign="Center">
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <TextEditor Key="NoticeNo3" Caption="通知单号" Width="pref" Height="auto" Weight="0.4" PromptText="通知单号">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <Condition CondSign="like" ColumnKey="No" TableKey="LRP_Putaway_H"/>
+                                </TextEditor>
+                                <Label Key="lab_OwnerId3" Caption="货主：" LeftPadding="5px" Height="auto">
+                                    <Format HAlign="Center">
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <ComboBox Key="OwnerId3" Caption="货主" SourceType="Formula" ItemKey="LRP_Owner" Width="pref" Weight="0.4" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <Condition CondSign="=" ColumnKey="OwnerCode" TableKey="LRP_Putaway_H"/>
+                                    <FormulaItems>
+                                        <![CDATA[DBNamedQuery("OwnerName");]]>
+                                    </FormulaItems>
+                                </ComboBox>
+                                <Button Key="Qurey" Caption="查找" Width="100px" BorderRadius="8" BorderColor="#cccccc" HasBorder="true" Height="pref" Margin="5px" Padding="5px">
+                                    <Format ForeColor="#ffffff" BackColor="#f14c52">
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[DealCondition();LoadData();ShowData();
+IsShow = 1;
+										
+									]]>
+                                    </OnClick>
+                                </Button>
+                                <Label Key="Label3" Height="pref" Width="pref"/>
+                                <TextEditor Key="IsShow" Caption="TextEditor1" Visible="false" Height="pref" Width="pref">
+                                    <DataBinding DefaultValue="2"/>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="进行中" X="0" Y="3">
+                    <Format BackColor="#ffffff"/>
+                    <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl1" Caption="刷新控件" ProgressBackgroundColorScheme="#cccccc" X="0" Y="0">
+                        <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[DealCondition();LoadData();ShowData();
+IsShow = 1;]]>
+                            <Format/>
+                        </RefreshHeader>
+                        <RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[DealCondition();LoadData();ShowData();
+IsShow = 1;]]>
+                            <Format/>
+                        </RefreshFooter>
+                        <ListView Caption="查找通知单" Key="list" TableKey="LRP_Putaway_H" RowHeight="80" Enable="true" SeparatorStyle="solid none solid none" HasBorder="true" BorderColor="#e6e6e6" Padding="5px" Visible="(ShowValue==0 &amp;&amp; IsShow == 1)|| (Length(ShowValue) == 0&amp;&amp; IsShow == 1)">
+                            <Format Font="20px"/>
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="SelectField" IsSelect="true" DefaultValue="0" ColumnType="CheckBox" Visible="false" Icon="flight_check_unselect.png" SelectedIcon="flight_check_select.png" Stretch="true" ImageScaleType="Fit_XY"/>
+                                <ListViewColumn Key="NoticeNo" DataColumnKey="No" Caption="通知单号"/>
+                                <ListViewColumn Key="OwnerCode" Caption="货主代码" DataColumnKey="OwnerCode" Visible="false"/>
+                                <ListViewColumn Caption="货主" DataColumnKey="OwnerName" Key="OwnerName"/>
+                                <ListViewColumn Caption="下单日期" ColumnType="DatePicker" DataColumnKey="CREATETIME" Key="CREATETIME">
+                                    <Format HAlign="Left"/>
+                                </ListViewColumn>
+                                <ListViewColumn Key="SumQty" Caption="加工区总量" DataColumnKey="SumQty"/>
+                                <ListViewColumn Key="OID" DataColumnKey="OID" Caption="OID"/>
+                            </ListViewColumnCollection>
+                            <RowClick>
+                                <![CDATA[
+								PushPara('OID',OID);
+								
+								Show('DoPutawayByKitting');	 
+                            ]]>
+                            </RowClick>
+                        </ListView>
+                    </RefreshControl>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel2" Caption="上架历史" X="0" Y="1" YSpan="3" Visible="ShowValue==1">
+                    <Format BackColor="#f1f3f8"/>
+                    <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl2" Caption="刷新控件" ProgressBackgroundColorScheme="#cccccc" X="0" Y="1">
+                        <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[var show = IsShow;
+ DealCondition();LoadData();ShowToast("没有更多的消息了");
+IsShow = show;]]>
+                            <Format/>
+                        </RefreshHeader>
+                        <RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[var show = IsShow;
+LoadData();ShowToast("没有更多的消息了");
+IsShow = show;]]>
+                            <Format/>
+                        </RefreshFooter>
+                        <ListView Caption="上架历史" Key="list2" TableKey="LRP_Putaway_HHis" RowHeight="70" Enable="true" PageLoadType="DB" PageRowCount="10" HasBorder="true" BorderColor="#e6e6e6" Padding="5px">
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="No2" DataColumnKey="No" Caption="上架单号"/>
+                                <ListViewColumn Caption="货主" DataColumnKey="OwnerName" Key="OwnerName2"/>
+                                <ListViewColumn Caption="通知单号" DataColumnKey="NoticeNo" Key="NoticeNo2">
+                                    <Format HAlign="Right"/>
+                                </ListViewColumn>
+                                <ListViewColumn Caption="事务日期时间" ColumnType="DatePicker" DataColumnKey="TxDateTime" Key="TxDateTime2">
+                                    <Format HAlign="Left"/>
+                                </ListViewColumn>
+                                <ListViewColumn Caption="状态" ColumnType="ComboBox" Key="Status" DataColumnKey="Status">
+                                    <Item Caption="已输入" Key="100" Value="100"/>
+                                    <Item Caption="处理中" Key="500" Value="500"/>
+                                    <Item Caption="已完成" Key="900" Value="900"/>
+                                    <Format HAlign="Right"/>
+                                </ListViewColumn>
+                                <ListViewColumn Key="OID2" DataColumnKey="OID" Caption="OID"/>
+                            </ListViewColumnCollection>
+                            <RowClick>
+                                <![CDATA[PushPara('No', No2);
+Show('PutawayByKittingDetail');
+            						
+                            ]]>
+                            </RowClick>
+                        </ListView>
+                    </RefreshControl>
+                    <HyperLink Key="Label2" Visible="GetRowCount('list2')==0" Caption="当前没有已收货的单据！" X="0" Y="1">
+                        <Format ForeColor="#000000" HAlign="Center">
+                            <Font Size="26"/>
+                        </Format>
+                    </HyperLink>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="3px"/>
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="60px"/>
+                    <RowDef Height="6px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="list">
+                    <GridLayout Key="list">
+                        <LayoutSpan Key="NoticeNo" X="1" Y="0"/>
+                        <LayoutSpan Key="OwnerName" X="3" Y="0"/>
+                        <LayoutSpan Key="CREATETIME" X="1" Y="1"/>
+                        <LayoutSpan Key="SumQty" X="3" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+                <ComponentView Key="list2">
+                    <GridLayout Key="list2">
+                        <LayoutSpan Key="No2" X="1" Y="0"/>
+                        <LayoutSpan Key="OwnerName2" X="3" Y="0"/>
+                        <LayoutSpan Key="NoticeNo2" X="5" Y="0"/>
+                        <LayoutSpan Key="TxDateTime2" X="1" Y="1" XSpan="3"/>
+                        <LayoutSpan Key="Status" X="5" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="45%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="20%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="35%"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="CalculateQty" Description="计算并设置总通知量和总收货量">
+            <![CDATA[
+				var total = 0.0;
+				var recvqty = 0.0; 
+				
+				var count = GetRowCount('list');
+				var i = 0;
+				while(i < count){
+					total = total + GetCellValue('list',i,'Qty');
+					recvqty = recvqty + GetCellValue('list',i,'CheckQty');
+					i = i + 1;							
+				}
+				SetValue('NoticeQty_code',total);
+				SetValue('RecvQty_Null_code',recvqty);
+			]]>
+        </Macro>
+        <Macro Key="SelectTable" Description="根据通知单号查找通知单">
+            <![CDATA[
+				 if(select<>''){										 
+				  var dt1 = DBNamedQuery('SelectInboundNotice',GetValue('select'));
+				  var dt2 = DBNamedQuery('SelectReturnNotice',GetValue('select'));
+				  var dt3 = DBNamedQuery('SelectCrossDock',GetValue('select'));
+				  dt1.beforefirst();
+				  dt2.beforefirst();
+				  dt3.beforefirst();
+					
+				  if(dt1.next()){
+					   ReplaceTable('LRP_Notice_H',dt1);  	   
+				  }										  
+				  if(dt2.next()){
+					   ReplaceTable('LRP_Notice_H',dt2);  
+				  }
+				   if(dt3.next()){
+					  ReplaceTable('LRP_Notice_H',dt3);  
+				  }										 									  
+				  RefreshControl('GridLayoutPanel1');
+				  
+				  }else{
+					var dt = DBNamedQuery('SelectNotice');
+					 ReplaceTable('LRP_Notice_H',dt);  
+					 RefreshControl('GridLayoutPanel1');
+				  }
+			]]>
+        </Macro>
+    </MacroCollection>
+    <FormParaCollection>
+        <FormPara DataType="Long" Key="WarehouseCenterId" Type="Formula" Formula="root.GetPara('WarehouseCenterId')"/>
+    </FormParaCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="按加工区库存上架" Location="Center">
+            <Label Key="TitleCenter" Caption="按加工区库存上架" Width="160px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

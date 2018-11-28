@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+        <V_DailyQuantQuery>DailyQuantQuery</V_DailyQuantQuery>
+        <cancel>Reset</cancel>
+        <Query>Query</Query>
+        <ListView0>PeriodInventory</ListView0>
+        <Lab_QuantDate>QuantDate</Lab_QuantDate>
+        <Lab_OwnerId>OwnerId</Lab_OwnerId>
+        <Lab_MaterialId>Material</Lab_MaterialId>
+        <Lab_WarehouseCenterId>WarehouseCenterId</Lab_WarehouseCenterId>
+        <Lab_QuantDate_To>QuantDateTo</Lab_QuantDate_To>
+    </UI>
+    <ListViewColumn>
+        <EndQty>EndQty</EndQty>
+        <AdjustAddQty>AdjustAddQty</AdjustAddQty>
+        <OwnerTransOutQty>OwnerTransOutQty</OwnerTransOutQty>
+        <InQty>InQty</InQty>
+        <AdjustSubtractQty>AdjustSubtractQty</AdjustSubtractQty>
+        <V_MaterialId>Material</V_MaterialId>
+        <V_BasicUnit>BasicUnit</V_BasicUnit>
+        <KittingRawQty>KittingRawQty</KittingRawQty>
+        <KittingCompleteQty>KittingCompleteQty</KittingCompleteQty>
+        <OwnerTransInQty>OwnerTransInQty</OwnerTransInQty>
+        <BeginQty>BeginQty</BeginQty>
+        <OutQty>OutQty</OutQty>
+    </ListViewColumn>
+</StringTable>

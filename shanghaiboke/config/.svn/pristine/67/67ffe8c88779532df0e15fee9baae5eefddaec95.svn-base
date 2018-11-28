@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_OwnerUserRouteView-Abbr>OwnerUserRouteView</V_OwnerUserRouteView-Abbr>
+	 
+        <L_No>No</L_No>
+		<L_OwnerUserId>OwnerUserId</L_OwnerUserId>
+        <L_RouteName>RouteName</L_RouteName>
+        <L_CREATETIME>CreateTime</L_CREATETIME>
+        <L_CREATETIME_1>To</L_CREATETIME_1>
+    </UI>
+	<ListViewColumn>
+        <OID>OID</OID>
+        <Select>Select</Select>
+        <No>No</No>
+        <OwnerUserId>OwnerUserId</OwnerUserId>
+        <RouteName>RouteName</RouteName>
+        <CREATETIME>CreateTime</CREATETIME>
+        <StartName>StartName</StartName>
+        <StartProvinceId>StartProvinceId</StartProvinceId>
+        <StartCityId>StartCityId</StartCityId>
+        <StartDistrictId>StartDistrictId</StartDistrictId>
+        <StartAddress>StartAddress</StartAddress>
+        <DestName>DestName</DestName>
+        <DestProvinceId>DestProvinceId</DestProvinceId>
+        <DestCityId>DestCityId</DestCityId>
+        <DestDistrictId>DestDistrictId</DestDistrictId>
+        <DestAddress>DestAddress</DestAddress>
+	</ListViewColumn>
+</StringTable>

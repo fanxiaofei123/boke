@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_UserPointsRule>V_UserPointsRule</V_UserPointsRule>
+	 
+        <Lab_RuleNo>RuleNo</Lab_RuleNo>
+		<Lab_name>Name</Lab_name>
+        <Lab_OpType>OpType</Lab_OpType>
+        <Lab_PointsType>PointsType</Lab_PointsType>
+        <Lab_FixedValue>FixedValue</Lab_FixedValue>
+        <Lab_CV>CV</Lab_CV>
+        <Lab_Expire>Expire</Lab_Expire>
+        <Lab_ExpireUnit>ExpireUnit</Lab_ExpireUnit>
+		<Lab_Status>Status</Lab_Status>
+		<Lab_EffectiveDate>EffectiveDate</Lab_EffectiveDate>
+        <Lab_ExpireDate>ExpireDate</Lab_ExpireDate>
+		<Lab_Remark>Remark</Lab_Remark>
+		
+		<Grid0>User level add CV details</Grid0>
+    </UI>
+	<GridColumn>
+		<UserLevel>UserLevel</UserLevel>
+		<CV_l>CV</CV_l>
+	</GridColumn>
+	<Items-PointsType>
+		<Item-1>Fixed value</Item-1>
+		<Item-2>Business * CV</Item-2>
+	</Items-PointsType>
+	<Items-OpType>
+		<Item-order>order</Item-order>
+		<Item-charge>charge</Item-charge>
+	</Items-OpType>
+	<Items-ExpireUnit>
+		<Item-D>Day</Item-D>
+		<Item-M>Month</Item-M>
+		<Item-Y>Year</Item-Y>
+	</Items-ExpireUnit>
+</StringTable>

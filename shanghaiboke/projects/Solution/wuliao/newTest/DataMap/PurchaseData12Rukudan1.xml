@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="上引采购单1数据下推入库单1" Key="PurchaseData12Rukudan1" SrcDataObjectKey="PurchaseData1" TgtDataObjectKey="Rukudan1">
+    <SourceTableCollection Height="210" Width="258" X="30" Y="30">
+        <SourceTable IsPrimary="true" Key="PurchaseData1Detail" TargetTableKey="Rukudan1Detail">
+            <SourceField Definition="Material" TargetFieldKey="Material"/>
+            <SourceField Definition="Amount" EdgeType="Focus" TargetFieldKey="Amount"/>
+            <SourceField Definition="Caigoudan12Rukudan1" EdgeType="MapKey" TargetFieldKey="MapKey" Type="Const"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="210" Width="224" X="377" Y="30">
+        <TargetTable IsPrimary="true" Key="Rukudan1Detail">
+            <TargetField Definition="Material"/>
+            <TargetField Definition="Amount"/>
+            <TargetField Definition="MapKey"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

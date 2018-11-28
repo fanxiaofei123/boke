@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+	    <LoginOperators>LoginOperators</LoginOperators>
+        <TOTAL>TOTAL</TOTAL>
+        <REFRESH>REFRESH</REFRESH>
+        <AMOUNT>AMOUNT</AMOUNT>
+    </UI>
+    <Error>
+        <LoginTime>LoginTime</LoginTime>
+        <IP>Ip</IP>
+        <Mode>Mode</Mode>
+        <LastActiveTime>LastActiveTime</LastActiveTime>
+        <ClientID>ClientId</ClientID>
+        <OperatorID>OperatorId</OperatorID>
+    </Error>
+    <GridColumn>
+        <LoginTime>LoginTime</LoginTime>
+        <Kick>Kick</Kick>
+        <IP>IP</IP>
+        <Mode>Mode</Mode>
+        <LastActiveTime>LastActiveTime</LastActiveTime>
+        <ClientID>ClientID</ClientID>
+        <OperatorID>OperatorID</OperatorID>
+    </GridColumn>
+</StringTable>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringTable>
+	<Test>
+		<Info>This is a test string{1}</Info>
+	</Test>
+</StringTable>

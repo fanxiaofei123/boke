@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <PromptlyShift>Comfirm</PromptlyShift>
+        <history>history</history>
+        <TitleCenter>shifting</TitleCenter>
+        <add_btn>AddShift</add_btn>
+    </UI>
+    <Prompt>
+        <Location_code>Location</Location_code>
+        <Material_code>Material</Material_code>
+    </Prompt>
+</StringTable>

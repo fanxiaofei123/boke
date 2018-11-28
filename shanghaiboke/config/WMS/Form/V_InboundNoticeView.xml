@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form AbbrCaption="入库通知单序事簿" Caption="入库通知单序事簿" FormType="View" Key="V_InboundNoticeView">
+    <DataSource>
+        <DataObject Caption="入库通知单序事簿" Key="V_InboundNoticeView" PrimaryTableKey="LRP_InboundNotice_H">
+            <TableCollection>
+                <Table Key="LRP_InboundNotice_H" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DBColumnName="POID" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DBColumnName="SOID" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DBColumnName="VERID" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DBColumnName="DVERID" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="入库通知单号" DataType="Varchar" Key="No" SortType="Desc"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo"/>
+                    <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="预计到达日期时间起" DataType="DateTime" Key="ExpectDateTimeFrom"/>
+                    <Column Caption="预计到达日期时间至" DataType="DateTime" Key="ExpectDateTimeTo"/>
+                    <Column Caption="创建日期时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Remark" Length="1000"/>
+                    <Column Caption="发货方" DataType="Long" Key="SendPartyId"/>
+                    <Column Caption="承运方" DataType="Long" Key="CarrierId"/>
+                    <Column Key="LogisticsOrderNo" Caption="物流订单号" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="新增" Icon="new.png" Key="New">
+            <Action>
+                <![CDATA[
+				New('V_InboundNotice')	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="确认" Key="BatchConfirm" RefKey="BatchConfirm"/>
+        <Operation Caption="撤销确认" Key="BatchConfirm-R" RefKey="BatchConfirm-R"/>
+        <Operation Caption="作废" Key="BatchCancel" RefKey="BatchCancel"/>
+        <Operation Caption="撤销作废" Key="BatchCancel-R" RefKey="BatchCancel-R"/>
+        <Operation Caption="删除" Key="BatchDelete">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString('CommonDef', 'key35'),'OK','OK:{}');
+					return true;
+				}
+			   if(!CheckListSelectStatus(',100,')){	
+			        Confirm(LocaleString('CommonDef', 'key36'),'OK','OK:{}');
+					return true;
+			   }
+			  Confirm(LocaleString('CommonDef','key37'),'YES_NO',{YES:{BatchDeleteData('LRP_InboundNotice', 'LRP_InboundNotice_H');
+			            LoadData();ShowData();
+					  },NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Height="100%" Key="main" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="base_split" Orientation="Vertical" X="0" Y="1">
+                    <GridLayoutPanel Caption="查询字段" Height="100%" Key="query" Padding="5px">
+                        <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="6" Y="3">
+                            <DataBinding DefaultValue="LRP_InboundNotice"/>
+                        </TextEditor>
+                        <Label Caption="入库通知单号" Key="L_NoticeNo" X="0" Y="0"/>
+                        <TextEditor BuddyKey="L_NoticeNo" Caption="入库通知单号" Key="NoticeNo" X="1" XSpan="3" Y="0">
+                            <Condition ColumnKey="No" CondSign="like" TableKey="LRP_InboundNotice_H"/>
+                        </TextEditor>
+                        <Label Caption="货主" Key="L_OwnerId" X="5" Y="0"/>
+                        <Dict AllowMultiSelection="true" BuddyKey="L_OwnerId" Caption="货主" ItemKey="LRP_Owner" Key="OwnerId" X="6" XSpan="3" Y="0">
+                            <Condition ColumnKey="OwnerId" CondSign="in" TableKey="LRP_InboundNotice_H"/>
+                        </Dict>
+                        <Label Caption="货主单号" Key="L_OwnerNo" X="0" Y="1"/>
+                        <TextEditor BuddyKey="L_OwnerNo" Caption="货主单号" Key="OwnerNo" X="1" XSpan="3" Y="1">
+                            <Condition ColumnKey="OwnerNo" CondSign="like" TableKey="LRP_InboundNotice_H"/>
+                        </TextEditor>
+                        <Label Caption="状态" Key="L_Status_C" X="5" Y="1"/>
+                        <CheckListBox BuddyKey="L_Status" Caption="状态" Key="Status_C" X="6" XSpan="3" Y="1">
+                            <Condition ColumnKey="Status" CondSign="in" TableKey="LRP_InboundNotice_H"/>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已确认" Key="confirmed" Value="200"/>
+                            <Item Caption="处理中" Key="handled" Value="500"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                            <Item Caption="已作废" Key="cancelled" Value="20"/>
+                        </CheckListBox>
+                        <Label Caption="创建日期时间" Key="Lab_CREATETIME_from" X="0" Y="2"/>
+                        <Label Caption="至" Key="Lab_CREATETIME_To" X="5" Y="2"/>
+                        <DatePicker BuddyKey="Lab_CREATETIME_from" Caption="创建日期时间" Key="CREATETIME_from" X="1" XSpan="3" Y="2">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition ColumnKey="CREATETIME" CondSign="between" TableKey="LRP_InboundNotice_H" Group="CREATETIME" GroupHead="true"/>
+                        </DatePicker>
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <DatePicker BuddyKey="Lab_CREATETIME_To" Caption="至" Key="CREATETIME_To" X="6" XSpan="3" Y="2">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition ColumnKey="CREATETIME" CondSign="in" TableKey="LRP_InboundNotice_H" Group="CREATETIME" GroupTail="true"/>
+                        </DatePicker>
+                        <Dict BuddyKey="Lab_WarehouseCenterId" Caption="仓储中心" ItemKey="LRP_WarehouseCenter" Visible="false" Key="WarehouseCenterId" X="8" XSpan="3" Y="3">
+                            <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                            <Condition ColumnKey="WarehouseCenterId" CondSign="=" TableKey="LRP_InboundNotice_H"/>
+                        </Dict>
+                        <Label Caption="仓储中心" Key="Lab_WarehouseCenterId" Visible="false" X="7" Y="3"/>
+                        <Button Caption="重置" Enable="true" Key="cancel" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition();SetValue('WarehouseCenterId',getCurOrgID());	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <TextEditor Key="LogisticsOrderNo" Caption="物流订单号" BuddyKey="Lab_LogisticsOrderNo" X="1" Y="3" XSpan="3">
+                            <Condition ColumnKey="LogisticsOrderNo" CondSign="like" TableKey="LRP_InboundNotice_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_LogisticsOrderNo" Caption="物流订单号" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Key="ListView0" TableKey="LRP_InboundNotice_H" PageLoadType="DB">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Key="OID" Visible="false" Width="93px"/>
+                            <ListViewColumn Caption="选择" ColumnType="CheckBox" Key="Select" IsSelect="true" Width="80px"/>
+                            <ListViewColumn Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Key="Status" SourceType="Status" Width="74px"/>
+                            <ListViewColumn Caption="入库通知单号" ColumnType="HyperLink" DataColumnKey="No" Key="NoticeNo_LV" Width="160px">
+                                <OnClick>
+                                    <![CDATA[Open('V_InboundNotice', OID);]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" ItemKey="LRP_Owner" Key="OwnerId_LV"/>
+                            <ListViewColumn Caption="货主单号" ColumnType="TextEditor" DataColumnKey="OwnerNo" Key="OwnerNo_LV"/>
+                            <ListViewColumn Caption="创建日期时间" ColumnType="DatePicker" DataColumnKey="CREATETIME" Key="CREATETIME" Width="80px"/>
+                            <ListViewColumn Caption="预计到达日期时间起" ColumnType="DatePicker" DataColumnKey="ExpectDateTimeFrom" Key="ExpectDateTimeFrom_LV" Width="120px"/>
+                            <ListViewColumn Caption="预计到达日期时间至" ColumnType="DatePicker" DataColumnKey="ExpectDateTimeTo" Key="ExpectDateTimeTo_LV" Width="120px"/>
+                            <ListViewColumn Caption="发货方" ColumnType="Dict" DataColumnKey="SendPartyId" ItemKey="LRP_RecvSendParty" Key="SendPartyId_LV" Width="80px"/>
+                            <ListViewColumn Caption="承运方" ColumnType="Dict" DataColumnKey="CarrierId" ItemKey="LRP_Carrier" Key="CarrierId" Width="80px"/>
+                            <ListViewColumn Key="LogisticsOrderNo_LV" Caption="物流订单号" ColumnType="TextEditor" DataColumnKey="LogisticsOrderNo"/>
+                            <ListViewColumn Caption="备注" ColumnType="TextEditor" DataColumnKey="Remark" Key="Remark" Width="80px"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[
+							Open('V_InboundNotice', OID)	
+						]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="160px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

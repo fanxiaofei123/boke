@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_NoticePickStrategy" Caption=" 订单拣货策略" PrimaryTableKey="LRP_NoticePickStrategy_H" PrimaryType="Entity" CustomNoPrefix="'SS'">
+    <TableCollection>
+        <Table Key="LRP_NoticePickStrategy_H" Caption="订单拣货策略头" SourceType="DataObject" IndexPrefix="I_PickStra_H" PrimaryKey="PickStra_H_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="No" Caption="策略号" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="策略名称" DataType="Varchar" Length="100"/>
+            <Column Key="WarehouseCenterId" Caption="仓储中心" DataType="Long"/>
+            <Column Key="StrategyType" Caption="策略类型" DataType="Integer" DefaultValue="0"/>
+            <Column Key="NearExpiredDays" Caption="近效期天数" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Remarks" Caption="备注" DataType="Varchar" Length="1000"/>
+            <Column Key="MatchCheckSql" Caption="匹配条件检查SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="MatchWhereSql" Caption="匹配条件SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="QuantCheckSql" Caption="库存检查SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="QuantWhereSql" Caption="库存匹配SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="QuantSortSql" Caption="库存排序SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="PackQuantWhereSql" Caption="整件库存匹配SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="PackQuantSortSql" Caption="整件库存排序SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="ShipLocCheckSql" Caption="发货区检查SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="ShipLocWhereSql" Caption="发货区匹配SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="ShipLocSortSql" Caption="发货区排序SQL" DataType="Varchar" Length="1000"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Key="LRP_NoticePickStrategy_CM_L" Caption="订单拣货策略条件匹配明细" TableMode="Detail" SourceType="DataObject" IndexPrefix="I_PickStra_CM_L" PrimaryKey="PickStra_CM_L_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+            <Column Key="LeftBrackets" Caption="左括号" DataType="Varchar" Length="10"/>
+            <Column Key="ObjectAttrib" Caption="属性" DataType="Varchar" Length="100"/>
+            <Column Key="Operator" Caption="操作符" DataType="Varchar" Length="10"/>
+            <Column Key="Value" Caption="值" DataType="Varchar" Length="100"/>
+            <Column Key="ValueTypeDefKey" Caption="动态单元格标识" DataType="Varchar"/>
+            <Column Key="RightBrackets" Caption="右括号" DataType="Varchar" Length="10"/>
+            <Column Key="LogicalOperator" Caption="逻辑运算符" DataType="Varchar" Length="10"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Key="LRP_NoticePickStrategy_QM_L" Caption="订单拣货策略库存匹配明细" TableMode="Detail" SourceType="DataObject" IndexPrefix="I_PickStra_QM_L" PrimaryKey="PickStra_QM_L_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+            <Column Key="LeftBrackets" Caption="左括号" DataType="Varchar" Length="10"/>
+            <Column Key="ObjectAttrib" Caption="属性" DataType="Varchar" Length="100"/>
+            <Column Key="Operator" Caption="操作符" DataType="Varchar" Length="10"/>
+            <Column Key="Value" Caption="值" DataType="Varchar" Length="100"/>
+            <Column Key="ValueTypeDefKey" Caption="动态单元格标识" DataType="Varchar"/>
+            <Column Key="RightBrackets" Caption="右括号" DataType="Varchar" Length="10"/>
+            <Column Key="LogicalOperator" Caption="逻辑运算符" DataType="Varchar" Length="10"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Key="LRP_NoticePickStrategy_QS_L" Caption="订单拣货策略库存排序明细" TableMode="Detail" SourceType="DataObject" IndexPrefix="I_PickStra_QS_L" PrimaryKey="PickStra_QS_L_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+            <Column Key="ObjectAttrib" Caption="属性" DataType="Varchar" Length="100"/>
+            <Column Key="AscDesc" Caption="升序降序" DataType="Varchar" Length="10" DefaultValue="ASC"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Key="LRP_NoticePickStrategy_PQM_L" Caption="订单拣货策略整件库存匹配明细" TableMode="Detail" SourceType="DataObject" IndexPrefix="I_PickStra_PQM_L" PrimaryKey="PickStra_PQM_L_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+            <Column Key="LeftBrackets" Caption="左括号" DataType="Varchar" Length="10"/>
+            <Column Key="ObjectAttrib" Caption="属性" DataType="Varchar" Length="100"/>
+            <Column Key="Operator" Caption="操作符" DataType="Varchar" Length="10"/>
+            <Column Key="Value" Caption="值" DataType="Varchar" Length="100"/>
+            <Column Key="ValueTypeDefKey" Caption="动态单元格标识" DataType="Varchar"/>
+            <Column Key="RightBrackets" Caption="右括号" DataType="Varchar" Length="10"/>
+            <Column Key="LogicalOperator" Caption="逻辑运算符" DataType="Varchar" Length="10"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Key="LRP_NoticePickStrategy_PQS_L" Caption="订单拣货策略整件库存排序明细" TableMode="Detail" SourceType="DataObject" IndexPrefix="I_PickStra_PQS_L" PrimaryKey="PickStra_PQS_L_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+            <Column Key="ObjectAttrib" Caption="属性" DataType="Varchar" Length="100"/>
+            <Column Key="AscDesc" Caption="升序降序" DataType="Varchar" Length="10" DefaultValue="ASC"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Key="LRP_NoticePickStrategy_SM_L" Caption="订单拣货策略发货区匹配明细" TableMode="Detail" SourceType="DataObject" IndexPrefix="I_PickStra_SM_L" PrimaryKey="PickStra_SM_L_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+            <Column Key="LeftBrackets" Caption="左括号" DataType="Varchar" Length="10"/>
+            <Column Key="ObjectAttrib" Caption="属性" DataType="Varchar" Length="100"/>
+            <Column Key="Operator" Caption="操作符" DataType="Varchar" Length="10"/>
+            <Column Key="Value" Caption="值" DataType="Varchar" Length="100"/>
+            <Column Key="ValueTypeDefKey" Caption="动态单元格标识" DataType="Varchar"/>
+            <Column Key="RightBrackets" Caption="右括号" DataType="Varchar" Length="10"/>
+            <Column Key="LogicalOperator" Caption="逻辑运算符" DataType="Varchar" Length="10"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Key="LRP_NoticePickStrategy_SS_L" Caption="订单拣货策略发货区排序明细" TableMode="Detail" SourceType="DataObject" IndexPrefix="I_PickStra_SS_L" PrimaryKey="PickStra_SS_L_PK">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+            <Column Key="ObjectAttrib" Caption="属性" DataType="Varchar" Length="100"/>
+            <Column Key="AscDesc" Caption="升序降序" DataType="Varchar" Length="10" DefaultValue="ASC"/>
+            <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

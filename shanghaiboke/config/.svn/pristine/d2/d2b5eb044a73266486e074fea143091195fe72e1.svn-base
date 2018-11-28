@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>New</New>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+		<V_PlatformReservationView-Abbr>PlatformReservationView</V_PlatformReservationView-Abbr>
+		
+		<Query>Query</Query>
+		<cancel>Reset</cancel>
+		
+        <Lab_PlatformNo>PlatformNo</Lab_PlatformNo>
+        <Lab_ReservationType>ReservationType</Lab_ReservationType>
+        <Lab_RefNo>RefNo</Lab_RefNo>
+        <L_No>No</L_No>
+        <Lab_PlatformId>PlatformId</Lab_PlatformId>
+        <Lab_ReservationDate_from>ReservationDateFrom</Lab_ReservationDate_from>
+        <Lab_ReservationDate_To>ReservationDateTo</Lab_ReservationDate_To>
+        <Lab_Driver>Driver</Lab_Driver>
+        <L_Status_C>Status</L_Status_C>
+		<Lab_CertificateNo>CertificateNo</Lab_CertificateNo>
+		<Lab_DriverMobile>DriverMobile</Lab_DriverMobile>
+    </UI>
+    <ListViewColumn>
+        <OID>OID</OID>
+        <select>Select</select>
+        <Status>Status</Status>
+        <PlatformNo_L>PlatformNo</PlatformNo_L>
+        <ReservationType_L>ReservationType</ReservationType_L>
+        <PlatformId_L>PlatformId</PlatformId_L>
+        <RefNo_L>RefNo</RefNo_L>
+        <CarrierId_L>CarrierId</CarrierId_L>
+        <Driver_L>Driver</Driver_L>
+        <CertificateNo_L>CertificateNo</CertificateNo_L>
+        <TruckLicenseNo>TruckLicenseNo</TruckLicenseNo>
+        <ReservationDate>ReservationDate</ReservationDate>
+        <StartTime>StartTime</StartTime>
+        <EndTime>EndTime</EndTime>
+        <DriverMobile_L>DriverMobile</DriverMobile_L>
+        <EnterTime>EnterTime</EnterTime>
+        <ExitTime>ExitTime</ExitTime>
+    </ListViewColumn>
+    <Items-Status_C>
+        <Item-prepared>prepared</Item-prepared>
+        <Item-Admission>Admission</Item-Admission>
+		<Item-finished>finished</Item-finished>
+    </Items-Status_C>	
+	<Items-ReservationType>
+		<Item-1>WarehouseOrReceipt</Item-1>
+		<Item-2>ReturnOrCollect</Item-2>
+		<Item-3>OutgoingOrDelivery</Item-3>
+		<Item-4>BackFactoryOrDelivery</Item-4>
+		<Item-5>Shipments</Item-5>
+		<Item-6>TransportToGoods</Item-6>
+		<Item-99>Other</Item-99>
+	 </Items-ReservationType>
+	<Items-ReservationType_L>
+		<Item-1>WarehouseOrReceipt</Item-1>
+		<Item-2>ReturnOrCollect</Item-2>
+		<Item-3>OutgoingOrDelivery</Item-3>
+		<Item-4>BackFactoryOrDelivery</Item-4>
+		<Item-5>Shipments</Item-5>
+		<Item-6>TransportToGoods</Item-6>
+		<Item-99>Other</Item-99>
+	 </Items-ReservationType_L>
+</StringTable>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_UnitAmount" Caption="合并" FormType="Entity">
+    <DataSource>
+        <DataObject Key="LRP_TransportJob1" Caption="运输作业单物料明细" PrimaryTableKey="LRP_TransportJob_H1">
+            <TableCollection>
+                <Table Key="LRP_TransportJob_H1" Caption="运输作业单合并头" TableMode="Detail" Persist="false" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Key="No" Caption="作业单号" DataType="Varchar"/>
+                    <Column Key="SegOid" Caption="分段明细ID" DataType="Long"/>
+                    <Column Key="RefOID" Caption="关联运输订单明细OID" DataType="Long"/>
+                    <Column Key="MaterialId" Caption="物料" DataType="Long"/>
+                    <Column Key="MaterialName" Caption="物料名称" DataType="Varchar" Length="100"/>
+                    <Column Key="Qty" Caption="数量" DataType="Numeric" Precision="10" Scale="0"/>
+                    <Column Key="MaterialUnit" Caption="单位" DataType="Varchar" Length="40"/>
+                    <Column Key="Weight" Caption="重量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="Cubage" Caption="体积" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="Package" Caption="包装" DataType="Varchar" Length="100"/>
+                    <Column Key="ShipQty" Caption="装货量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="SignQty" Caption="签收量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="RejectQty" Caption="拒收量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="AbnormalQty" Caption="异常量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="AbnormalCause" Caption="异常说明" DataType="Varchar" Length="1000"/>
+                    <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara(&quot;SegOid&quot;);"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select 
+    h.OID,
+    Status,
+    No,
+    SegOid
+from
+    LRP_TransportJob_H h
+where
+    Status = 200 and SegOid = ?]]>
+                    </Statement>
+                </Table>
+                <Table Key="LRP_TransportJobMat_L1" Caption="运输作业单合并明细" SourceType="Query" TableMode="Detail" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="No" Caption="作业单号" DataType="Varchar"/>
+                    <Column Key="MaterialId" Caption="物料" DataType="Long"/>
+                    <Column Key="MaterialName" Caption="物料名称" DataType="Varchar" Length="100"/>
+                    <Column Key="Qty" Caption="数量" DataType="Numeric" Precision="10" Scale="0"/>
+                    <Column Key="MaterialUnit" Caption="单位" DataType="Varchar" Length="40"/>
+                    <Column Key="Weight" Caption="重量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="Cubage" Caption="体积" DataType="Numeric" Precision="18" Scale="6"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara(&quot;SegOid&quot;);"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select 
+    h.OID,
+    Status,
+    No,
+    SegOid,
+    RefOID,
+    MaterialId,
+    MaterialName,
+    Qty,
+    MaterialUnit,
+    Weight,
+    Cubage,
+    Package,
+    ShipQty,
+    SignQty,
+    RejectQty,
+    AbnormalQty,
+    AbnormalCause
+from
+    LRP_TransportJob_H h
+        left join
+   LRP_TransportJobMat_L l ON h.OID = l.SOID
+where
+    Status = 200 and SegOid = ?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Key="checkStatus" Description="查询作业单状态">
+            <Statement>
+                <![CDATA[select Status from LRP_TransportJob_H where NO = ?]]>
+            </Statement>
+        </Query>
+        <Query Key="deleteTJByOID" Description="通过OID删除作业单">
+            <Statement>
+                <![CDATA[delete from LRP_TransportJob_H where OID = ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body PopHeight="70%" PopWidth="70%">
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Caption="SplitPanel1">
+                <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                    <Grid Key="Grid0" Caption="作业单列表" NewEmptyRow="false" Height="pref" RowAlterable="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="Select" Caption="选择" Width="80px"/>
+                            <GridColumn Key="OID" Caption="OID" Width="80px" Visible="false"/>
+                            <GridColumn Key="Status" Caption="状态" Width="80px"/>
+                            <GridColumn Key="No" Caption="作业单号" Width="125px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_TransportJob_H1">
+                                <GridCell Key="Select" Caption="选择" CellType="CheckBox">
+                                    <DataBinding/>
+                                </GridCell>
+                                <GridCell Key="OID" Caption="OID" CellType="TextEditor">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Key="Status" Caption="状态" CellType="ComboBox" Enable="false" SourceType="Status">
+                                    <DataBinding ColumnKey="Status"/>
+                                </GridCell>
+                                <GridCell Key="No" Caption="作业单号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="No"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+                <TabPanel Caption="TabPanel2" Height="pref" Key="TabPanel2">
+                    <Grid Key="Grid1" Caption="物料明细列表" NewEmptyRow="false" Height="pref" RowAlterable="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="OID_L" Caption="OID" Width="80px" Visible="false"/>
+                            <GridColumn Key="No_L" Caption="作业单号" Width="125px"/>
+                            <GridColumn Key="MaterialId" Caption="物料" Width="80px"/>
+                            <GridColumn Key="MaterialName" Caption="物料名称" Width="80px"/>
+                            <GridColumn Key="Qty" Caption="数量" Width="80px"/>
+                            <GridColumn Key="MaterialUnit" Caption="单位" Width="80px"/>
+                            <GridColumn Key="Weight" Caption="重量" Width="80px"/>
+                            <GridColumn Key="Cubage" Caption="体积" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_TransportJobMat_L1">
+                                <GridCell Key="OID_L" Caption="OID" CellType="TextEditor">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Key="No_L" Caption="作业单号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="No"/>
+                                </GridCell>
+                                <GridCell Key="MaterialId" Caption="物料" CellType="Dict" Enable="false" ItemKey="LRP_Material">
+                                    <DataBinding ColumnKey="MaterialId"/>
+                                </GridCell>
+                                <GridCell Key="MaterialName" Caption="物料名称" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="MaterialName"/>
+                                </GridCell>
+                                <GridCell Key="Qty" Caption="数量" CellType="NumberEditor" Enable="false">
+                                    <DataBinding ColumnKey="Qty"/>
+                                </GridCell>
+                                <GridCell Key="MaterialUnit" Caption="单位" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                </GridCell>
+                                <GridCell Key="Weight" Caption="重量" CellType="NumberEditor" Enable="false">
+                                    <DataBinding ColumnKey="Weight"/>
+                                </GridCell>
+                                <GridCell Key="Cubage" Caption="体积" CellType="NumberEditor" Enable="false">
+                                    <DataBinding ColumnKey="Cubage"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                    <Button Key="Unit" Caption="合并" X="2" Y="0">
+                        <OnClick>
+                            <![CDATA[var selectCount = 0;
+var selectOID = '';
+var tjOID = '';
+var paOID = GetPara("OID");
+loop "Grid0" (true){
+	if(Select == true){
+		selectCount = selectCount + 1;
+	}
+};
+if(selectCount >= 2){
+	loop "Grid0" (true){
+		if(Select == true){
+                    selectOID = OID;
+                    tjOID = tjOID + selectOID + ",";
+		}
+	}
+        
+		InvokeService("LRP_TransportJobUnit", true, false,paOID,tjOID);
+        Confirm("运输作业单合并成功!","OK","OK:{LoadData();ShowData();Parent.LoadData();Close();}");
+        
+
+}else{
+	Confirm("请先选择两张或两张以上的作业单。", "OK","OK:{}");
+}]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="CancleAndExit" Caption="取消并退出" X="5" Y="0">
+                        <OnClick>
+                            <![CDATA[Cancel();Close();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="50px"/>
+                        <ColumnDef Width="77px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50px"/>
+                        <ColumnDef Width="77px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50px"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="30px"/>
+                        <ColumnDef Width="100px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <SplitSize Size="40%"/>
+                <SplitSize Size="60%"/>
+                <SplitSize Size="40px"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Long" Formula="GetPara(&quot;OID&quot;);" Key="OID" Type="Formula"/>
+        <FormPara DataType="Long" Formula="GetPara(&quot;SegOid&quot;);" Key="SegOid" Type="Formula"/>
+    </FormParaCollection>
+</Form>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_DriverSignView-Abbr>DriverSignView</V_DriverSignView-Abbr>
+		
+        <L_No>No</L_No>
+        <L_DriverId>DriverId</L_DriverId>
+        <L_TruckTypeId>TruckTypeId</L_TruckTypeId>
+        <L_SignOnTime>SignOnTime</L_SignOnTime>
+        <L_SignOnTime_Comp2>To</L_SignOnTime_Comp2>
+        <L_SignOffTime>SignOffTime</L_SignOffTime>
+        <L_SignOffTime_Comp2>To</L_SignOffTime_Comp2>
+		
+		<cancel>Reset</cancel>
+    </UI>
+	<ListViewColumn>
+		<OID>OID</OID>
+		<Select>Select</Select>
+		<Status>Status</Status>
+		<No_LV>No</No_LV>
+		<DriverId_LV>DriverId</DriverId_LV>
+		<TruckTypeId_LV>TruckTypeId</TruckTypeId_LV>
+		<SignOnTime_LV>SignOnTime</SignOnTime_LV>
+		<SignOffTime_LV>SignOffTime</SignOffTime_LV>
+		<SignStatus_LV>SignStatus</SignStatus_LV>
+	</ListViewColumn>
+	
+    <Items-SignStatus_LV>
+	   <Item-SignOff_lv>OffLine</Item-SignOff_lv>
+	   <Item-SignOn_lv>OnLine</Item-SignOn_lv>
+	</Items-SignStatus_LV>
+	
+</StringTable>

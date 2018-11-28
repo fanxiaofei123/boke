@@ -1,0 +1,896 @@
+六月 12, 2015 9:24:03 上午 org.apache.catalina.core.AprLifecycleListener init
+信息: Loaded APR based Apache Tomcat Native library 1.1.27 using APR version 1.4.6.
+六月 12, 2015 9:24:03 上午 org.apache.catalina.core.AprLifecycleListener init
+信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+六月 12, 2015 9:24:03 上午 org.apache.catalina.core.AprLifecycleListener initializeSSL
+信息: OpenSSL successfully initialized (OpenSSL 1.0.1d 5 Feb 2013)
+六月 12, 2015 9:24:03 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:24:03 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:24:03 上午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 1076 ms
+六月 12, 2015 9:24:03 上午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+六月 12, 2015 9:24:03 上午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\yes.xml
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\project\yes-webapp\src\main\webapp does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 9:24:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/yes] startup failed due to previous errors
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+六月 12, 2015 9:24:04 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+六月 12, 2015 9:24:04 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+六月 12, 2015 9:24:04 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+六月 12, 2015 9:24:07 上午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:24:07 上午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:24:07 上午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 3226 ms
+六月 12, 2015 9:50:52 上午 org.apache.catalina.core.AprLifecycleListener init
+信息: Loaded APR based Apache Tomcat Native library 1.1.27 using APR version 1.4.6.
+六月 12, 2015 9:50:52 上午 org.apache.catalina.core.AprLifecycleListener init
+信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+六月 12, 2015 9:50:52 上午 org.apache.catalina.core.AprLifecycleListener initializeSSL
+信息: OpenSSL successfully initialized (OpenSSL 1.0.1d 5 Feb 2013)
+六月 12, 2015 9:50:52 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:50:52 上午 org.apache.coyote.AbstractProtocol init
+严重: Failed to initialize end point associated with ProtocolHandler ["http-apr-8089"]
+java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+
+六月 12, 2015 9:50:52 上午 org.apache.catalina.core.StandardService initInternal
+严重: Failed to initialize connector [Connector[HTTP/1.1-8089]]
+org.apache.catalina.LifecycleException: Failed to initialize component [Connector[HTTP/1.1-8089]]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:106)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+Caused by: org.apache.catalina.LifecycleException: Protocol handler initialization failed
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:983)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	... 12 more
+Caused by: java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	... 13 more
+
+六月 12, 2015 9:50:52 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:50:52 上午 org.apache.coyote.AbstractProtocol init
+严重: Failed to initialize end point associated with ProtocolHandler ["ajp-apr-8009"]
+java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+
+六月 12, 2015 9:50:52 上午 org.apache.catalina.core.StandardService initInternal
+严重: Failed to initialize connector [Connector[AJP/1.3-8009]]
+org.apache.catalina.LifecycleException: Failed to initialize component [Connector[AJP/1.3-8009]]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:106)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+Caused by: org.apache.catalina.LifecycleException: Protocol handler initialization failed
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:983)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	... 12 more
+Caused by: java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	... 13 more
+
+六月 12, 2015 9:50:52 上午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 893 ms
+六月 12, 2015 9:50:52 上午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+六月 12, 2015 9:50:52 上午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+六月 12, 2015 9:50:52 上午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+六月 12, 2015 9:50:53 上午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\yes.xml
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\project\yes-webapp\src\main\webapp does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 9:50:53 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/yes] startup failed due to previous errors
+六月 12, 2015 9:50:53 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+六月 12, 2015 9:50:53 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+六月 12, 2015 9:50:53 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+六月 12, 2015 9:50:53 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+六月 12, 2015 9:50:53 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+六月 12, 2015 9:50:53 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+六月 12, 2015 9:50:53 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+六月 12, 2015 9:50:53 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+六月 12, 2015 9:50:55 上午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 2322 ms
+六月 12, 2015 9:50:55 上午 org.apache.catalina.core.StandardServer await
+严重: StandardServer.await: create[localhost:8005]: 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(DualStackPlainSocketImpl.java:106)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:382)
+	at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:190)
+	at java.net.ServerSocket.bind(ServerSocket.java:375)
+	at java.net.ServerSocket.<init>(ServerSocket.java:237)
+	at org.apache.catalina.core.StandardServer.await(StandardServer.java:427)
+	at org.apache.catalina.startup.Catalina.await(Catalina.java:779)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:725)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:322)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:456)
+
+六月 12, 2015 9:50:55 上午 org.apache.coyote.AbstractProtocol pause
+信息: Pausing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:50:55 上午 org.apache.coyote.AbstractProtocol pause
+信息: Pausing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:50:55 上午 org.apache.catalina.core.StandardService stopInternal
+信息: Stopping service Catalina
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+严重: The web application [/yigo] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [__DEFAULT__] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [session%0043ache.data] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [Statistics Thread-__DEFAULT__-1] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [CheckSessionScheduler_Worker-1] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [CheckSessionScheduler_Worker-2] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [CheckSessionScheduler_Worker-3] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [Timer-1] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+严重: The web application [/yigo] created a ThreadLocal with key of type [com.microsoft.sqlserver.jdbc.ActivityCorrelator$1] (value [com.microsoft.sqlserver.jdbc.ActivityCorrelator$1@311af549]) and a value of type [com.microsoft.sqlserver.jdbc.ActivityId] (value [4db712c8-4bba-4c21-8556-f04dfa31a82f-3]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+六月 12, 2015 9:50:55 上午 org.apache.coyote.AbstractProtocol stop
+信息: Stopping ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:50:55 上午 org.apache.coyote.AbstractProtocol destroy
+信息: Destroying ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:50:55 上午 org.apache.coyote.AbstractProtocol stop
+信息: Stopping ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:50:55 上午 org.apache.coyote.AbstractProtocol destroy
+信息: Destroying ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:50:55 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load java.net.URLConnection.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at net.sf.ehcache.util.UpdateChecker.getUpdateProperties(UpdateChecker.java:152)
+	at net.sf.ehcache.util.UpdateChecker.doCheck(UpdateChecker.java:117)
+	at net.sf.ehcache.util.UpdateChecker.checkForUpdate(UpdateChecker.java:104)
+	at net.sf.ehcache.util.UpdateChecker.run(UpdateChecker.java:95)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+
+六月 12, 2015 9:51:06 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load org.apache.log4j.spi.ThrowableInformation.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at org.apache.log4j.spi.LoggingEvent.<init>(LoggingEvent.java:165)
+	at org.apache.log4j.Category.forcedLog(Category.java:391)
+	at org.apache.log4j.Category.log(Category.java:856)
+	at org.slf4j.impl.Log4jLoggerAdapter.debug(Log4jLoggerAdapter.java:285)
+	at net.sf.ehcache.util.UpdateChecker.checkForUpdate(UpdateChecker.java:107)
+	at net.sf.ehcache.util.UpdateChecker.run(UpdateChecker.java:95)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+
+六月 12, 2015 9:51:25 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load com.bokesoft.yes.bpm.timer.b.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at com.bokesoft.yes.bpm.timer.a.run(Unknown Source)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+
+六月 12, 2015 9:57:54 上午 org.apache.catalina.core.AprLifecycleListener init
+信息: Loaded APR based Apache Tomcat Native library 1.1.27 using APR version 1.4.6.
+六月 12, 2015 9:57:54 上午 org.apache.catalina.core.AprLifecycleListener init
+信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.AprLifecycleListener initializeSSL
+信息: OpenSSL successfully initialized (OpenSSL 1.0.1d 5 Feb 2013)
+六月 12, 2015 9:57:55 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:57:55 上午 org.apache.coyote.AbstractProtocol init
+严重: Failed to initialize end point associated with ProtocolHandler ["http-apr-8089"]
+java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardService initInternal
+严重: Failed to initialize connector [Connector[HTTP/1.1-8089]]
+org.apache.catalina.LifecycleException: Failed to initialize component [Connector[HTTP/1.1-8089]]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:106)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+Caused by: org.apache.catalina.LifecycleException: Protocol handler initialization failed
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:983)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	... 12 more
+Caused by: java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	... 13 more
+
+六月 12, 2015 9:57:55 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:57:55 上午 org.apache.coyote.AbstractProtocol init
+严重: Failed to initialize end point associated with ProtocolHandler ["ajp-apr-8009"]
+java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardService initInternal
+严重: Failed to initialize connector [Connector[AJP/1.3-8009]]
+org.apache.catalina.LifecycleException: Failed to initialize component [Connector[AJP/1.3-8009]]
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:106)
+	at org.apache.catalina.core.StandardService.initInternal(StandardService.java:559)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:814)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:640)
+	at org.apache.catalina.startup.Catalina.load(Catalina.java:665)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:281)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:455)
+Caused by: org.apache.catalina.LifecycleException: Protocol handler initialization failed
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:983)
+	at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:102)
+	... 12 more
+Caused by: java.lang.Exception: Socket bind failed: [730013] ???????????????í????×??????·??????×?
+	at org.apache.tomcat.util.net.AprEndpoint.bind(AprEndpoint.java:446)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:610)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:429)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:981)
+	... 13 more
+
+六月 12, 2015 9:57:55 上午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 891 ms
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+六月 12, 2015 9:57:55 上午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+六月 12, 2015 9:57:55 上午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\yes.xml
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\project\yes-webapp\src\main\webapp does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 9:57:55 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/yes] startup failed due to previous errors
+六月 12, 2015 9:57:55 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+六月 12, 2015 9:57:55 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+六月 12, 2015 9:57:55 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+六月 12, 2015 9:57:55 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+六月 12, 2015 9:57:56 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+六月 12, 2015 9:57:56 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+六月 12, 2015 9:57:56 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+六月 12, 2015 9:57:56 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+六月 12, 2015 9:57:57 上午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 2382 ms
+六月 12, 2015 9:57:57 上午 org.apache.catalina.core.StandardServer await
+严重: StandardServer.await: create[localhost:8005]: 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(DualStackPlainSocketImpl.java:106)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:382)
+	at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:190)
+	at java.net.ServerSocket.bind(ServerSocket.java:375)
+	at java.net.ServerSocket.<init>(ServerSocket.java:237)
+	at org.apache.catalina.core.StandardServer.await(StandardServer.java:427)
+	at org.apache.catalina.startup.Catalina.await(Catalina.java:779)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:725)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:322)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:456)
+
+六月 12, 2015 9:57:57 上午 org.apache.coyote.AbstractProtocol pause
+信息: Pausing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:57:57 上午 org.apache.coyote.AbstractProtocol pause
+信息: Pausing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:57:57 上午 org.apache.catalina.core.StandardService stopInternal
+信息: Stopping service Catalina
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+严重: The web application [/yigo] registered the JDBC driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [__DEFAULT__] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [session%0043ache.data] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [Statistics Thread-__DEFAULT__-1] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [CheckSessionScheduler_Worker-1] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [CheckSessionScheduler_Worker-2] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [CheckSessionScheduler_Worker-3] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [Timer-1] but has failed to stop it. This is very likely to create a memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+严重: The web application [/yigo] created a ThreadLocal with key of type [com.microsoft.sqlserver.jdbc.ActivityCorrelator$1] (value [com.microsoft.sqlserver.jdbc.ActivityCorrelator$1@4d462eac]) and a value of type [com.microsoft.sqlserver.jdbc.ActivityId] (value [82b731b6-2553-40a3-8948-19487e4ebeb6-3]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+六月 12, 2015 9:57:58 上午 org.apache.coyote.AbstractProtocol stop
+信息: Stopping ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:57:58 上午 org.apache.coyote.AbstractProtocol destroy
+信息: Destroying ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 9:57:58 上午 org.apache.coyote.AbstractProtocol stop
+信息: Stopping ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:57:58 上午 org.apache.coyote.AbstractProtocol destroy
+信息: Destroying ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 9:57:58 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load java.net.URLConnection.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at net.sf.ehcache.util.UpdateChecker.getUpdateProperties(UpdateChecker.java:152)
+	at net.sf.ehcache.util.UpdateChecker.doCheck(UpdateChecker.java:117)
+	at net.sf.ehcache.util.UpdateChecker.checkForUpdate(UpdateChecker.java:104)
+	at net.sf.ehcache.util.UpdateChecker.run(UpdateChecker.java:95)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+
+六月 12, 2015 9:58:04 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load org.apache.log4j.spi.ThrowableInformation.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at org.apache.log4j.spi.LoggingEvent.<init>(LoggingEvent.java:165)
+	at org.apache.log4j.Category.forcedLog(Category.java:391)
+	at org.apache.log4j.Category.log(Category.java:856)
+	at org.slf4j.impl.Log4jLoggerAdapter.debug(Log4jLoggerAdapter.java:285)
+	at net.sf.ehcache.util.UpdateChecker.checkForUpdate(UpdateChecker.java:107)
+	at net.sf.ehcache.util.UpdateChecker.run(UpdateChecker.java:95)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+
+六月 12, 2015 9:58:27 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load com.bokesoft.yes.bpm.timer.b.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at com.bokesoft.yes.bpm.timer.a.run(Unknown Source)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+
+六月 12, 2015 2:16:47 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: Loaded APR based Apache Tomcat Native library 1.1.27 using APR version 1.4.6.
+六月 12, 2015 2:16:47 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+六月 12, 2015 2:16:47 下午 org.apache.catalina.core.AprLifecycleListener initializeSSL
+信息: OpenSSL successfully initialized (OpenSSL 1.0.1d 5 Feb 2013)
+六月 12, 2015 2:16:48 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 2:16:48 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 864 ms
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\yes.xml
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\project\yes-webapp\src\main\webapp does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 2:16:48 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/yes] startup failed due to previous errors
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+六月 12, 2015 2:16:48 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+六月 12, 2015 2:16:48 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+六月 12, 2015 2:16:48 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+六月 12, 2015 2:16:50 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 2:16:50 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 2:16:50 下午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 2439 ms
+六月 12, 2015 2:29:33 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: Loaded APR based Apache Tomcat Native library 1.1.27 using APR version 1.4.6.
+六月 12, 2015 2:29:33 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.AprLifecycleListener initializeSSL
+信息: OpenSSL successfully initialized (OpenSSL 1.0.1d 5 Feb 2013)
+六月 12, 2015 2:29:34 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 2:29:34 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 888 ms
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\yes.xml
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\project\yes-webapp\src\main\webapp does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 2:29:34 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/yes] startup failed due to previous errors
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+六月 12, 2015 2:29:34 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+六月 12, 2015 2:29:34 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+六月 12, 2015 2:29:34 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+六月 12, 2015 2:29:36 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 2:29:36 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 2:29:36 下午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 2342 ms
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: Loaded APR based Apache Tomcat Native library 1.1.27 using APR version 1.4.6.
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.AprLifecycleListener initializeSSL
+信息: OpenSSL successfully initialized (OpenSSL 1.0.1d 5 Feb 2013)
+六月 12, 2015 2:58:31 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 2:58:31 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 2:58:31 下午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 892 ms
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+六月 12, 2015 2:58:31 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+六月 12, 2015 2:58:31 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\yes.xml
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\project\yes-webapp\src\main\webapp does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+六月 12, 2015 2:58:31 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/yes] startup failed due to previous errors
+六月 12, 2015 2:58:31 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+六月 12, 2015 2:58:32 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+六月 12, 2015 2:58:32 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+六月 12, 2015 2:58:32 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+六月 12, 2015 2:58:32 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+六月 12, 2015 2:58:32 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+六月 12, 2015 2:58:32 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+六月 12, 2015 2:58:32 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+六月 12, 2015 2:58:34 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-apr-8089"]
+六月 12, 2015 2:58:34 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-apr-8009"]
+六月 12, 2015 2:58:34 下午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 2401 ms

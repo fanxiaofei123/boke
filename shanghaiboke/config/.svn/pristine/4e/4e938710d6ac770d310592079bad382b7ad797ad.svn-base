@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="券" NoPrefix="C" Key="LRP_Coupon" PrimaryTableKey="LRP_Coupon" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="券单头" Key="LRP_Coupon">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="40"/>
+            <Column Caption="劵类型" DataType="Long" Key="CouponTypeId"/>
+            <Column Caption="计算方式" DataType="Integer" Key="CalculationMethod"/>
+            <Column Key="FaceValue" Caption="面值" DataType="Numeric" Precision="10" Scale="6" DefaultValue="0"/>
+            <Column Caption="描述" DataType="Varchar" Key="Description" Length="100"/>
+            <Column Key="EnoughMoney" Caption="满多少钱" DataType="Numeric" Precision="10" Scale="6" DefaultValue="0"/>
+            <Column Key="Discount" Caption="折扣" DataType="Numeric" Precision="10" Scale="6" DefaultValue="1"/>
+            <Column Caption="去零头类型" DataType="Varchar" Key="MinusChangeType" Length="40"/>
+            <Column Caption="使用业务范围" DataType="Varchar" Key="UseBusiness" Length="40"/>
+            <Column Caption="可用调度组织id" DataType="Varchar" Key="UseDispatchOrgID" Length="40"/>
+            <Column Caption="可用调度组织名称" DataType="Varchar" Key="UseDispatchOrgName" Length="40"/>
+            <Column Caption="生效日期时间" DataType="DateTime" Key="EffectiveDateTime"/>
+            <Column Caption="失效日期时间" DataType="DateTime" Key="ExpireDateTime"/>
+            <Column Caption="图片路径" DataType="Varchar" Key="ImageUrl" Length="100"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

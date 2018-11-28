@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_DriverMessage>DriverMessage</V_DriverMessage>
+		
+        <L_No>No</L_No>
+        <L_DriverId>DriverId</L_DriverId>
+        <L_RefNo>RefNo</L_RefNo>
+        <L_IsRead>IsRead</L_IsRead>
+        <Lab_Message>Message</Lab_Message>
+    </UI>
+    <Items-IsRead>
+	   <Item-0>Unread</Item-0>
+	   <Item-1>Read</Item-1>
+	</Items-IsRead>
+</StringTable>

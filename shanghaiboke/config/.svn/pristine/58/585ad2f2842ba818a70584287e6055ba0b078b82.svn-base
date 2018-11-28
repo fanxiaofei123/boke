@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="预算管理" Key="BudgetManagementCustomBill">
+        <EntryItem Caption="年度费用预算" FormKey="Annual_BudgetView" Key="Annual_BudgetView" Type="Form"/>
+        <EntryItem Caption="费用预算监控" FormKey="Budget_Monitoring" Key="Budget_Monitoring" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
+    </Entry>
+</Entry>

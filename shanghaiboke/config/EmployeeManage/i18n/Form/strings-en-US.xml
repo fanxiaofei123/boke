@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Entry>
+        <V_DriverSignView>DriverSignView</V_DriverSignView>
+        <V_DriverMessageView>DriverMessageView</V_DriverMessageView>
+        <V_Driver_LRP>Driver</V_Driver_LRP>
+        <V_Salesperson_LRP>Salesperson</V_Salesperson_LRP>
+        <V_DriverApplyView>DriverApplyView</V_DriverApplyView>
+        <V_DriverPointsRuleView>DriverPointsRuleView</V_DriverPointsRuleView>
+        <V_DPAdjustRecordsView>DPAdjustRecordsView</V_DPAdjustRecordsView>
+        <V_AbsenceRequestView>AbsenceRequestView</V_AbsenceRequestView>
+        <V_DriverPointsView>DriverPointsView</V_DriverPointsView>
+        <CustomBill>CustomBill</CustomBill>
+        <V_WarehouseKeeper_LRP>WarehouseKeeper</V_WarehouseKeeper_LRP>
+    </Entry>
+</StringTable>

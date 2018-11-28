@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="供应商" Key="Vendor" PrimaryTableKey="BK_Vendor" PrimaryType="Entity" SecondaryType="ChainDict">
+    <TableCollection>
+        <Table Caption="航食公司" DBTableName="BK_Vendor" Key="BK_Vendor">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+            <Column Caption="父节点" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+            <Column Caption="国家地区" DataType="Long" Key="CountryID"/>
+            <Column Key="Abbreviation" Caption="简称" DataType="Varchar"/>
+            <Column Key="Audit_Status" Caption="审核状态" DataType="Integer"/>
+            <Column Key="Vendor_Type" Caption="供应商类型" DataType="Varchar"/>
+            <Column Key="Use_Status" Caption="使用状态" DataType="Integer"/>
+            <Column Key="Service_Area" Caption="服务范围" DataType="Integer"/>
+            <Column Key="Airport_Service" Caption="机场服务" DataType="Long"/>
+            <Column Key="Build_Year" Caption="建立年份" DataType="DateTime"/>
+            <Column Key="Repair_Expansion_Records" Caption="返修/扩大记录" DataType="Varchar"/>
+            <Column Key="Design_Production" Caption="设计产量" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Daily_Average_Meal" Caption="日均配餐量（份）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Daily_Average_Flight" Caption="日均航班量（班）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Distance_Plane_flat" Caption="距离机坪（米）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Total_Area" Caption="总面积（㎡）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Production_Area" Caption="生产面积（㎡）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Storeroom_Area" Caption="库房面积（㎡）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Loading_And_Unloading_Port" Caption="装卸港口（个）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Ice_Maker" Caption="制冰机（台）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Lift_Truck" Caption="升降车（台）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Dolly" Caption="小车（台）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Tableware_Washing_Machine" Caption="餐具清洗机（台）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Cleaning_Machine_For_Dining_Car" Caption="餐车清洗机（台）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Employee" Caption="员工（人）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Current_Business_Saturation" Caption="现业务饱和度" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Production_Workers" Caption="生产工人（人）" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar"/>
+        </Table>
+        <Table Key="BK_Vendor_Aircraft_Type" Caption="可服务机型明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Aircraft_Type" Caption="机型" DataType="Long"/>
+        </Table>
+        <Table Key="BK_Vendor_Customer" Caption="外航客户情况明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+        </Table>
+        <Table Key="BK_Vendor_Passenger_Meal" Caption="旅客特殊餐保障明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Passenger_Meal" Caption="旅客特殊餐食" DataType="Long"/>
+        </Table>
+        <Table Key="BK_Vendor_Aircrew_Meal" Caption="机组特殊餐保障明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Aircrew_Meal" Caption="机组特殊餐食" DataType="Long"/>
+        </Table>
+        <Table Key="BK_Vendor_Business_Class_Meal" Caption="公务舱点餐明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Main_Meal_Name" Caption="主餐名称" DataType="Long"/>
+            <Column Key="Meat_Food" Caption="肉类食材" DataType="Varchar"/>
+            <Column Key="Scheduled_Time_Start" Caption="可预定时间（起）" DataType="DateTime"/>
+            <Column Key="Scheduled_Time_Stop" Caption="可预定时间（止）" DataType="DateTime"/>
+            <Column Key="Picture_Business" Caption="图片" DataType="Varchar"/>
+            <Column Key="Is_Increase_Cost_Business" Caption="是否增加费用" DataType="Integer"/>
+            <Column Key="Duration_of_Meals_Business_Start" Caption="餐食有效期（起）" DataType="DateTime"/>
+            <Column Key="Duration_of_Meals_Business_Stop" Caption="餐食有效期（止）" DataType="DateTime"/>
+        </Table>
+        <Table Key="BK_Vendor_Special_Meal" Caption="特殊点餐明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Special_Meal_Name" Caption="特餐名称" DataType="Long"/>
+            <Column Key="Special_Scheduled_Time_Start" Caption="可预定时间（起）" DataType="DateTime"/>
+            <Column Key="Special_Scheduled_Time_Stop" Caption="可预定时间（止）" DataType="DateTime"/>
+            <Column Key="Picture_Special" Caption="图片" DataType="Varchar"/>
+            <Column Key="Is_Increase_Cost_Special" Caption="是否增加费用" DataType="Integer"/>
+            <Column Key="Duration_of_Meals_Special_Start" Caption="餐食有效期（起）" DataType="DateTime"/>
+            <Column Key="Duration_of_Meals_Special_Stop" Caption="餐食有效期（止）" DataType="DateTime"/>
+            <Column Key="Serve_Food" Caption="供餐" DataType="Integer"/>
+        </Table>
+        <Table Key="BK_Vendor_Service_Cycle" Caption="服务周期明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Week" Caption="时间" DataType="Varchar"/>
+            <Column Key="Is_Service" Caption="是否提供服务" DataType="Integer"/>
+        </Table>
+        <Table Key="BK_Vendor_Service_Fight" Caption="服务航班明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Flight" Caption="航班" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_AddRecordsQuery" Caption="用户积分增加记录查询" FormType="Report">
+    <DataSource>
+        <DataObject Key="V_AddRecordsQuery" Caption="用户积分增加记录查询" PrimaryTableKey="V_AddRecordsQuery">
+            <TableCollection>
+                <Table Key="V_AddRecordsQuery" Caption="用户积分增加记录查询" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="ouname" Caption="用户名" DataType="Varchar" Length="40"/>
+                    <Column Key="uprno" Caption="规则号" DataType="Varchar" Length="40"/>
+                    <Column Key="uprname" Caption="规则名称" DataType="Varchar" Length="40"/>
+                    <Column Key="RefNo" Caption="相关单号" DataType="Varchar" Length="40"/>
+                    <Column Key="Points" Caption="积分" DataType="Numeric" Precision="18" Scale="0"/>
+                    <Column Key="UsedPoints" Caption="已用积分" DataType="Numeric" Precision="18" Scale="0"/>
+                    <Column Key="ExpireDate" Caption="失效日期" DataType="Date"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Statement>
+                        <![CDATA[
+                            select * from (select ou.name as ouname,upr.no as uprno,upr.name as uprname,h.RefNo,h.Points,h.UsedPoints,h.ExpireDate,h.CREATETIME from LRP_AddRecords h join USER_Operator ou on h.UserId=ou.OID join LRP_UserPointsRule_H upr on h.UserPointsRuleId=upr.OID) t
+                        ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板" Height="100%">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1" Width="100%">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Height="20%" Caption="基本信息">
+                        <TextEditor Key="username" Caption="用户名" BuddyKey="Lab_username" X="1" Y="0">
+                            <Condition ColumnKey="ouname" TableKey="V_AddRecordsQuery" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_username" Caption="用户名" X="0" Y="0"/>
+                        <TextEditor Key="uprname" Caption="积分规则名称" BuddyKey="Lab_uprname" X="4" Y="0">
+                            <Condition ColumnKey="uprname" TableKey="V_AddRecordsQuery" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_uprname" Caption="积分规则名称" X="3" Y="0"/>
+                        <Button Key="btn_ok" Caption="查询" X="6" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="btn_reset" Caption="重置" X="6" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <TextEditor Key="refbillno" Caption="相关单号" BuddyKey="Lab_refbillno" X="1" Y="1">
+                            <Condition ColumnKey="RefNo" TableKey="V_AddRecordsQuery" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_refbillno" Caption="相关单号" X="0" Y="1"/>
+                        <DatePicker Key="createtimefrom" Caption="创建日期时间" BuddyKey="Lab_createtimefrom" X="1" Y="2">
+                            <Condition Group="createtime" ColumnKey="CREATETIME" TableKey="V_AddRecordsQuery" CondSign="between" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_createtimefrom" Caption="创建日期时间" X="0" Y="2"/>
+                        <DatePicker Key="createtimeto" Caption="至" BuddyKey="Lab_createtimeto" X="4" Y="2">
+                            <Condition Group="createtime" GroupTail="true" ColumnKey="CREATETIME" TableKey="V_AddRecordsQuery" CondSign="in"/>
+                        </DatePicker>
+                        <Label Key="Lab_createtimeto" Caption="至" X="3" Y="2"/>
+                        <DatePicker Key="ExpireDatefrom" Caption="失效日期" BuddyKey="Lab_ExpireDatefrom" X="1" Y="3" OnlyDate="true">
+                            <Condition Group="expiredate" ColumnKey="ExpireDate" TableKey="V_AddRecordsQuery" CondSign="between" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_ExpireDatefrom" Caption="失效日期" X="0" Y="3"/>
+                        <DatePicker Key="ExpireDateto" Caption="至" BuddyKey="Lab_ExpireDateto" X="4" Y="3" OnlyDate="true">
+                            <Condition Group="expiredate" GroupTail="true" ColumnKey="ExpireDate" TableKey="V_AddRecordsQuery" CondSign="in"/>
+                        </DatePicker>
+                        <Label Key="Lab_ExpireDateto" Caption="至" X="3" Y="3"/>
+                        <RowDefCollection RowHeight="30" RowGap="6">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" Height="100%" PageLoadType="DB" Width="100%" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="ouname_L" Caption="用户名" Width="80px"/>
+                            <GridColumn Key="uprno_L" Caption="规则号" Width="80px"/>
+                            <GridColumn Key="uprname_L" Caption="规则名称" Width="80px"/>
+                            <GridColumn Key="RefNo_L" Caption="相关单号" Width="80px"/>
+                            <GridColumn Key="Points_L" Caption="积分" Width="80px"/>
+                            <GridColumn Key="UsedPoints_L" Caption="已用积分" Width="80px"/>
+                            <GridColumn Key="ExpireDate_L" Caption="失效日期" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="V_AddRecordsQuery">
+                                <GridCell Key="ouname_L" Caption="用户名" CellType="TextEditor">
+                                    <DataBinding ColumnKey="ouname"/>
+                                </GridCell>
+                                <GridCell Key="uprno_L" Caption="规则号" CellType="TextEditor">
+                                    <DataBinding ColumnKey="uprno"/>
+                                </GridCell>
+                                <GridCell Key="uprname_L" Caption="规则名称" CellType="TextEditor">
+                                    <DataBinding ColumnKey="uprname"/>
+                                </GridCell>
+                                <GridCell Key="RefNo_L" Caption="相关单号" CellType="TextEditor">
+                                    <DataBinding ColumnKey="RefNo"/>
+                                </GridCell>
+                                <GridCell Key="Points_L" Caption="积分" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="Points"/>
+                                </GridCell>
+                                <GridCell Key="UsedPoints_L" Caption="已用积分" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="UsedPoints"/>
+                                </GridCell>
+                                <GridCell Key="ExpireDate_L" Caption="失效日期" CellType="DatePicker" OnlyDate="true">
+                                    <DataBinding ColumnKey="ExpireDate"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="20%"/>
+                    <SplitSize Size="80%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

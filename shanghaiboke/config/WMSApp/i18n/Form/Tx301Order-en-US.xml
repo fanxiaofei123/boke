@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Comfirm>Comfirm</Comfirm>
+        <Cancel>Cancel</Cancel>
+        <TitleCenter>shifting</TitleCenter>
+        <SrcBatchNo_lbl>SrcBatchNo</SrcBatchNo_lbl>
+        <SrcLocationCode_lbl>SrcLocation</SrcLocationCode_lbl>
+        <Qty_lbl>Qty</Qty_lbl>
+        <DestLocationCode_lbl>DestLocation</DestLocationCode_lbl>
+    </UI>
+    <Prompt>
+        <Material_code>MaterialCode</Material_code>
+        <SrcLocation_code>SrcLocation</SrcLocation_code>
+        <DestLocation_code>DestLocation</DestLocation_code>
+    </Prompt>
+</StringTable>

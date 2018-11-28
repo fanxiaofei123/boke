@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_AbsenceRequest>AbsenceRequest</V_AbsenceRequest>
+		
+        <L_No>No</L_No>
+        <L_DriverId>DriverId</L_DriverId>
+        <Lab_StartDate>StartDate</Lab_StartDate>
+        <Lab_EndDate>EndDate</Lab_EndDate>
+        <Lab_Days>Days</Lab_Days>
+        <L_IsRead>AbsenceType</L_IsRead>
+		<Lab_AbsenceReason>AbsenceReason</Lab_AbsenceReason>
+    </UI>
+	
+    <Items-AbsenceType>
+	   <Item-0>Compassionate leave</Item-0>
+	   <Item-1>sick leave</Item-1>
+	   <Item-2>Annual leave</Item-2>
+	   <Item-3>Marriage holiday</Item-3>
+	   <Item-4>maternity leave</Item-4>
+	   <Item-5>Nursing leave</Item-5>
+	   <Item-6>Bereavement</Item-6>
+	   <Item-7>Make up for fake</Item-7>
+	   <Item-8>Other</Item-8>
+	</Items-AbsenceType>
+	
+	
+</StringTable>

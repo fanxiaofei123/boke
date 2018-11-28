@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DoPick" Caption="拣货" Authenticate="false" HasNavigationBar="false">
+    <DataSource>
+        <DataObject Key="LRP_PickDetail" Caption="拣货明细" PrimaryTableKey="LRP_WMTx_L">
+            <TableCollection>
+                <Table Key="LRP_WMTx_L" Caption="拣货明细" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="物料ID" DataType="Long" Key="MaterialId"/>
+                    <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="10"/>
+                    <Column Caption="批号" DataType="Varchar" Key="SrcBatchNo" Length="100"/>
+                    <Column Caption="实拣量" DataType="Numeric" Key="PickQty" Precision="18" Scale="6"/>
+                    <Column Caption="数量" DataType="Numeric" Key="Qty" Precision="18" Scale="6"/>
+                    <Column Caption="储位" DataType="Long" Key="SrcLocationId"/>
+                    <Column Key="MaterilName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MaterilCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Column Key="LocationName" Caption="储位名称" DataType="Varchar" Length="200"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('OID');"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[ select 
+    l.OID,
+	l.SOID,
+	l.MaterialId,
+	l.MaterialUnit,
+    l.SrcBatchNo,
+	0.0 as PickQty,
+    l.Qty,
+    l.SrcLocationId,
+    m.Name as MaterilName,
+    m.Code as MaterilCode,
+	loc.Name as LocationName
+	from LRP_WMTx_L l left join LRP_Material m on m.oid = l.MaterialId left join LRP_Location loc on loc.oid = l.SrcLocationId 
+    where
+        l.SOID = ? 
+	Order by loc.Code
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#f1f3f8"/>
+                <LinearLayoutPanel Caption="Title" Key="Title" Orientation="Horizontal" X="0" Y="0">
+                    <Format BackColor="#f14c52"/>
+                    <Button Key="Cancel" Caption="取消" Height="auto" Width="60px">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Left">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									ShowConfirm('是否放弃本次拣货？', 'YES_NO', 
+										{
+											YES: {
+												Back();
+											}, 
+											NO: {} 
+										}
+									)
+								]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="OrderTitle3" Caption="拣货" Height="auto" Weight="1.0">
+                        <Format ForeColor="#ffffff" HAlign="Center">
+                            <Font Size="20"/>
+                        </Format>
+                    </Label>
+                    <Button Key="Finish" Caption="完成" Height="auto" Width="60px">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Right">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									var lack = GetValue('LackQty');
+									var b = true;
+									if(lack > 0){
+										ShowConfirm('存在未拣完的物料明细，是否继续完成？', 'YES_NO', 
+											{
+												YES: {
+													InvokeService("LRP_SavePick", true, false,GetPara('OID'));
+													ShowToast("拣货完成");
+													Parent.LoadData();
+													Back();
+												}, 
+												NO: {} 
+											}
+										);
+									}
+									else{
+										InvokeService("LRP_SavePick", true, false,GetPara('OID'));
+										ShowToast("拣货完成");
+										Parent.LoadData();
+										Back();
+									}
+																													
+									]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <TableView Key="MaterialDetail" X="0" Y="2">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="r3" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel33" Height="50px" Orientation="Horizontal">
+                                <TextEditor Key="GetMaterialCode" Caption="扫描物料条码" BorderStyle="none" Weight="1.0" Height="auto" PromptText="扫描物料条码">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <KeyEnter>
+                                        <![CDATA[
+										     PickMaterial();
+										
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Button Key="query_btn" Icon="12.png" OnlyIcon="True" Enable="true" Width="40px" BorderStyle="none" Height="auto">
+                                    <Format HAlign="Left">
+                                        <Font Size="6"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[
+										PickMaterial();
+									]]>
+                                    </OnClick>
+                                </Button>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r4" SeparatorStyle="solid solid solid solid" SeparatorColor="#dde0e7" TopMargin="5px" BottomMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel34" Height="50px" Orientation="Horizontal">
+                                <Label Key="Lab_AddQty" Caption="增加量" Width="60px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="AddQty" Caption="增加量" Enable="false" Height="auto" Precision="18" Scale="0" Width="120px">
+                                    <DataBinding DefaultValue="1"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="Lab_LackQty" Caption="总未拣量" Width="55px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="LackQty" Caption="总未拣量" Enable="false" Height="auto" Precision="18" Scale="0" Weight="1.0" Width="pref">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="list" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px" RowType="Detail" TableKey="LRP_WMTx_L">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Padding="5px" Caption="MaterialDetai">
+                                <Label Key="MaterilCode" Caption="物料代码" Width="pref" Height="auto" X="0" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterilCode"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="MaterilName" Caption="物料名称" Width="pref" Height="auto" X="2" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterilName"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="PickQty_label" Caption="实拣" Width="pref" X="0" Y="1" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="PickQty" Caption="实拣" Precision="18" Scale="0" Width="pref" Height="auto" Enable="true" X="1" Y="1">
+                                    <DataBinding ColumnKey="PickQty">
+                                        <ValueChanged>
+                                            <![CDATA[
+												if(GetValue('PickQty') < 0){
+												   SetValue('PickQty',0,false);
+												   }
+												if(GetValue('PickQty') > GetValue('Qty')){
+												   SetValue('PickQty',GetValue('Qty'),false);
+												   }
+												   CalculatePick();
+												]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="Qty_label" Caption="应拣" Width="pref" X="2" Y="1" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="Qty" Caption="应拣" Precision="18" Scale="0" Width="pref" Height="auto" Enable="false" X="3" Y="1">
+                                    <DataBinding ColumnKey="Qty"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="SrcBatchNo" Caption="批号" Width="pref" Height="auto" X="4" Y="0">
+                                    <DataBinding ColumnKey="SrcBatchNo"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="MaterialUnit" Caption="单位" Width="pref" Height="auto" X="4" Y="1">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="LocationName" Caption="储位" Width="pref" Height="auto" X="5" Y="1">
+                                    <DataBinding ColumnKey="LocationName"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="30%"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="30%"/>
+                                    <ColumnDef Width="20%"/>
+                                    <ColumnDef Width="20%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <!--	
+                <LinearLayoutPanel Key="opt_panel2" X="0" Y="3" Orientation="Horizontal" BorderStyle="solid none">
+                    <Button Key="Save" Caption="完成" Enable="True" Width="20%" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format ForeColor="#ffffff" HAlign="Center" BackColor="#ff5000"/>
+                        <OnClick>
+                            <![CDATA[
+									var lack = GetValue('LackQty');
+									var b = true;
+									if(lack > 0){
+										ShowConfirm('存在未拣完的物料明细，是否继续完成？', 'YES_NO', 
+											{
+												YES: {
+													InvokeService("LRP_SavePick", true, false,GetPara('OID'));
+													ShowToast("拣货完成");
+													Parent.LoadData();
+													Back();
+												}, 
+												NO: {} 
+											}
+										);
+									}
+									else{
+										InvokeService("LRP_SavePick", true, false,GetPara('OID'));
+										ShowToast("拣货完成");
+										Parent.LoadData();
+										Back();
+									}
+									]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Cancel" Caption="取消" Enable="True" Width="20%" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format ForeColor="#ffffff" HAlign="Center" BackColor="#80b380"/>
+                        <OnClick>
+                            <![CDATA[
+									ShowConfirm('是否放弃本次拣货？', 'YES_NO', 
+										{
+											YES: {
+												Back();
+											}, 
+											NO: {} 
+										}
+									)
+									]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+              <LinearLayoutPanel Key="opt_panel" X="0" Y="3" Orientation="Horizontal" BorderStyle="solid none">
+                    <Button Key="Receive" Caption="完成" Enable="True" Width="20%" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format BackColor="#00b676" ForeColor="#ffffff"/>
+						 <OnClick>
+							<![CDATA[
+								Show('ReceivePick');
+							]]>
+						 </OnClick>
+					 </Button>
+					<Button Key="Receive1" Caption="取消" Enable="True" Width="20%" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format BackColor="#ffffff" ForeColor="#80b380"/>
+						 <OnClick>
+							<![CDATA[
+								Show('ReceivePick');
+							]]>
+						 </OnClick>
+					 </Button>						 
+                </LinearLayoutPanel> -->
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+			]]>
+    </OnLoad>
+    <OnPostShow>
+        <![CDATA[CalculatePick();]]>
+    </OnPostShow>
+    <MacroCollection>
+        <Macro Key="CalculatePick" Description="计算并设置总未拣量">
+            <![CDATA[
+				var total = 0.0;
+				var picked = 0.0; 
+				
+				var count = GetRowCount('list');
+				var index = 0;
+				while(index < count){
+					total = total + GetCellValue('list',index,'Qty');
+					picked = picked + GetCellValue('list',index,'PickQty');
+					index = index + 1;							
+				}
+				
+				SetValue('LackQty',total - picked);
+			]]>
+        </Macro>
+        <Macro Key="PickMaterial" Description="根据扫入的物料码定位对应的物料并加上增加量">
+            <![CDATA[				
+				var count = GetRowCount('list');
+				var index = 0;
+				var Code = GetValue('GetMaterialCode');
+				if(Code == "") {return true;}
+				var b = false;
+				while(index < count){
+					var MatrialCode = GetCellValue('list',index,'MaterilCode');
+					if(Code == MatrialCode){
+						var Qty = GetCellValue('list',index,'Qty');
+						var PickQty = GetCellValue('list',index,'PickQty');
+						if(Qty > PickQty){
+							var Add = GetValue('AddQty');
+							PickQty = PickQty + Add;
+							if(PickQty > Qty){
+								index = index + 1;
+								ShowToast("第" & index & "条明细的实拣量不能超出应拣量");
+							}
+							else{								
+								SetCellValue('list',index,'PickQty',PickQty,false);								
+								CalculatePick();
+							}
+							SetFocusRow('list',index);
+							ScrollTo('list',index);
+							b = true;
+							break;
+						}
+					}
+					index = index + 1;							
+				}
+				
+				if(!b) {ShowToast("拣货明细中找不到该条码物料");}
+				SetFocus('GetMaterialCode');
+			]]>
+        </Macro>
+    </MacroCollection>
+    <FormParaCollection>
+        <FormPara Formula="Para('OID')" Key="OID" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar Style="Custom"/>
+</Form>
+<!--
+                <GridLayoutPanel Key="EnterCode" Caption="扫描" X="0" Y="1">
+                    <Format BackColor="#FFFFFF">
+                        <Font Size="20"/>
+                    </Format>
+                    <TextEditor Key="GetMaterialCode" Caption="扫描物料条码" Padding="2px" PromptText="扫描物料条码" BorderStyle="none" Enable="True" X="0" Y="0">
+                        <KeyEnter>
+                            <![CDATA[
+								PickMaterial();
+							]]>
+                        </KeyEnter>
+                    </TextEditor>
+                    <LinearLayoutPanel Key="opt_panel1" X="1" Y="0" Orientation="Horizontal" BorderStyle="solid none">
+                        <Button Key="GetCode" Icon="12.png" OnlyIcon="True" Enable="true" Width="40px" BorderStyle="none">
+                            <Format HAlign="Left"/>
+                            <OnClick>
+                                <![CDATA[
+									PickMaterial();
+								]]>
+                            </OnClick>
+                        </Button>
+                    </LinearLayoutPanel>
+                    <NumberEditor Key="AddQty" Precision="18" Scale="0" Padding="0px" BorderStyle="none" X="3" Y="0">
+                        <DataBinding DefaultValue="1"/>
+                        <Format BackColor="transparent">
+                            <Font Size="18"/>
+                        </Format>
+                    </NumberEditor>
+                    <Label Key="Lab_AddQty" Caption="增加量" X="2" Y="0">
+                        <Format>
+                            <Font Size="18"/>
+                        </Format>
+                    </Label>
+                    <NumberEditor Key="LackQty" Precision="18" Scale="0" Enable="false" Padding="0px" BorderStyle="none" X="5" Y="0">
+                        <Format BackColor="transparent">
+                            <Font Size="18"/>
+                        </Format>
+                    </NumberEditor>
+                    <Label Key="Lab_LackQty" Caption="总未拣量" X="4" Y="0">
+                        <Format>
+                            <Font Size="18"/>
+                        </Format>
+                    </Label>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="40px"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="30px"/>
+                        <ColumnDef Width="70px"/>
+                        <ColumnDef Width="45px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>-->

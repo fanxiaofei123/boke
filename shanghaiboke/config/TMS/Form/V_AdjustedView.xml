@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_AdjustedView" Caption="分段调整" FormType="Entity">
+    <DataSource>
+        <DataObject Key="V_AdjustedView" Caption="分段调整" PrimaryTableKey="LRP_TransportSeg_L" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="LRP_TransportSeg_L" Caption="分段调整" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+                    <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="canedit" DataType="Integer" Key="canedit"/>
+                    <Column Key="SendOrgId" Caption="发站" DataType="Long"/>
+                    <Column Key="DestOrgId" Caption="到站" DataType="Long"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Description="取到父界面的OID" Formula="GetPara(&quot;OID&quot;);"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select l.oid,l.sequence,l.SendOrgId,l.DestOrgId,l.DispatchOrgId,
+								 case when (SendOrgId=0 or DestOrgId=1 ) then 0   
+								else 1 END canedit,t.status 
+								from LRP_TransportSeg_L l left join LRP_TransportJob_H t on t.segoid=l.oid 
+								where l.soid=? order by sequence]]>
+                    </Statement>
+                </Table>
+                <Table Key="LRP_Adjusted_B" Caption="分段调整" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+                    <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Key="No" Caption="作业单号" DataType="Varchar" Length="100"/>
+                    <Column Key="SendOrg" Caption="发站" DataType="Long"/>
+                    <Column Key="DestOrg" Caption="到站" DataType="Long"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Varchar" Description="取到父界面的No" Formula="GetPara(&quot;No&quot;);"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select Status,No,SendOrg,case when DestOrg=0 then 1 else DestOrg END DestOrg,DispatchOrgId from LRP_TransportJob_h where OrderNo like ?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+            <PostLoadProcess>
+                <Process Description="加载后">
+                    <![CDATA[
+					LRP_TransOrderPostLoad();
+					]]>
+                </Process>
+            </PostLoadProcess>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Description="查询dropitems" Key="setdropitems">
+            <Statement>
+                <![CDATA[select 0 as oid,'发货方' as n from LRP_WarehouseCenter
+union 
+select oid,name from LRP_WarehouseCenter
+union
+select 1 as oid,'收货方' as n from LRP_WarehouseCenter]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body PopHeight="80%" PopWidth="80%">
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                <SplitPanel Key="SplitPanel2" Orientation="Vertical" Height="80%" Caption="SplitPanel2">
+                    <TabPanel Caption="TabPanel2" Height="pref" Key="TabPanel2">
+                        <Grid Key="Grid1" Caption="分段明细列表" NewEmptyRow="false" CanInsert="false" CanDelete="false" CanShift="false" Height="pref" RowAlterable="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="Select" Caption="选择" Width="80px" Sortable="true"/>
+                                <GridColumn Key="OID" Caption="OID" Visible="false" Width="80px" Sortable="true"/>
+                                <GridColumn Key="SendOrgId" Caption="发站" Width="80px" Sortable="true"/>
+                                <GridColumn Key="DestOrgId" Caption="到站" Width="80px" Sortable="true"/>
+                                <GridColumn Key="DispatchOrgId" Caption="调度组织" Width="80px" Sortable="true"/>
+                                <GridColumn Key="canedit" Caption="canedit" Visible="false" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Status_1" Caption="状态" Visible="false" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_TransportSeg_L">
+                                    <GridCell Key="Select" Caption="选择" CellType="CheckBox"/>
+                                    <GridCell Key="OID" Caption="OID" CellType="TextEditor">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="SendOrgId" Caption="发站" CellType="ComboBox" Enable="canedit==1" SourceType="Formula">
+                                        <DataBinding ColumnKey="SendOrgId"/>
+                                        <FormulaItems>
+                                            <![CDATA[DBNamedQuery('setdropitems')]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="DestOrgId" Caption="到站" CellType="ComboBox" Enable="canedit==1" SourceType="Formula">
+                                        <DataBinding ColumnKey="DestOrgId">
+                                            <ValueChanged>
+                                                <![CDATA[  
+                                        var k=GetFocusRow("Grid1");
+										var destorg=GetCellValue('Grid1', k,"DestOrgId"); 
+										var candit=GetCellValue('Grid1', k+1,"canedit"); 
+										var candit2=GetCellValue('Grid1', k+2,"canedit"); 
+										var SendOrg=GetCellValue('Grid1', k+2,"SendOrgId"); 
+										if(candit==1){
+										SetCellValue('Grid1', k+1, 'SendOrgId', destorg);
+										 if(candit2==0){
+										 SetCellValue('Grid1', k+1, 'DestOrgId', SendOrg);
+										 }
+										 } 
+										else{
+										 return true;
+										}										 
+										]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                        <FormulaItems>
+                                            <![CDATA[DBNamedQuery('setdropitems')]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="DispatchOrgId" Caption="调度组织" CellType="Dict" Enable="canedit==1" ItemKey="LRP_DispatchOrg">
+                                        <DataBinding ColumnKey="DispatchOrgId"/>
+                                    </GridCell>
+                                    <GridCell Key="canedit" Caption="canedit" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="canedit" DefaultValue="1"/>
+                                    </GridCell>
+                                    <GridCell Key="Status_1" Caption="状态" CellType="ComboBox" Enable="false" SourceType="Formula" IntegerValue="true">
+                                        <DataBinding ColumnKey="Status"/>
+                                        <FormulaItems>
+                                            <![CDATA[GetStatusItems();]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel3" Height="pref" Key="TabPanel3">
+                        <Grid Key="Grid2" Caption="运输作业单列表" NewEmptyRow="false" CanInsert="false" CanDelete="false" CanShift="false" Height="pref" RowAlterable="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="Status" Caption="状态" Width="80px" Sortable="true"/>
+                                <GridColumn Key="No" Caption="作业单号" Width="80px" Sortable="true"/>
+                                <GridColumn Key="SendOrgId_2" Caption="发站" Width="80px" Sortable="true"/>
+                                <GridColumn Key="DestOrgId_2" Caption="到站" Width="80px" Sortable="true"/>
+                                <GridColumn Key="DispatchOrgId_2" Caption="调度组织" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_Adjusted_B">
+                                    <GridCell Key="Status" Caption="状态" CellType="ComboBox" Enable="false" SourceType="Formula">
+                                        <DataBinding ColumnKey="Status"/>
+                                        <FormulaItems>
+                                            <![CDATA[GetStatusItems();]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="No" Caption="作业单号" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="No"/>
+                                    </GridCell>
+                                    <GridCell Key="SendOrgId_2" Caption="发站" Enable="false" CellType="ComboBox" SourceType="Formula">
+                                        <DataBinding ColumnKey="SendOrg"/>
+                                        <FormulaItems>
+                                            <![CDATA[DBNamedQuery('setdropitems')]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="DestOrgId_2" Caption="到站" Enable="false" CellType="ComboBox" SourceType="Formula">
+                                        <DataBinding ColumnKey="DestOrg"/>
+                                        <FormulaItems>
+                                            <![CDATA[DBNamedQuery('setdropitems')]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="DispatchOrgId_2" Caption="调度组织" CellType="Dict" Enable="false" ItemKey="LRP_DispatchOrg">
+                                        <DataBinding ColumnKey="DispatchOrgId"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="40%"/>
+                    <SplitSize Size="40%"/>
+                </SplitPanel>
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                    <Button Key="SplitDetail" Caption="拆分" X="1" Y="0">
+                        <OnClick>
+                            <![CDATA[ 
+							var count = GetRowCount('Grid1',false);
+							var i = 0;
+							var flag=0;							  
+							while ( i < count ) {
+								 SetRowIndex('Grid1', i);
+                                 if(GetCellValue('Grid1', i, 'Select')==1){	
+								    flag=1;
+                                    if(ToInt(GetCellValue('Grid1', i, 'Status_1'))>200){
+									  Confirm('该行分段明细对应的运输作业单的状态大于已确认，无法进行拆分。','OK','OK:{}');
+									  break;
+										 }									 
+										 InsertRow("Grid1",i+1);
+										 flag=1;
+									}
+									 
+                                      i=i+1;									
+								}	 
+								if(flag==0){
+								Confirm("请先选择需要拆分的分段明细。","OK","OK:{}");
+							}
+				             ]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="DownSmerger" Caption="向下合并" X="3" Y="0">
+                        <OnClick>
+                            <![CDATA[ 
+							var count = GetRowCount('Grid1',false);
+							var i = 0;
+							var flag=0;	
+                            var k=GetFocusRow("Grid1");
+							var candit=GetCellValue('Grid1', k+1,"canedit"); 							
+							while ( i < count ) {
+								 SetRowIndex('Grid1', i);
+                                 if(GetCellValue('Grid1', i, 'Select')==1){	
+								    flag=1;
+							if(candit==0 || ToInt(GetCellValue('Grid1', k+1,"Status_1"))>200){
+							     Confirm('下一行分段明细对应的运输作业单的状态大于已确认，无法进行向下合并。','OK','OK:{}');
+									  break;
+										 }
+							        var DestOrgId2=GetCellValue("Grid1",i+1,"DestOrgId");
+									if(DestOrgId2>0){
+										SetCellValue("Grid1",i,"DestOrgId",DestOrgId2);
+										 }
+										 DeleteRow("Grid1",i+1);
+										 break;
+									}
+                                      i=i+1;
+                                  }	
+                                if(flag==0){
+								Confirm("请先选择需要合并的分段明细。","OK","OK:{}");
+							}								  							
+							]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Save" Caption="保存" X="7" Y="0">
+                        <OnClick>
+                            <![CDATA[InvokeService("LRP_TransOrderSegChange",true, false,GetPara('OID'));Cancel();Close();Parent.Close();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Fresh" Caption=" 刷新" X="5" Y="0">
+                        <OnClick>
+                            <![CDATA[
+							   LoadData();UpdateView();
+							]]>
+                        </OnClick>
+                    </Button>
+                    <Button Caption="取消" Key="Cancle" X="9" Y="0">
+                        <OnClick>
+                            <![CDATA[Cancel();Close();
+							]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="50px"/>
+                        <ColumnDef Width="77px"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="77px"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="77px"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="77px"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="77px"/>
+                        <ColumnDef Width="55px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <SplitSize Size="100%"/>
+                <SplitSize Size="50px"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[		
+      LoadData();
+		]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara Formula="Parent.GetPara(&quot;OID&quot;);" Key="OID" Type="Formula" DataType="Long"/>
+        <FormPara Formula="Parent.GetPara(&quot;No&quot;);" Key="No" Type="Formula" DataType="Varchar"/>
+    </FormParaCollection>
+</Form>

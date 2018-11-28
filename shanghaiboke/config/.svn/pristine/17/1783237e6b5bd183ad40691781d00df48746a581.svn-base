@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="点餐管理" Key="MealManagementCustomBill">
+        <EntryItem Caption="旅客点餐单" FormKey="CHCS_Passenger_Meal_OrderView" Key="CHCS_Passenger_Meal_OrderView" Type="Form"/>
+        <EntryItem Caption="机组点餐单" FormKey="CHCS_Aircrew_Meal_OrderView" Key="CHCS_Aircrew_Meal_OrderView" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
+    </Entry>
+</Entry>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="操作员" Key="Operator" FormType="Dict">
+    <DataSource>
+        <DataObject Key="Operator" Caption="操作员" PrimaryTableKey="SYS_Operator" PrimaryType="Entity" SecondaryType="Dict">
+            <TableCollection>
+                <Table Key="SYS_Operator" Caption="基本信息" DBTableName="SYS_Operator">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="NodeType" Caption="NodeType" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long" DefaultValue="0"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DBColumnName="Name" DataType="Varchar" Length="50"/>
+                    <Column Key="Password" Caption="密码" DBColumnName="Password" DataType="Varchar" Length="512"/>
+                    <Column Key="CarrierId" Caption="所属承运商" DataType="Long"/>
+                    <Column Key="Internal_Users" Caption="内部用户" DataType="Integer"/>
+                    <Column Key="Vendor" Caption="供应商" DataType="Long"/>
+                </Table>
+                <Table Key="SYS_OperatorRole" Caption="基本信息" DBTableName="SYS_OperatorRole" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer" IsSequence="True"/>
+                    <Column Key="Role" Caption="角色" DataType="Long"/>
+                </Table>
+                <Table Key="SYS_DataCluster" Caption="基本信息" DBTableName="SYS_DataCluster" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="OwnerClusterID" Caption="数据簇编号" DataType="Integer" IsSequence="True"/>
+                </Table>
+                <Table Key="LRP_DispatchOrg_OP" Caption="允许调度组织明细" DBTableName="LRP_DispatchOrg_OP" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer" IsSequence="True"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="IsDefault" Caption="默认" DataType="Integer"/>
+                </Table>
+                <Table Key="LRP_WarehouseCenter_OP" Caption="允许仓储中心明细" DBTableName="LRP_WarehouseCenter_OP" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer" IsSequence="True"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心" DataType="Long"/>
+                    <Column Key="IsDefault" Caption="默认" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+            <PreSaveProcess>
+                <Process>
+                    <![CDATA[
+						if (Length(SYS_Operator.Password)==0) {
+							SYS_Operator.Password=EncryptPassword("");
+						}
+					]]>
+                </Process>
+            </PreSaveProcess>
+        </DataObject>
+    </DataSource>
+    <UICheckRuleCollection>
+        <UICheckRule ErrorInfo="仓储中心不能重复">
+            <![CDATA[
+                    !CheckDuplicate("WarehouseCenterId");
+				]]>
+        </UICheckRule>
+        <UICheckRule ErrorInfo="调度组织不可重复">
+            <![CDATA[!CheckDuplicate("DispatchOrgId");]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%">
+                    <GridLayoutPanel Key="basis" Height="100%" Padding="10px">
+                        <Label Key="L_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" X="1" Y="0" XSpan="3">
+                            <DataBinding ColumnKey="Code" TableKey="SYS_Operator"/>
+                        </TextEditor>
+                        <Label Key="L_Name" Caption="名称" X="5" Y="0"/>
+                        <TextEditor Key="Name" Caption="名称" X="6" Y="0" XSpan="3">
+                            <DataBinding ColumnKey="Name" TableKey="SYS_Operator"/>
+                        </TextEditor>
+                        <Dict Key="CarrierId" Caption="所属承运商" BuddyKey="Lab_CarrierId" X="1" Y="1" ItemKey="LRP_Carrier" XSpan="3">
+                            <DataBinding ColumnKey="CarrierId" TableKey="SYS_Operator"/>
+                        </Dict>
+                        <Label Key="Lab_CarrierId" Caption="所属承运商" X="0" Y="1"/>
+                        <CheckBox Caption="内部用户" Key="Internal_Users" X="6" Y="1">
+                            <DataBinding DefaultValue="1" ColumnKey="Internal_Users" TableKey="SYS_Operator"/>
+                        </CheckBox>
+                        <Dict Key="Vendor" Caption="供应商" BuddyKey="Lab_Vendor" X="1" Y="2" Visible="Internal_Users==0" ItemKey="Vendor" XSpan="3">
+                            <DataBinding ColumnKey="Vendor" TableKey="SYS_Operator"/>
+                        </Dict>
+                        <Label Key="Lab_Vendor" Caption="供应商" X="0" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef MinWidth="50px" Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef MinWidth="50px" Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef MinWidth="50px" Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef MinWidth="50px" Width="25%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <TabPanel Caption="允许仓储中心明细" Key="WarehouseCenter_OP">
+                        <Grid Key="role_grid" Caption="角色">
+                            <GridColumnCollection>
+                                <GridColumn Key="column1" Caption="角色" Visible="true" Width="180px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="R1" RowHeight="30" TableKey="SYS_OperatorRole">
+                                    <GridCell Key="Role" Caption="角色" CellType="Dict" ItemKey="Role">
+                                        <DataBinding ColumnKey="Role"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid1" Caption="操作员-仓储中心分配" Visible="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="WarehouseCenterId" Caption="仓储中心" Width="80px"/>
+                                <GridColumn Key="IsDefault_W" Caption="默认" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_WarehouseCenter_OP">
+                                    <GridCell Key="WarehouseCenterId" Caption="仓储中心" CellType="Dict" ItemKey="LRP_WarehouseCenter">
+                                        <DataBinding ColumnKey="WarehouseCenterId" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="IsDefault_W" Caption="默认" CellType="CheckBox">
+                                        <DataBinding DefaultValue="0" ColumnKey="IsDefault">
+                                            <ValueChanged>
+                                                <![CDATA[if(ToInt(GetCellValue("Grid1", -1, "IsDefault_W"))==1){
+    var count = GetRowCount("Grid1");
+    var i = 0;
+    while(i<count){
+        if(i!=GetRowIndex("Grid1")&&GetCellValue("Grid1", i, "IsDefault_W")==1){
+            SetCellValue("Grid1", i, "IsDefault_W", 0);
+        }
+        i = i + 1;
+    }
+}
+]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid2" Caption="操作员-调度组织分配" Visible="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="DispatchOrgId" Caption="调度组织" Width="80px"/>
+                                <GridColumn Key="IsDefault_D" Caption="默认" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_DispatchOrg_OP">
+                                    <GridCell Key="DispatchOrgId" Caption="调度组织" CellType="Dict" ItemKey="LRP_DispatchOrg">
+                                        <DataBinding ColumnKey="DispatchOrgId" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="IsDefault_D" Caption="默认" CellType="CheckBox">
+                                        <DataBinding DefaultValue="0" ColumnKey="IsDefault">
+                                            <ValueChanged>
+                                                <![CDATA[if(ToInt(GetCellValue("Grid2", -1, "IsDefault_D"))==1){
+    var count = GetRowCount("Grid2");
+    var i = 0;
+    while(i<count){
+        if(i!=GetRowIndex("Grid2")&&GetCellValue("Grid2", i, "IsDefault_D")==1){
+            SetCellValue("Grid2", i, "IsDefault_D", 0);
+        }
+        i = i + 1;
+    }
+}]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="300px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

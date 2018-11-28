@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form AbbrCaption="加工通知单序事簿" Caption="加工通知单序事簿" FormType="View" Key="V_KittingNoticeView">
+    <DataSource>
+        <DataObject Caption="加工通知单序事簿" Key="V_KittingNoticeView">
+            <TableCollection>
+                <Table Key="LRP_KittingNotice_H" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="No" Length="100" SortType="Desc"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="预计加工日期时间起" DataType="DateTime" Key="ExpectDateTimeFrom"/>
+                    <Column Caption="预计加工日期时间至" DataType="DateTime" Key="ExpectDateTimeTo"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Remark" Length="1000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="新增" Icon="new.png" Key="New">
+            <Action>
+                <![CDATA[
+				New('V_KittingNotice')	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="确认" Key="BatchConfirm" RefKey="BatchConfirm"/>
+        <Operation Caption="撤销确认" Key="BatchConfirm-R" RefKey="BatchConfirm-R"/>
+        <Operation Caption="作废" Key="BatchCancel" RefKey="BatchCancel"/>
+        <Operation Caption="撤销作废" Key="BatchCancel-R" RefKey="BatchCancel-R"/>
+        <Operation Key="BatchDelete" Caption="删除">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key35"),'OK','OK:{}');
+					return true;
+				}
+				
+				if(CheckListSelectStatus(',100,')){	
+					Confirm(LocaleString("CommonDef", "key36"),'YES_NO',{YES:{BatchDeleteData('LRP_KittingNotice', 'LRP_KittingNotice_H');},NO:{}});
+				}
+				else
+				{ Confirm(LocaleString("CommonDef", "key37"),'OK','OK:{}');}
+						
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Height="100%" Key="main" Padding="0px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical" X="0" Y="1">
+                    <GridLayoutPanel Caption="查询字段" Height="100%" Key="query" Padding="10px">
+                        <Label Caption="加工通知单号" Key="Lab_NoticeNo" X="0" Y="0"/>
+                        <TextEditor BuddyKey="Lab_NoticeNo" Caption="加工通知单号" Key="NoticeNo" X="1" XSpan="3" Y="0">
+                            <Condition ColumnKey="No" CondSign="like" TableKey="LRP_KittingNotice_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Status" Caption="状态" X="5" Y="1"/>
+                        <CheckListBox BuddyKey="Lab_Status" Caption="状态" Key="Status_H" X="6" XSpan="3" Y="1">
+                            <Condition ColumnKey="Status" CondSign="in" TableKey="LRP_KittingNotice_H"/>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已确认" Key="confirmed" Value="200"/>
+                            <Item Caption="已拣货" Key="picked" Value="600"/>
+                            <Item Caption="处理中" Key="handled" Value="500"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                            <Item Caption="已作废" Key="cancelled" Value="20"/>
+                        </CheckListBox>
+                        <Label Caption="货主" Key="L_OwnerId" X="5" Y="0"/>
+                        <Dict AllowMultiSelection="true" BuddyKey="L_OwnerId" Caption="货主" ItemKey="LRP_Owner" Key="OwnerId" X="6" XSpan="3" Y="0">
+                            <Condition ColumnKey="OwnerId" CondSign="in" TableKey="LRP_KittingNotice_H"/>
+                        </Dict>
+                        <Label Caption="货主单号" Key="L_OwnerNo" X="0" Y="1"/>
+                        <TextEditor BuddyKey="L_OwnerNo" Caption="货主单号" Key="OwnerNo" X="1" XSpan="3" Y="1">
+                            <Condition ColumnKey="OwnerNo" CondSign="like" TableKey="LRP_KittingNotice_H"/>
+                        </TextEditor>
+                        <DatePicker BuddyKey="L_CREATETIME_FROM" Caption="创建日期时间从" Key="CREATETIME_FROM" X="1" XSpan="3" Y="2">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition ColumnKey="CREATETIME" CondSign="between" TableKey="LRP_KittingNotice_H" Group="CREATETIME" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="L_CREATETIME_FROM" Caption="创建日期时间" X="0" Y="2"/>
+                        <DatePicker BuddyKey="L_CREATETIME_TO" Caption="创建日期时间至" Key="CREATETIME_TO" X="6" XSpan="3" Y="2">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition ColumnKey="CREATETIME" CondSign="in" TableKey="LRP_KittingNotice_H" Group="CREATETIME" GroupTail="true"/>
+                        </DatePicker>
+                        <Label Key="L_CREATETIME_TO" Caption="至" X="5" Y="2"/>
+                        <Dict BuddyKey="Lab_WarehouseCenterId" Caption="仓储中心" ItemKey="LRP_WarehouseCenter" Key="WarehouseCenterId" Visible="false" X="1" XSpan="3" Y="3">
+                            <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                            <Condition ColumnKey="WarehouseCenterId" CondSign="=" TableKey="LRP_KittingNotice_H"/>
+                        </Dict>
+                        <Label Caption="仓储中心" Key="Lab_WarehouseCenterId" Visible="false" X="0" Y="3"/>
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Enable="true" Key="cancel" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition();SetValue('WarehouseCenterId',getCurOrgID());
+								]]>
+                            </OnClick>
+                        </Button>
+                        <TextEditor Key="DataObjectKey" Caption="数据源key" BuddyKey="Lab_DataObjectKey" Visible="false" X="6" Y="3" XSpan="3">
+                            <DataBinding DefaultValue="LRP_KittingNotice"/>
+                        </TextEditor>
+                        <Label Key="Lab_DataObjectKey" Caption="数据源key" Visible="false" X="5" Y="3"/>
+                        <RowDefCollection RowHeight="25" RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Key="ListView0" PageLoadType="DB" RowAlterable="false" TableKey="LRP_KittingNotice_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="选择" ColumnType="CheckBox" Key="Select" IsSelect="true" Width="80px"/>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" Key="OID" Visible="false" DataColumnKey="OID"/>
+                            <ListViewColumn Caption="状态" ColumnType="ComboBox" Enable="false" Key="Status" SourceType="Status" DataColumnKey="Status"/>
+                            <ListViewColumn Caption="加工通知单号" ColumnType="HyperLink" Key="NoticeNo_LV" DataColumnKey="No">
+                                <OnClick>
+                                    <![CDATA[Open('V_KittingNotice',OID);]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="货主" ColumnType="Dict" Enable="false" ItemKey="LRP_Owner" Key="OwnerId_LV" DataColumnKey="OwnerId"/>
+                            <ListViewColumn Caption="货主单号" ColumnType="TextEditor" Enable="false" Key="OwnerNo_LV" DataColumnKey="OwnerNo"/>
+                            <ListViewColumn Caption="创建日期时间" ColumnType="DatePicker" Enable="false" Key="MakerTime_LV" DataColumnKey="CREATETIME"/>
+                            <ListViewColumn Caption="预计加工日期时间起" ColumnType="DatePicker" Enable="false" Key="ExpectDateTimeFrom_LV" DataColumnKey="ExpectDateTimeFrom"/>
+                            <ListViewColumn Caption="预计加工日期时间至" ColumnType="DatePicker" Enable="false" Key="ExpectDateTimeTo_LV" DataColumnKey="ExpectDateTimeTo"/>
+                            <ListViewColumn Caption="备注" ColumnType="TextEditor" Enable="false" Key="Remark_LV" DataColumnKey="Remark"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_KittingNotice', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="130px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="30">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

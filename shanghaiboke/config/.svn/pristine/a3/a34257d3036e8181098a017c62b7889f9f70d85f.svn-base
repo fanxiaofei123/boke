@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="CHCS_Full_Match_Order" Caption="满配交接单" PrimaryTableKey="CHCS_Full_Match_Order_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="CHCS_Full_Match_Order_H" Caption="满配交接单">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="NO" Caption="配备编号" DataType="Varchar" Length="100"/>
+            <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+            <Column Key="BillDate" Caption="交接日期" DataType="DateTime"/>
+            <Column Key="Creator" Caption="制单人" DataType="Long"/>
+            <Column Key="CreateTime" Caption="制单日期" DataType="DateTime"/>
+            <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+            <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="FlightDate" Caption="航班日期" DataType="Date"/>
+            <Column Key="Flight_Number" Caption="航班号" DataType="Long"/>
+            <Column Key="Segment" Caption="航段" DataType="Long"/>
+            <Column Key="Aircraft_Number" Caption="飞机号" DataType="Varchar" Length="20"/>
+            <Column Key="Aircraft_Type_Number" Caption="机型" DataType="Varchar" Length="50"/>
+            <Column Key="Departure_Vendor" Caption="出港航食" DataType="Long"/>
+            <Column Key="Arrival_Vendor" Caption="进港航食" DataType="Long"/>
+            <Column Key="Lock_Catch_Number" Caption="锁扣号" DataType="Varchar" Length="50"/>
+            <Column Key="Departure_Flight_Attendant" Caption="出港乘务员" DataType="Long"/>
+            <Column Key="Arrival_Flight_Attendant" Caption="回港乘务员" DataType="Long"/>
+            <Column Key="Departure_Aircrew" Caption="出港航机员" DataType="Long"/>
+            <Column Key="Arrival_Aircrew" Caption="回港航机员" DataType="Long"/>
+        </Table>
+        <Table Key="CHCS_Full_Match_Order_L" Caption="满配交接单明细" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Tableware_Type" Caption="餐具种类" DataType="Long"/>
+            <Column Key="Meal_Tableware_Qty" Caption="有餐餐具" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Empty_Tableware_Qty" Caption="空餐具数量" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Act_Recv_Empty_Qty" Caption="实收空餐具数量" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Departure_Full_Match_Diff" Caption="与满配对比差异" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Arrival_Vendor_Recv_Qty" Caption="回港航食回收数量" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Arrival_Full_Match_Diff" Caption="与满配对比差异" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Unit" Caption="单位" DataType="Long"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar"/>
+        </Table>
+    </TableCollection>
+</DataObject>

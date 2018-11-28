@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="引入收入明细" FormType="View" Key="V_QuoteIncomeLineView">
+    <DataSource>
+        <DataObject Caption="引入收入明细" Key="V_QuoteIncomeLineView" PrimaryTableKey="LRP_IncomeLine">
+            <TableCollection>
+                <Table Caption="引入收入明细" Key="LRP_IncomeLine" SourceType="Query" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心" DataType="Long"/>
+                    <Column Key="ComputeNo" Caption="计算号" DataType="Varchar" Length="40"/>
+                    <Column Key="OwnerId" Caption="货主" DataType="Long"/>
+                    <Column Key="SettlementId" Caption="结算方" DataType="Long"/>
+                    <Column Key="IncomeId" Caption="收入" DataType="Long"/>
+                    <Column Key="IncomeName" Caption="收入名称" DataType="Varchar" Length="100"/>
+                    <Column Key="BizDate" Caption="业务日期" DataType="Date"/>
+                    <Column Key="BizQty" Caption="业务量" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="CalculationAmount" Caption="计算金额" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="AdjustAmount" Caption="调整后金额" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="GenMethod" Caption="生成方式" DataType="Integer"/>
+                    <Column Key="BillOID" Caption="单据ID" DataType="Long"/>
+                    <Column Key="BillNo" Caption="单据号" DataType="Varchar" Length="100"/>
+                    <Column Key="IncomeContractTermId" Caption="条款ID" DataType="Long"/>
+                    <Column Key="IncomeContractTermName" Caption="条款名称" DataType="Varchar" Length="100"/>
+                    <Column Key="TermLineId" Caption="条款明细ID" DataType="Long"/>
+                    <Column Key="TermLineName" Caption="条款明细名称" DataType="Varchar" Length="100"/>
+                    <Column Key="IncomeContractId" Caption="合约ID" DataType="Long"/>
+                    <Column Key="IncomeContractName" Caption="合约名称" DataType="Varchar" Length="100"/>
+                    <Column Key="SourceType" Caption="来源类型" DataType="Varchar" Length="10"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="100"/>
+                    <Statement>
+                        <![CDATA[select * from (select l.*,ex.name as IncomeName from LRP_IncomeLine l join LRP_Income ex on ex.oid = l.IncomeId where l.Status=200)a]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="80%" PopWidth="80%">
+        <Block>
+            <FlexFlowLayoutPanel Caption="根面板" Key="root">
+                <ToolBar Caption="ToolBar1" Height="pref" Key="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Caption="SplitPanel1" Height="100%" Key="SplitPanel1" Orientation="Vertical">
+                    <GridLayoutPanel Caption="基本信息" Height="pref" Key="first_head" Padding="5px">
+                        <TextEditor Caption="收入名称" Key="IncomeName_C" X="1" XSpan="3" Y="0">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_IncomeLine" ColumnKey="IncomeName"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="收入名称" Key="L_IncomeName" X="0" Y="0"/>
+                        <Dict BuddyKey="Lab_DispatchOrgId" Caption="调度组织" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId_C" X="6" XSpan="3" Y="0">
+                            <Condition CondSign="=" ColumnKey="DispatchOrgId" TableKey="LRP_IncomeLine"/>
+                        </Dict>
+                        <Label Caption="调度组织" Key="Lab_DispatchOrgId" X="5" Y="0"/>
+                        <Dict BuddyKey="Lab_OwnerId" Caption="货主" Enable="GetPara('OwnerId_para')&lt;0" ItemKey="LRP_Owner" Key="OwnerId_C" X="1" XSpan="3" Y="1">
+                            <Condition CondSign="=" ColumnKey="OwnerId" TableKey="LRP_IncomeLine"/>
+                        </Dict>
+                        <Label Caption="货主" Key="Lab_OwnerId" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_SettlementId" Caption="结算方" ItemKey="Customer" Enable="GetPara('SettlementId_para')&lt;0" Key="SettlementId_C" X="6" XSpan="3" Y="1">
+                            <Condition CondSign="=" ColumnKey="SettlementId" TableKey="LRP_IncomeLine"/>
+                        </Dict>
+                        <Label Caption="结算方" Key="Lab_SettlementId" X="5" Y="1"/>
+                        <TextEditor Caption="合约名称" Key="IncomeContractName_C" X="1" XSpan="3" Y="2">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_IncomeLine" ColumnKey="IncomeContractName"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="合约名称" Key="L_IncomeContractName" X="0" Y="2"/>
+                        <DatePicker Caption="业务日期" Key="BizDate_C" X="1" XSpan="3" Y="3" BuddyKey="L_BizDate">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition CondSign="between" Group="BizDate" ColumnKey="BizDate" GroupHead="true" TableKey="LRP_IncomeLine">
+                                <ConditionTarget TableKey="LRP_IncomeLine" ColumnKey="BizDate"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="业务日期" Key="L_BizDate" X="0" Y="3"/>
+                        <DatePicker Caption="至" Key="BizDate_C_1" X="6" XSpan="3" Y="3" BuddyKey="L_BizDate_1">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition CondSign="none" Group="BizDate" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_IncomeLine" ColumnKey="BizDate"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_BizDate_1" X="5" Y="3"/>
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Enable="true" Key="cancle" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition(); 								
+								SetValue("SettlementId_C",GetPara('SettlementId_para'));			
+								SetValue("OwnerId_C",GetPara('OwnerId_para'));
+								]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="25px"/>
+                            <RowDef Height="25px"/>
+                            <RowDef Height="25px"/>
+                            <RowDef Height="25px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Caption="Grid0" Height="pref" Key="Grid0" NewEmptyRow="false" PageLoadType="UI" PageRowCount="10" RowAlterable="false">
+                        <GridColumnCollection>
+                            <GridColumn Caption="选择" Key="Select" Width="80px"/>
+                            <GridColumn Caption="收入明细ID" Key="OID" Visible="false" Width="80px"/>
+                            <GridColumn Caption="调度组织" Key="DispatchOrgId" Width="80px"/>
+                            <GridColumn Caption="仓储中心" Key="WarehouseCenterId" Width="80px"/>
+                            <GridColumn Caption="货主" Key="OwnerId" Width="80px"/>
+                            <GridColumn Caption="结算方" Key="SettlementId" Width="80px"/>
+                            <GridColumn Caption="收入名称" Key="IncomeId" Width="80px"/>
+                            <GridColumn Caption="业务日期" Key="BizDate" Width="80px"/>
+                            <GridColumn Caption="业务量" Key="BizQty" Width="80px"/>
+                            <GridColumn Caption="计算金额" Key="CalculationAmount" Width="80px"/>
+                            <GridColumn Caption="调整后金额" Key="AdjustAmount" Width="80px"/>
+                            <GridColumn Caption="生成方式" Key="GenMethod" Width="80px"/>
+                            <GridColumn Caption="来源类型" Key="SourceType" Width="80px"/>
+                            <GridColumn Caption="单号" Key="BillNo" Width="80px"/>
+                            <GridColumn Caption="条款名称" Key="IncomeContractTermName" Width="80px"/>
+                            <GridColumn Caption="条款明细名称" Key="TermLineName" Width="80px"/>
+                            <GridColumn Caption="合约名称" Key="IncomeContractName" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_IncomeLine">
+                                <GridCell Caption="选择" CellType="CheckBox" IsSelect="true" Key="Select"/>
+                                <GridCell Caption="收入明细ID" CellType="TextEditor" Enable="false" Key="OID">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Caption="调度组织" CellType="Dict" Enable="false" Key="DispatchOrgId" ItemKey="LRP_DispatchOrg">
+                                    <DataBinding ColumnKey="DispatchOrgId"/>
+                                </GridCell>
+                                <GridCell Caption="仓储中心" CellType="Dict" Enable="false" Key="WarehouseCenterId" ItemKey="LRP_WarehouseCenter">
+                                    <DataBinding ColumnKey="WarehouseCenterId"/>
+                                </GridCell>
+                                <GridCell Caption="货主" CellType="Dict" Enable="false" Key="OwnerId" ItemKey="LRP_Owner">
+                                    <DataBinding ColumnKey="OwnerId"/>
+                                </GridCell>
+                                <GridCell Caption="结算方" CellType="Dict" Enable="false" Key="SettlementId" ItemKey="Customer">
+                                    <DataBinding ColumnKey="SettlementId"/>
+                                </GridCell>
+                                <GridCell Caption="收入名称" CellType="Dict" Enable="false" Key="IncomeId" ItemKey="LRP_Income">
+                                    <DataBinding ColumnKey="IncomeId"/>
+                                </GridCell>
+                                <GridCell Caption="业务日期" CellType="DatePicker" OnlyDate="true" Enable="false" Key="BizDate" Format="yyyy-MM-dd">
+                                    <DataBinding ColumnKey="BizDate"/>
+                                </GridCell>
+                                <GridCell Caption="业务量" CellType="NumberEditor" Enable="false" Key="BizQty">
+                                    <DataBinding ColumnKey="BizQty"/>
+                                </GridCell>
+                                <GridCell Caption="计算金额" CellType="NumberEditor" Enable="false" Key="CalculationAmount">
+                                    <DataBinding ColumnKey="CalculationAmount"/>
+                                </GridCell>
+                                <GridCell Caption="调整后金额" CellType="NumberEditor" Enable="false" Key="AdjustAmount">
+                                    <DataBinding ColumnKey="AdjustAmount"/>
+                                </GridCell>
+                                <GridCell Caption="生成方式" CellType="ComboBox" Enable="false" Key="GenMethod">
+                                    <DataBinding ColumnKey="GenMethod"/>
+                                    <Item Caption="系统生成" Key="1" Value="1"/>
+                                    <Item Caption=" 手工输入" Key="2" Value="2"/>
+                                </GridCell>
+                                <GridCell Caption="单号" CellType="TextEditor" Enable="false" Key="BillNo">
+                                    <DataBinding ColumnKey="BillNo"/>
+                                </GridCell>
+                                <GridCell Caption="来源类型" CellType="TextEditor" Enable="false" Key="SourceType">
+                                    <DataBinding ColumnKey="SourceType"/>
+                                </GridCell>
+                                <GridCell Caption="条款名称" CellType="TextEditor" Enable="false" Key="IncomeContractTermName">
+                                    <DataBinding ColumnKey="IncomeContractTermName"/>
+                                </GridCell>
+                                <GridCell Caption="条款明细名称" CellType="TextEditor" Enable="false" Key="TermLineName">
+                                    <DataBinding ColumnKey="TermLineName"/>
+                                </GridCell>
+                                <GridCell Caption="合约名称" CellType="TextEditor" Enable="false" Key="IncomeContractName">
+                                    <DataBinding ColumnKey="IncomeContractName"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <GridLayoutPanel Caption="GridLayoutPanel1" Key="GridLayoutPanel1">
+                        <Button Caption="确定" Key="OK" X="1" Y="0">
+                            <OnClick>
+                                <![CDATA[
+									var count = GetRowCount('Grid0',false);
+									var parentGridCount = Parent.GetRowCount('Grid0',false);
+									var i=0;
+									var b = false;
+									var bselect = false;
+											  
+									//遍历表格,是否有被勾选的明细行
+									while ( i < count ){
+										//设置当前行
+										SetRowIndex('Grid0', i);
+										if(ToInt(Select)==1){
+											bselect = true;
+											var j=0;	
+											var noexist = true;
+											//检查父窗口是否已经有引用该单据
+											while ( j < parentGridCount ){
+												if(ToString(OID)==ToString(parent.GetCellValue('Grid0', j,'IncomeLineId'))){
+													noexist = false;
+													j = parentGridCount;
+												}
+												j = j+1;
+											}
+											if(noexist==true){
+												//在父窗口插入一条记录
+												b = true;
+												var index = parent.InsertRow('Grid0',-1);
+												parent.SetCellValue('Grid0', index,'IncomeLineId',OID);
+												parent.SetCellValue('Grid0', index,'IncomeId',IncomeId);
+												parent.SetCellValue('Grid0', index,'DispatchOrgId',DispatchOrgId);
+												parent.SetCellValue('Grid0', index,'WarehouseCenterId',WarehouseCenterId);
+												parent.SetCellValue('Grid0', index,'OwnerId_d',OwnerId);
+												parent.SetCellValue('Grid0', index,'SettlementId_d',SettlementId);
+												parent.SetCellValue('Grid0', index,'BizDate',BizDate);
+												parent.SetCellValue('Grid0', index,'BizQty',BizQty);
+												parent.SetCellValue('Grid0', index,'CalculationAmount',CalculationAmount);
+												parent.SetCellValue('Grid0', index,'AdjustAmount',AdjustAmount);
+												parent.SetCellValue('Grid0', index,'GenMethod',GenMethod);
+												parent.SetCellValue('Grid0', index,'SourceType',SourceType);
+												parent.SetCellValue('Grid0', index,'BillNo',BillNo);
+												parent.SetCellValue('Grid0', index,'IncomeContractTermName',IncomeContractTermName);
+												parent.SetCellValue('Grid0', index,'TermLineName',TermLineName);
+												parent.SetCellValue('Grid0', index,'IncomeContractName',IncomeContractName);
+											}
+										}
+										i=i+1;
+									}
+									if(!bselect){
+										Confirm(LocaleString('OwnerNull','key120'),'OK','OK:{}');
+									}
+									else{
+										Close();
+									}
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="取消" Key="Cancle" X="2" Y="0">
+                            <OnClick>
+                                <![CDATA[Close();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                    <SplitSize Size="50px"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+		SetValue("SettlementId_C",GetPara('SettlementId_para'));			
+		SetValue("OwnerId_C",GetPara('OwnerId_para'));
+	]]>
+    </OnLoad>
+</Form>

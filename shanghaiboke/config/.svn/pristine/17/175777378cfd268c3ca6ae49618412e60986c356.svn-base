@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="引入发票" FormType="View" Key="V_QuoteInvoicePay">
+    <DataSource RefObjectKey="LRP_QuoteInvoicePay"/>
+    <Body PopHeight="80%" PopWidth="80%">
+        <Block>
+            <FlexFlowLayoutPanel Caption="根面板" Key="root">
+                <SplitPanel Caption="SplitPanel1" Height="100%" Key="SplitPanel1" Orientation="Vertical">
+                    <GridLayoutPanel Caption="基本信息" Height="pref" Key="first_head" Padding="10px">
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Enable="true" Key="cancle" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition(); 
+								SetValue("CompanyCodeId1",GetPara('CompanyCode_para'));
+								SetValue("SettlementId1",GetPara('SettlementId_para'));  						
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="CompanyCodeId1" Caption="公司" BuddyKey="Lab_CompanyCodeId1" X="1" Y="0" Enable="false" ItemKey="CompanyCode" XSpan="3">
+                            <DataBinding DefaultFormulaValue="GetPara('CompanyCode_para')"/>
+                            <Condition ColumnKey="CompanyCode" CondSign="=" TableKey="LRP_QuoteInvoicePay"/>
+                        </Dict>
+                        <Label Key="Lab_CompanyCodeId1" Caption="公司" X="0" Y="0"/>
+                        <Dict Key="SettlementId1" Caption="结算方" BuddyKey="Lab_SettlementId1" X="6" Y="0" Enable="false" ItemKey="Vendor" XSpan="3">
+                            <DataBinding DefaultFormulaValue="GetPara('SettlementId_para')"/>
+                            <Condition ColumnKey="SettlementId" CondSign="=" TableKey="LRP_QuoteInvoicePay"/>
+                        </Dict>
+                        <Label Key="Lab_SettlementId1" Caption="结算方" X="5" Y="0"/>
+                        <DatePicker Key="OrderDate1" Caption="发票日期" BuddyKey="Lab_OrderDate1" X="1" Y="1" XSpan="3">
+                            <Condition ColumnKey="BillDate" CondSign="between" TableKey="LRP_QuoteInvoicePay" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_OrderDate1" Caption="发票日期" X="0" Y="1"/>
+                        <DatePicker Key="OrderDate2" Caption="到" BuddyKey="Lab_OrderDate2" X="6" Y="1" XSpan="3">
+                            <Condition ColumnKey="BillDate" CondSign="in" TableKey="LRP_QuoteInvoicePay" GroupTail="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_OrderDate2" Caption="到" X="5" Y="1"/>
+                        <TextEditor Key="No1" Caption="发票单号" BuddyKey="Lab_No1" X="1" Y="2" XSpan="3">
+                            <Condition ColumnKey="No" CondSign="like" TableKey="LRP_QuoteInvoicePay"/>
+                        </TextEditor>
+                        <Label Key="Lab_No1" Caption="发票单号" X="0" Y="2"/>
+                        <Dict Key="ExpenseId1" Caption="费用名称" BuddyKey="Lab_ExpenseId1" X="6" Y="2" ItemKey="LRP_Expense" XSpan="3">
+                            <Condition ColumnKey="ExpenseId" CondSign="=" TableKey="LRP_QuoteInvoicePay"/>
+                        </Dict>
+                        <Label Key="Lab_ExpenseId1" Caption="费用名称" X="5" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Grid0" Caption="Grid0" NewEmptyRow="false" PageLoadType="DB" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="Select" Caption="选择" Width="100px"/>
+                            <GridColumn Key="OID" Caption="发票oid" Visible="false" Width="80px"/>
+                            <GridColumn Key="No" Caption="单号" Width="150px"/>
+                            <GridColumn Key="CompanyCode" Caption="公司" Width="100px" Visible="false"/>
+                            <GridColumn Key="SettlementId" Caption="结算方" Width="100px" Visible="false"/>
+                            <GridColumn Key="OriginNo" Caption="实体票号" Width="100px"/>
+                            <GridColumn Key="BillDate" Caption="发票日期" Width="150px"/>
+                            <GridColumn Key="InvoiceType" Caption="发票类型" Width="100px"/>
+                            <GridColumn Key="ExpenseId" Caption="费用名称" Width="100px"/>
+                            <GridColumn Key="CurrencyID" Caption="交易货币" Width="100px"/>
+                            <GridColumn Key="SumMoney" Caption="合计金额" Width="100px"/>
+                            <GridColumn Key="HookMoney" Caption="核销金额" Width="100px"/>
+                            <GridColumn Key="UnSettleMoney" Caption="未核金额" Width="100px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_QuoteInvoicePay">
+                                <GridCell Key="Select" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                <GridCell Key="OID" Caption="发票oid">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Key="No" Caption="单号" CellType="TextEditor">
+                                    <DataBinding ColumnKey="No"/>
+                                </GridCell>
+                                <GridCell Key="CompanyCode" Caption="公司" CellType="Dict" ItemKey="CompanyCode">
+                                    <DataBinding ColumnKey="CompanyCode"/>
+                                </GridCell>
+                                <GridCell Key="SettlementId" Caption="结算方" CellType="Dict" ItemKey="Vendor">
+                                    <DataBinding ColumnKey="SettlementId"/>
+                                </GridCell>
+                                <GridCell Key="OriginNo" Caption="实体票号" CellType="TextEditor">
+                                    <DataBinding ColumnKey="OriginNo"/>
+                                </GridCell>
+                                <GridCell Key="BillDate" Caption="发票日期" CellType="DatePicker">
+                                    <DataBinding ColumnKey="BillDate"/>
+                                </GridCell>
+                                <GridCell Key="InvoiceType" Caption="发票类型" CellType="ComboBox" IntegerValue="true">
+                                    <DataBinding ColumnKey="InvoiceType"/>
+                                    <Item Caption="蓝字发票" Key="0" Value="0"/>
+                                    <Item Caption="红字发票" Key="1" Value="1"/>
+                                </GridCell>
+                                <GridCell Key="ExpenseId" Caption="费用名称" CellType="Dict" ItemKey="LRP_Expense">
+                                    <DataBinding ColumnKey="ExpenseId"/>
+                                </GridCell>
+                                <GridCell Key="CurrencyID" Caption="交易货币" CellType="Dict" ItemKey="Currency">
+                                    <DataBinding ColumnKey="CurrencyID"/>
+                                </GridCell>
+                                <GridCell Key="SumMoney" Caption="合计金额" CellType="NumberEditor" Precision="18" Scale="6">
+                                    <DataBinding ColumnKey="SumMoney"/>
+                                </GridCell>
+                                <GridCell Key="HookMoney" Caption="核销金额" CellType="NumberEditor" Precision="18" Scale="6" ShowZero="true">
+                                    <DataBinding ColumnKey="HookMoney"/>
+                                </GridCell>
+                                <GridCell Key="UnSettleMoney" Caption="未核金额" CellType="NumberEditor" Precision="18" Scale="6" ShowZero="true">
+                                    <DataBinding ColumnKey="UnSettleMoney"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <GridLayoutPanel Caption="GridLayoutPanel1" Key="GridLayoutPanel1">
+                        <Button Caption="确定" Key="OK" X="1" Y="0">
+                            <OnClick>
+                                <![CDATA[var count = GetRowCount('Grid0',false);
+											var flag=0;
+											var i=0;
+											  
+											//遍历表格,是否有被勾选的明细行,有:flag=1
+											while ( i < count ) {
+												if(ToInt(GetCellValue('Grid0',i,'Select'))==1){
+												  flag=1;
+												  break;
+												}
+												i=i+1;
+											  }
+											  
+											//没有被勾选的明细行,弹出警告
+											if(flag==0){
+												Confirm(LocaleString('ReceivableAnd','key18'),'OK','OK:{}');
+											  }
+											  
+											//有被勾选的明细行,下推明细行
+											if(flag==1){
+											
+												// 如果是预付款引入发票
+												if(GetPara("pFormKey")=="V_AdvancePayment"){
+													while ( i < count ) {
+													if(ToInt(GetCellValue('Grid0',i,'Select'))==1){
+														insertInvoice(i);
+													}
+													i=i+1;
+													}
+												}
+
+												//字符串需要加Parent
+												IIFS(
+										GetPara("pFormKey")=="V_PaymentByInvoice",ViewMap('Invoice-Payment',false),
+										GetPara("pFormKey")=="V_PaymentByStatement",ViewMap('Invoice-Payment',false)
+												     
+												);
+								
+											Close();
+			       }]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="取消" Key="Cancle" X="2" Y="0">
+                            <OnClick>
+                                <![CDATA[Close();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                    <SplitSize Size="50px"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+	]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="insertInvoice" Args="row">
+            <![CDATA[
+			var invoiceOID = GetCellValue('Grid0',row,'OID');
+			var no = GetCellValue('Grid0',row,'No');
+			var originNo = GetCellValue('Grid0',row,'OriginNo');
+			var billDate = GetCellValue('Grid0',row,'BillDate');
+			var invoiceType = GetCellValue('Grid0',row,'InvoiceType');
+			var expenseId = GetCellValue('Grid0',row,'ExpenseId');
+			var sumMoney = GetCellValue('Grid0',row,'SumMoney');
+			var hookMoney = GetCellValue('Grid0',row,'HookMoney');
+			var unSettleMoney = GetCellValue('Grid0',row,'UnSettleMoney');
+													
+			var index = parent.InsertRow('Grid2');
+			
+			parent.SetCellValue('Grid2', index, 'InvoiceOID', invoiceOID,false);			
+			parent.SetCellValue('Grid2', index, 'InvoiceNo', no,false);
+			parent.SetCellValue('Grid2', index, 'InvoiceOriginNo', originNo,false);
+			parent.SetCellValue('Grid2', index, 'InvoiceBillDate', billDate,false);
+			parent.SetCellValue('Grid2', index, 'InvoiceType', invoiceType,false);
+			parent.SetCellValue('Grid2', index, 'InvoiceExpenseId', expenseId,false);
+			parent.SetCellValue('Grid2', index, 'InvoiceSumMoney', sumMoney,false);
+			parent.SetCellValue('Grid2', index, 'InvoiceHookMoney', hookMoney,false);
+			parent.SetCellValue('Grid2', index, 'InvoiceUnSettleMoney', unSettleMoney,false);
+			]]>
+        </Macro>
+    </MacroCollection>
+</Form>

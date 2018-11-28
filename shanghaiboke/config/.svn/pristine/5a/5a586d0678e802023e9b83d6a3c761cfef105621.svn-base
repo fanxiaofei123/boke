@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Cancel>Cancel</Cancel>
+        <OrderTitle3>NewRecv</OrderTitle3>
+        <Finish>Finish</Finish>
+        <AddQty_lbl>AddQty</AddQty_lbl>
+        <RecvQty_Null_lbl>RecvQty</RecvQty_Null_lbl>
+        <lab_MaterialUnit>Unit</lab_MaterialUnit>
+        <Qty_lbl>Qty</Qty_lbl>
+        <BatchNo_lbl>BatchNo</BatchNo_lbl>
+        <lab_Storearea>Storearea</lab_Storearea>
+        <CopyRecv>CopyRecv</CopyRecv>
+        <Finish_Recv>Finish</Finish_Recv>
+        <Finish_R_Recv>Cancel</Finish_R_Recv>
+		<Delete>Delete</Delete>
+    </UI>
+    <Prompt>
+        <Material_code>MaterialCode</Material_code>
+    </Prompt>
+	<Items-Status> 
+		<Item-10>enter</Item-10>
+		<Item-90>finish</Item-90>
+	</Items-Status>
+</StringTable>

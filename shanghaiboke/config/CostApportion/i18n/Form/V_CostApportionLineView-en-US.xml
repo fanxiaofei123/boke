@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+		<V_CostApportionLineView-Abbr>CostApportionmentDetailsQuery</V_CostApportionLineView-Abbr>
+		
+        <L_ExpenseId_C>ExpenseId</L_ExpenseId_C>
+        <L_BizType_C>BizType</L_BizType_C>
+        <L_BizDate>BizDate</L_BizDate>
+        <L_BizDate_1>To</L_BizDate_1>
+		<L_CREATETIME>CreateTime</L_CREATETIME>
+        <L_CREATETIME_1>To</L_CREATETIME_1>
+        <L_BillNo>BillNo</L_BillNo>
+        <L_ParentNo>ParentNo</L_ParentNo>
+        <L_SourceBillNo>SourceBillNo</L_SourceBillNo>
+    </UI>
+	
+    <ListViewColumn>
+        <OID>OID</OID>
+        <BizType>BizType</BizType>
+        <ExpenseId>ExpenseId</ExpenseId>
+        <BizDate>BizDate</BizDate>
+        <CREATETIME>CreateTime</CREATETIME>
+        <ApportionMethod>ApportionMethod</ApportionMethod>
+        <ApportionQty>ApportionQty</ApportionQty>
+        <ApportionAmount>ApportionAmount</ApportionAmount>
+        <SourceAmount>SourceAmount</SourceAmount>
+        <BillNo>BillNo</BillNo>
+        <ParentNo>ParentNo</ParentNo>
+        <SourceBillNo>SourceBillNo</SourceBillNo>
+    </ListViewColumn>
+</StringTable>

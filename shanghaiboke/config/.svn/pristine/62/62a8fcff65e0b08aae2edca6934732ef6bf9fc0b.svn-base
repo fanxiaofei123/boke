@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <ToCancel>ToCancel</ToCancel>
+        <New>New</New>
+        <Confirm-R>Confirm-R</Confirm-R>
+        <Receipt>Receipt</Receipt>
+        <Cancel>Cancel</Cancel>
+        <CopyNew>CopyNew</CopyNew>
+        <Confirm>Confirm</Confirm>
+        <Edit>Edit</Edit>
+        <QRCodePrint>QRCodePrint</QRCodePrint>
+        <QRCodePrintPrevie>QRCodePrintPrevie</QRCodePrintPrevie>
+        <ToCancel-R>ToCancel-R</ToCancel-R>
+        <Putaway>Putaway</Putaway>
+        <Save>Save</Save>
+        <Close>Close</Close>
+        <optKey3>Print</optKey3>
+    </Opt>
+    <UI>
+	<V_PackingStrategyMatch>PackingStrategyMatch</V_PackingStrategyMatch>
+		<Lab_No>No</Lab_No>
+		<Lab_Name>Name</Lab_Name>
+		<Lab_MaterialTypeID>MaterialType</Lab_MaterialTypeID>
+		<Lab_Remarks>Remark</Lab_Remarks>
+	
+        <Lab_MODIFIER>MODIFIER</Lab_MODIFIER>
+        <second_head>SystemInfo</second_head>
+        <Lab_CREATOR>CREATOR</Lab_CREATOR>
+        <first_head>BasicInformation</first_head>
+        <Lab_CREATETIME>CREATETIME</Lab_CREATETIME>
+        <Lab_MODIFYTIME>MODIFYTIME</Lab_MODIFYTIME>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_Remark>Remark</Lab_Remark>
+		
+		<Grid1>MatchDetail</Grid1>
+    </UI>
+    <GridColumn>
+        <SrcMaxTempUpper>SrcMaxTempUpper</SrcMaxTempUpper>
+        <SrcMaxTempLower>SrcMaxTempLower</SrcMaxTempLower>
+        <SrcMinTempUpper>SrcMinTempUpper</SrcMinTempUpper>
+        <SrcMinTempLower>SrcMinTempLower</SrcMinTempLower>
+        <DestMaxTempUpper>DestMaxTempUpper</DestMaxTempUpper>
+        <DestMaxTempLower>DestMaxTempLower</DestMaxTempLower>
+        <DestMinTempUpper>DestMinTempUpper</DestMinTempUpper>
+        <DestMinTempLower>DestMinTempLower</DestMinTempLower>
+        <PackingStrategyID>PackingStrategy</PackingStrategyID>
+    </GridColumn>
+</StringTable>

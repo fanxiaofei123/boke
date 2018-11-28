@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_ParentID>upperlevelnode</L_ParentID>
+        <L_Name>name</L_Name>
+        <L_NodeType>nodetype</L_NodeType>
+        <Lab_CodeDescription>code description</Lab_CodeDescription>
+        <Lab_UnitEnglishName>unit english name</Lab_UnitEnglishName>
+        <L_Code>code</L_Code>
+        <Lab_Englishplural>plural form</Lab_Englishplural>
+    </UI>
+</StringTable>

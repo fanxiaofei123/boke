@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="用户常用路线" FormType="Entity" Key="V_OwnerUserRoute">
+    <DataSource RefObjectKey="LRP_OwnerUserRoute"/>
+    <OperationCollection>
+        <Operation Caption="新增" Key="New" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				New('V_OwnerUserRoute');
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="复制新增" Key="CopyNew" RefKey="CopyNew" ShortCuts="Ctrl+E"/>
+        <Operation Caption="保存" Key="Save" ShortCuts="Ctrl+S" Visible="!ReadOnly()&amp;&amp;Status==100">
+            <Action>
+                <![CDATA[
+				if(OwnerUserId<=0){		
+					Confirm('货主用户不可为空','OK','OK:{}');
+					return true;
+				}			
+				
+				SaveData();
+				UpdateView();
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Caption="删除" Key="Delete" RefKey="Delete" ShortCuts="Ctrl+D"/>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                            <TextEditor Caption="单号" Enable="false" Key="No" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="No" TableKey="LRP_OwnerUserRoute_H"/>
+                            </TextEditor>
+                            <Label Caption="单号" Key="L_No" X="0" Y="0"/>
+                            <Dict Caption="货主用户" ItemKey="LRP_OwnerUser" Key="OwnerUserId" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="OwnerUserId" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                            </Dict>
+                            <Label Caption="货主用户" Key="L_OwnerUserId" X="4" Y="0"/>
+                            <TextEditor Caption="路线名称" Key="RouteName" X="9" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="RouteName" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                            </TextEditor>
+                            <Label Caption="路线名称" Key="L_RouteName" X="8" Y="0"/>
+                            <ComboBox Caption="状态" Enable="false" Key="Status" SourceType="Status" X="1" XSpan="2" Y="5">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_OwnerUserRoute_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Caption="状态" Key="L_Status" X="0" Y="5"/>
+                            <TextEditor BuddyKey="Lab_StartName" Caption="起点" Enable="!ReadOnly()" Key="StartName" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="StartName" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                            </TextEditor>
+                            <Label Caption="起点" Key="Lab_StartName" X="0" Y="1"/>
+                            <GridLayoutPanel Caption="起点地址" Key="StartAddr" X="4" XSpan="7" Y="1">
+                                <Dict BuddyKey="Lab_StartProvinceId" Caption="省" Enable="!ReadOnly()" ItemKey="LRP_Province" Key="StartProvinceId" X="1" Y="0">
+                                    <DataBinding ColumnKey="StartProvinceId" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                                </Dict>
+                                <Label Caption="省" Key="Lab_StartProvinceId" X="0" Y="0"/>
+                                <Dict BuddyKey="Lab_StartCityId" Caption="市" Enable="!ReadOnly()" ItemKey="LRP_City" Key="StartCityId" X="3" Y="0">
+                                    <DataBinding ColumnKey="StartCityId" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                                    <ItemFilter ItemKey="LRP_City">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="ProvinceId" RefValue="StartProvinceId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="市" Key="Lab_StartCityId" X="2" Y="0"/>
+                                <Dict BuddyKey="Lab_StartDistrictId" Caption="区" Enable="!ReadOnly()" ItemKey="LRP_District" Key="StartDistrictId" X="5" Y="0">
+                                    <DataBinding ColumnKey="StartDistrictId" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                                    <ItemFilter ItemKey="LRP_District">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="SOID" RefValue="StartCityId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="区" Key="Lab_StartDistrictId" X="4" Y="0"/>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="8">
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="33%" MinWidth="20px"/>
+                                    <ColumnDef Width="20px"/>
+                                    <ColumnDef Width="33%" MinWidth="20px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="33%" MinWidth="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <TextEditor BuddyKey="Lab_StartAddress" Caption="地址" Enable="!ReadOnly()" Key="StartAddress" X="5" XSpan="6" Y="2">
+                                <DataBinding ColumnKey="StartAddress" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                            </TextEditor>
+                            <Label Caption="地址" Key="Lab_StartAddress" X="4" Y="2"/>
+                            <GridLayoutPanel Caption="起点联系人" Key="StartConnect" X="0" XSpan="3" Y="2">
+                                <TextEditor BuddyKey="Lab_StartContactor" Caption="联系人" Enable="!ReadOnly()" Key="StartContactor" X="1" Y="0">
+                                    <DataBinding ColumnKey="StartContactor" TableKey="LRP_OwnerUserRoute_H"/>
+                                </TextEditor>
+                                <Label Caption="联系人" Key="Lab_StartContactor" X="0" Y="0"/>
+                                <TextEditor BuddyKey="Lab_StartContactMobile" Caption="手机" Enable="!ReadOnly()" Key="StartContactMobile" X="3" Y="0">
+                                    <DataBinding ColumnKey="StartContactMobile" TableKey="LRP_OwnerUserRoute_H"/>
+                                </TextEditor>
+                                <Label Caption="手机" Key="Lab_StartContactMobile" X="2" Y="0"/>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="8">
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="50%" MinWidth="20px"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="50%" MinWidth="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <TextEditor BuddyKey="Lab_DestName" Caption="终点" Enable="!ReadOnly()" Key="DestName" X="1" XSpan="2" Y="3">
+                                <DataBinding ColumnKey="DestName" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                            </TextEditor>
+                            <Label Caption="终点" Key="Lab_DestName" X="0" Y="3"/>
+                            <GridLayoutPanel Caption="终点地址" Key="DestAddr" X="4" XSpan="7" Y="3">
+                                <Dict BuddyKey="Lab_DestProvinceId" Caption="省" Enable="!ReadOnly()" ItemKey="LRP_Province" Key="DestProvinceId" X="1" Y="0">
+                                    <DataBinding ColumnKey="DestProvinceId" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                                </Dict>
+                                <Label Caption="省" Key="Lab_DestProvinceId" X="0" Y="0"/>
+                                <Dict BuddyKey="Lab_DestCityId" Caption="市" Enable="!ReadOnly()" ItemKey="LRP_City" Key="DestCityId" X="3" Y="0">
+                                    <DataBinding ColumnKey="DestCityId" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                                    <ItemFilter ItemKey="LRP_City">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="ProvinceId" RefValue="DestProvinceId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="市" Key="Lab_DestCityId" X="2" Y="0"/>
+                                <Dict BuddyKey="Lab_DestDistrictId" Caption="区" Enable="!ReadOnly()" ItemKey="LRP_District" Key="DestDistrictId" X="5" Y="0">
+                                    <DataBinding ColumnKey="DestDistrictId" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                                    <ItemFilter ItemKey="LRP_District">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="SOID" RefValue="DestCityId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="区" Key="Lab_DestDistrictId" X="4" Y="0"/>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="8">
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="33%" MinWidth="20px"/>
+                                    <ColumnDef Width="20px"/>
+                                    <ColumnDef Width="33%" MinWidth="20px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="33%" MinWidth="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <TextEditor BuddyKey="Lab_DestAddress" Caption="地址" Enable="!ReadOnly()" Key="DestAddress" X="5" XSpan="6" Y="4">
+                                <DataBinding ColumnKey="DestAddress" TableKey="LRP_OwnerUserRoute_H" Required="true"/>
+                            </TextEditor>
+                            <Label Caption="地址" Key="Lab_DestAddress" X="4" Y="4"/>
+                            <GridLayoutPanel Caption="终点联系人" Key="DestConnect" X="0" XSpan="3" Y="4">
+                                <TextEditor BuddyKey="Lab_DestContactor" Caption="联系人" Enable="!ReadOnly()" Key="DestContactor" X="1" Y="0">
+                                    <DataBinding ColumnKey="DestContactor" TableKey="LRP_OwnerUserRoute_H"/>
+                                </TextEditor>
+                                <Label Caption="联系人" Key="Lab_DestContactor" X="0" Y="0"/>
+                                <TextEditor BuddyKey="Lab_DestContactMobile" Caption="手机" Enable="!ReadOnly()" Key="DestContactMobile" X="3" Y="0">
+                                    <DataBinding ColumnKey="DestContactMobile" TableKey="LRP_OwnerUserRoute_H"/>
+                                </TextEditor>
+                                <Label Caption="手机" Key="Lab_DestContactMobile" X="2" Y="0"/>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="8">
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="50%" MinWidth="20px"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="50%" MinWidth="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_OwnerUserRoute_H"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_OwnerUserRoute_H"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_OwnerUserRoute_H"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_OwnerUserRoute_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="4" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <GridLayoutPanel Caption="途经明细" Key="DetailTab">
+                            <Grid Caption="途经明细" Key="Grid0" X="0" Y="0">
+                                <GridColumnCollection>
+                                    <GridColumn Caption="选择" Key="Select1" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="地址名称" Key="AddressName" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="省" Key="ProvinceId" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="市" Key="CityId" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="区" Key="DistrictId" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="详细地址" Key="Address" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="联系人" Key="Contact" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="联系电话" Key="Tel" Width="80px" Sortable="true"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="R3" TableKey="LRP_OwnerUserRoute_L">
+                                        <GridCell Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true" Key="Select1"/>
+                                        <GridCell Key="AddressName" Caption="地址名称" Enable="!ReadOnly()" CellType="TextEditor">
+                                            <DataBinding ColumnKey="AddressName" Required="true"/>
+                                        </GridCell>
+                                        <GridCell Caption="省" CellType="Dict" Enable="!ReadOnly()" ItemKey="LRP_Province" Key="ProvinceId">
+                                            <DataBinding ColumnKey="ProvinceId" Required="true"/>
+                                        </GridCell>
+                                        <GridCell Caption="市" CellType="Dict" Enable="!ReadOnly()" ItemKey="LRP_City" Key="CityId">
+                                            <DataBinding ColumnKey="CityId" Required="true"/>
+                                            <ItemFilter ItemKey="LRP_City">
+                                                <Filter Type="FieldValue">
+                                                    <FilterValue FieldKey="ProvinceId" RefValue="ProvinceId" Type="Field"/>
+                                                </Filter>
+                                            </ItemFilter>
+                                        </GridCell>
+                                        <GridCell Caption="区" CellType="Dict" Enable="!ReadOnly()" ItemKey="LRP_District" Key="DistrictId">
+                                            <DataBinding ColumnKey="DistrictId" Required="true"/>
+                                            <ItemFilter ItemKey="LRP_District">
+                                                <Filter Type="FieldValue">
+                                                    <FilterValue FieldKey="SOID" RefValue="CityId" Type="Field"/>
+                                                </Filter>
+                                            </ItemFilter>
+                                        </GridCell>
+                                        <GridCell Key="Address" Caption="详细地址" Enable="!ReadOnly()" CellType="TextEditor">
+                                            <DataBinding ColumnKey="Address" Required="true"/>
+                                        </GridCell>
+                                        <GridCell Key="Contact" Caption="联系人" Enable="!ReadOnly()" CellType="TextEditor">
+                                            <DataBinding ColumnKey="Contact"/>
+                                        </GridCell>
+                                        <GridCell Key="Tel" Caption="联系电话" Enable="!ReadOnly()" CellType="TextEditor">
+                                            <DataBinding ColumnKey="Tel"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <RowDefCollection RowGap="2">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="2">
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="270px"/>
+                    <SplitSize Size="222px"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

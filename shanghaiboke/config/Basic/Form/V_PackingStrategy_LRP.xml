@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_PackingStrategy_LRP" Caption="包装方案" FormType="Dict">
+    <DataSource RefObjectKey="LRP_PackingStrategy"/>
+    <UICheckRuleCollection>
+        <UICheckRule Description="包装材料不能重复" ErrorInfo="包装材料不能重复">
+            <![CDATA[
+					
+							!CheckDuplicate("PackingMaterialID"); 
+						
+		]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Key="BasicTab" Padding="10px" Caption="基本信息">
+                            <TextEditor Key="Code" Caption="代码" BuddyKey="L_Code" X="1" Y="0" Enable="!ReadOnly()" Tip="「代码」不可为空" XSpan="3">
+                                <DataBinding ColumnKey="Code" TableKey="LRP_PackingStrategy_H" Required="true"/>
+                            </TextEditor>
+                            <TextEditor Key="Name" Caption="名称" BuddyKey="L_Name" X="6" Y="0" Enable="!ReadOnly()" Tip="「名称」不可为空" XSpan="3">
+                                <DataBinding ColumnKey="Name" TableKey="LRP_PackingStrategy_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="L_Code" Caption="代码" X="0" Y="0"/>
+                            <Label Key="L_Name" Caption="名称" X="5" Y="0"/>
+                            <TextEditor Key="remark" Caption="说明" BuddyKey="Lab_remark" X="1" Y="1" XSpan="8">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_PackingStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_remark" Caption="说明" X="0" Y="1"/>
+                            <Label Key="Order_IsShow" X="9" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SystemTab" Padding="10px" Caption="系统信息">
+                            <Dict Key="CREATOR" Caption="创建人" X="1" Y="0" ItemKey="Operator">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_PackingStrategy_H"/>
+                            </Dict>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" X="1" Y="1">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="ServerDate()" TableKey="LRP_PackingStrategy_H"/>
+                            </DatePicker>
+                            <Dict Key="MODIFIER" Caption="修改人" X="1" Y="2" ItemKey="Operator">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_PackingStrategy_H"/>
+                            </Dict>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" X="1" Y="3">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_PackingStrategy_H"/>
+                            </DatePicker>
+                            <Label Key="L_CREATOR" Caption="创建人" X="0" Y="0"/>
+                            <Label Key="L_CREATETIME" Caption="创建时间" X="0" Y="1"/>
+                            <Label Key="L_MODIFIER" Caption="修改人" X="0" Y="2"/>
+                            <Label Key="L_MODIFYTIME" Caption="修改时间" X="0" Y="3"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="物料状态明细" Key="TabPanel1">
+                        <Grid Key="list" Caption="包装材料清单">
+                            <GridColumnCollection>
+                                <GridColumn Key="PackingOrder" Caption="顺序" Width="80px" Visible="IIF(IsNewOrEdit(), false, true);"/>
+                                <GridColumn Key="PackingMaterialID" Caption="包装材料" Width="80px"/>
+                                <GridColumn Key="Spec" Caption="规格" Width="80px"/>
+                                <GridColumn Key="Model" Caption="型号" Width="80px"/>
+                                <GridColumn Key="Qty" Caption="数量" Width="80px"/>
+                                <GridColumn Key="Unit" Caption="单位" Width="80px"/>
+                                <GridColumn Key="Weight" Caption="重量" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="LRP_PackingStrategy_L">
+                                    <GridCell Key="PackingOrder" Caption="顺序" CellType="NumberEditor" Enable="false" IntegerValue="true">
+                                        <DataBinding ColumnKey="PackingOrder"/>
+                                    </GridCell>
+                                    <GridCell Key="PackingMaterialID" Caption="包装材料" CellType="Dict" ItemKey="LRP_PackingMaterial">
+                                        <DataBinding ColumnKey="PackingMaterialID" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="Spec" Caption="规格" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Spec" DefaultFormulaValue="GetDictValue('LRP_PackingMaterial',PackingMaterialID,'Spec'); " Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="Model" Caption="型号" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Model" DefaultFormulaValue="GetDictValue('LRP_PackingMaterial',PackingMaterialID,'Model');" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="Qty" Caption="数量" CellType="NumberEditor" ShowZero="true">
+                                        <DataBinding ColumnKey="Qty"/>
+                                    </GridCell>
+                                    <GridCell Key="Unit" Caption="单位" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Unit" DefaultFormulaValue="GetDictValue('LRP_PackingMaterial',PackingMaterialID,'Unit');"/>
+                                    </GridCell>
+                                    <GridCell Key="Weight" Caption="重量" CellType="NumberEditor" Precision="18" Scale="3" ShowZero="true">
+                                        <DataBinding ColumnKey="Weight" DefaultFormulaValue="Qty * GetDictValue('LRP_PackingMaterial', PackingMaterialID, 'Weight')"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="50%"/>
+                    <SplitSize Size="50%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

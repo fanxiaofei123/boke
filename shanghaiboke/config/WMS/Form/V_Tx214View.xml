@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form AbbrCaption="越库发货单序事簿" Caption="越库发货单序事簿" FormType="View" Key="V_Tx214View">
+    <DataSource>
+        <DataObject Caption="越库发货单序事簿" Key="V_Tx214View" PrimaryTableKey="LRP_WMTx_H">
+            <TableCollection>
+                <Table Key="LRP_WMTx_H" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DBColumnName="POID" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DBColumnName="SOID" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DBColumnName="VERID" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DBColumnName="DVERID" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="事务单号" DataType="Varchar" Key="No" Length="100" SortType="Desc"/>
+                    <Column Caption="事务类型" DataType="Long" Key="TxTypeId"/>
+                    <Column Caption="事务代码" DataType="Varchar" Key="TxTypeCode" Length="10"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="NoticeNo" Length="100"/>
+                    <Column Caption="关联单号" DataType="Varchar" Key="RefNo" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="事务日期时间" DataType="DateTime" Key="TxDateTime"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+                    <TableFilter>
+                        <![CDATA[TxTypeCode = '214']]>
+                    </TableFilter>
+                </Table>
+            </TableCollection>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="完成" Key="BatchFinish" RefKey="BatchFinish"/>
+        <Operation Caption="撤销完成" Key="BatchFinish-R" RefKey="BatchFinish-R"/>
+        <Operation Caption="删除" Key="BatchDelete_Tx" RefKey="BatchDelete_Tx"/>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="10px">
+                        <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="0" Y="0">
+                            <DataBinding DefaultValue="LRP_WMTx"/>
+                        </TextEditor>
+                        <TextEditor Caption="事务单号" Key="No_C" X="1" XSpan="2" Y="0">
+                            <Condition CondSign="like">
+                                <ConditionTarget ColumnKey="No" TableKey="LRP_WMTx_H"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="事务单号" Key="L_No" X="0" Y="0"/>
+                        <Dict AllowMultiSelection="true" Caption="货主" ItemKey="LRP_Owner" Key="OwnerId_C" X="5" XSpan="2" Y="0">
+                            <Condition CondSign="in">
+                                <ConditionTarget ColumnKey="OwnerId" TableKey="LRP_WMTx_H"/>
+                            </Condition>
+                        </Dict>
+                        <Label Caption="货主" Key="L_OwnerId" X="4" Y="0"/>
+                        <TextEditor Caption="货主单号" Key="OwnerNo_C" X="1" XSpan="2" Y="1">
+                            <Condition CondSign="like">
+                                <ConditionTarget ColumnKey="OwnerNo" TableKey="LRP_WMTx_H"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="货主单号" Key="L_OwnerNo" X="0" Y="1"/>
+                        <CheckListBox Caption="状态" Key="Status_C" X="5" XSpan="2" Y="1">
+                            <Condition CondSign="in">
+                                <ConditionTarget ColumnKey="Status" TableKey="LRP_WMTx_H"/>
+                            </Condition>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已确认" Key="confirmed" Value="200"/>
+                            <Item Caption="处理中" Key="handled" Value="500"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                        </CheckListBox>
+                        <Label Caption="状态" Key="L_Status" X="4" Y="1"/>
+                        <Button Caption="查询" Key="Query" X="8" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Key="Reset" X="8" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <TextEditor Caption="越库通知单号" Key="RefNo_C" X="1" XSpan="2" Y="2">
+                            <Condition CondSign="like">
+                                <ConditionTarget ColumnKey="RefNo" TableKey="LRP_WMTx_H"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="越库通知单号" Key="L_RefNo" X="0" Y="2"/>
+                        <DatePicker Caption="事务日期" Key="TxDateTime_C" X="1" XSpan="2" Y="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition CondSign="between" Group="TxDateTime" GroupHead="true">
+                                <ConditionTarget ColumnKey="TxDateTime" TableKey="LRP_WMTx_H"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="事务日期" Key="L_TxDateTime" X="0" Y="3"/>
+                        <DatePicker Caption="至" Key="TxDateTime_C_1" X="5" XSpan="2" Y="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition CondSign="none" Group="TxDateTime" GroupTail="true">
+                                <ConditionTarget ColumnKey="TxDateTime" TableKey="LRP_WMTx_H"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_TxDateTime_1" X="4" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView0" Key="ListView0" PageLoadType="DB" TableKey="LRP_WMTx_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Key="OID" Visible="false"/>
+                            <ListViewColumn Caption="选择" ColumnType="CheckBox" Enable="true" IsSelect="true" Key="Select" ValueChanged="RefreshOperation();"/>
+                            <ListViewColumn Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Key="Status" SourceType="Status"/>
+                            <ListViewColumn Caption="事务单号" ColumnType="HyperLink" DataColumnKey="No" Key="No">
+                                <OnClick>
+                                    <![CDATA[
+									
+									Open('V_Tx214', OID);
+									]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" ItemKey="LRP_Owner" Key="OwnerId"/>
+                            <ListViewColumn Caption="货主单号" ColumnType="TextEditor" DataColumnKey="OwnerNo" Key="OwnerNo"/>
+                            <ListViewColumn Caption="越库通知单号" ColumnType="TextEditor" DataColumnKey="RefNo" Key="NoticeNo"/>
+                            <ListViewColumn Caption="事务日期时间" ColumnType="DatePicker" DataColumnKey="TxDateTime" Key="TxDateTime"/>
+                            <ListViewColumn Caption="备注" ColumnType="TextEditor" DataColumnKey="Remark" Key="Remark"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[
+								Open('V_Tx214', OID);
+						]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="165px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+        
+    ]]>
+    </OnLoad>
+</Form>

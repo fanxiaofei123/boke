@@ -1,0 +1,231 @@
+九月 13, 2018 1:49:05 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: contextInitialized()
+九月 13, 2018 1:49:05 下午 org.apache.catalina.core.ApplicationContext log
+信息: SessionListener: contextInitialized()
+九月 13, 2018 1:49:05 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: attributeAdded('org.apache.jasper.compiler.TldLocationsCache', 'org.apache.jasper.compiler.TldLocationsCache@385dcc83')
+九月 13, 2018 1:49:09 下午 org.apache.catalina.core.StandardContext listenerStart
+严重: Exception sending context initialized event to listener instance of class com.bokesoft.yes.mid.init.ServerStart
+java.lang.RuntimeException: com.bokesoft.yigo.meta.base.MetaException: 应用路径D:\YesWorkspace\yes\test\Config\Demo无效。
+	at com.bokesoft.yes.mid.init.ServerStart.contextInitialized(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDirectory(HostConfig.java:1113)
+	at org.apache.catalina.startup.HostConfig$DeployDirectory.run(HostConfig.java:1671)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: com.bokesoft.yigo.meta.base.MetaException: 应用路径D:\YesWorkspace\yes\test\Config\Demo无效。
+	at com.bokesoft.yigo.meta.factory.DefaultMetaFactory.loadSolution(DefaultMetaFactory.java:290)
+	at com.bokesoft.yigo.meta.factory.DefaultMetaFactory.getSolution(DefaultMetaFactory.java:489)
+	at com.bokesoft.yes.init.MidSystemInit.initSetting(MidSystemInit.java:500)
+	at com.bokesoft.yes.init.MidSystemInit.impl_init(MidSystemInit.java:133)
+	at com.bokesoft.yes.init.MidSystemInit.init(MidSystemInit.java:227)
+	... 14 more
+
+九月 13, 2018 1:50:35 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: contextInitialized()
+九月 13, 2018 1:50:35 下午 org.apache.catalina.core.ApplicationContext log
+信息: SessionListener: contextInitialized()
+九月 13, 2018 1:50:35 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: attributeAdded('org.apache.jasper.compiler.TldLocationsCache', 'org.apache.jasper.compiler.TldLocationsCache@523673f')
+九月 13, 2018 1:50:47 下午 org.apache.catalina.core.StandardContext listenerStart
+严重: Exception sending context initialized event to listener instance of class com.bokesoft.yes.mid.init.ServerStart
+java.lang.RuntimeException: java.lang.ClassNotFoundException: com.bokesoft.prj21675.scchwl.mid.TransportTaskAir2CreateAwbDom
+	at com.bokesoft.yes.mid.init.ServerStart.contextInitialized(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDirectory(HostConfig.java:1113)
+	at org.apache.catalina.startup.HostConfig$DeployDirectory.run(HostConfig.java:1671)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: com.bokesoft.prj21675.scchwl.mid.TransportTaskAir2CreateAwbDom
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1714)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:264)
+	at com.bokesoft.yes.init.MidSystemInit.impl_init(MidSystemInit.java:145)
+	at com.bokesoft.yes.init.MidSystemInit.init(MidSystemInit.java:227)
+	... 14 more
+
+九月 13, 2018 1:52:03 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: contextInitialized()
+九月 13, 2018 1:52:03 下午 org.apache.catalina.core.ApplicationContext log
+信息: SessionListener: contextInitialized()
+九月 13, 2018 1:52:03 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: attributeAdded('org.apache.jasper.compiler.TldLocationsCache', 'org.apache.jasper.compiler.TldLocationsCache@2993128f')
+九月 13, 2018 1:52:25 下午 org.apache.catalina.core.StandardContext listenerStart
+严重: Exception sending context initialized event to listener instance of class com.bokesoft.yes.mid.init.ServerStart
+java.lang.RuntimeException: org.apache.commons.dbcp.SQLNestedException: Cannot create PoolableConnectionFactory (通过端口 1433 连接到主机 localhost 的 TCP/IP 连接失败。错误:“Connection refused: connect。请验证连接属性。确保 SQL Server 的实例正在主机上运行，且在此端口接受 TCP/IP 连接，还要确保防火墙没有阻止到此端口的 TCP 连接。”。)
+	at com.bokesoft.yes.mid.init.ServerStart.contextInitialized(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDirectory(HostConfig.java:1113)
+	at org.apache.catalina.startup.HostConfig$DeployDirectory.run(HostConfig.java:1671)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.commons.dbcp.SQLNestedException: Cannot create PoolableConnectionFactory (通过端口 1433 连接到主机 localhost 的 TCP/IP 连接失败。错误:“Connection refused: connect。请验证连接属性。确保 SQL Server 的实例正在主机上运行，且在此端口接受 TCP/IP 连接，还要确保防火墙没有阻止到此端口的 TCP 连接。”。)
+	at org.apache.commons.dbcp.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:1549)
+	at org.apache.commons.dbcp.BasicDataSource.createDataSource(BasicDataSource.java:1388)
+	at org.apache.commons.dbcp.BasicDataSource.getConnection(BasicDataSource.java:1044)
+	at com.bokesoft.yes.mid.connection.DbcpConnectionFactory.getConnection(Unknown Source)
+	at com.bokesoft.yes.mid.connection.DBManagerFactory.getDBManager(Unknown Source)
+	at com.bokesoft.yes.dsn.DefaultDSNFactory.createDSN(DefaultDSNFactory.java:28)
+	at com.bokesoft.yigo.mid.base.BaseContext.getDBManager(Unknown Source)
+	at com.bokesoft.yes.init.DBMaintainceListener.invoke(DBMaintainceListener.java:72)
+	at com.bokesoft.yes.init.MidSystemInit.doStartListener(MidSystemInit.java:324)
+	at com.bokesoft.yes.init.MidSystemInit.impl_init(MidSystemInit.java:204)
+	at com.bokesoft.yes.init.MidSystemInit.init(MidSystemInit.java:227)
+	... 14 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: 通过端口 1433 连接到主机 localhost 的 TCP/IP 连接失败。错误:“Connection refused: connect。请验证连接属性。确保 SQL Server 的实例正在主机上运行，且在此端口接受 TCP/IP 连接，还要确保防火墙没有阻止到此端口的 TCP 连接。”。
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDriverError(SQLServerException.java:190)
+	at com.microsoft.sqlserver.jdbc.SQLServerException.ConvertConnectExceptionToSQLServerException(SQLServerException.java:241)
+	at com.microsoft.sqlserver.jdbc.SocketFinder.findSocket(IOBuffer.java:2243)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.open(IOBuffer.java:491)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:1309)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:991)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:827)
+	at com.microsoft.sqlserver.jdbc.SQLServerDriver.connect(SQLServerDriver.java:1012)
+	at org.apache.commons.dbcp.DriverConnectionFactory.createConnection(DriverConnectionFactory.java:38)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.dbcp.BasicDataSource.validateConnectionFactory(BasicDataSource.java:1556)
+	at org.apache.commons.dbcp.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:1545)
+	... 24 more
+
+九月 13, 2018 1:52:41 下午 org.apache.catalina.core.StandardContext listenerStart
+严重: Exception sending context initialized event to listener instance of class com.bokesoft.yes.mid.init.ServerStart
+java.lang.RuntimeException: org.apache.commons.dbcp.SQLNestedException: Cannot create PoolableConnectionFactory (Listener refused the connection with the following error:
+ORA-12505, TNS:listener does not currently know of SID given in connect descriptor
+ )
+	at com.bokesoft.yes.mid.init.ServerStart.contextInitialized(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDirectory(HostConfig.java:1113)
+	at org.apache.catalina.startup.HostConfig$DeployDirectory.run(HostConfig.java:1671)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.commons.dbcp.SQLNestedException: Cannot create PoolableConnectionFactory (Listener refused the connection with the following error:
+ORA-12505, TNS:listener does not currently know of SID given in connect descriptor
+ )
+	at org.apache.commons.dbcp.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:1549)
+	at org.apache.commons.dbcp.BasicDataSource.createDataSource(BasicDataSource.java:1388)
+	at org.apache.commons.dbcp.BasicDataSource.getConnection(BasicDataSource.java:1044)
+	at com.bokesoft.yes.mid.connection.DbcpConnectionFactory.getConnection(Unknown Source)
+	at com.bokesoft.yes.mid.connection.DBManagerFactory.getDBManager(Unknown Source)
+	at com.bokesoft.yes.dsn.DefaultDSNFactory.createDSN(DefaultDSNFactory.java:28)
+	at com.bokesoft.yigo.mid.base.BaseContext.getDBManager(Unknown Source)
+	at com.bokesoft.yes.init.DBMaintainceListener.invoke(DBMaintainceListener.java:70)
+	at com.bokesoft.yes.init.MidSystemInit.doStartListener(MidSystemInit.java:304)
+	at com.bokesoft.yes.init.MidSystemInit.impl_init(MidSystemInit.java:184)
+	at com.bokesoft.yes.init.MidSystemInit.init(MidSystemInit.java:207)
+	... 14 more
+Caused by: java.sql.SQLException: Listener refused the connection with the following error:
+ORA-12505, TNS:listener does not currently know of SID given in connect descriptor
+ 
+	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:673)
+	at oracle.jdbc.driver.PhysicalConnection.<init>(PhysicalConnection.java:715)
+	at oracle.jdbc.driver.T4CConnection.<init>(T4CConnection.java:385)
+	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:30)
+	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:564)
+	at org.apache.commons.dbcp.DriverConnectionFactory.createConnection(DriverConnectionFactory.java:38)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.dbcp.BasicDataSource.validateConnectionFactory(BasicDataSource.java:1556)
+	at org.apache.commons.dbcp.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:1545)
+	... 24 more
+Caused by: oracle.net.ns.NetException: Listener refused the connection with the following error:
+ORA-12505, TNS:listener does not currently know of SID given in connect descriptor
+ 
+	at oracle.net.ns.NSProtocolStream.negotiateConnection(NSProtocolStream.java:272)
+	at oracle.net.ns.NSProtocol.connect(NSProtocol.java:263)
+	at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:1360)
+	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:486)
+	... 32 more
+
+九月 13, 2018 1:55:45 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: contextInitialized()
+九月 13, 2018 1:55:45 下午 org.apache.catalina.core.ApplicationContext log
+信息: SessionListener: contextInitialized()
+九月 13, 2018 1:55:45 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: attributeAdded('org.apache.jasper.compiler.TldLocationsCache', 'org.apache.jasper.compiler.TldLocationsCache@2993128f')
+九月 13, 2018 1:56:07 下午 org.apache.catalina.core.StandardContext listenerStart
+严重: Exception sending context initialized event to listener instance of class com.bokesoft.yes.mid.init.ServerStart
+java.lang.RuntimeException: org.apache.commons.dbcp.SQLNestedException: Cannot create PoolableConnectionFactory (通过端口 1433 连接到主机 localhost 的 TCP/IP 连接失败。错误:“Connection refused: connect。请验证连接属性。确保 SQL Server 的实例正在主机上运行，且在此端口接受 TCP/IP 连接，还要确保防火墙没有阻止到此端口的 TCP 连接。”。)
+	at com.bokesoft.yes.mid.init.ServerStart.contextInitialized(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDirectory(HostConfig.java:1113)
+	at org.apache.catalina.startup.HostConfig$DeployDirectory.run(HostConfig.java:1671)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.commons.dbcp.SQLNestedException: Cannot create PoolableConnectionFactory (通过端口 1433 连接到主机 localhost 的 TCP/IP 连接失败。错误:“Connection refused: connect。请验证连接属性。确保 SQL Server 的实例正在主机上运行，且在此端口接受 TCP/IP 连接，还要确保防火墙没有阻止到此端口的 TCP 连接。”。)
+	at org.apache.commons.dbcp.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:1549)
+	at org.apache.commons.dbcp.BasicDataSource.createDataSource(BasicDataSource.java:1388)
+	at org.apache.commons.dbcp.BasicDataSource.getConnection(BasicDataSource.java:1044)
+	at com.bokesoft.yes.mid.connection.DbcpConnectionFactory.getConnection(Unknown Source)
+	at com.bokesoft.yes.mid.connection.DBManagerFactory.getDBManager(Unknown Source)
+	at com.bokesoft.yes.dsn.DefaultDSNFactory.createDSN(DefaultDSNFactory.java:28)
+	at com.bokesoft.yigo.mid.base.BaseContext.getDBManager(Unknown Source)
+	at com.bokesoft.yes.init.DBMaintainceListener.invoke(DBMaintainceListener.java:72)
+	at com.bokesoft.yes.init.MidSystemInit.doStartListener(MidSystemInit.java:324)
+	at com.bokesoft.yes.init.MidSystemInit.impl_init(MidSystemInit.java:204)
+	at com.bokesoft.yes.init.MidSystemInit.init(MidSystemInit.java:227)
+	... 14 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: 通过端口 1433 连接到主机 localhost 的 TCP/IP 连接失败。错误:“Connection refused: connect。请验证连接属性。确保 SQL Server 的实例正在主机上运行，且在此端口接受 TCP/IP 连接，还要确保防火墙没有阻止到此端口的 TCP 连接。”。
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDriverError(SQLServerException.java:190)
+	at com.microsoft.sqlserver.jdbc.SQLServerException.ConvertConnectExceptionToSQLServerException(SQLServerException.java:241)
+	at com.microsoft.sqlserver.jdbc.SocketFinder.findSocket(IOBuffer.java:2243)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.open(IOBuffer.java:491)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:1309)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:991)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:827)
+	at com.microsoft.sqlserver.jdbc.SQLServerDriver.connect(SQLServerDriver.java:1012)
+	at org.apache.commons.dbcp.DriverConnectionFactory.createConnection(DriverConnectionFactory.java:38)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.dbcp.BasicDataSource.validateConnectionFactory(BasicDataSource.java:1556)
+	at org.apache.commons.dbcp.BasicDataSource.createPoolableConnectionFactory(BasicDataSource.java:1545)
+	... 24 more
+
+九月 13, 2018 1:57:44 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: contextInitialized()
+九月 13, 2018 1:57:44 下午 org.apache.catalina.core.ApplicationContext log
+信息: SessionListener: contextInitialized()
+九月 13, 2018 1:57:44 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: attributeAdded('org.apache.jasper.compiler.TldLocationsCache', 'org.apache.jasper.compiler.TldLocationsCache@2993128f')
+九月 13, 2018 1:58:52 下午 org.apache.catalina.core.ApplicationContext log
+信息: SessionListener: contextDestroyed()
+九月 13, 2018 1:58:52 下午 org.apache.catalina.core.ApplicationContext log
+信息: ContextListener: contextDestroyed()

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="引入合同到信息补充" Key="ImportContract2Supplement" SrcDataObjectKey="CHCS_ImportContract" TgtDataObjectKey="CHCS_Verdor_Contract_Supplement">
+    <SourceTableCollection Height="270" Width="289" X="30" Y="30">
+        <SourceTable Key="CHCS_Contract_Price" IsPrimary="true" TargetTableKey="CHCS_Contract_Price_Maintain">
+            <SourceField Definition="Product" TargetFieldKey="Product" RefFieldKey="Product"/>
+            <SourceField Definition="Unit_Price" TargetFieldKey="Origin_Unit_Price" RefFieldKey="Unit_Price"/>
+            <SourceField Definition="Valid_Time_Start" TargetFieldKey="Origin_Valid_Time_Start" RefFieldKey="Valid_Time_Start"/>
+            <SourceField Definition="Valid_Time_End" TargetFieldKey="Origin_Valid_Time_End" RefFieldKey="Valid_Time_End"/>
+            <SourceField Definition="OID" TargetFieldKey="Origin_OID"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="270" Width="386" X="389" Y="30">
+        <TargetTable Key="CHCS_Contract_Price_Maintain" IsPrimary="true">
+            <TargetField Definition="Product"/>
+            <TargetField Definition="Origin_Unit_Price"/>
+            <TargetField Definition="Origin_Valid_Time_Start"/>
+            <TargetField Definition="Origin_Valid_Time_End"/>
+            <TargetField Definition="Origin_OID"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

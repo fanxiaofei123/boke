@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_LogisticsAppointment" Caption="业务预约" FormType="Entity" ViewKey="V_LogisticsAppointmentView">
+    <DataSource RefObjectKey="LRP_LogisticsAppointment"/>
+    <OperationCollection>
+        <Operation Caption="编辑" Key="Edit" RefKey="Edit"/>
+        <Operation Caption="保存" Key="Save" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[ 
+				SaveData();UpdateView();		
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Caption="确认" Key="Confirm" RefKey="Confirm"/>
+        <Operation Caption="撤销确认" Key="Confirm-R" RefKey="Confirm-R"/>
+        <Operation Caption="完成" Key="Finish" Visible="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[				Confirm('确定要将当前记录进行完成吗？','YES_NO',{YES:{Status=StatusValue('finished');SaveData();UpdateView();},NO:{}});
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[Status=StatusValue('confirmed');]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销完成" Key="Finish-R" Visible="ReadOnly()&amp;&amp;Status==StatusValue('finished')">
+            <Action>
+                <![CDATA[				Confirm('确定要将当前记录进行撤销完成吗？','YES_NO',{YES:{Status=StatusValue('confirmed');SaveData();UpdateView();},NO:{}});
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[Status=StatusValue('finished');]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="作废" Key="ToCancel" RefKey="ToCancel"/>
+        <Operation Caption="撤销作废" Key="ToCancel-R" RefKey="ToCancel-R"/>
+        <!--  <Operation Caption="确认" Key="Confirm" Visible="ReadOnly()&amp;&amp;Status==100">
+            <Action>
+                <![CDATA[Status=200;SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销确认" Key="Confirm-R" Visible="ReadOnly()&amp;&amp;Status==200">
+            <Action>
+                <![CDATA[Status=100;SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Finish" Caption="完成" Visible="ReadOnly()&amp;&amp;Status==200">
+            <Action>
+                <![CDATA[
+					Status=900;SaveData();UpdateView();
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="Finish-R" Caption="撤销完成" Visible="ReadOnly()&amp;&amp;Status==900">
+            <Action>
+                <![CDATA[
+				Status=200;SaveData();UpdateView();
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="ToCancel" Caption="作废" Visible="ReadOnly()&amp;&amp;Status==100">
+            <Action>
+                <![CDATA[
+					Status=20;SaveData();UpdateView();
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="ToCancel-R" Caption="撤销作废" Visible="ReadOnly()&amp;&amp;Status==20">
+            <Action>
+                <![CDATA[
+				Status=100;SaveData();UpdateView();
+				]]>
+            </Action>
+        </Operation> -->
+        <Operation Caption="删除" Key="Delete" RefKey="Delete"/>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="10px" Caption="基本信息">
+                        <TextEditor Key="No" Caption="预约号" BuddyKey="Lab_No" X="1" Y="0" Enable="false" AsQuery="true">
+                            <DataBinding ColumnKey="No" TableKey="LRP_LogisticsAppointment_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_No" Caption="预约号" X="0" Y="0"/>
+                        <Dict Key="OwnerUserId" Caption="货主用户" BuddyKey="Lab_OwnerUserId" X="4" Y="0" Enable="Status==100" ItemKey="LRP_OwnerUser" AsQuery="true">
+                            <DataBinding ColumnKey="OwnerUserId" TableKey="LRP_LogisticsAppointment_H"/>
+                        </Dict>
+                        <Label Key="Lab_OwnerUserId" Caption="货主用户" X="3" Y="0"/>
+                        <TextEditor Key="Contactor" Caption="联系人" BuddyKey="Lab_Contactor" X="1" Y="1" Enable="Status==100">
+                            <DataBinding ColumnKey="Contactor" TableKey="LRP_LogisticsAppointment_H" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Contactor" Caption="联系人" X="0" Y="1"/>
+                        <TextEditor Key="ContactTel" Caption="联系人电话" BuddyKey="Lab_ContactTel" X="4" Y="1" Enable="Status==100" AsQuery="true">
+                            <DataBinding ColumnKey="ContactTel" TableKey="LRP_LogisticsAppointment_H" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_ContactTel" Caption="联系人电话" X="3" Y="1"/>
+                        <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="1" Enable="false" SourceType="Status" AsQuery="true">
+                            <DataBinding ColumnKey="Status" TableKey="LRP_LogisticsAppointment_H" DefaultValue="100"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status" Caption="状态" X="6" Y="1"/>
+                        <TextArea Key="Requirement" Caption="需求描述" BuddyKey="Lab_Requirement" X="1" Y="2" Enable="Status==100" XSpan="7">
+                            <DataBinding ColumnKey="Requirement" TableKey="LRP_LogisticsAppointment_H"/>
+                        </TextArea>
+                        <Label Key="Lab_Requirement" Caption="需求描述" X="0" Y="2"/>
+                        <TextArea Key="Treatment" Caption="处理情况" BuddyKey="Lab_Treatment" X="1" Y="3" Enable="Status==100 || Status==200" XSpan="7">
+                            <DataBinding ColumnKey="Treatment" TableKey="LRP_LogisticsAppointment_H"/>
+                        </TextArea>
+                        <Label Key="Lab_Treatment" Caption="处理情况" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8" RowHeight="30">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="second_head" Height="pref" Padding="10px" Caption="系统信息">
+                        <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" ItemKey="Operator">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator();" TableKey="LRP_LogisticsAppointment_H"/>
+                        </Dict>
+                        <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                        <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="4" Y="0" AsQuery="true">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_LogisticsAppointment_H"/>
+                            <Format/>
+                        </DatePicker>
+                        <Label Key="Lab_CREATETIME" Caption="创建时间" X="3" Y="0"/>
+                        <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" ItemKey="Operator">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator();" TableKey="LRP_LogisticsAppointment_H"/>
+                        </Dict>
+                        <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="4" Y="1">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_LogisticsAppointment_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="3" Y="1"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

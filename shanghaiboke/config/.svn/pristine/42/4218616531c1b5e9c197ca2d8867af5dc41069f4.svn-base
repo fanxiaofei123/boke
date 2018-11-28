@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <ToCancel>ToCancel</ToCancel>
+        <New>New</New>
+        <Confirm-R>Confirm-R</Confirm-R>
+        <Receipt>Receipt</Receipt>
+        <Cancel>Cancel</Cancel>
+        <CopyNew>CopyNew</CopyNew>
+        <Confirm>Confirm</Confirm>
+        <Edit>Edit</Edit>
+        <ToCancel-R>ToCancel-R</ToCancel-R>
+        <Putaway>Putaway</Putaway>
+        <Save>Save</Save>
+        <Close>Close</Close>
+		<Order>Railway</Order>
+    </Opt>
+    <UI>
+<V_ReturnNotice>ReturnNotice</V_ReturnNotice>
+        <Lab_Contactor>Contactor</Lab_Contactor>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <SystemInfo>SystemInfo</SystemInfo>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <Lab_RefOutboundNo>Original Ex-warehouse Order No</Lab_RefOutboundNo>
+        <Lab_CarrierId>CarrierId</Lab_CarrierId>
+        <Lab_ContactTel>ContactTel</Lab_ContactTel>
+        <Lab_OwnerId>Shipper</Lab_OwnerId>
+        <first_head>BasicInformation</first_head>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <Lab_SendPartyId>SendPartyId</Lab_SendPartyId>
+        <Lab_PlatformId>PlatformId</Lab_PlatformId>
+        <Lab_NoticeNo>In Storage Notice No</Lab_NoticeNo>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_ExpectDateTimeTo>ExpectDateTimeTo</Lab_ExpectDateTimeTo>
+        <Lab_LogisticsOrderNo>LogisticsOrderNo</Lab_LogisticsOrderNo>
+        <Lab_OwnerNo>Contract No</Lab_OwnerNo>
+        <Grid0>MATARAILDETAIL</Grid0>
+        <NeedExchange>NeedExchange</NeedExchange>
+        <Lab_Remark>Remark</Lab_Remark>
+        <Lab_WarehouseCenterId>Storage Centre</Lab_WarehouseCenterId>
+        <Lab_ExpectDateTimeFrom>ExpectDateTimeFrom</Lab_ExpectDateTimeFrom>
+    </UI>
+    <GridColumn>
+        <ExpireDate>ExpireDate</ExpireDate>
+        <BatchNo>BatchNo</BatchNo>
+        <RecvDate>RecvDate</RecvDate>
+        <RecvQty>Receipt</RecvQty>
+        <Qty>Qty</Qty>
+        <MaterialStatusId>MaterialStatus</MaterialStatusId>
+        <MaterialUnit>Unit</MaterialUnit>
+        <StoreroomId>RecomWarehouse</StoreroomId>
+        <PictureNo>Picture No</PictureNo>
+        <ManufDate>ManufDate</ManufDate>
+        <MaterialId>MaterialId</MaterialId>
+        <DictUserDef5>DictUserDef5</DictUserDef5>
+        <DictUserDef4>DictUserDef4</DictUserDef4>
+        <ProjectId>ProjectId</ProjectId>
+        <LocationId>RecomStorageSpaces</LocationId>
+        <DateUserDef2>DateUserDef2</DateUserDef2>
+        <DateUserDef1>DateUserDef1</DateUserDef1>
+        <NumUserDef3>NumUserDef3</NumUserDef3>
+        <NumUserDef2>NumUserDef2</NumUserDef2>
+        <NumUserDef1>NumUserDef1</NumUserDef1>
+        <BasicQty>BasicUnitAmount</BasicQty>
+        <Select>Select</Select>
+        <DictUserDef3>DictUserDef3</DictUserDef3>
+        <DictUserDef2>DictUserDef2</DictUserDef2>
+        <StoreareaId>RecomReservoirArea</StoreareaId>
+        <DictUserDef1>DictUserDef1</DictUserDef1>
+        <StrUserDef5>StrUserDef5</StrUserDef5>
+        <StrUserDef4>StrUserDef4</StrUserDef4>
+        <StrUserDef3>StrUserDef3</StrUserDef3>
+        <StrUserDef2>StrUserDef2</StrUserDef2>
+        <EnglishName>English Name</EnglishName>
+        <StrUserDef1>StrUserDef1</StrUserDef1>
+    </GridColumn>
+    <Cell>
+        <Qty>Qty>0</Qty>
+    </Cell>
+</StringTable>

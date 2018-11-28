@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Label2>Currently there is no documents have been receiving!</Label2>
+        <OrderTitle>AccordingToTheNoticeOfReceipt</OrderTitle>
+        <NoticeNo>NoticeNo</NoticeNo>
+        <OwnerName>Owner</OwnerName>
+        <TxTypeCode>TransactionType</TxTypeCode>
+        <CREATETIME>CREATETIME</CREATETIME>
+        <No2>No</No2>
+        <OwnerName2>Owner</OwnerName2>
+        <NoticeNo2>NoticeNo</NoticeNo2>
+        <CREATETIME2>CREATETIME</CREATETIME2>
+        <TxTypeCode2>TransactionType</TxTypeCode2>
+        <Status>Status</Status>
+        <cztzd>requisition</cztzd>
+        <shls>history</shls>
+    </UI>
+    <Prompt>
+        <select>orderNo</select>
+    </Prompt>
+	<Items-TxTypeCode> 
+		<Item-a>WarehousingNotice</Item-a>
+		<Item-b>ReturnNotice</Item-b>
+		<Item-c>CrossDocking</Item-c>
+	</Items-TxTypeCode>
+	<Items-TxTypeCode2> 
+		<Item-101>Notice</Item-101>
+		<Item-103>salesReturn</Item-103>
+		<Item-104>CrossDocking</Item-104>
+	</Items-TxTypeCode2>
+	<Items-Status> 
+		<Item-100>enter</Item-100>
+		<Item-500>processing</Item-500>
+		<Item-900>finish</Item-900>
+	</Items-Status>
+</StringTable>

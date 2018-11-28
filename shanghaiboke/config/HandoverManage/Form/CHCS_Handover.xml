@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Handover" Caption="配备交接单" FormType="Entity" ViewKey="CHCS_HandoverView">
+    <DataSource RefObjectKey="CHCS_Handover"/>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData(); UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[New('CHCS_Handover', 'self');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Confirm(LocaleString("CommonDef", "key2"),'YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="Sign" Caption="签收"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" OverflowY="Auto" Caption="基本信息">
+                            <TextEditor Key="NO" Caption="配备单号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false" AsQuery="true" XSpan="2">
+                                <DataBinding ColumnKey="NO" TableKey="CHCS_Handover_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="配备单号" X="0" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="交接日期" BuddyKey="Lab_BillDate" X="5" Y="0" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="BillDate" TableKey="CHCS_Handover_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="交接日期" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="9" Y="0" Enable="false" SourceType="Status" XSpan="2">
+                                <DataBinding ColumnKey="Status" TableKey="CHCS_Handover_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="单据状态" X="8" Y="0"/>
+                            <Dict Key="Vendor" Caption="航食公司" BuddyKey="Lab_Vendor" X="1" Y="3" ItemKey="Vendor" AsQuery="true" XSpan="2">
+                                <DataBinding ColumnKey="Vendor" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Vendor" Caption="航食公司" X="0" Y="3"/>
+                            <DatePicker Key="FlightDate" Caption="航班日期" BuddyKey="Lab_FlightDate" X="1" Y="1" OnlyDate="true" AsQuery="true" XSpan="2">
+                                <DataBinding ColumnKey="FlightDate" TableKey="CHCS_Handover_H"/>
+                                <Format/>
+                            </DatePicker>
+                            <Label Key="Lab_FlightDate" Caption="航班日期" X="0" Y="1"/>
+                            <Dict Key="Aircraft_Number" Caption="飞机号" BuddyKey="Lab_Aircraft_Number" X="1" Y="2" AsQuery="true" XSpan="2" ItemKey="CHCS_Aircraft">
+                                <DataBinding ColumnKey="Aircraft_Number" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Aircraft_Number" Caption="飞机号" X="0" Y="2"/>
+                            <Dict Key="Aircraft_Type_Number" Caption="机型" BuddyKey="Lab_Aircraft_Type_Number" X="5" Y="2" ItemKey="CHCS_Aircraft_Type" AsQuery="true" XSpan="2">
+                                <DataBinding ColumnKey="Aircraft_Type_Number" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Aircraft_Type_Number" Caption="机型" X="4" Y="2"/>
+                            <TextEditor Key="Lock_Catch_Number" Caption="锁扣号" BuddyKey="Lab_Lock_Catch_Number" X="5" Y="3" XSpan="2">
+                                <DataBinding ColumnKey="Lock_Catch_Number" TableKey="CHCS_Handover_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Lock_Catch_Number" Caption="锁扣号" X="4" Y="3"/>
+                            <Dict Key="Steward" Caption="乘务员" BuddyKey="Lab_Steward" X="9" Y="3" ItemKey="CHCS_Employee" XSpan="2">
+                                <DataBinding ColumnKey="Steward" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Steward" Caption="乘务员" X="8" Y="3"/>
+                            <Dict Key="Aircrew" Caption="航机员" BuddyKey="Lab_Aircrew" X="1" Y="4" ItemKey="CHCS_Employee" XSpan="2">
+                                <DataBinding ColumnKey="Aircrew" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Aircrew" Caption="航机员" X="0" Y="4"/>
+                            <Dict Key="Flight_Number" Caption="航班号" BuddyKey="Lab_Flight_Number" X="5" Y="1" ItemKey="CHCS_Flight" XSpan="2" AsQuery="true">
+                                <DataBinding ColumnKey="Flight_Number" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Flight_Number" Caption="航班号" X="4" Y="1"/>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="second_head" Height="pref" Padding="5px" Caption="其他信息">
+                            <Dict Key="Creator" Caption="制单人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Creator" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="制单人" X="0" Y="0"/>
+                            <DatePicker Key="CreateTime" Caption="制单日期" BuddyKey="Lab_CreateTime" X="3" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CreateTime" TableKey="CHCS_Handover_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="制单日期" X="2" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Modifier" TableKey="CHCS_Handover_H"/>
+                            </Dict>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改时间" BuddyKey="Lab_ModifyTime" X="3" Y="1" Enable="false">
+                                <DataBinding ColumnKey="ModifyTime" TableKey="CHCS_Handover_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="2" Y="1"/>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <Grid Key="Grid1" Caption="Grid1">
+                        <GridColumnCollection>
+                            <GridColumn Key="column1" Caption="选择" Width="80px"/>
+                            <GridColumn Key="Product" Caption="餐种" Width="80px"/>
+                            <GridColumn Key="Vendor_L" Caption="航食公司" Width="80px"/>
+                            <GridColumn Key="Vendor_Meal_Amount" Caption="航食配餐数量" Width="80px"/>
+                            <GridColumn Key="Actual_Meal_Amount" Caption="实际餐食数量" Width="80px"/>
+                            <GridColumn Key="Food_TableWare_Amount" Caption="配餐餐具数量" Width="80px"/>
+                            <GridColumn Key="Unit" Caption="单位" Width="80px"/>
+                            <GridColumn Key="Remark" Caption="备注" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="36" TableKey="CHCS_Handover_L">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                <GridCell Key="Product" Caption="餐种" CellType="Dict" ItemKey="CHCS_Product">
+                                    <DataBinding ColumnKey="Product"/>
+                                </GridCell>
+                                <GridCell Key="Vendor_L" Caption="航食公司" CellType="Dict" ItemKey="Vendor">
+                                    <DataBinding ColumnKey="Vendor"/>
+                                </GridCell>
+                                <GridCell Key="Vendor_Meal_Amount" Caption="航食配餐数量" CellType="NumberEditor" Format="">
+                                    <DataBinding ColumnKey="Vendor_Meal_Amount"/>
+                                </GridCell>
+                                <GridCell Key="Actual_Meal_Amount" Caption="实际餐食数量" CellType="NumberEditor" Format="">
+                                    <DataBinding ColumnKey="Actual_Meal_Amount"/>
+                                </GridCell>
+                                <GridCell Key="Food_TableWare_Amount" Caption="配餐餐具数量" CellType="NumberEditor" Format="">
+                                    <DataBinding ColumnKey="Food_TableWare_Amount"/>
+                                </GridCell>
+                                <GridCell Key="Unit" Caption="单位" CellType="Dict" ItemKey="LRP_Lookup_L">
+                                    <DataBinding ColumnKey="Unit"/>
+                                    <ItemFilter>
+                                        <Filter Query="select oid  from LRP_Lookup_L where HeadCode='DW'" Type="DataSet"/>
+                                    </ItemFilter>
+                                </GridCell>
+                                <GridCell Key="Remark" Caption="备注" CellType="TextEditor">
+                                    <DataBinding ColumnKey="Remark"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="234px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

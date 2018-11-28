@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CommonDef>
+    <OperationCollection>
+        <Operation Caption="复制新增" Key="CopyNew" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				CopyNew();
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="保存" Key="Save" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[
+	                       if(GetRowCount('Grid0',false)<=0){
+								Confirm('明细不可为空','OK',{});
+						   }
+								SaveData();
+								UpdateView();
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="Delete" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+			Confirm(LocaleString("CommonDef", "key2"),'YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});
+			
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="DeleteTx" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+			Confirm('是否确定删除当前单据？','YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});		
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close">
+            <Action>
+                <![CDATA[Close();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="确认" Key="Confirm" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Status=StatusValue('confirmed');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('prepared');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销确认" Key="Confirm-R" Visible="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[Status=StatusValue('prepared');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('confirmed');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="完成" Key="Finish" Visible="ReadOnly()&amp;&amp;Status==StatusValue('handled')">
+            <Action>
+                <![CDATA[				Confirm('确定要将当前记录进行完成吗？','YES_NO',{YES:{Status=StatusValue('finished');SaveData();UpdateView();},NO:{}});
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('handled');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销完成" Key="Finish-R" Visible="ReadOnly()&amp;&amp;Status==StatusValue('finished')">
+            <Action>
+                <![CDATA[				Confirm('确定要将当前记录进行撤销完成吗？','YES_NO',{YES:{Status=StatusValue('handled');SaveData();UpdateView();},NO:{}});
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('finished');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="作废" Key="ToCancel" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Status=StatusValue('cancelled');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('prepared');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销作废" Key="ToCancel-R" Visible="ReadOnly()&amp;&amp;Status==StatusValue('cancelled')">
+            <Action>
+                <![CDATA[Status=StatusValue('prepared');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('cancelled');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="完成" Key="FinishTrans" Enable="ReadOnly()&amp;&amp;Status==StatusValue('loaded')">
+            <Action>
+                <![CDATA[Status = 900;
+if(ToString(FinishDateTime) == ''){
+    SetValue('FinishDateTime', ServerDate());
+}
+SaveData(); UpdateView();
+]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('loaded');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销完成" Key="FinishTrans-R" Enable="ReadOnly()&amp;&amp;Status==StatusValue('finished')">
+            <Action>
+                <![CDATA[Status = 730;
+if(ToString(FinishDateTime) != ''){
+    SetValue('FinishDateTime', '');
+}
+SaveData(); UpdateView();
+]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('finished');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="装货" Key="Load" Enable="ReadOnly()&amp;&amp;Status==StatusValue('arranged')">
+            <Action>
+                <![CDATA[Status = 730;
+if(ToString(LoadDateTime) == ''){
+    SetValue('LoadDateTime', ServerDate());
+}
+SaveData(); UpdateView();
+]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('arranged');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销装货" Key="Load-R" Enable="ReadOnly()&amp;&amp;Status==StatusValue('loaded')">
+            <Action>
+                <![CDATA[Status = 710;
+if(ToString(LoadDateTime) != ''){
+    SetValue('LoadDateTime', '');
+}
+SaveData(); UpdateView();
+]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('loaded');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="完成" Key="BatchFinishTrans">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm('没有选中任何记录，请选择后再完成。','OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',730,')){
+	Confirm('只有状态为已配载的运输作业单才能进行完成操作。','OK','OK:{}');
+	return true;
+}	
+Confirm('确定要将选中的记录进行完成吗？','YES_NO',{YES:{
+	loop "ListView0" (true){			
+		if(Select == true){
+			var date = ServerDate();
+			InvokeService("LRP_BatchUpdateField",false,false,"LRP_TransportJob",OID,"LRP_TransportJob_H","Status;FinishDateTime","900;"& date );
+			
+			LoadData();ShowData();
+		}					
+	}
+},NO:{}});
+]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销完成" Key="BatchFinishTrans-R">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm('没有选中任何记录，请选择后再撤销完成。','OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',900,')){
+	Confirm('只有状态为已完成的运输作业单才能进行撤销完成操作。','OK','OK:{}');
+	return true;
+}
+Confirm('确定要将选中的记录进行撤销完成吗？','YES_NO',{YES:{
+	loop "ListView0" (true){			
+		if(Select == true){
+			InvokeService("LRP_BatchUpdateField",false,false,"LRP_TransportJob",OID,"LRP_TransportJob_H","Status;FinishDateTime","730;null" );
+			
+			LoadData();ShowData();
+		}					
+	}
+},NO:{}});
+]]>
+            </Action>
+        </Operation>
+        <Operation Caption="装货" Key="BatchLoad">
+            <Action>
+                <![CDATA[//只有状态为已配载的运输作业单才能进行装货操作。
+if(CheckListNoSelect()){
+	Confirm('没有选中任何记录，请选择后再装货。','OK','OK:{}');
+	return true;
+}
+	if(!CheckListSelectStatus(',710,')){
+		Confirm('只有状态为已配载的运输作业单才能进行装货操作。','OK','OK:{}');
+		return true;
+	}
+Confirm('确定要将选中的记录进行装货吗？','YES_NO',{YES:{
+	loop "ListView0" (true){			
+		if(Select == true){
+			var date = ServerDate();
+			InvokeService("LRP_BatchUpdateField",false,false,"LRP_TransportJob",OID,"LRP_TransportJob_H","Status;LoadDateTime","730;"& date );
+			LoadData();ShowData();
+		}					
+	}
+},NO:{}});
+]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销装货" Key="BatchLoad-R">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm('没有选中任何记录，请选择后再撤销装货。','OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',730,')){
+	Confirm('只有状态为已配载的运输作业单才能进行撤销装货操作。','OK','OK:{}');
+	return true;
+}
+Confirm('确定要将选中的记录进行撤销装货吗？','YES_NO',{YES:{
+	loop "ListView0" (true){			
+		if(Select == true){
+			InvokeService("LRP_BatchUpdateField",false,false,"LRP_TransportJob",OID,"LRP_TransportJob_H","Status;LoadDateTime","710;null" );
+			LoadData();ShowData();
+		}					
+	}
+},NO:{}});
+]]>
+            </Action>
+        </Operation>
+        <Operation Caption="确认" Key="BatchConfirm">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key17"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+					Confirm(LocaleString("CommonDef", "key18"),'OK','OK:{}');
+					return true;
+				}
+				Confirm(LocaleString("CommonDef", "key19"),'YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,200,-1);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销确认" Key="BatchConfirm-R">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key20"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',200,')){
+					Confirm(LocaleString("CommonDef", "key21"),'OK','OK:{}');
+					return true;
+				}
+				Confirm(LocaleString("CommonDef", "key22"),'YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,100,-1);
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="作废" Key="BatchCancel">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key23"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+					Confirm(LocaleString("CommonDef", "key24"),'OK','OK:{}');
+					return true;
+				}		
+				Confirm(LocaleString("CommonDef", "key25"),'YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,20,-1);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销作废" Key="BatchCancel-R">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key26"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',20,')){
+					Confirm(LocaleString("CommonDef", "key27"),'OK','OK:{}');
+					return true;
+				}
+				Confirm(LocaleString("CommonDef", "key28"),{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,100,-1);						
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="完成" Key="BatchFinish">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key5"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,500,')){
+					Confirm(LocaleString("CommonDef", "key30"),'OK','OK:{}');
+					return true;
+				}
+				Confirm(LocaleString("CommonDef", "key31"),'YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,900,90);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销完成" Key="BatchFinish-R">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key32"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',900,')){
+					Confirm(LocaleString("CommonDef", "key33"),'OK','OK:{}');
+					return true;
+				}	
+				Confirm(LocaleString("CommonDef", "key34"),'YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,500,10);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="BatchDelete">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key35"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+					Confirm(LocaleString("CommonDef", "key36"),'OK','OK:{}');
+					return true;
+				}	
+				Confirm(LocaleString("CommonDef", "key37"),'YES_NO',{YES:{BatchDeleteData('LRP_OutboundNotice', 'LRP_OutboundNotice_H');},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="BatchDelete_Tx">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key35"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+                        Confirm(LocaleString("CommonDef", "key36"),'OK','OK:{}');
+						return true;	
+                }						
+				Confirm(LocaleString("CommonDef", "key37"),'YES_NO',{
+				YES:{BatchDeleteData('LRP_WMTx', 'LRP_WMTx_H');LoadData();ShowData();
+						},
+				NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销发车" Key="BatchTransportDispatchDepart-R">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再撤销发车。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',750,')){
+					Confirm('只有状态是在途的单据才能进行撤销发车。','OK','OK:{}');
+					return true;
+				}
+				//检查明细记录是否正确
+				Confirm('确定要将选中的记录进行撤销发车吗？','YES_NO',{YES:{							
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,"LRP_TransportDispatch",OID,100,-1);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="发车" Key="BatchTransportDispatchDepart">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再发车。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+					Confirm('只有状态是已输入的单据才能进行发车。','OK','OK:{}');
+					return true;
+				}
+				//检查明细记录是否正确
+				Confirm('确定要将选中的记录进行发车吗？','YES_NO',{YES:{							
+					loop "ListView0" (true){			
+						if(Select == true){ 
+							InvokeService("LRP_BillStatusChange", false, false,"LRP_TransportDispatch",OID,750,-1);								
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="撤销完成" Key="BatchTransportDispatchFinish-R">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再撤销完成。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',900,')){
+					Confirm('只有状态是完成的单据才能进行撤销完成。','OK','OK:{}');
+					return true;
+				}
+				//检查明细记录是否正确
+				Confirm('确定要将选中的记录进行撤销完成吗？','YES_NO',{YES:{							
+					loop "ListView0" (true){			
+						if(Select == true){ 
+							InvokeService("LRP_BillStatusChange", false, false,"LRP_TransportDispatch",OID,750,-1);	
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="完成" Key="BatchTransportDispatchFinish">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再完成。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',750,')){
+					Confirm('只有状态是在途的单据才能进行完成。','OK','OK:{}');
+					return true;
+				}
+				//检查明细记录是否正确
+				Confirm('确定要将选中的记录进行完成吗？','YES_NO',{YES:{							
+					loop "ListView0" (true){			
+						if(Select == true){ 
+							InvokeService("LRP_BillStatusChange", false, false,"LRP_TransportDispatch",OID,900,-1);	
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchFinishConfirm" Caption="完成">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key5"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',200,')){
+					Confirm(LocaleString("CommonDef", "key5"),'OK','OK:{}');
+					return true;
+				}
+				Confirm(LocaleString("OwnerNull", "key149"),'YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,900,90);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchFinishConfirm-R" Caption="撤销完成">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm("CommonDef", "key32"),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',900,')){
+					Confirm("CommonDef", "key33"),'OK','OK:{}');
+					return true;
+				}	
+				Confirm("CommonDef", "key34"),'YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,200,10);
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <StatusCollection>
+        <Status Caption="已作废" Key="cancelled" Value="20"/>
+        <Status Caption="已输入" Key="prepared" Value="100"/>
+        <Status Caption="竞价中" Key="bided" Value="150"/>
+        <Status Caption="已确认" Key="confirmed" Value="200"/>
+        <Status Caption="已建波" Key="waved" Value="300"/>
+        <Status Key="Admission" Value="400" Caption="已入场"/>
+        <Status Caption="处理中" Key="handled" Value="500"/>
+        <Status Caption="已拣货" Key="picked" Value="600"/>
+        <Status Caption="已配载" Key="arranged" Value="710"/>
+        <Status Caption="已装货" Key="loaded" Value="730"/>
+        <Status Caption="在途" Key="ontheway" Value="750"/>
+        <Status Caption="中途停靠" Key="parked" Value="800"/>
+        <Status Caption="已完成" Key="finished" Value="900"/>
+        <Status Caption="已签收" Key="signed" Value="920"/>
+        <Status Caption="拒收" Key="rejected" Value="930"/>
+        <Status Caption="已回单" Key="returnbill" Value="940"/>
+        <Status Caption="已对账" Key="reconciliated" Value="960"/>
+        <Status Caption="已输入" Key="prepared_L" Value="10"/>
+        <Status Caption="处理中" Key="handled_L" Value="50"/>
+        <Status Caption="已完成" Key="finished_L" Value="90"/>
+        <Status Caption="已审核" Key="audited" Value="80"/>
+    </StatusCollection>
+    <ScriptCollection>
+        <Script Caption="载入" Description="载入事件" Key="Load" Range="Action" Verb="Load">
+            <![CDATA[LoadData();ShowData();]]>
+        </Script>
+    </ScriptCollection>
+    <MacroCollection>
+        <Macro Key="getCurOrgID">
+            <![CDATA[GetSessionPara("OrgID");]]>
+        </Macro>
+        <Macro Key="getCurDispatchOrgID">
+            <![CDATA[GetSessionPara("DispatchOrgID");]]>
+        </Macro>
+        <Macro Key="CheckListNoSelect" Description="检查叙事簿是否没有选中记录">
+            <![CDATA[
+				loop "ListView0" (true)
+				{			
+					if(Select == true)
+					{ 
+						return false;	
+					}					
+				}
+				return true;
+			]]>
+        </Macro>
+        <Macro Key="CheckListSelectStatus" Description="检查叙事簿的选中记录是否都是指定的状态" Args="CheckStatus">
+            <![CDATA[
+				var noselect = true;
+				loop "ListView0" (true)
+				{			
+					if(Select == true)
+					{ 
+						noselect = false;	
+						var s = ","&Status&",";
+						if(IndexOf(CheckStatus, s)<0)
+							{return false;}
+					}					
+				}
+				if(noselect) {return false;}
+				return true;
+			]]>
+        </Macro>
+        <Macro Key="GetListViewSelectID" Description="检查叙事簿的选中记录对应的oid字段，以逗号分隔">
+            <![CDATA[		
+				var returnvalue = "";
+				loop "ListView0" (true)
+				{			
+					if(Select == true)
+					{ 
+						returnvalue = returnvalue & OID & ","
+					}					
+				}
+				if(Length(returnvalue) > 0){
+					returnvalue = Left(returnvalue, Length(returnvalue)-1);
+				}
+				returnvalue;
+
+			]]>
+        </Macro>
+        <Macro Key="GridSelectAll" Description="将指定的表格控件的选择框全部选中" Args="GridName">
+            <![CDATA[
+				var i = 0;
+				while(i<GetRowCount(GridName)){
+					
+					SetCellValue(GridName, i,'Select',1);
+					i=i&1;
+				}
+			]]>
+        </Macro>
+        <Macro Key="GridIsSelectedOne" Description="判断表格控件选中行有且只有一条" Args="GridName,FieldName">
+            <![CDATA[
+				var i = 0;
+                var j=0;
+				while(i<GetRowCount(GridName)){
+					if(GetCellValue(GridName, i,FieldName)==true){
+						j=j+1;
+					}
+						i=i+1;
+				}
+				if(j!=1){
+				return false;
+				}else{
+				return true;
+				}
+			]]>
+        </Macro>
+        <Macro Key="GridIsSelected" Description="判断表格控件有选中行" Args="GridName,FieldName">
+            <![CDATA[
+				var i = 0;
+                var j=0;
+				while(i<GetRowCount(GridName)){
+					if(GetCellValue(GridName, i,FieldName)==true){
+						j=j+1;
+					}
+						i=i+1;
+				}
+				if(j==0){
+				return false;
+				}else{
+				return true;
+				}
+			]]>
+        </Macro>
+        <Macro Key="GetGridSelectedID" Description="获取表格选中记录对应的oid字段，以逗号分隔" Args="GridName,SelectFieldKey,OIDFieldKey">
+            <![CDATA[		
+				var returnvalue = "";
+				var i = 0;
+				while(i<GetRowCount(GridName)){
+					if(GetCellValue(GridName, i,SelectFieldKey)==true){
+						returnvalue = returnvalue & GetCellValue(GridName, i,OIDFieldKey) & ","
+					}
+						i=i+1;
+				}
+				if(Length(returnvalue) > 0){
+					returnvalue = Left(returnvalue, Length(returnvalue)-1);
+				}
+				returnvalue;
+			]]>
+        </Macro>
+        <Macro Key="CheckMaterialStatus" Description="检查单据的物料明细的物料状态是否符合所允许的状态" Args="MaterialStatusField">
+            <![CDATA[
+				var rs=DBNamedQuery("MaterialStatus", TxTypeCode); 
+				var b = true;
+				var index = 0;
+				while(index<GetRowCount('Grid0')){     
+					//遍历所有物料明细                      
+					rs.beforefirst(); 
+					b = false;
+					while(rs.next()){
+						//检查允许的物料状态
+						if(GetCellValue('Grid0', index, MaterialStatusField)>0&&GetCellValue('Grid0', index, MaterialStatusField)==rs.MaterialStatusId){
+							b=true;
+							break;
+						}	
+					}
+				 
+					if(b==false){
+						var i = index + 1;
+						Confirm('第'+i+'条物料明细存在不允许存在物料状态：'+ GetDictValue('LRP_MaterialStatus', GetCellValue('Grid0', index, MaterialStatusField), 'Name'), 'OK','OK:{}');
+						break;
+					}
+					index = index+1;
+				} 
+				b;				
+			]]>
+        </Macro>
+        <Macro Key="AppGetExtraServiceString" Description="手机段将选择的额外服务序列化成表示的字符串">
+            <![CDATA[
+				var rs=DBNamedQuery("GetLogisticsService"); 
+				var oid1 = 0;
+				var oid2 = 0;
+				var oid3 = 0;
+				rs.beforefirst(); 
+				while(rs.next()){
+					if(rs.Code == "1"){
+						oid1 = OID;
+					}
+					if(rs.Code == "2"){
+						oid2 = OID;
+					}
+					if(rs.Code == "3"){
+						oid3 = OID;
+					}					
+				}
+				rs=GetDataTable('LRP_TransportOrderService_L'); 
+				var returnvalue = "";				                
+				rs.beforefirst(); 
+				while(rs.next()){
+					if(rs.ServiceId == oid1){
+						returnvalue = returnvalue & "需要装卸、";
+					}
+					if(rs.ServiceId == oid2){
+						returnvalue = returnvalue & "需带回单、";
+					}
+					if(rs.ServiceId == oid3){
+						returnvalue = returnvalue & "需带回款" & ServiceAmount & "、";
+					}					
+				}
+				if(Length(returnvalue) > 0){
+					returnvalue = Left(returnvalue, Length(returnvalue)-2);
+				}
+				returnvalue;				
+			]]>
+        </Macro>
+        <Macro Key="PlatformOrder" Args="ReservationType,WarehouseCenterId,RefOID,RefNo,StartTime,EndTime,CarrierId,PlatformId">
+            <![CDATA[//预约类型、仓储中心、单据ID、单号、预计到达日期时间、承运方、月台
+//ReservationType,WarehouseCenterId,RefOID,RefNo,StartTime,endTime,CarrierId,PlatformId
+
+//调用方法
+//PlatformOrder(ReservationType,WarehouseCenterId,RefOID,RefNo,StartTime,EndTime,CarrierId,PlatformId);
+
+var OID = DBNamedQueryValue('checkPlatformExist',RefOID);
+if(OID>0){
+    Open('V_PlatformReservation',OID);
+}else{
+    PushPara('ReservationType',ReservationType);
+    PushPara('WarehouseCenterId',WarehouseCenterId);
+    PushPara('RefOID',RefOID);
+    PushPara('RefNo',RefNo);    
+    PushPara('StartTime',StartTime);
+    PushPara('EndTime',EndTime);
+    PushPara('CarrierId',CarrierId);
+    PushPara('PlatformId',PlatformId);
+    New('V_PlatformReservation',{
+        'ReservationType':{ReservationType},
+        'WarehouseCenterId':{WarehouseCenterId},
+        'RefOID':{RefOID},
+        'RefNo':{RefNo},
+        'StartTime':{StartTime},
+        'EndTime':{EndTime},
+        'CarrierId':{CarrierId},
+        'PlatformId':{PlatformId}
+    });	
+}
+]]>
+        </Macro>
+        <Macro Key="PlatformOrder2" Args="ReservationType,WarehouseCenterId,RefOID,RefNo,CarrierId,TruckLicenseNo,Driver,DriverMobile">
+            <![CDATA[//预约类型、仓储中心、单据ID、单号、承运商、车牌号、司机、手机
+//ReservationType,WarehouseCenterId,RefOID,RefNo,CarrierId,TruckLicenseNo,Driver,DriverMobile
+
+//调用方法
+//PlatformOrder2(ReservationType,WarehouseCenterId,RefOID,RefNo,CarrierId,TruckLicenseNo,Driver,DriverMobile);
+
+var OID = DBNamedQueryValue('checkPlatformExistType',RefOID,ReservationType);
+if(OID>0){
+    Open('V_PlatformReservation',OID);
+}else{
+    PushPara('ReservationType',ReservationType);
+    PushPara('WarehouseCenterId',WarehouseCenterId);
+    PushPara('RefOID',RefOID);
+    PushPara('RefNo',RefNo);    
+    PushPara('TruckLicenseNo',TruckLicenseNo);
+    PushPara('Driver',Driver);
+    PushPara('CarrierId',CarrierId);
+    PushPara('DriverMobile',DriverMobile);
+    New('V_PlatformReservation',{
+        'ReservationType':{ReservationType},
+        'WarehouseCenterId':{WarehouseCenterId},
+        'RefOID':{RefOID},
+        'RefNo':{RefNo},
+        'TruckLicenseNo':{TruckLicenseNo},
+        'Driver':{Driver},
+        'CarrierId':{CarrierId}
+        'DriverMobile':{DriverMobile}
+    });	
+}
+]]>
+        </Macro>
+    </MacroCollection>
+    <QueryCollection>
+        <Query Key="tjStatus" Description="查询对应的运输订单下的所有运输作业单的状态">
+            <Statement>
+                <![CDATA[select h.Status from LRP_TransportJob_H h where  h.OrderNo = ?]]>
+            </Statement>
+        </Query>
+        <Query Key="toStatus" Description="查询对应的运输订单的状态">
+            <Statement>
+                <![CDATA[select Status,OID from LRP_TransportOrder_H  where  No = ?]]>
+            </Statement>
+        </Query>
+        <Query Description="查询事务类型中的物料状态" Key="MaterialStatus">
+            <Statement>
+                <![CDATA[select l.MaterialStatusId from LRP_WhTxType_MS l join LRP_WarehouseTxType h on h.oid=l.soid where h.Code=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="GetLogisticsService" Description="查询额外服务字典类">
+            <Statement>
+                <![CDATA[select Code,Name,OID from LRP_LogisticsService]]>
+            </Statement>
+        </Query>
+        <Query Key="checkPlatformExist" Description="查询该单据是否存在月台预约单">
+            <Statement>
+                <![CDATA[SELECT OID FROM LRP_PlatformReservation WHERE RefOID =?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="checkPlatformExistType" Description="查询该单据是否存在运输发/到货类型的月台预约单">
+            <Statement>
+                <![CDATA[SELECT OID FROM LRP_PlatformReservation WHERE RefOID =? and ReservationType=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Integer"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <ParaTable>
+        <ParaGroup Key="DictUserItemKey">
+            <ParaItem Caption="自定义字典字段1缺省字典引用" Key="DictUser1ItemKey" Value="LRP_Owner"/>
+            <ParaItem Caption="自定义字典字段2缺省字典引用" Key="DictUser2ItemKey" Value="LRP_DictUserDefault"/>
+            <ParaItem Caption="自定义字典字段3缺省字典引用" Key="DictUser3ItemKey" Value="LRP_DictUserDefault"/>
+            <ParaItem Caption="自定义字典字段4缺省字典引用" Key="DictUser4ItemKey" Value="LRP_DictUserDefault"/>
+            <ParaItem Caption="自定义字典字段5缺省字典引用" Key="DictUser5ItemKey" Value="LRP_DictUserDefault"/>
+        </ParaGroup>
+    </ParaTable>
+    <MigrationExtensionCollection>
+        <MigrationExtension Key="LRP_Quant" GroupFields="WarehouseCenterId;OwnerId;MaterialId;LocationId;MaterialStatusId;RefLineOID;HandingUnitNo;BatchNo;ManufDate;RecvDate"/>
+    </MigrationExtensionCollection>
+</CommonDef>

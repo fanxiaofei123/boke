@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_O_CalculateIncome_LRP>CalculateIncome</V_O_CalculateIncome_LRP>
+        
+        <Lab_WarehouseCenter>WarehouseCenter</Lab_WarehouseCenter>
+		<Lab_DispatchOrg>DispatchOrg</Lab_DispatchOrg>
+        <Lab_Owner>Owner</Lab_Owner>
+		<Lab_Customer>Customer</Lab_Customer>
+        <Lab_StartDate>StartDate</Lab_StartDate>
+        <Lab_EndDate>EndDate</Lab_EndDate>
+    </UI>
+</StringTable>

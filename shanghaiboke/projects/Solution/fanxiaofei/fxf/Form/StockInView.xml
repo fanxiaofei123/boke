@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="StockInView" Caption="入库单视图" FormType="View" AbbrCaption="入库单视图">
+    <DataSource>
+        <DataObject Key="StockIn" Caption="入库单视图" PrimaryTableKey="StockInHead" RelateObjectKey="StockIn">
+            <TableCollection>
+                <Table Key="StockInHead" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('StockIn')]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                            <Label Key="L_NO" Caption="单据编号" X="0" Y="0"/>
+                            <TextEditor Key="NO" Caption="单据编号" BuddyKey="L_NO" X="1" Y="0">
+                                <Condition ColumnKey="NO" TableKey="StockInHead" CondSign="like"/>
+                            </TextEditor>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="ButtonPanel" Padding="5px" Caption="按钮面板">
+                            <Button Key="Query" Caption="查询" X="1" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="2" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowHeight="20" RowGap="6">
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="100%"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="list" PageLoadType="DB" TableKey="StockInHead" X="0" Y="1">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="StockInHead" Visible="false" Width="30px"/>
+                            <ListViewColumn Key="NO_LV" Caption="单据编号" ColumnType="TextEditor" DataColumnKey="NO"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('StockIn', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="35%"/>
+                    <SplitSize Size="65%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_AccidentRegistra" Caption="事故登记单对象" PrimaryTableKey="LRP_AccidentRegistra" NoPrefix="AR" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_AccidentRegistra" Caption="事故登记单对象">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="No" Caption="事故登记号" DataType="Varchar"/>
+            <Column Key="FleetId" Caption="车队" DataType="Long"/>
+            <Column Key="TruckId" Caption="车辆id" DataType="Long"/>
+            <Column Key="LicenseNo" Caption="牌照号" DataType="Varchar" Length="40"/>
+            <Column Key="InsuranceCompanyId" Caption="保险公司id" DataType="Long"/>
+            <Column Key="AccidentSite" Caption="事故地点" DataType="Varchar" Length="200"/>
+            <Column Key="AccidentDatetime" Caption="事故日期时间" DataType="DateTime"/>
+            <Column Key="Reporter" Caption="报案人" DataType="Varchar" Length="40"/>
+            <Column Key="ReportDatetime" Caption="报案日期时间" DataType="DateTime"/>
+            <Column Key="Driver" Caption="驾驶员" DataType="Varchar" Length="40"/>
+            <Column Key="Mobile" Caption="联系电话" DataType="Varchar" Length="40"/>
+            <Column Key="AccidentType" Caption="事故类型" DataType="Varchar" Length="40"/>
+            <Column Key="AccidentNote" Caption="事故描述" DataType="Varchar" Length="2000"/>
+            <Column Key="ResponsibleParty" Caption="责任方" DataType="Varchar" Length="80"/>
+            <Column Key="TruckLoss" Caption="本车损失" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="ThirdPartyLoss" Caption="第三者损失" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="CargoLoss" Caption="货物损失" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="OtherLoss" Caption="其它损失" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="DirectLoss" Caption="直接损失" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="ResponsibleLoss" Caption="责任损失" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="ClaimAmount" Caption="赔款金额" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="ClaimDate" Caption="赔款日期" DataType="Date"/>
+            <Column Key="FinishDate" Caption="完成日期" DataType="Date"/>
+        </Table>
+    </TableCollection>
+</DataObject>

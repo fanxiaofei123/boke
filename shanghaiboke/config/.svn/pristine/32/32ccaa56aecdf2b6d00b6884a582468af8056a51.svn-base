@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Meals_Provide_P" Caption="配餐计划单" FormType="Entity">
+    <DataSource RefObjectKey="CHCS_Meals_Provide_P"/>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData(); UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="修改" Visible="ReadOnly()" RefKey="Edit">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="updateWorkstatus" Description="更改司机工作状态">
+            <Statement DBType="Oracle">
+                <![CDATA[update LRP_Driver set WorkState=(select  OID from  LRP_Lookup_L  where headcode='DriverWorkStatus' and  name=? ) where oid=?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <Label Key="Lab_NO" Caption="系统单号" X="0" Y="0"/>
+                            <TextEditor Key="NO" Caption="系统单号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false" AsQuery="true" Trim="true">
+                                <DataBinding ColumnKey="NO" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillDate" Caption="单据日期" X="3" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="单据日期" BuddyKey="Lab_BillDate" X="4" Y="0" Enable="false" AsQuery="true" OnlyDate="true">
+                                <DataBinding ColumnKey="BillDate" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                            <Label Key="Lab_Status" Caption="单据状态" X="6" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="7" Y="0" SourceType="Status" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="Status" TableKey="CHCS_Meals_Provide_Plan_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Dict Key="Flight_Number" Caption="航班号" BuddyKey="Lab_Flight_Number" X="1" Y="1" ItemKey="CHCS_Flight">
+                                <DataBinding ColumnKey="Flight_Number" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </Dict>
+                            <Label Key="Lab_Flight_Number" Caption="航班号" X="0" Y="1"/>
+                            <DatePicker Key="Flight_Date_Start" Caption="预计起飞时间" BuddyKey="Lab_Flight_Date_Start" X="4" Y="1">
+                                <DataBinding ColumnKey="Flight_Date_Start" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_Flight_Date_Start" Caption="预计起飞时间" X="3" Y="1"/>
+                            <DatePicker Key="Flight_Date_Stop" Caption="预计到达时间" BuddyKey="Lab_Flight_Date_Stop" X="7" Y="1">
+                                <DataBinding ColumnKey="Flight_Date_Stop" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_Flight_Date_Stop" Caption="预计到达时间" X="6" Y="1"/>
+                            <Dict Key="Route_Departure_Airport_Code" Caption="起飞站" BuddyKey="Lab_Route_Departure_Airport_Code" X="1" Y="2" ItemKey="CHCS_Airport">
+                                <DataBinding ColumnKey="Route_Departure_Airport_Code" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </Dict>
+                            <Label Key="Lab_Route_Departure_Airport_Code" Caption="起飞站" X="0" Y="2"/>
+                            <Dict Key="Route_Arrival_Airport_Code" Caption="到达站" BuddyKey="Lab_Route_Arrival_Airport_Code" X="4" Y="2" ItemKey="CHCS_Airport">
+                                <DataBinding ColumnKey="Route_Arrival_Airport_Code" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </Dict>
+                            <Label Key="Lab_Route_Arrival_Airport_Code" Caption="到达站" X="3" Y="2"/>
+                            <Dict Key="Aircraft_Type_Number" Caption="机型" BuddyKey="Lab_Aircraft_Type_Number" X="7" Y="2" ItemKey="CHCS_Aircraft_Type">
+                                <DataBinding ColumnKey="Aircraft_Type_Number" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </Dict>
+                            <Label Key="Lab_Aircraft_Type_Number" Caption="机型" X="6" Y="2"/>
+                            <Dict Key="Aircraft_Number" Caption="机号" BuddyKey="Lab_Aircraft_Number" X="1" Y="3" ItemKey="CHCS_Aircraft">
+                                <DataBinding ColumnKey="Aircraft_Number" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </Dict>
+                            <Label Key="Lab_Aircraft_Number" Caption="机号" X="0" Y="3"/>
+                            <Dict Key="Flight_Type_Number" Caption="航班性质" BuddyKey="Lab_Flight_Type_Number" X="4" Y="3" ItemKey="LRP_Lookup_L">
+                                <DataBinding ColumnKey="Flight_Type_Number" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                                <ItemFilter>
+                                    <Filter Query="select oid  from LRP_Lookup_L where HeadCode='HBXZ'" Type="DataSet"/>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_Flight_Type_Number" Caption="航班性质" X="3" Y="3"/>
+                            <NumberEditor Key="Departure" Caption="偏离" BuddyKey="Lab_Departure" X="7" Y="3" Format="">
+                                <DataBinding ColumnKey="Departure" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Departure" Caption="偏离" X="6" Y="3"/>
+                            <TextEditor Key="Remark" Caption="备注" BuddyKey="Lab_Remark" X="1" Y="4" XSpan="7">
+                                <DataBinding ColumnKey="Remark" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remark" Caption="备注" X="0" Y="4"/>
+                            <RowDefCollection RowGap="6" RowHeight="30">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="113px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="94px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="4" Y="0"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="CHCS_Meals_Provide_Plan_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                        <Grid Key="Grid1" Caption="配餐明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="Product" Caption="名称" Width="109px"/>
+                                <GridColumn Key="IsProvide" Caption="是否配备" Width="125px"/>
+                                <GridColumn Key="Unit" Caption="单位" Width="128px"/>
+                                <GridColumn Key="Vendor" Caption="航食公司" Width="155px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="CHCS_Meals_Provide_Plan_L">
+                                    <GridCell Key="Product" Caption="名称" CellType="Dict" ItemKey="CHCS_Product">
+                                        <DataBinding ColumnKey="Product"/>
+                                    </GridCell>
+                                    <GridCell Key="IsProvide" Caption="是否配备" CellType="CheckBox" SingleSelect="true">
+                                        <DataBinding ColumnKey="IsProvide"/>
+                                    </GridCell>
+                                    <GridCell Key="Unit" Caption="单位" CellType="Dict" ItemKey="LRP_Lookup_L">
+                                        <DataBinding ColumnKey="Unit"/>
+                                        <ItemFilter>
+                                            <Filter Query="select oid  from LRP_Lookup_L where HeadCode='DW'" Type="DataSet"/>
+                                        </ItemFilter>
+                                    </GridCell>
+                                    <GridCell Key="Vendor" Caption="航食公司" CellType="Dict" ItemKey="Vendor">
+                                        <DataBinding ColumnKey="Vendor"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="40%"/>
+                    <SplitSize Size="60%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

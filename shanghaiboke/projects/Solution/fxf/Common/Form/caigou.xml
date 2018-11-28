@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="caigou" Caption="采购订单">
+    <DataSource>
+        <DataObject Key="caigou" Caption="采购订单" PrimaryTableKey="caigou">
+            <TableCollection>
+                <Table Key="caigou" Caption="采购订单">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="TextEditor1" Caption="TextEditor1" DataType="Varchar"/>
+                    <Column Key="ComboBox1" Caption="ComboBox1" DataType="Varchar"/>
+                    <Column Key="DatePicker1" Caption="DatePicker1" DataType="DateTime"/>
+                </Table>
+                <Table Key="dingdan" Caption="订单" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                </Table>
+                <Table Key="baobiao" Caption="采购报表" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+            <History/>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <TextEditor Key="TextEditor5" Caption="TextEditor5" BuddyKey="Lab_TextEditor5" X="1" Y="0">
+                        <DataBinding TableKey="caigou" ColumnKey="TextEditor5"/>
+                    </TextEditor>
+                    <Label Key="Lab_TextEditor5" Caption="编码" X="0" Y="0"/>
+                    <DatePicker Key="DatePicker1" Caption="DatePicker1" X="3" Y="0" BuddyKey="Lab_DatePicker1">
+                        <DataBinding TableKey="caigou" ColumnKey="DatePicker1"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="日期" X="2" Y="0"/>
+                    <ComboBox Key="ComboBox1" Caption="ComboBox1" X="1" Y="1" BuddyKey="Lab_ComboBox1">
+                        <DataBinding TableKey="caigou" ColumnKey="ComboBox1"/>
+                    </ComboBox>
+                    <Label Key="Lab_ComboBox1" Caption="状态" X="0" Y="1"/>
+                    <RowDefCollection RowGap="6" RowHeight="30">
+                        <RowDef/>
+                        <RowDef/>
+                        <RowDef/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="20">
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="33%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" Height="pref">
+                    <GridColumnCollection>
+                        <GridColumn Key="column1" Caption="部门" Width="80px"/>
+                        <GridColumn Key="column2" Caption="物料" Width="80px"/>
+                        <GridColumn Key="column3" Caption="数量" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" TableKey="baobiao" DetailKey="">
+                            <GridCell Key="select" Caption="部门" CellType="CheckBox" IsSelect="true"/>
+                            <GridCell Key="cell5" Caption="物料"/>
+                            <GridCell Key="cell6" Caption="数量"/>
+                        </GridRow>
+                        <GridRow DetailKey="" Key="row2">
+                            <GridCell Key="cell7"/>
+                            <GridCell Key="cell8"/>
+                            <GridCell Key="cell9"/>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

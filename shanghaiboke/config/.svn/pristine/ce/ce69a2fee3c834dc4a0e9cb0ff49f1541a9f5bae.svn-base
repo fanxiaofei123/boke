@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_DriverSignView" Caption="签到单序事簿" FormType="View" AbbrCaption="签到单序事簿" Platform="">
+    <DataSource>
+        <DataObject Key="V_DriverSignView" Caption="签到单序事簿" PrimaryTableKey="LRP_DriverSign">
+            <TableCollection>
+                <Table Key="LRP_DriverSign" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="No" Caption="单号" DataType="Varchar" Length="100"/>
+                    <Column Key="DriverId" Caption="司机" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="SignOnTime" Caption="签到时间" DataType="DateTime"/>
+                    <Column Key="SignOffTime" Caption="签退时间" DataType="DateTime"/>
+                    <Column Key="TruckTypeId" Caption="车辆类型id" DataType="Long"/>
+                    <Column Key="SignStatus" Caption="签到状态" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[
+				New('V_DriverSign')	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="确认" Key="BatchConfirm" RefKey="BatchConfirm"/>
+        <Operation Caption="撤销确认" Key="BatchConfirm-R" RefKey="BatchConfirm-R"/>
+        <Operation Caption="删除" Key="BatchDelete">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再删除。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+                        Confirm('只有状态是已输入的单据才能进行删除。','OK','OK:{}');
+						return true;	
+                }						
+				Confirm('确定要将选中的记录进行删除吗？','YES_NO',{
+				YES:{BatchDeleteData('LRP_DriverSign', 'LRP_DriverSign');LoadData();ShowData();
+						},
+				NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close">
+            <Action>
+                <![CDATA[Close();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                            <Label Key="L_No" Caption="签到单号" X="0" Y="0"/>
+                            <TextEditor Key="No" Caption="签到单号" BuddyKey="L_No" X="1" Y="0" XSpan="3">
+                                <Condition ColumnKey="No" TableKey="LRP_DriverSign" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_DriverId" Caption="司机" X="5" Y="0"/>
+                            <Dict Key="DriverId" Caption="司机" BuddyKey="L_DriverId" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_Driver" XSpan="3">
+                                <Condition ColumnKey="DriverId" TableKey="LRP_DriverSign" CondSign="in"/>
+                            </Dict>
+                            <Label Key="L_SignOnTime" Caption="签到时间" X="0" Y="2"/>
+                            <DatePicker Key="SignOnTime" Caption="签到时间" BuddyKey="L_SignOnTime" X="1" Y="2" XSpan="3">
+                                <Format/>
+                                <Condition ColumnKey="SignOnTime" TableKey="LRP_DriverSign" CondSign="between" Group="SignOnTime" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="L_SignOnTime_Comp2" Caption="到" X="5" Y="2"/>
+                            <DatePicker Key="SignOnTime_Comp2" Caption="到" BuddyKey="L_SignOnTime_Comp2" X="6" Y="2" XSpan="3">
+                                <Format/>
+                                <Condition ColumnKey="SignOnTime" TableKey="LRP_DriverSign" CondSign="between" Group="SignOnTime" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="L_SignOffTime" Caption="签退时间" X="0" Y="3"/>
+                            <DatePicker Key="SignOffTime" Caption="签退时间" BuddyKey="L_SignOffTime" X="1" Y="3" XSpan="3">
+                                <Format/>
+                                <Condition ColumnKey="SignOffTime" TableKey="LRP_DriverSign" CondSign="between" Group="SignOffTime" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="L_SignOffTime_Comp2" Caption="到" X="5" Y="3"/>
+                            <DatePicker Key="SignOffTime_Comp2" Caption="到" BuddyKey="L_SignOffTime_Comp2" X="6" Y="3" XSpan="3">
+                                <Format/>
+                                <Condition ColumnKey="SignOffTime" TableKey="LRP_DriverSign" CondSign="between" Group="SignOffTime" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="L_TruckTypeId" Caption="车辆类型" X="0" Y="1"/>
+                            <Dict Key="TruckTypeId" Caption="车辆类型" BuddyKey="L_TruckTypeId" X="1" Y="1" AllowMultiSelection="true" ItemKey="LRP_TruckType" XSpan="3">
+                                <Condition ColumnKey="TruckTypeId" TableKey="LRP_DriverSign" CondSign="in"/>
+                            </Dict>
+                            <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="10" Y="1" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <TextEditor Key="DataObjectKey" Caption="ObjectKey" BuddyKey="Lab_DataObjectKey" X="6" Y="4" Visible="false" XSpan="3">
+                                <DataBinding DefaultValue="LRP_DriverSign"/>
+                            </TextEditor>
+                            <Label Key="Lab_DataObjectKey" Caption="ObjectKey" X="5" Y="4"/>
+                            <RowDefCollection RowHeight="30" RowGap="8">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="ListView0" PageLoadType="DB" TableKey="LRP_DriverSign">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="LRP_DriverSign" Visible="false" Width="76px"/>
+                            <ListViewColumn Key="Select" Caption="选择" ColumnType="CheckBox" IsSelect="true"/>
+                            <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                            <ListViewColumn Key="No_LV" Caption="签到单号" ColumnType="HyperLink" DataColumnKey="No">
+                                <OnClick>
+                                    <![CDATA[Open('V_DriverSign', OID)]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="DriverId_LV" Caption="司机" ColumnType="Dict" DataColumnKey="DriverId" ItemKey="LRP_Driver"/>
+                            <ListViewColumn Key="TruckTypeId_LV" Caption="车辆类型" ColumnType="Dict" DataColumnKey="TruckTypeId" ItemKey="LRP_TruckType"/>
+                            <ListViewColumn Key="SignOnTime_LV" Caption="签到时间" ColumnType="DatePicker" DataColumnKey="SignOnTime"/>
+                            <ListViewColumn Key="SignOffTime_LV" Caption="签退时间" ColumnType="DatePicker" DataColumnKey="SignOffTime"/>
+                            <ListViewColumn Key="SignStatus_LV" Caption="签到状态" ColumnType="ComboBox" DataColumnKey="SignStatus">
+                                <Item Caption="离线" Key="SignOff_lv" Value="0"/>
+                                <Item Caption="在线" Key="SignOn_lv" Value="1"/>
+                            </ListViewColumn>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_DriverSign', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="155px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

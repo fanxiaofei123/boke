@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="会计期" Key="LRP_FinicialPeriod" PrimaryTableKey="LRP_FinicialPeriod" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="会计期" DBTableName="LRP_FinicialPeriod" Key="LRP_FinicialPeriod">
+            <Column Key="OID" Caption="对象标识" Persist="True" DataType="Long"/>
+					<Column Key="POID" Caption="父对象标识" Persist="True" DataType="Long"/>
+					<Column Key="SOID" Caption="主对象标识" Persist="True" DataType="Long"/>
+					<Column Key="VERID" Caption="对象版本" Persist="True" DataType="Integer"/>
+					<Column Key="DVERID" Caption="对象明细版本" Persist="True" DataType="Integer"/>
+					<Column Key="NodeType" Caption="节点类型" Persist="True" DataType="Integer" DefaultValue="0"/>
+					<Column Key="Status" Caption="状态" Persist="True" DataType="Integer" DefaultValue="0"/>
+					<Column Key="Enable" Caption="启用标记" Persist="True" DataType="Integer" DefaultValue="1"/>
+					<Column Key="ParentID" Caption="父节点" Persist="True" DataType="Long" DefaultValue="0"/>
+					<Column Key="TLeft" Caption="TLeft" Persist="True" DataType="Integer"/>
+					<Column Key="TRight" Caption="TRight" Persist="True" DataType="Integer"/>
+					<Column Key="CREATOR" Caption="创建人" Persist="True" DataType="Long"/>
+					<Column Key="CREATETIME" Caption="创建时间" Persist="True" DataType="DateTime"/>
+					<Column Key="MODIFIER" Caption="修改人" Persist="True" DataType="Long"/>
+					<Column Key="MODIFYTIME" Caption="修改时间" Persist="True" DataType="DateTime"/>
+					<Column Key="Code" Caption="代码" Persist="True" DataType="Varchar" Length="100" Cache="true"/>
+					<Column Key="Name" Caption="名称" Persist="True" DataType="Varchar" Length="200" Cache="true"/>
+					<Column Key="PeriodType" Caption="会计期方案" Persist="True" DataType="Long"/>
+					<Column Key="PeriodCount" Caption="期间数" Persist="True" DataType="Integer"/>
+					<Column Key="SpecialPeriodCount" Caption="调整期间数" Persist="True" DataType="Integer"/>
+					<Column Key="Year" Caption="会计期年度" Persist="True" DataType="Integer"/>
+					<Column Key="Remark" Caption="说明" Persist="True" DataType="Varchar" Length="200" Cache="true"/>
+        </Table>
+		 <Table Key="LRP_FinicialPeriod_L" Caption="会计期间" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="Period" Caption="会计期" Persist="True" DataType="Integer"/>
+			<Column Key="StartDate" Caption="开始日期" Persist="True" DataType="DateTime"/>
+			<Column Key="EndDate" Caption="结束日期" Persist="True" DataType="DateTime"/>
+			<Column Key="Quarter" Caption="季度" Persist="True" DataType="Integer"/>
+			<Column Key="Kind" Caption="性质" Persist="True" DataType="Integer"/>
+			<Column Key="UseStatus" Caption="启用状态" Persist="True" DataType="Integer"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>
+

@@ -1,0 +1,455 @@
+/** 修改浏览器默认样式，以适应平台需要 */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+body, html {
+	height: 100%;
+	width: 100%;
+}
+
+body * {
+    box-sizing: border-box; /* border和padding包含在width/height中  */
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+iframe {
+    border: 0;
+}
+.rts-main div.spl-resizer, .rts-main div.rts-split, .rts-main div.spl-item, .rts-main {
+	height: 100%;
+}
+.rts-main .rts-split .spl-resizer {
+	width: 6px;
+    border: 1px solid #dadada;
+    overflow: auto;
+    background: #eaeaea;
+    position: relative;
+    cursor: e-resize;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(left, #fafafa,#ddd );
+    background: -moz-linear-gradient(left, #fafafa,#ddd );
+    background: -webkit-linear-gradient(left,#fafafa,#ddd );
+    background: -o-linear-gradient(left,#fafafa,#ddd );
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr="#fafafa", endColorstr="#dddddd");
+}
+.rts-main {
+	width: 100%;
+}
+.rts-main .rts-left {
+	width: 400px;
+	border: 1px solid blue;
+}
+.rts-main .rts-right {
+    width: 700px;
+	border: 1px solid purple;
+}
+.rts-main .rts-left, .rts-main .rts-right, .rts-main .search .rts-txted, 
+.rts-main .fuzzy .rts-txted, .rts-main .rts-split .spl-item, 
+.rts-main .rts-split .spl-resizer {
+    float: left;
+}
+.rts-main .search, .rts-main .fuzzy {
+    height: 30px;
+    padding: 2px 0;
+}
+.rts-main .search .rts-txted, .rts-main .fuzzy .rts-txted {
+	height: 100%;
+    width: 90%;
+    display: inline-block;
+    padding: 0 8px 0 8px;
+    border: 1px solid #dadada;
+}
+.rts-main .search input, .rts-main .fuzzy input {
+	border: 0;
+	outline: 0;
+	width: 100%;
+}
+.rts-main .search button, .rts-main .fuzzy button {
+	border: 1px solid #dadada;
+    background: 0;
+    height: 100%;
+    width: 28px;
+    float: right;
+    right: 5px;
+    position: relative;
+  	background: url("imgs/fuzzy.png") no-repeat 3px 2px;
+}
+.rts-main .rts-tbr {
+	height: 30px;
+    padding: 2px;
+    border: 1px solid #dadada;
+    overflow: hidden;
+}
+.rts-main .rts-tbr button {
+	width: 50px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 12px;
+	float: left;
+    border: 1px solid #dadada;
+    margin-left: 5px;
+    background-color: #f3f3f3;
+    color: #dadada;
+}
+.rts-main .rts-tbr button.enable {
+    background: 0;
+    color: #000;
+}
+/* .rts-main .search button, .rts-main .rts-tbr button, .rts-main .fuzzy button, .rts-main .search .rts-txted, .rts-main .fuzzy .rts-txted {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+} */
+.rts-main .right .rts-set ul.tab-ul {
+    padding-left:2px;/* 
+    margin-bottom: 8px; */
+    list-style: none;
+    background:#f9f9f9;
+    overflow: hidden;
+}
+.rts-main .right .tab ul.tab-ul li {
+    width: 110px;
+    height: 40px;
+	line-height: 40px;
+    padding: 0 10px 0 10px;
+    float: left;
+    font-size: 14px;
+    text-align:center;
+    -webkit-border-top-left-radius: 3px;
+    -moz-border-top-left-radius: 3px;
+    border-top-left-radius: 3px;
+    -webkit-border-right-radius: 3px;
+    -moz-border-right-radius: 3px;
+    border-top-right-radius: 3px;
+    cursor:pointer;
+}
+.rts-main .right .tab ul.tab-ul li.sel {
+    font-weight: 700;
+	border-bottom:2px solid #999;
+}
+.rts-main .right .tab .tab-body .tab-item {
+	display: none;
+}
+.rts-main .right .tab .tab-body .tab-item.show {
+	display: block;
+}
+.rts-main table.treetable tbody tr td {
+	position: relative;
+}
+.rts-main table.treetable thead th .checkbox {
+	float: left;
+    margin:8px 5px 0;
+}
+.rts-main .checkbox {
+	display: inline-block;
+    height: 16px;
+    width: 18px;
+    top: 3px;
+    vertical-align: text-top;
+    position: inherit;
+    background: url("imgs/checkbox0.PNG") no-repeat;
+}
+.rts-main .checkbox.readonly {
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+.rts-main .checkbox.state1 {
+    background: url("imgs/checkbox1.PNG") no-repeat;
+}
+.rts-main .checkbox.state2 {
+    background: url("imgs/checkbox2.PNG") no-repeat;
+}
+.rts-main span.indenter{
+    vertical-align: initial !important;
+    display: inline-block;/* 
+    width: auto !important; */
+}
+.entry-left th {
+	padding-left: 2.5em;
+}
+.rts-main table tr th, .rts-main table tr td {
+    white-space: nowrap;
+}
+.rts-main table tr.title, .rts-main table td {
+    height: 30px;
+    line-height: 30px;
+}
+.rts-main .t-hdiv table tr th,
+.rts-main table.treetable td {
+    line-height: 22px;
+    padding: 0 1em;
+    border:1px solid #e6e6e6;
+    height:30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.rts-main table.treetable tbody tr td, .rts-main table.treetable span {
+	font-size: 12px;
+    color:#666;
+}
+.rts-main label.empty {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.rts-main .entry-left, .rts-main .rts-dict-left, .rts-main .rts-form-left,
+.rts-main .dict.normal .rts-dict-right {
+	/*overflow: auto;*/
+	/* border: 1px solid #dadada; */
+}
+.rts-main .rts-form-opt, .rts-main .rts-form-field {
+	/*overflow: auto;*/
+}
+.rts-main .rts-dict-left, .rts-main .rts-form-left, .rts-main .dict.normal .rts-dict-right {
+	width: 100%;
+}
+.rts-main .paginationjs .paginationjs-pages ul {
+	margin: 2px;
+}
+.rts-main .multi-sel {
+    border: 1px solid #dadada;
+    height: 24px;
+    width: 200px;
+    position: relative;
+    padding: 0 20px 0 10px;
+}
+.rts-main .multi-sel .txt {
+	outline: 0;
+    border: 0;
+    width: 100%;
+    height: 22px;
+    background: none;
+    font-size: 12px;
+}
+.rts-main .multi-sel .arrow {
+    position: absolute;
+    display: block;
+    height: 16px;
+    width: 16px;
+    background: url("imgs/dp.png");
+    top: 4px;
+    right: 5px;
+}
+.rts-main .choose {
+    width: 200px;
+}
+.rts-main .choose .vw {
+	height: 54px;
+    width: 200px;
+    position: absolute;
+    border: 1px solid #dadada;
+    display: none;
+    padding: 2px 0 0 0;
+    background: #fff;
+    z-index: 11;
+}
+.rts-main .choose .vw.show {
+	display: block;
+}
+.rts-main .choose .vw ul {
+	list-style: none;
+}
+.rts-main .choose .vw ul li {
+    width: 100%;
+    height: 24px;
+    padding-left: 10px;
+    font-size: 12px;
+    line-height: 24px;
+}
+.rts-main .choose .vw ul li:hover {
+    background-color: #eaeaea;
+}
+.rts-main .choose .vw ul li.sel {
+    background-color: #dadada;
+}
+/* .rts-main table.treetable, .rts-main table.treetable th {
+    border: 0;
+} */
+/* 
+.rts-main table.treetable thead th {
+    padding-left: 2.5em;
+} */
+.rts-main table.treetable th:first-child, 
+.rts-main table.treetable td:first-child,
+.rts-main .t-hdiv table th:first-child {
+	border-left: 0;
+}
+.rts-main .dict .rts-dict-right table.treetable th:first-child/* , 
+.rts-main .rts-form-opt table.treetable th:first-child, 
+.rts-main .rts-form-field table.treetable th:first-child  */{
+	padding-left: 2.5em;
+}
+.rts-main .t-hdiv table {
+    border-collapse: collapse;
+    line-height: 1;
+    /*margin: 0 0 1.8em 0;*/
+    width: 100%;
+    table-layout: fixed;
+}
+.rts-main .t-hdiv table tr th {
+    position: relative;
+}
+.rts-main .t-hdiv table tr th.space,
+.rts-main .t-bdiv table tr td.space {
+    width: 100%;
+}
+.rts-main .t-hdiv table tr th p {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.rts-main .t-hdiv table, table.treetable thead{
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    font-size: 14px;
+    color: #333;
+}
+.rts-main .t-hdiv table, table.treetable thead tr th{
+    text-align:center;
+    padding:0;
+    position: relative;
+}
+.rts-main .rts-form-opt table.treetable th, 
+.rts-main .rts-form-field table.treetable th{
+    padding-left: 5px;
+    text-align: left;
+}
+.entry-left table.treetable thead tr th{
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 30px;
+}
+table.treetable tbody tr:hover{
+    background: #f9f9f9;
+}
+
+.entry-left table.treetable tbody tr td{
+    border:0;
+    border-right: 1px solid #dadada;
+}
+.rts-all table.treetable tr.selected{
+    background-color:#efefef;
+}
+table.treetable tr.expanded span.indenter a{
+    background:url("imgs/collapse.png") no-repeat center 2px;
+}
+table.treetable tr.collapsed span.indenter a{
+    background:url("imgs/expand.png") no-repeat center 2px;
+}
+
+.rts-main .r-resize {
+    display: inline-block;
+    width: 2px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: col-resize;
+}
+.rts-main .rts-tbl table,
+.rts-main .t-hdiv {
+    width: 100%;
+}
+.rts-main .t-hdiv {
+    overflow: hidden;
+}
+.rts-main .rts-tbl .t-bdiv {
+    overflow: auto;
+    width: 100%;
+}
+.rts-main .rts-resize-mark {
+    width: 2px;
+    left: 0;
+    background-color: #9d9194;
+    cursor: e-resize;
+    cursor: col-resize;
+    position: absolute;
+    top: 0;
+    height: 100px;
+    overflow: hidden;
+    display: none;
+    border: 0 none;
+    z-index: 99999;
+}
+.rts-main .rts-tbl {
+    width: 100%;
+    height: 100%;
+    position: relative;/*
+    overflow-x: auto;
+    overflow-y: hidden;*/
+    /*overflow: hidden;*/
+
+}
+
+.rts-entry .entry-left span.checkbox {
+    vertical-align: top;
+}
+.paginationjs-content {
+    overflow: hidden;
+}
+/**操作权限设置的分页*/
+.rts-all .rts-users.paginationjs .paginationjs-pages{
+	/*float:left;*/
+}
+.rts-all .rts-users.paginationjs .paginationjs-pages ul{
+	/*float:right;*/
+    height: 24px;
+    margin:3px 0px;
+    text-align: center;
+}
+.rts-all .rts-users.paginationjs .paginationjs-pages li{
+	/*float:left;*/
+    display: inline-block;
+    vertical-align: top;
+
+}
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-next{
+    border-right-width: 0px;
+}
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-prev a,
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-prev.disabled a,
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-prev.disabled:hover a{
+	background: url("imgs/left.png") center no-repeat;
+}
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-prev:hover a{
+	background: url("imgs/left_hover.png") center no-repeat;
+}
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-next a,
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-next.disabled a,
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-next.disabled:hover a{
+	background: url("imgs/right.png") center no-repeat;
+}
+.rts-all .rts-users.paginationjs .paginationjs-pages li.paginationjs-next:hover a{
+	background: url("imgs/right_hover.png") center no-repeat;
+}
+
+.rts-all .t-bdiv {
+    border: 0;
+}
+.rts-all .t-bdiv tr.first {
+    height: 0;
+    border: 0;
+    font-size: 0;
+    border-image-width: 0;
+}
+.rts-all tr.first td {
+    height: 0;
+    border: 0;
+    font-size: 0;
+    border-image-width: 0;
+}

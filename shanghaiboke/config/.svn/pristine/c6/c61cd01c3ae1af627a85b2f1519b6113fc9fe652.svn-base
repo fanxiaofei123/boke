@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_ExchangeItemQuery-Abbr>ExchangeItemQuery</V_ExchangeItemQuery-Abbr>
+	 
+        <Lab_username>Username</Lab_username>
+		<Lab_upeiname>Upeiname</Lab_upeiname>
+        <Lab_exchangetimefrom>ExchangeTime</Lab_exchangetimefrom>
+        <Lab_exchangetimeto>To</Lab_exchangetimeto>
+    </UI>
+	<GridColumn>
+        <ouname_L>Ouname</ouname_L>
+        <upeino_L>Upeino</upeino_L>
+        <upeiname_L>Upeiname</upeiname_L>
+        <exchangedatetime_L>ExchangeDateTime</exchangedatetime_L>
+        <qty_l>Qty</qty_l>
+        <Points_L>Points</Points_L>
+	</GridColumn>
+</StringTable>

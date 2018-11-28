@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="TakeOrder" Authenticate="false">
+    <DataSource>
+        <DataObject Key="LRP_TruckType_L" Caption="车型" Authenticate="false">
+            <TableCollection>
+                <Table Key="LRP_TruckType" Caption="车型" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Column Caption="载重" DataType="Numeric" Key="LoadWeight" Precision="18" Scale="3"/>
+                    <Column Caption="容积" DataType="Numeric" Key="LoadCubage" Precision="18" Scale="3"/>
+                    <Column Caption="车长" DataType="Numeric" Key="TruckLength" Precision="18" Scale="3"/>
+                    <Column Caption="车宽" DataType="Numeric" Key="TruckWidth" Precision="18" Scale="3"/>
+                    <Column Caption="车高" DataType="Numeric" Key="TruckHeight" Precision="18" Scale="3"/>
+                    <Column Caption="图片路径" Key="LogoUrl" DataType="Varchar" Length="500"/>
+                    <Column Caption="首段里程" DataType="Numeric" Key="FirstMileage" Precision="18" Scale="3"/>
+                    <Column Caption="首段价格" DataType="Numeric" Key="FirstPrice" Precision="18" Scale="3"/>
+                    <Column Caption="续段单价" DataType="Numeric" Key="AdditionalMileagePrice" Precision="18" Scale="3"/>
+                    <TableFilter>
+                        <![CDATA[? BETWEEN effectivedate and expiredate and DispatchOrgId = ?]]>
+                    </TableFilter>
+                    <ParameterCollection>
+                        <Parameter DataType="DateTime" Formula="Format(ServerDate(),'yyyy-MM-dd HH:mm:ss')"/>
+                        <Parameter DataType="Long" Formula="GetPara('UserDispatchOrg')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[
+						select * from (select t.*,f.DispatchOrgId,f.FirstMileage,f.FirstPrice,f.AdditionalMileagePrice,f.EffectiveDate,f.ExpireDate from LRP_TruckType t
+                         left join LRP_FTLQuote_H  f on t.oid = f.trucktypeid )a 
+                               ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+            <PostLoadProcess>
+                <Process>
+                    <![CDATA[
+					  LRP_delzero();
+					]]>
+                </Process>
+            </PostLoadProcess>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[
+			if(!IsLogin()){
+				return true;
+					}
+             LoadData();
+             SetValue('TitleLeft',InvokeUnsafeService("LRP_GetUserDispatchOrg",false,false));
+			]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Description="查询调度组织的OID" Key="SelectDispatchOrgID">
+            <Statement>
+                <![CDATA[select oid from LRP_DispatchOrg where code = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+        <Query Description="查询调度组织的code" Key="SelectDispatchOrgCode">
+            <Statement>
+                <![CDATA[select code from LRP_DispatchOrg where oid = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="QueryUserDispatchOrg">
+            <Statement>
+                <![CDATA[select defaultdispatchorgid from user_operator where oid = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="RowCount" Description="查询未读消息条数">
+            <Statement>
+                <![CDATA[select count(*) as n  from LRP_OwnerUserMessage_H where isread=0]]>
+            </Statement>
+        </Query>
+        <Query Key="QueryOrgItemList">
+            <Statement>
+                <![CDATA[select code as c,name as n from LRP_DispatchOrg]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Key="root" Height="auto" Orientation="Vertical">
+                <Format BackColor="#f1f3f8"/>
+                <TabGroup Caption="订单管理" Key="TabPanel1" Width="auto" IndicatorColor="#f14c52">
+                    <TabItem Text="快速下单">
+                        <Action>
+                            <![CDATA[
+							SetValue('ShowValue', 0);
+						]]>
+                        </Action>
+                    </TabItem>
+                    <TabItem Text="专车">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 1);]]>
+                        </Action>
+                    </TabItem>
+                    <TabItem Text="干线">
+                        <Action>
+                            <![CDATA[
+SetValue('ShowValue', 2);]]>
+                        </Action>
+                    </TabItem>
+                </TabGroup>
+                <GridLayoutPanel Key="GridLayoutPanel_quick1" Caption="GridLayoutPanel1" Visible="ShowValue==0 || Length(ShowValue) == 0">
+                    <Label Key="lbl_Mobile_quick" Caption="联系方式：" X="1" Y="1" Height="auto" XSpan="3">
+                        <Format>
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <TextEditor Key="ContactTel_quick" Caption="手机" PromptText="请输入您的手机号" BorderStyle="none none none none" Height="auto" X="1" Y="2" XSpan="3">
+                        <Format>
+                            <Font Size="13"/>
+                        </Format>
+                    </TextEditor>
+                    <TextEditor Key="Contactor_quick" Caption="联系人" PromptText="请输入您的称呼" BorderStyle="none none none none" Height="auto" X="1" Y="3" XSpan="3" Weight="1.0">
+                        <Format>
+                            <Font Size="13"/>
+                        </Format>
+                    </TextEditor>
+                    <Button Key="order_quick" Caption="我要用车" BorderStyle="none none none none" X="1" Y="5" XSpan="3">
+                        <Format BackColor="#f14c52" HighlightColor="#f14c52" ForeColor="#ffffff" HAlign="Center">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+							if(!IsLogin()){
+								Show('MyLogin');
+								return true;
+							}
+							if(ContactTel_quick==''){
+								ShowToast("请填写手机号！");
+								return true;
+							}
+							ShowConfirm('是否确认下单？', 'YES_NO', 
+								{
+									YES: {
+										InvokeService('LRP_QuickOrder', false, false , ContactTel_quick,Contactor_quick);
+										ShowToast("下单成功！");
+										SetValue('ContactTel_quick','');
+										SetValue('Contactor_quick','');
+										}, 
+									NO: {} 
+								}
+							)
+						]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection>
+                        <RowDef Height="20px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="40px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="10px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Key="list" Caption="list" TableKey="LRP_TruckType" InitVisible="false" Visible="ShowValue==1" RowHeight="120" Enable="true">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="ProductImage" ColumnType="Image" DataColumnKey="LogoUrl" Stretch="true" ImageScaleType="Fit_XY"/>
+                        <ListViewColumn Key="OID" DataColumnKey="OID" Visible="false">
+                            <Format ForeColor="#000000" HAlign="Left">
+                                <Font Size="20"/>
+                            </Format>
+                        </ListViewColumn>
+                        <ListViewColumn Key="LoadWeight" DataColumnKey="LoadWeight" Visible="false"/>
+                        <ListViewColumn Key="TruckLength" DataColumnKey="TruckLength" Visible="true"/>
+                        <ListViewColumn Key="TruckWidth" DataColumnKey="TruckWidth" Visible="false"/>
+                        <ListViewColumn Key="TruckHeight" DataColumnKey="TruckHeight" Visible="false"/>
+                        <ListViewColumn Key="FirstPrice" DataColumnKey="FirstPrice" Visible="false"/>
+                        <ListViewColumn Key="FirstMileage" DataColumnKey="FirstMileage" Visible="false"/>
+                        <ListViewColumn Key="AdditionalMileagePrice" DataColumnKey="AdditionalMileagePrice" Visible="false"/>
+                        <ListViewColumn Key="Name" DataColumnKey="Name">
+                            <Format ForeColor="#000000" HAlign="Left">
+                                <Font Size="20"/>
+                            </Format>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Description" Caption="载重" DefaultFormulaValue="'载重：'&amp;LoadWeight&amp;'吨'">
+                            <Format>
+                                <Font Size="15"/>
+                            </Format>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Description1" Caption="长宽高" DefaultFormulaValue="'长*宽*高：'&amp;TruckLength&amp;'*'&amp;TruckWidth&amp;'*'&amp;TruckHeight&amp;'m'">
+                            <Format>
+                                <Font Size="15"/>
+                            </Format>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Description2" DefaultFormulaValue="'超公里费:'&amp; AdditionalMileagePrice&amp;'元/公里'">
+                            <Format>
+                                <Font Size="15"/>
+                            </Format>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Price">
+                            <Format ForeColor="#ff0000" HAlign="Right">
+                                <Font Size="20"/>
+                            </Format>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Price_danwei" Caption="9元[5公里]" DefaultFormulaValue="FirstPrice &amp;'元['&amp;FirstMileage&amp;']公里'">
+                            <Format ForeColor="#000000" HAlign="Left">
+                                <Font Size="13"/>
+                            </Format>
+                        </ListViewColumn>
+                    </ListViewColumnCollection>
+                    <RowClick>
+                        <![CDATA[
+						  PushPara('CarName',Name);
+						  PushPara('OID', OID);
+						  Root.SetPara('FirstPrice',FirstPrice);
+						  Root.SetPara('FirstMileage',FirstMileage);
+						  Root.SetPara('AdditionalMileagePrice',AdditionalMileagePrice);
+						  Show('Order');	         
+						]]>
+                    </RowClick>
+                </ListView>
+                <HyperLink Caption="您现在选择的调度组织下没有合适车型可用！" Key="HyperLink2" InitVisible="false" Visible="GetRowCount('list')==0 &amp;&amp; ShowValue==1" Width="pref" Height="400px">
+                    <Format ForeColor="#000000" HAlign="Center">
+                        <Font Size="26"/>
+                    </Format>
+                </HyperLink>
+                <Label Key="ShowValue" Visible="false"/>
+                <GridLayoutPanel Key="GridLayoutPanel1" InitVisible="false" Caption="GridLayoutPanel1" Visible="ShowValue==2">
+                    <Button Key="Button1" Caption="干线" X="1" Y="1" Width="100%">
+                        <Format BackColor="#f14c52" HighlightColor="#f14c52" ForeColor="#ffffff">
+                            <Font Size="20"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[PushPara('OrderType',2);             Show('MainLineOrder');]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="150px"/>
+                        <RowDef Height="41px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="152px"/>
+                        <ColumnDef Width="120px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </LinearLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="list">
+                    <GridLayout Key="list">
+                        <LayoutSpan Key="ProductImage" X="1" Y="1" YSpan="5"/>
+                        <LayoutSpan Key="OID" X="2" Y="0"/>
+                        <LayoutSpan Key="Name" X="2" Y="1"/>
+                        <LayoutSpan Key="Description" X="2" Y="2"/>
+                        <LayoutSpan Key="Description1" X="2" Y="3"/>
+                        <LayoutSpan Key="Description2" X="2" Y="4"/>
+                        <LayoutSpan Key="Price" X="3" Y="1"/>
+                        <LayoutSpan Key="Price_danwei" X="4" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="5px"/>
+                            <RowDef Height="40px"/>
+                            <RowDef Height="20px"/>
+                            <RowDef Height="20px"/>
+                            <RowDef Height="20px"/>
+                            <RowDef Height="20px"/>
+                            <RowDef Height="5px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="110px"/>
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[  LoadData();	
+ SetVisible('list',false);
+ SetVisible('ShowValue',false);]]>
+    </OnLoad>
+    <OnPostShow>
+        <![CDATA[
+if(!IsLogin()){
+             var code = InvokeUnsafeService("LRP_GetDispatchOrg",false,false);
+             SetValue('TitleLeft',code);
+			}
+	     else{
+
+             SetValue('TitleLeft',InvokeUnsafeService("LRP_GetUserDispatchOrg",false,false));			 
+			 }
+		]]>
+    </OnPostShow>
+    <TimerTaskCollection>
+        <TimerTask Key="MessageNotice" Delay="10" Period="10000" Repeat="true" Enable="True">
+            <![CDATA[
+					if(!IsLogin()){
+						return true;
+					}
+					var n=DBNamedQueryValue('RowCount');
+                    if(n>0){
+						SetValue('Image1','1-3.png')
+					}
+                    else{
+						SetValue('Image1','1-2.png')
+					}
+                      ]]>
+        </TimerTask>
+    </TimerTaskCollection>
+    <FormParaCollection>
+        <FormPara DataType="Long" Key="UserDispatchOrg" Type="Formula" Formula="root.GetPara('UserDispatchOrg')"/>
+    </FormParaCollection>
+    <EventHandlerCollection>
+        <EventHandler Key="SessionChanged" Trigger="Show" MergeEvent="true">
+            <![CDATA[LoadData()]]>
+        </EventHandler>
+    </EventHandlerCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="调度组织" Location="Left">
+            <ComboBox Key="TitleLeft" Caption="调度组织" SourceType="Formula" Height="auto" Width="100px">
+                <DataBinding Required="true">
+                    <ValueChanged>
+                        <![CDATA[
+					
+					 root.SetPara('UserDispatchOrg',DBNamedQueryValue('SelectDispatchOrgID',GetValue("TitleLeft")));
+					 var Org = GetValue("TitleLeft");
+                                         LoadData();           
+					 SetValue('TitleLeft',Org,false);					 
+					]]>
+                    </ValueChanged>
+                </DataBinding>
+                <Format BackColor="#f14c52" ForeColor="#ffffff">
+                    <Font Size="16"/>
+                </Format>
+                <FormulaItems>
+                    <![CDATA[DBNamedQuery('QueryOrgItemList')]]>
+                </FormulaItems>
+            </ComboBox>
+        </BarItem>
+        <BarItem Key="Centertitle2" Caption="下单" Location="Center">
+            <Label Key="TitleCenter" Caption="下单" Width="60px">
+                <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+        <BarItem Key="Centertitle3" Caption="图片" Location="Right">
+            <Image Key="Image1" Caption="Image1" Height="28px" Width="28px" Margin="10px" Stretch="true" PromptImage="1-2.png" ImageScaleType="Fit_XY">
+                <Format BackColor="#f14c52" HighlightColor="Transparent"/>
+                <OnClick>
+                    <![CDATA[
+						  Show('MyMessage');	         
+						]]>
+                </OnClick>
+            </Image>
+        </BarItem>
+    </NavigationBar>
+</Form>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+		<V_W_IncomeTerm_LRP>IncomeTerm</V_W_IncomeTerm_LRP>
+		
+        <Lab_No>No</Lab_No>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_IncomeId>IncomeId</Lab_IncomeId>
+        <Lab_DataObjectKey>DataObjectKey</Lab_DataObjectKey>
+        <Lab_WarehouseIdField>WarehouseIdField</Lab_WarehouseIdField>
+        <Lab_OwnerIdField>OwnerIdField</Lab_OwnerIdField>
+        <Lab_OrderDateField>OrderDateField</Lab_OrderDateField>
+        <Lab_QtyField>QtyField</Lab_QtyField>
+        <Lab_NoField>NoField</Lab_NoField>
+        <Lab_Remark>Remark</Lab_Remark>
+        <Lab_Status>Status</Lab_Status>
+		
+		<Grid0>Billing detail</Grid0>
+    </UI>
+	
+    <GridColumn>
+        <column1>Select</column1>
+        <LowerNumber>LowerNumber</LowerNumber>
+        <UpperNumber>UpperNumber</UpperNumber>
+        <PriceType>PriceType</PriceType>
+        <Price>Price</Price>
+        <AddPrice>AddPrice</AddPrice>
+        <MinPrice>MinPrice</MinPrice>
+        <MaxPrice>MaxPrice</MaxPrice>
+    </GridColumn>
+	
+</StringTable>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+	    <V_StockDtl>StockDtl</V_StockDtl>
+        <cancel>Reset</cancel>
+        <Query>Query</Query>
+        <Lab_MaterialStatusId>Material Status</Lab_MaterialStatusId>
+        <ListView3>Sample Area Inventory</ListView3>
+        <Lab_OwnerId>Shipper</Lab_OwnerId>
+        <Lab_MaterialId>Material</Lab_MaterialId>
+        <ListView4>Processing Area Inventory</ListView4>
+        <Lab_V_EnglishName>English Name</Lab_V_EnglishName>
+        <ListView0>Storage Area Inventory</ListView0>
+        <Lab_TextEditor1>Picture No</Lab_TextEditor1>
+        <ListView1>Receiving Area Inventory</ListView1>
+        <ListView2>Delivery Area Inventory</ListView2>
+        <Lab_WarehouseCenterId>Storage Center </Lab_WarehouseCenterId>
+    </UI>
+    <ListViewColumn>
+        <V_DictUserDef3>DictUserDef3</V_DictUserDef3>
+        <V_DictUserDef4>DictUserDef4</V_DictUserDef4>
+        <V_StoreareaId>Storearea Id</V_StoreareaId>
+        <V_DictUserDef5>DictUserDef5</V_DictUserDef5>
+        <V_OwnerId_01>Shipper</V_OwnerId_01>
+        <Picture_No2>Picture_No</Picture_No2>
+        <V_OwnerId_02>Shipper</V_OwnerId_02>
+        <V_OwnerId_03>Shipper</V_OwnerId_03>
+        <V_OwnerId_04>Shipper</V_OwnerId_04>
+        <V_RecvDate>Recv Date</V_RecvDate>
+        <V_DictUserDef1>DictUserDef1</V_DictUserDef1>
+        <V_WarehouseCenterId>Storage Center </V_WarehouseCenterId>
+        <V_DictUserDef2>DictUserDef2</V_DictUserDef2>
+        <V_StoreroomId>Storeroom Id</V_StoreroomId>
+        <V_DateUserDef1_02>DateUserDef1</V_DateUserDef1_02>
+        <V_IsLocked>Is Locked</V_IsLocked>
+        <V_DateUserDef1_01>DateUserDef1</V_DateUserDef1_01>
+        <V_DateUserDef1_04>DateUserDef1</V_DateUserDef1_04>
+        <V_NumUserDef3>NumUserDef3</V_NumUserDef3>
+        <V_DateUserDef1_03>DateUserDef1</V_DateUserDef1_03>
+        <V_NumUserDef2>NumUserDef2</V_NumUserDef2>
+        <V_NumUserDef1>NumUserDef1</V_NumUserDef1>
+        <V_RefOrderNo_04>Ref Order No</V_RefOrderNo_04>
+        <V_RefOrderNo_02>Ref Order No</V_RefOrderNo_02>
+        <V_RefOrderNo_03>Ref Order No</V_RefOrderNo_03>
+        <Picture_No1>Picture_No</Picture_No1>
+        <V_LocationId>Location Id</V_LocationId>
+        <V_RefOrderNo_01>Ref Order No</V_RefOrderNo_01>
+        <V_NumUserDef1_03>NumUserDef1</V_NumUserDef1_03>
+        <V_NumUserDef1_04>NumUserDef1</V_NumUserDef1_04>
+        <V_NumUserDef1_01>NumUserDef1</V_NumUserDef1_01>
+        <V_NumUserDef1_02>NumUserDef1</V_NumUserDef1_02>
+        <V_BasicUnit_03>Basic Unit</V_BasicUnit_03>
+        <V_BasicUnit_02>Basic Unit</V_BasicUnit_02>
+        <V_BasicUnit_04>Basic Unit</V_BasicUnit_04>
+        <V_StoreareaIdv_04>Storearea Id</V_StoreareaIdv_04>
+        <V_BasicUnit_01>Basic Unit</V_BasicUnit_01>
+        <V_DictUserDef3_03>DictUserDef3</V_DictUserDef3_03>
+        <V_DictUserDef3_04>DictUserDef3</V_DictUserDef3_04>
+        <V_DictUserDef3_01>DictUserDef3</V_DictUserDef3_01>
+        <V_DictUserDef3_02>DictUserDef3</V_DictUserDef3_02>
+        <V_WarehouseCenterId_01>Storage Center </V_WarehouseCenterId_01>
+        <V_WarehouseCenterId_02>Storage Center </V_WarehouseCenterId_02>
+        <V_StrUserDef1>StrUserDef1</V_StrUserDef1>
+        <V_StrUserDef3_04>StrUserDef3</V_StrUserDef3_04>
+        <V_StrUserDef3_02>StrUserDef3</V_StrUserDef3_02>
+        <V_StrUserDef3_03>StrUserDef3</V_StrUserDef3_03>
+        <V_WarehouseCenterId_03>Storage Center </V_WarehouseCenterId_03>
+        <V_WarehouseCenterId_04>Storage Center </V_WarehouseCenterId_04>
+        <V_RecvDate_02>Recv Date</V_RecvDate_02>
+        <V_BasicUnit>Basic Unit</V_BasicUnit>
+        <V_RecvDate_03>Recv Date</V_RecvDate_03>
+        <V_RefOrderNo>Ref Order No</V_RefOrderNo>
+        <V_RecvDate_04>Recv Date</V_RecvDate_04>
+        <V_RecvDate_01>Recv Date</V_RecvDate_01>
+        <ExpectInQty>ExpectIn Qty</ExpectInQty>
+        <ExpectReplenishQty_01>Expect Replenish Qty</ExpectReplenishQty_01>
+        <ExpectReplenishQty_04>Expect Replenish Qty</ExpectReplenishQty_04>
+        <V_StrUserDef4_03>StrUserDef4</V_StrUserDef4_03>
+        <ExpectReplenishQty_03>Expect Replenish Qty</ExpectReplenishQty_03>
+        <V_StoreroomId_04>Storeroom Id</V_StoreroomId_04>
+        <ExpectReplenishQty_02>Expect Replenish Qty</ExpectReplenishQty_02>
+        <V_StoreroomId_03>Storeroom Id</V_StoreroomId_03>
+        <V_StrUserDef4_04>StrUserDef4</V_StrUserDef4_04>
+        <V_StoreroomId_02>Storeroom Id</V_StoreroomId_02>
+        <V_StoreroomId_01>Storeroom Id</V_StoreroomId_01>
+        <V_DateUserDef1>DateUserDef1</V_DateUserDef1>
+        <V_DateUserDef2>DateUserDef2</V_DateUserDef2>
+        <V_NumUserDef3_04>NumUserDef3</V_NumUserDef3_04>
+        <V_NumUserDef3_03>NumUserDef3</V_NumUserDef3_03>
+        <V_StrUserDef4_01>StrUserDef4</V_StrUserDef4_01>
+        <V_NumUserDef3_02>NumUserDef3</V_NumUserDef3_02>
+        <V_NumUserDef3_01>NumUserDef3</V_NumUserDef3_01>
+        <V_StrUserDef4_02>StrUserDef4</V_StrUserDef4_02>
+        <V_DictUserDef1_04>DictUserDef1</V_DictUserDef1_04>
+        <V_MaterialStatusId_04>Material Status Id</V_MaterialStatusId_04>
+        <V_DictUserDef1_03>DictUserDef1</V_DictUserDef1_03>
+        <Picture_No>Picture_No</Picture_No>
+        <V_MaterialStatusId_02>Material Status Id</V_MaterialStatusId_02>
+        <V_MaterialStatusId_03>Material Status Id</V_MaterialStatusId_03>
+        <V_BatchNo>Batch No</V_BatchNo>
+        <V_MaterialStatusId_01>Material Status Id</V_MaterialStatusId_01>
+        <V_DictUserDef1_02>DictUserDef1</V_DictUserDef1_02>
+        <V_DictUserDef1_01>DictUserDef1</V_DictUserDef1_01>
+        <ExpectOutQty>Expect Out Qty</ExpectOutQty>
+        <V_StrUserDef1_01>StrUserDef1</V_StrUserDef1_01>
+        <V_ProjectId>Project Id</V_ProjectId>
+        <V_StrUserDef1_03>StrUserDef1</V_StrUserDef1_03>
+        <V_StrUserDef1_02>StrUserDef1</V_StrUserDef1_02>
+        <V_StrUserDef1_04>StrUserDef1</V_StrUserDef1_04>
+        <V_DictUserDef4_01>DictUserDef4</V_DictUserDef4_01>
+        <V_ExpireDate>Expire Date</V_ExpireDate>
+        <V_HandingUnitNo_04>Handing Unit No</V_HandingUnitNo_04>
+        <V_StrUserDef5_02>StrUserDef5</V_StrUserDef5_02>
+        <V_HandingUnitNo_03>Handing Uni tNo</V_HandingUnitNo_03>
+        <V_HandingUnitNo_02>Handing Unit No</V_HandingUnitNo_02>
+        <V_StrUserDef5_03>StrUserDef5</V_StrUserDef5_03>
+        <V_HandingUnitNo_01>Handing Unit No</V_HandingUnitNo_01>
+        <V_StrUserDef5_01>StrUserDef5</V_StrUserDef5_01>
+        <V_DictUserDef4_04>DictUserDef4</V_DictUserDef4_04>
+        <V_DictUserDef4_02>DictUserDef4</V_DictUserDef4_02>
+        <V_DictUserDef4_03>DictUserDef4</V_DictUserDef4_03>
+        <V_MaterialId_03>Material</V_MaterialId_03>
+        <V_MaterialId_02>Material</V_MaterialId_02>
+        <V_MaterialId_01>Material</V_MaterialId_01>
+        <V_MaterialStatusId>Material Status Id</V_MaterialStatusId>
+        <V_StrUserDef2_02>StrUserDef2</V_StrUserDef2_02>
+        <V_StrUserDef2_01>StrUserDef2</V_StrUserDef2_01>
+        <V_ExpireDate_04>Expire Date</V_ExpireDate_04>
+        <V_StrUserDef2_04>StrUserDef2</V_StrUserDef2_04>
+        <V_ExpireDate_03>Expire Date</V_ExpireDate_03>
+        <V_StrUserDef2_03>StrUserDef2</V_StrUserDef2_03>
+        <V_ExpireDate_02>Expire Date</V_ExpireDate_02>
+        <V_ExpireDate_01>Expire Date</V_ExpireDate_01>
+        <V_MaterialId_04>Material</V_MaterialId_04>
+        <V_BatchNo_04>Batch No</V_BatchNo_04>
+        <V_BatchNo_03>Batch No</V_BatchNo_03>
+        <V_MaterialId>Material</V_MaterialId>
+        <V_DateUserDef2_02>DateUserDef2</V_DateUserDef2_02>
+        <V_IsLocked_04>Is Locked</V_IsLocked_04>
+        <V_DateUserDef2_03>DateUserDef2</V_DateUserDef2_03>
+        <V_IsLocked_02>Is Locked</V_IsLocked_02>
+        <V_DateUserDef2_01>DateUserDef2</V_DateUserDef2_01>
+        <V_IsLocked_03>Is Locked</V_IsLocked_03>
+        <V_ManufDate_01>Manuf Date</V_ManufDate_01>
+        <V_IsLocked_01>Is Locked</V_IsLocked_01>
+        <V_ManufDate_02>Manuf Date</V_ManufDate_02>
+        <V_ManufDate_03>Manuf Date</V_ManufDate_03>
+        <V_DateUserDef2_04>DateUserDef2</V_DateUserDef2_04>
+        <V_ManufDate_04>Manuf Date</V_ManufDate_04>
+        <V_ManufDate>Manuf Date</V_ManufDate>
+        <V_BatchNo_02>Batch No</V_BatchNo_02>
+        <EnglishName>English Name</EnglishName>
+        <V_BatchNo_01>Batch No</V_BatchNo_01>
+        <V_NumUserDef2_04>NumUserDef2</V_NumUserDef2_04>
+        <V_OwnerId>Shipper</V_OwnerId>
+        <OnhandQty>On Hand Qty</OnhandQty>
+        <V_NumUserDef2_03>NumUserDef2</V_NumUserDef2_03>
+        <V_NumUserDef2_02>NumUserDef2</V_NumUserDef2_02>
+        <V_NumUserDef2_01>NumUserDef2</V_NumUserDef2_01>
+        <V_StrUserDef3_01>StrUserDef3</V_StrUserDef3_01>
+        <ExpectReplenishQty>Expect Replenish Qty</ExpectReplenishQty>
+        <V_StrUserDef2>StrUserDef2</V_StrUserDef2>
+        <ExpectOutQty_03>Expect Out Qty</ExpectOutQty_03>
+        <V_StrUserDef3>StrUserDef3</V_StrUserDef3>
+        <ExpectOutQty_02>Expect Out Qty</ExpectOutQty_02>
+        <V_DictUserDef2_04>DictUserDef2</V_DictUserDef2_04>
+        <V_StrUserDef4>StrUserDef4</V_StrUserDef4>
+        <V_StrUserDef5>StrUserDef5</V_StrUserDef5>
+        <ExpectOutQty_04>Expect Out Qty</ExpectOutQty_04>
+        <V_DictUserDef2_01>DictUserDef2</V_DictUserDef2_01>
+        <ExpectInQty_02>Expect In Qty</ExpectInQty_02>
+        <ExpectInQty_01>Expect In Qty</ExpectInQty_01>
+        <V_StoreareaId_03>Storearea Id</V_StoreareaId_03>
+        <V_StoreareaId_02>Storearea Id</V_StoreareaId_02>
+        <V_DictUserDef2_03>DictUserDef2</V_DictUserDef2_03>
+        <ExpectInQty_04>ExpectIn Qty</ExpectInQty_04>
+        <V_StoreareaId_01>Storearea Id</V_StoreareaId_01>
+        <V_DictUserDef2_02>DictUserDef2</V_DictUserDef2_02>
+        <ExpectInQty_03>Expect In Qty</ExpectInQty_03>
+        <V_ProjectId_04>Project Id</V_ProjectId_04>
+        <V_ProjectId_03>Project Id</V_ProjectId_03>
+        <V_ProjectId_02>Project Id</V_ProjectId_02>
+        <V_ProjectId_01>Project Id</V_ProjectId_01>
+        <EnglishName1>English Name</EnglishName1>
+        <EnglishName2>English Name</EnglishName2>
+        <V_DictUserDef5_02>DictUserDef5</V_DictUserDef5_02>
+        <V_DictUserDef5_01>DictUserDef5</V_DictUserDef5_01>
+        <OnhandQty_03>On Hand Qty</OnhandQty_03>
+        <OnhandQty_04>On Hand Qty</OnhandQty_04>
+        <V_LocationId_04>Location Id</V_LocationId_04>
+        <OnhandQty_01>On Hand Qty</OnhandQty_01>
+        <V_LocationId_03>Location Id</V_LocationId_03>
+        <OnhandQty_02>On Hand Qty</OnhandQty_02>
+        <V_LocationId_02>Location Id</V_LocationId_02>
+        <V_LocationId_01>Location Id</V_LocationId_01>
+        <V_HandingUnitNo>Handing Unit No</V_HandingUnitNo>
+        <V_DictUserDef5_04>DictUserDef5</V_DictUserDef5_04>
+        <V_DictUserDef5_03>DictUserDef5</V_DictUserDef5_03>
+        <ExpectOutQty_01>Expect Out Qty</ExpectOutQty_01>
+        <V_StrUserDef5_04>StrUserDef5</V_StrUserDef5_04>
+    </ListViewColumn>
+</StringTable>

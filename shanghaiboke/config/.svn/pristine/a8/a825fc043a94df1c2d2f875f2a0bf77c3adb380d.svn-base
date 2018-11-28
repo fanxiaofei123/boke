@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="调度管理" Key="Scheduling_ManagementCustomBill">
+        <EntryItem Caption="航班动态列表" FormKey="CHCS_Flight_Dynamic" Key="CHCS_Flight_Dynamic" Type="Form"/>
+    </Entry>
+</Entry>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="司机积分调整记录" FormType="Entity" Key="V_DriverPointsRule">
+    <DataSource RefObjectKey="LRP_DriverPointsRule"/>
+    <OperationCollection>
+        <Operation Caption="新增" Key="New" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				New('V_DriverPointsRule');
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="复制新增" Key="CopyNew" RefKey="CopyNew" ShortCuts="Ctrl+E"/>
+        <Operation Caption="保存" Key="Save" ShortCuts="Ctrl+S" Visible="!ReadOnly()&amp;&amp;Status==100">
+            <Action>
+                <![CDATA[
+				
+				if(PointsType == 1){
+					if(FixedValue<=0){		
+						Confirm('固定值必须大于0','OK','OK:{}');
+						return true;
+					}
+				}
+				else{
+					if(CV<=0){		
+						Confirm('变动系数必须大于0','OK','OK:{}');
+						return true;
+					}
+				}
+				if(Expire<=0){		
+					Confirm('效期必须大于0','OK','OK:{}');
+					return true;
+				}				
+				SaveData();
+				UpdateView();
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="Delete" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+			Confirm('是否确定删除当前单据？','YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});
+			
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Caption="确认" Key="Confirm" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Status=StatusValue('confirmed');SaveData();UpdateView();]]>
+            </Action>
+			<ExceptionHandler><![CDATA[				
+				Status=StatusValue('prepared');
+			]]></ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销确认" Key="Confirm-R" Visible="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[
+				//检查是否已经有使用过的记录
+				var rst = DBNamedQuery('GetDPAdjustRecord',OID);
+				if(rst.size() > 0){
+					Confirm('本规则已经产生积分，不能再撤销确认','OK','OK:{}');	
+					return true;
+				}
+				Status=StatusValue('prepared');
+				SaveData();
+				UpdateView();
+				]]>
+            </Action>
+			<ExceptionHandler><![CDATA[				
+				Status=StatusValue('confirmed');
+			]]></ExceptionHandler>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                            <TextEditor Caption="规则号" Enable="false" Key="No" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="No" TableKey="LRP_DriverPointsRule_H"/>
+                            </TextEditor>
+                            <Label Caption="规则号" Key="L_No" X="0" Y="0"/>
+							<TextEditor Caption="规则名称" Enable="!ReadOnly()" Key="Name" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="Name" TableKey="LRP_DriverPointsRule_H" Required="true"/>
+                            </TextEditor>
+                            <Label Caption="规则名称" Key="L_Name" X="4" Y="0"/>
+                            <ComboBox Key="OpType" Caption="操作类型" Enable="!ReadOnly()" BuddyKey="Lab_OpType" X="9" XSpan="2" Y="0">
+								<DataBinding ColumnKey="OpType" TableKey="LRP_DriverPointsRule_H" Required="true"/>
+								<Item Caption="完成" Key="finish" Value="finish"/>
+								<Item Caption="评分" Key="comment" Value="comment"/>
+							</ComboBox>
+							<Label Key="Lab_OpType" Caption="操作类型" X="8" Y="0"/>
+							
+							<ComboBox Key="PointsType" Caption="积分类型" Enable="!ReadOnly()" BuddyKey="Lab_PointsType" X="1" XSpan="2" Y="1">
+								<DataBinding ColumnKey="PointsType" TableKey="LRP_DriverPointsRule_H"  DefaultValue="1" Required="true">
+									<ValueChanged>					
+										<![CDATA[
+											if(PointsType == 1){
+												CV = 0;
+											}
+											else{
+												FixedValue = 0;
+											}											
+										]]>
+                                    </ValueChanged>
+								</DataBinding>
+								<Item Caption="固定值" Key="1" Value="1"/>
+								<Item Caption="业务量*变动系数" Key="2" Value="2"/>
+							</ComboBox>
+							<Label Key="Lab_PointsType" Caption="积分类型" X="0" Y="1"/>
+							<NumberEditor Caption="固定值" Key="FixedValue" Enable="!ReadOnly()&amp;&amp;PointsType==1" Precision="18" Scale="0" X="5" XSpan="2" Y="1">
+								<DataBinding ColumnKey="FixedValue" TableKey="LRP_DriverPointsRule_H"/>
+							</NumberEditor>
+							<Label Key="Lab_FixedValue" Caption="固定值" X="4" Y="1"/>
+							<NumberEditor Caption="变动系数" Key="CV" Enable="!ReadOnly()&amp;&amp;PointsType==2" Precision="18" Scale="6" X="9" XSpan="2" Y="1">
+								<DataBinding ColumnKey="CV" TableKey="LRP_DriverPointsRule_H"/>
+							</NumberEditor>
+							<Label Key="Lab_CV" Caption="变动系数" X="8" Y="1"/>
+							
+							<ComboBox Key="AddOrReduce" Caption="增加/减少" Enable="!ReadOnly()" BuddyKey="Lab_AddOrReduce" X="1" XSpan="2" Y="2">
+								<DataBinding ColumnKey="AddOrReduce" TableKey="LRP_DriverPointsRule_H"  DefaultValue="1" Required="true"/>
+								<Item Caption="减少" Key="1" Value="1"/>
+								<Item Caption="增加" Key="-1" Value="-1"/>
+							</ComboBox>
+							<Label Key="Lab_AddOrReduce" Caption="增加/减少" X="0" Y="2"/>
+							<NumberEditor Caption="效期" Key="Expire" Enable="!ReadOnly()" Precision="6" Scale="0" X="5" XSpan="2" Y="2">
+								<DataBinding ColumnKey="Expire" TableKey="LRP_DriverPointsRule_H"/>
+							</NumberEditor>
+							<Label Key="Lab_Expire" Caption="效期" X="4" Y="2"/>
+							<ComboBox Key="ExpireUnit" Caption="效期单位" Enable="!ReadOnly()" BuddyKey="Lab_ExpireUnit" X="9" XSpan="2" Y="2">
+								<DataBinding ColumnKey="ExpireUnit" TableKey="LRP_DriverPointsRule_H"  DefaultValue="D" Required="true"/>
+								<Item Caption="日" Key="D" Value="D"/>
+								<Item Caption="月" Key="M" Value="M"/>
+								<Item Caption="年" Key="Y" Value="Y"/>
+							</ComboBox>
+							<Label Key="Lab_ExpireUnit" Caption="效期单位" X="8" Y="2"/>                           
+                            <ComboBox Caption="状态" Enable="false" Key="Status" SourceType="Status" X="9" XSpan="2" Y="3">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_DriverPointsRule_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Caption="状态" Key="L_Status" X="8" Y="3"/>
+                            <TextEditor BuddyKey="Lab_Remarks" Caption="备注" Enable="!ReadOnly()" Key="Remarks" X="1" XSpan="6" Y="3">
+                                <DataBinding ColumnKey="Remarks" TableKey="LRP_DriverPointsRule_H"/>
+                            </TextEditor>
+                            <Label Caption="备注" Key="Lab_Remarks" X="0" Y="3"/>
+							<TextEditor Caption="OID" Visible="false" Key="OID" X="4" Y="3">
+								<DataBinding ColumnKey="OID" TableKey="LRP_DriverPointsRule_H"/>
+							</TextEditor>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[	
+	]]>
+    </OnLoad>
+	<QueryCollection>		
+		<Query Description="读取优惠活动日志" Key="GetDPAdjustRecord">
+            <Statement>
+                <![CDATA[select OID from LRP_DPAdjustRecords where DPRuleId=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+</Form>

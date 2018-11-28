@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_SerialQuantQuery" Caption="序列号库存查询" FormType="View">
+    <DataSource>
+        <DataObject Key="V_SerialQuantQuery" Caption="序列号库存查询">
+            <TableCollection>
+                <Table Key="V_SerialQuant" Caption="序列号库存查询" SourceType="Query" TableMode="Detail">
+                    <Column Caption="仓储中心" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+                    <Column Caption="物料状态" DataType="Long" Key="MaterialStatusId"/>
+                    <Column Caption="仓间" DataType="Long" Key="StoreroomId"/>
+                    <Column Caption="库区" DataType="Long" Key="StoreareaId"/>
+                    <Column Caption="储位" DataType="Long" Key="LocationId"/>
+                    <Column Caption="序列号" DataType="Varchar" Key="SerialNo"/>
+                    <Column Caption="周转容器号" DataType="Varchar" Key="HandlingUnitNo"/>
+                    <Statement>
+                        <![CDATA[select WarehouseCenterId,OwnerId,MaterialId,MaterialStatusId,StoreroomId,StoreareaId,LocationId,SerialNo, HandlingUnitNo from LRP_SerialQuant where Qty>0]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Caption="SplitPanel1">
+                <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                    <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                        <ToolBarItemCollection/>
+                    </ToolBar>
+                    <GridLayoutPanel Key="first_head" Padding="10px" Height="pref" Caption="查询字段">
+                        <Dict Key="WarehouseCenterId" Caption="仓储中心" BuddyKey="Lab_WarehouseCenterId" X="1" Y="0" ItemKey="LRP_WarehouseCenter" XSpan="3" AllowMultiSelection="true">
+                            <Condition ColumnKey="WarehouseCenterId" TableKey="V_SerialQuant" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_WarehouseCenterId" Caption="仓储中心" X="0" Y="0"/>
+                        <Dict Key="OwnerId" Caption="货主" BuddyKey="Lab_OwnerId" X="6" Y="0" ItemKey="LRP_Owner" XSpan="3" AllowMultiSelection="true">
+                            <Condition ColumnKey="OwnerId" TableKey="V_SerialQuant" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_OwnerId" Caption="货主" X="5" Y="0"/>
+                        <Dict Key="MaterialId" Caption="物料" BuddyKey="Lab_MaterialId" X="1" Y="1" XSpan="3" ItemKey="LRP_Material">
+                            <Condition ColumnKey="MaterialId" TableKey="V_SerialQuant" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_MaterialId" Caption="物料" X="0" Y="1"/>
+                        <Dict Key="MaterialStatusId" Caption="物料状态" BuddyKey="Lab_MaterialStatusId" X="6" Y="1" ItemKey="LRP_MaterialStatus" XSpan="3" AllowMultiSelection="true">
+                            <Condition ColumnKey="MaterialStatusId" TableKey="V_SerialQuant" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_MaterialStatusId" Caption="物料状态" X="5" Y="1"/>
+                        <Dict Key="StoreroomId" Caption="仓间" BuddyKey="Lab_StoreroomId" X="1" Y="2" ItemKey="LRP_Storeroom" XSpan="3" AllowMultiSelection="true">
+                            <Condition ColumnKey="StoreroomId" TableKey="V_SerialQuant" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_StoreroomId" Caption="仓间" X="0" Y="2"/>
+                        <Dict Key="StoreareaId" Caption="库区" BuddyKey="Lab_StoreareaId" X="6" Y="2" ItemKey="LRP_Storearea" XSpan="3" AllowMultiSelection="true">
+                            <Condition ColumnKey="StoreareaId" TableKey="V_SerialQuant" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_StoreareaId" Caption="库区" X="5" Y="2"/>
+                        <Dict Key="LocationId" Caption="储位" BuddyKey="Lab_LocationId" X="1" Y="3" ItemKey="LRP_Location" XSpan="3">
+                            <Condition ColumnKey="LocationId" TableKey="V_SerialQuant" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_LocationId" Caption="储位" X="0" Y="3"/>
+                        <TextEditor Key="SerialNo" Caption="序列号" BuddyKey="Lab_SerialNo" X="6" Y="3" XSpan="3">
+                            <Condition ColumnKey="SerialNo" TableKey="V_SerialQuant" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_SerialNo" Caption="序列号" X="5" Y="3"/>
+                        <Button Key="Query" Caption="查询" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Reset" Caption="重置" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowHeight="30" RowGap="8">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </FlexFlowLayoutPanel>
+                <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" RowAlterable="false" TableKey="V_SerialQuant">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Caption="仓储中心" ColumnType="Dict" ItemKey="LRP_WarehouseCenter" Key="WarehouseCenterId_LV" DataColumnKey="WarehouseCenterId"/>
+                        <ListViewColumn Caption="货主" ColumnType="Dict" ItemKey="LRP_Owner" Key="OwnerId_LV" DataColumnKey="OwnerId"/>
+                        <ListViewColumn Caption="物料" ColumnType="Dict" ItemKey="LRP_Material" Key="MaterialId_LV" DataColumnKey="MaterialId"/>
+                        <ListViewColumn Caption="物料状态" ColumnType="Dict" ItemKey="LRP_MaterialStatus" Key="MaterialStatusId_LV" DataColumnKey="MaterialStatusId"/>
+                        <ListViewColumn Caption="序列号" ColumnType="TextEditor" Key="SerialNo_LV" DataColumnKey="SerialNo"/>
+                        <ListViewColumn Caption="仓间" ColumnType="Dict" ItemKey="LRP_Storeroom" Key="StoreroomId_LV" DataColumnKey="StoreroomId"/>
+                        <ListViewColumn Caption="库区" ColumnType="Dict" ItemKey="LRP_Storearea" Key="StoreareaId_LV" DataColumnKey="StoreareaId"/>
+                        <ListViewColumn Caption="储位" ColumnType="Dict" ItemKey="LRP_Location" Key="LocationId_LV" DataColumnKey="LocationId"/>
+                        <ListViewColumn Caption="容器号" ColumnType="TextEditor" Key="HandlingUnitNo_LV" DataColumnKey="HandlingUnitNo"/>
+                    </ListViewColumnCollection>
+                </ListView>
+                <SplitSize Size="200px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

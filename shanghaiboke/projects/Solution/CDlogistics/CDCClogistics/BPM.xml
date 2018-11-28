@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<BPM InitDate="2018.09.25 13:21:07 CST">
+    <DeployInfoCollection>
+        <DeployInfo InitDate="2018-9-27 15:56:55" Key="PurchaseAudit"/>
+    </DeployInfoCollection>
+    <ProcessMapCollection>
+        <ProcessMap InitDate="2018.09.28 08:32:33 CST" Key="Purchase" ProcessKey="PurchaseAudit" StartCaption="提交部门领导审批"/>
+    </ProcessMapCollection>
+</BPM>

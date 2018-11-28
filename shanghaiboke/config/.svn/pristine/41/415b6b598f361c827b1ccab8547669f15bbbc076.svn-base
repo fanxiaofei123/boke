@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <ToCancel>
+ToCancel
+        </ToCancel>
+        <Delete>
+Delete
+        </Delete>
+        <New>
+New
+        </New>
+        <Confirm-R>
+Confirm-R
+        </Confirm-R>
+        <Pick>
+Pick
+        </Pick>
+        <Cancel>
+Cancel
+        </Cancel>
+        <CopyNew>
+CopyNew
+        </CopyNew>
+        <Confirm>
+Confirm
+        </Confirm>
+        <Edit>
+Edit
+        </Edit>
+        <ToCancel-R>
+ToCancel-R
+        </ToCancel-R>
+        <QuoteQuant>
+QuoteQuant
+        </QuoteQuant>
+        <Save>
+Save
+        </Save>
+        <Close>
+Close
+        </Close>
+    </Opt>
+    <UI>
+	<V_KittingNotice>KittingNotice</V_KittingNotice>
+        <SystemInfo>
+SystemInfo
+        </SystemInfo>
+        <KittingNoticeProduct_L>
+FinishedProductDetails
+        </KittingNoticeProduct_L>
+        <L_NoticeNo>
+NoticeNo
+        </L_NoticeNo>
+        <Lab_OwnerId>
+OwnerId
+        </Lab_OwnerId>
+        <Lab_CREATETIME>
+CREATETIME
+        </Lab_CREATETIME>
+        <first_head>
+BasicInformation
+        </first_head>
+        <L_Remark>
+Remark
+        </L_Remark>
+        <L_ExpectDateTimeFrom>
+ExpectDateFrom
+        </L_ExpectDateTimeFrom>
+        <Lab_CREATOR>
+CREATOR
+        </Lab_CREATOR>
+        <Lab_MODIFYTIME>
+MODIFYTIME
+        </Lab_MODIFYTIME>
+        <L_ExpectDateTimeTo>
+ExpectDateTo
+        </L_ExpectDateTimeTo>
+        <Lab_MODIFIER>
+MODIFIER
+        </Lab_MODIFIER>
+        <L_Status>
+Status
+        </L_Status>
+        <L_OwnerNo>
+OwnerNo
+        </L_OwnerNo>
+        <Lab_WarehouseCenterId>
+WarehouseCenterId
+        </Lab_WarehouseCenterId>
+        <KittingNoticeRaw_L>
+RawMaterialDetails
+        </KittingNoticeRaw_L>
+    </UI>
+    <GridColumn>
+        <L_Select_01>
+Select
+        </L_Select_01>
+        <L_Qty_01>
+Quantity
+        </L_Qty_01>
+        <ExpireDate>
+ExpireDate
+        </ExpireDate>
+        <BatchNo>
+BatchNo
+        </BatchNo>
+        <C0>
+Select
+        </C0>
+        <PickStoreareaId>
+StoreareaId
+        </PickStoreareaId>
+        <Qty>
+Quantity
+        </Qty>
+        <MaterialStatusId>
+MaterialType
+        </MaterialStatusId>
+        <MaterialUnit>
+Unit
+        </MaterialUnit>
+        <PickLocationId>
+LocationId
+        </PickLocationId>
+        <ManufDate>
+ManufDate
+        </ManufDate>
+        <MaterialId>
+MaterialId
+        </MaterialId>
+        <L_PutawayQty_01>
+PutawayQty
+        </L_PutawayQty_01>
+        <DictUserDef5>
+DictUserDef5
+        </DictUserDef5>
+        <DictUserDef4>
+DictUserDef4
+        </DictUserDef4>
+        <ProjectId>
+ProjectId
+        </ProjectId>
+        <DateUserDef2>
+DateUserDef2
+        </DateUserDef2>
+        <DateUserDef1>
+DateUserDef1
+        </DateUserDef1>
+        <NumUserDef3>
+NumUserDef3
+        </NumUserDef3>
+        <NumUserDef2>
+NumUserDef2
+        </NumUserDef2>
+        <NumUserDef1>
+NumUserDef1
+        </NumUserDef1>
+        <PickQty>
+PickQty
+        </PickQty>
+        <BasicQty>
+BasicUnitAmount
+        </BasicQty>
+        <PickStoreroomId>
+StoreroomId
+        </PickStoreroomId>
+        <L_MaterialUnit_01>
+Unit
+        </L_MaterialUnit_01>
+        <L_BasicQty_01>
+BasicUnitAmount
+        </L_BasicQty_01>
+        <DictUserDef3>
+DictUserDef3
+        </DictUserDef3>
+        <DictUserDef2>
+DictUserDef2
+        </DictUserDef2>
+        <DictUserDef1>
+DictUserDef1
+        </DictUserDef1>
+        <StrUserDef5>
+StrUserDef5
+        </StrUserDef5>
+        <StrUserDef4>
+StrUserDef4
+        </StrUserDef4>
+        <StrUserDef3>
+StrUserDef3
+        </StrUserDef3>
+        <StrUserDef2>
+StrUserDef2
+        </StrUserDef2>
+        <L_materialId_01>
+Material
+        </L_materialId_01>
+        <StrUserDef1>
+StrUserDef1
+        </StrUserDef1>
+    </GridColumn>
+    <Cell>
+        <Qty>
+Qty>0
+        </Qty>
+        <Qty_01>
+Qty>0
+        </Qty_01>
+    </Cell>
+</StringTable>

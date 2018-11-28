@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="Annual_Budget" Caption="年度费用预算" PrimaryTableKey="Annual_Budget" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="Annual_Budget" Caption="年度费用预算头表">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="制单人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="制单日期" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+            <Column Key="BillDate" Caption="业务日期" DataType="DateTime"/>
+            <Column Key="Budgetary_Name" Caption="预算名称" DataType="Varchar"/>
+            <Column Key="Budget_Description" Caption="预算描述" DataType="Varchar"/>
+            <Column Key="Budgetary_Classiy" Caption="预算分类" DataType="Varchar"/>
+            <Column Key="Budget_Department" Caption="预算部门" DataType="Varchar"/>
+            <Column Key="Time_Frame_Start" Caption="时间范围（起）" DataType="DateTime"/>
+            <Column Key="Time_Frame_Stop" Caption="时间范围（终）" DataType="DateTime"/>
+            <Column Key="Total_Budget_Amount_Taxes" Caption="预算总金额（含税）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Total_Budget_Amount" Caption="费用总金额（无税）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Total_Amount" Caption="总税额" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Staffing" Caption="编制人员" DataType="Long"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar"/>
+        </Table>
+        <Table Key="Annual_Budget_L" Caption="年度费用预算明细表" TableMode="Detail" SourceType="Query">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Budget_Items" Caption="预算项目" DataType="Long" Precision="16" Scale="2"/>
+            <Column Key="Cost_Item" Caption="费用项目" DataType="Long" Precision="16" Scale="2"/>
+            <Column Key="Route_Type_Code" Caption="航线分类" DataType="Varchar"/>
+            <Column Key="Route" Caption="航线" DataType="Varchar"/>
+            <Column Key="Tax_Rate" Caption="税率" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Cost_Budget_Taxes" Caption="费用预算（含税）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Cost_Budget" Caption="费用预算（无税）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Tax_Amount" Caption="税额" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Per_Capita_Cost_Budget_Taxes" Caption="人均费用预算（含税）" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Per_Capita_Cost_Budget" Caption="人均费用预算（无税）" DataType="Numeric" Precision="16" Scale="2"/>
+        </Table>
+    </TableCollection>
+</DataObject>

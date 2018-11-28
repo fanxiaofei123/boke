@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="ReceiveSampleMoveIn" Authenticate="false">
+    <DataSource>
+        <DataObject Key="LRP_ReceiveSampleMoveIn" Caption="领取样品入库任务" PrimaryTableKey="LRP_WMTx_H">
+            <TableCollection>
+                <Table Key="LRP_WMTx_H" Caption="领取样品入库任务" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="No" Caption="事务单号" DataType="Varchar" Length="100"/>
+                    <Column Key="TxTypeId" Caption="事务类型" DataType="Long"/>
+                    <Column Key="TxTypeCode" Caption="事务代码" DataType="Varchar" Length="10"/>
+                    <Column Key="OwnerNo" Caption="货主单号" DataType="Varchar" Length="100"/>
+                    <Column Key="NoticeNo" Caption="通知单号" DataType="Varchar" Length="100"/>
+                    <Column Key="RefNo" Caption="关联单号" DataType="Varchar" Length="100"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心id" DataType="Long"/>
+                    <Column Key="OwnerId" Caption="货主id" DataType="Long"/>
+                    <Column Key="OwnerName" Caption="货主名称" DataType="Varchar" Length="200"/>
+                    <Column Key="TxDateTime" Caption="事务日期时间" DataType="DateTime"/>
+                    <Column Key="WarehouseKeeperId" Caption="仓管员id" DataType="Long"/>
+                    <Column Key="Remark" Caption="备注" DataType="Varchar" Length="1000" Expand="true"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('WarehouseCenterId');"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[ select 
+    h.OID,
+	h.Status,
+	h.CREATETIME,
+    h.No,
+    h.TxTypeId,
+    h.TxTypeCode,
+    h.OwnerNo,
+    h.NoticeNo,
+    h.RefNo,
+    h.WarehouseCenterId,
+	h.OwnerId,
+	o.Name as OwnerName,
+    h.FinishDateTime,
+	h.WarehouseKeeperId,
+	h.Remark
+from LRP_WMTx_H h join LRP_Owner o on o.oid = h.OwnerId
+    where
+        h.TxTypeCode = '308'
+		and h.WarehouseKeeperId = 0
+		and (h.Status = 200 or h.Status = 500)
+		and h.WarehouseCenterId = ?
+ORDER BY h.No DESC
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[
+				LoadData();
+			 ]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="UpdateMove" Description="为选中订单更新当前仓管">
+            <Statement>
+                <![CDATA[
+				update LRP_WMTx_H set WarehouseKeeperId = ? where oid = ?
+				]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="GridLayoutPanel1" Caption="领取样品入库任务">
+                <Format BackColor="#e6e6e6"/>
+                <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl1" Caption="刷新控件" ProgressBackgroundColorScheme="#cccccc" X="0" Y="0">
+                    <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                        <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                        <Format/>
+                    </RefreshHeader>
+                    <RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+                        <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                        <Format/>
+                    </RefreshFooter>
+                    <ListView Caption="样品入库单" Key="list" TableKey="LRP_WMTx_H" RowHeight="70" Enable="true" SeparatorStyle="solid none solid none" Padding="5px">
+                        <Format Font="20px"/>
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="SelectField" IsSelect="true" DefaultValue="0" ColumnType="CheckBox" Visible="false" Icon="flight_check_unselect.png" SelectedIcon="flight_check_select.png" Stretch="true" ImageScaleType="Fit_XY"/>
+                            <ListViewColumn Key="No" DataColumnKey="No" Caption="样品入库单号"/>
+                            <ListViewColumn Caption="无货主" DataColumnKey="OwnerName" Key="OwnerName"/>
+                            <ListViewColumn Caption="事务名称" ColumnType="ComboBox" Key="TxTypeCode" DataColumnKey="TxTypeCode">
+                                <Item Caption="样品移出单" Key="306" Value="306"/>
+                                <Item Caption="样品入库单" Key="308" Value="308"/>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="样品入库单创建日期时间" ColumnType="DatePicker" DataColumnKey="CREATETIME" Key="CREATETIME">
+                                <Format HAlign="Left"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="OwnerNo" Caption="无货主单号" DataColumnKey="OwnerNo"/>
+                            <ListViewColumn Key="OID" DataColumnKey="OID" Caption="OID"/>
+                            <ListViewColumn Key="Blank">
+                                <Format HAlign="Center" BackColor="#e6e6e6"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="Receive" Caption="领取" ColumnType="Button" BorderStyle="none">
+                                <OnClick>
+                                    <![CDATA[
+										DBNamedUpdate('UpdateMove',GetOperator(),OID);
+										Parent.LoadData();
+										Back();
+									]]>
+                                </OnClick>
+                                <Format ForeColor="#ffffff" BackColor="#f14c52">
+                                    <Font Size="16"/>
+                                </Format>
+                            </ListViewColumn>
+                        </ListViewColumnCollection>
+                        <RowClick>
+                            <![CDATA[
+                                    PushPara('OID',OID);
+            						Show('SampleMoveInDetail');	 
+                            ]]>
+                        </RowClick>
+                    </ListView>
+                </RefreshControl>
+                <HyperLink Key="Label1" X="0" Y="0" Visible="GetRowCount('list')==0" Caption="当前没有待分配的样品入库单！">
+                    <Format HAlign="Center" ForeColor="#000000">
+                        <Font Size="22"/>
+                    </Format>
+                </HyperLink>
+                <RowDefCollection RowGap="5">
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection ColumnGap="5">
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="list">
+                    <GridLayout Key="list">
+                        <LayoutSpan Key="SelectField" X="0" Y="0"/>
+                        <LayoutSpan Key="No" X="1" Y="0"/>
+                        <LayoutSpan Key="OwnerName" X="3" Y="0"/>
+                        <LayoutSpan Key="CREATETIME" X="1" Y="1"/>
+                        <LayoutSpan Key="OwnerNo" X="3" Y="1"/>
+                        <LayoutSpan Key="Receive" X="5" Y="0" YSpan="2"/>
+                        <RowDefCollection>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara Formula="root.GetPara('WarehouseCenterId')" Key="WarehouseCenterId" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="领取样品入库任务" Location="Center">
+            <Label Key="TitleCenter" Caption="领取样品入库任务" Width="160px">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

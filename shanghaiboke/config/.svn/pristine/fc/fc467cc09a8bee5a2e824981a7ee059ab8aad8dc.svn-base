@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="调整减少单引入库存" Key="Quant-Tx401" SrcDataObjectKey="LRP_QuoteQuant" TgtDataObjectKey="LRP_WMTx">
+    <SourceTableCollection Height="1050" Width="245" X="30" Y="30">
+        <SourceTable Key="LRP_QuoteQuant" IsPrimary="true" TableKey="LRP_QuoteQuant" TargetTableKey="LRP_WMTx_L">
+            <SourceField Definition="MaterialId" TargetFieldKey="MaterialId" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="BatchNo" TargetFieldKey="SrcBatchNo" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="ManufDate" TargetFieldKey="SrcManufDate" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="ExpireDate" TargetFieldKey="SrcExpireDate" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="ProjectId" TargetFieldKey="SrcProjectId" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="StrUserDef1" TargetFieldKey="SrcStrUserDef1" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="StrUserDef2" TargetFieldKey="SrcStrUserDef2" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="StrUserDef3" TargetFieldKey="SrcStrUserDef3" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="StrUserDef4" TargetFieldKey="SrcStrUserDef4" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="StrUserDef5" TargetFieldKey="SrcStrUserDef5" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="DictUserDef1" TargetFieldKey="SrcDictUserDef1" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="DictUserDef2" TargetFieldKey="SrcDictUserDef2" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="DictUserDef3" TargetFieldKey="SrcDictUserDef3" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="DictUserDef4" TargetFieldKey="SrcDictUserDef4" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="DictUserDef5" TargetFieldKey="SrcDictUserDef5" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="DateUserDef1" TargetFieldKey="SrcDateUserDef1" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="DateUserDef2" TargetFieldKey="SrcDateUserDef2" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="NumUserDef1" TargetFieldKey="SrcNumUserDef1" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="NumUserDef2" TargetFieldKey="SrcNumUserDef2" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="NumUserDef3" TargetFieldKey="SrcNumUserDef3" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="AddQty" TargetFieldKey="Qty" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="MaterialStatusId" TargetFieldKey="SrcMaterialStatusId" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="StoreroomId" TargetFieldKey="SrcStoreroomId" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="StoreareaId" TargetFieldKey="SrcStoreareaId" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="LocationId" TargetFieldKey="SrcLocationId" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="BasicUnit" TargetFieldKey="MaterialUnit" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="RecvDate" TargetFieldKey="SrcRecvDate" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="RefOrderNo" TargetFieldKey="SrcRefOrderNo"/>
+            <SourceField Definition="RefSOID" TargetFieldKey="SrcRefSOID"/>
+            <SourceField Definition="RefLineOID" TargetFieldKey="SrcRefLineOID"/>
+            <SourceField Definition="HandingUnitNo" TargetFieldKey="SrcHandingUnitNo"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="1050" Width="260" X="350" Y="29">
+        <TargetTable Key="LRP_WMTx_L" TableKey="LRP_WMTx_L">
+            <TargetField Definition="MaterialId"/>
+            <TargetField Definition="SrcBatchNo"/>
+            <TargetField Definition="SrcManufDate"/>
+            <TargetField Definition="SrcExpireDate"/>
+            <TargetField Definition="SrcProjectId"/>
+            <TargetField Definition="SrcStrUserDef1"/>
+            <TargetField Definition="SrcStrUserDef2"/>
+            <TargetField Definition="SrcStrUserDef3"/>
+            <TargetField Definition="SrcStrUserDef4"/>
+            <TargetField Definition="SrcStrUserDef5"/>
+            <TargetField Definition="SrcDictUserDef1"/>
+            <TargetField Definition="SrcDictUserDef2"/>
+            <TargetField Definition="SrcDictUserDef3"/>
+            <TargetField Definition="SrcDictUserDef4"/>
+            <TargetField Definition="SrcDictUserDef5"/>
+            <TargetField Definition="SrcDateUserDef1"/>
+            <TargetField Definition="SrcDateUserDef2"/>
+            <TargetField Definition="SrcNumUserDef1"/>
+            <TargetField Definition="SrcNumUserDef2"/>
+            <TargetField Definition="SrcNumUserDef3"/>
+            <TargetField Definition="Qty"/>
+            <TargetField Definition="SrcMaterialStatusId"/>
+            <TargetField Definition="SrcStoreroomId"/>
+            <TargetField Definition="SrcStoreareaId"/>
+            <TargetField Definition="SrcLocationId"/>
+            <TargetField Definition="MaterialUnit"/>
+            <TargetField Definition="SrcRecvDate"/>
+            <TargetField Definition="SrcRefOrderNo"/>
+            <TargetField Definition="SrcRefSOID"/>
+            <TargetField Definition="SrcRefLineOID"/>
+            <TargetField Definition="SrcHandingUnitNo"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_WarehouseKeeper" Caption="仓管员" PrimaryTableKey="LRP_WarehouseKeeper" SecondaryType="Dict" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_WarehouseKeeper" Caption="司机" DBTableName="LRP_WarehouseKeeper">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="版本号" DataType="Integer"/>
+            <Column Key="DVERID" Caption="明细版本号" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Enable" Caption="启用状态" DataType="Integer" DefaultValue="1"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+            <Column Key="ParentID" Caption="字典父亲OID" DataType="Long"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+            <Column Key="CREATOR" Caption="创建人员" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人员" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Mobile" Caption="手机" DataType="Varchar" Length="100"/>
+            <Column Key="IDCardNo" Caption="身份证" DataType="Varchar" Length="40"/>
+            <Column Key="ContactAddress" Caption="联系地址" DataType="Varchar" Length="100"/>
+            <Column Key="AvatarUrl" Caption="头像路径" DataType="Varchar" Length="200"/>
+            <Column Key="Password" Caption="密码" DataType="Varchar" Length="1000"/>
+            <Column Key="WarehouseCenterId" Caption="仓储中心id" DataType="Long"/>
+            <Column Key="AppStatus" Caption="App使用状态" DataType="Integer" DefaultValue="0"/>
+            <Column Key="OperatorID" Caption="操作员ID" DataType="Long"/>
+            <Column Key="WorkGroup" Caption="工作组" DataType="Varchar" Length="20"/>
+        </Table>
+    </TableCollection>
+</DataObject>

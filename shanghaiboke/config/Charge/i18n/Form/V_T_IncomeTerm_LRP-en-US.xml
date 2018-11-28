@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+	
+		<V_T_IncomeTerm_LRP>IncomeTerm</V_T_IncomeTerm_LRP>
+        <Lab_No>No</Lab_No>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_IncomeId>IncomeName</Lab_IncomeId>
+        <Lab_Remark>Remark</Lab_Remark>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_FilterCondition>FilterCondition</Lab_FilterCondition>
+
+        
+        <Grid0>Terms detail</Grid0>
+        <GridCharge>Billing detail</GridCharge>
+    </UI>
+    <GridColumn>
+        <LineName>Name</LineName>
+        <SendOrgId>SendOrgId</SendOrgId>
+        <SendProvinceId>SendProvinceId</SendProvinceId>
+        <SendCityId>SendCityId</SendCityId>
+        <SendDistrictId>SendDistrictId</SendDistrictId>
+        <DestOrgId>DestOrgId</DestOrgId>
+        <DestProvinceId>DestProvinceId</DestProvinceId>
+        <DestCityId>DestCityId</DestCityId>
+        <DestDistrictId>DestDistrictId</DestDistrictId>
+        <Mileage>Mileage</Mileage>
+        <MaterialTypeId>MaterialTypeId</MaterialTypeId>
+        <RequireTruckTypeId>RequireTruckTypeId</RequireTruckTypeId>
+        <SumDivideType>SumDivideType</SumDivideType>
+        <ChargeBase>ChargeBase</ChargeBase>
+        <FieldName>FieldName</FieldName>
+        <WeightCubageRatio>WeightCubageRatio</WeightCubageRatio>
+        <ChargeDescribe>ChargeDescribe</ChargeDescribe>
+		
+		
+        <LowerNumber>LowerNumber</LowerNumber>
+        <UpperNumber>UpperNumber</UpperNumber>
+        <PriceType>PriceType</PriceType>
+        <Price>Price</Price>
+        <AddPrice>AddPrice</AddPrice>
+        <MinPrice>MinPrice</MinPrice>
+        <MaxPrice>MaxPrice</MaxPrice>
+    </GridColumn>
+	
+</StringTable>

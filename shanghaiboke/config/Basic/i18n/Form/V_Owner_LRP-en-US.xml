@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_CustomerId>CustomerId</L_CustomerId>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <PickAllowLack>PickAllowLack</PickAllowLack>
+        <ERPIntegrated>ERPIntegrated</ERPIntegrated>
+        <L_Code>Code</L_Code>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+        <L_Name>Name</L_Name>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <L_Tel>Tel</L_Tel>
+        <Grid0>Grid0</Grid0>
+        <SystemTab>SystemTab</SystemTab>
+        <BasicTab>BasicTab</BasicTab>
+        <L_Contacts>Contacts</L_Contacts>
+    </UI>
+    <GridColumn>
+        <column-9>ERP-Tel</column-9>
+        <column-8>Tel</column-8>
+        <column-7>Linkman</column-7>
+        <column-6>Address</column-6>
+        <column-5>Area</column-5>
+        <column-4>City</column-4>
+        <column-3>Province</column-3>
+        <column-2>Contry</column-2>
+        <column-1>Name</column-1>
+        <column-0>Code</column-0>
+    </GridColumn>
+    <DataObj>
+        <LRP_Owner>Owner</LRP_Owner>
+    </DataObj>
+</StringTable>

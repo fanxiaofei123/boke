@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Airport" Caption="机场" FormType="Dict">
+    <DataSource RefObjectKey="CHCS_Airport"/>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                    <GridLayoutPanel Key="BasicInfo" Padding="5px" Caption="基础信息">
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="L_Name" X="5" Y="1" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Name" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Name" Caption="名称" X="4" Y="1"/>
+                        <TextEditor Key="Airport_4_Code" Caption="四字代码" BuddyKey="Lab_Airport_4_Code" X="5" Y="0" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Airport_4_Code"/>
+                        </TextEditor>
+                        <Label Key="Lab_Airport_4_Code" Caption="四字代码" X="4" Y="0"/>
+                        <TextEditor Key="Code" Caption="机场三码" BuddyKey="Lab_Code" X="1" Y="0" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Code"/>
+                        </TextEditor>
+                        <Label Key="Lab_Code" Caption="机场三码" X="0" Y="0"/>
+                        <TextEditor Key="TIME_ZONE" Caption="当地时区" BuddyKey="Lab_TIME_ZONE" X="1" Y="2" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="TIME_ZONE"/>
+                        </TextEditor>
+                        <Label Key="Lab_TIME_ZONE" Caption="当地时区" X="0" Y="2"/>
+                        <TextEditor Key="English_Name" Caption="英文名称" BuddyKey="Lab_English_Name" X="5" Y="2" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="English_Name"/>
+                        </TextEditor>
+                        <Label Key="Lab_English_Name" Caption="英文名称" X="4" Y="2"/>
+                        <Dict Key="Airport_City_Chinese_Name" Caption="所属城市" BuddyKey="Lab_Airport_City_Chinese_Name" X="1" Y="3" ItemKey="LRP_City" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Airport_City_Chinese_Name"/>
+                        </Dict>
+                        <Label Key="Lab_Airport_City_Chinese_Name" Caption="所属城市" X="0" Y="3"/>
+                        <TextEditor Key="CITY_3CODE" Caption="城市三码" BuddyKey="Lab_CITY_3CODE" X="5" Y="3" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="CITY_3CODE"/>
+                        </TextEditor>
+                        <Label Key="Lab_CITY_3CODE" Caption="城市三码" X="4" Y="3"/>
+                        <TextEditor Key="CITY_EN_NAME" Caption="所属城市英文名" BuddyKey="Lab_CITY_EN_NAME" X="1" Y="4" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="CITY_EN_NAME"/>
+                        </TextEditor>
+                        <Label Key="Lab_CITY_EN_NAME" Caption="所属城市英文名" X="0" Y="4"/>
+                        <TextEditor Key="Airport_Local_Minutes" Caption="当地与北京时差" BuddyKey="Lab_Airport_Local_Minutes" X="5" Y="5" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Airport_Local_Minutes"/>
+                        </TextEditor>
+                        <Label Key="Lab_Airport_Local_Minutes" Caption="当地与北京时差" X="4" Y="5"/>
+                        <TextEditor Key="CITY_TEL_NO" Caption="城市区号" BuddyKey="Lab_CITY_TEL_NO" X="1" Y="5" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="CITY_TEL_NO"/>
+                        </TextEditor>
+                        <Label Key="Lab_CITY_TEL_NO" Caption="城市区号" X="0" Y="5"/>
+                        <ComboBox Key="D_OR_I" Caption="国内机场" BuddyKey="Lab_D_OR_I" X="1" Y="6" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="D_OR_I"/>
+                            <Item Caption="I:国际" Key="1" Value="国际"/>
+                            <Item Caption="R:地区" Key="2" Value="地区"/>
+                            <Item Caption="D:国内" Key="3" Value="国内"/>
+                        </ComboBox>
+                        <Label Key="Lab_D_OR_I" Caption="国内机场" X="0" Y="6"/>
+                        <ComboBox Key="Is_Base" Caption="是否基地" BuddyKey="Lab_Is_Base" X="1" Y="7" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Is_Base"/>
+                            <Item Caption="是" Key="0" Value="0"/>
+                            <Item Caption="否" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Key="Lab_Is_Base" Caption="是否基地" X="0" Y="7"/>
+                        <ComboBox Key="Is_Aerial_Food" Caption="是否有航食" BuddyKey="Lab_Is_Aerial_Food" X="5" Y="6" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Is_Aerial_Food"/>
+                            <Item Caption="是" Key="0" Value="0"/>
+                            <Item Caption="否" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Key="Lab_Is_Aerial_Food" Caption="是否有航食" X="4" Y="6"/>
+                        <TextEditor Key="CITY_ABBR" Caption="城市简称" BuddyKey="Lab_CITY_ABBR" X="5" Y="4" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="CITY_ABBR"/>
+                        </TextEditor>
+                        <Label Key="Lab_CITY_ABBR" Caption="城市简称" X="4" Y="4"/>
+                        <TextEditor Key="Airport_Abbreviation" Caption="简称" BuddyKey="Lab_Airport_Abbreviation" X="1" Y="1" XSpan="2">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="Airport_Abbreviation"/>
+                        </TextEditor>
+                        <Label Key="Lab_Airport_Abbreviation" Caption="简称" X="0" Y="1"/>
+                        <RowDefCollection RowGap="6" RowHeight="30">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="110px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="110px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="30px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysInfo" Padding="10px" Caption="系统信息">
+                        <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="CREATOR"/>
+                        </Dict>
+                        <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                        <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0" Enable="false">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="CREATETIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                        <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="MODIFIER"/>
+                        </Dict>
+                        <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1" Enable="false">
+                            <DataBinding TableKey="CHCS_Airport" ColumnKey="MODIFYTIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="2" Y="1"/>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

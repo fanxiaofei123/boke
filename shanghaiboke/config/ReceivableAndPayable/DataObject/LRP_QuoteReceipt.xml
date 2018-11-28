@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="应收引入收款单" Key="LRP_QuoteReceipt" PrimaryTableKey="LRP_QuoteReceipt_H">
+    <TableCollection>
+        <Table Caption="应收引入收款单" Key="LRP_QuoteReceipt" SourceType="Query" TableMode="Detail">
+            <Column Key="OID" Caption="收款单OID" DataType="Long"/>
+            <Column Key="SOID" Caption="收款单SOID" DataType="Long"/>
+            <Column Key="No" Caption="单号" DataType="Varchar" Length="200"/>
+            <Column Key="CompanyCode" Caption="公司" DataType="Long"/>
+            <Column Key="SettlementId" Caption="结算方" DataType="Long"/>
+            <Column Caption="收款日期" DataType="DateTime" Key="ReceiptDate"/>
+            <Column Caption="收款金额" DataType="Numeric" Key="ReceiptMoney" Precision="18" Scale="6"/>
+            <Column Key="CurrencyID" Caption="交易货币" DataType="Long"/>
+            <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+            <Statement>
+                <![CDATA[SELECT * FROM(SELECT h.OID,
+  h.SOID,
+  h.No,
+  h.CompanyCode,
+  h.SettlementId,
+  h.ReceiptDate,
+  h.ReceiptType,
+  h.CurrencyID,
+  h.ReceiptMoney
+FROM LRP_Receipt h
+LEFT JOIN LRP_Receipt_Show s
+on h.OID = s.SrcOID
+WHERE h.STATUS = 200 and h.ReceiptType='803' and MapKey IS NULL)a]]>
+            </Statement>
+        </Table>
+    </TableCollection>
+</DataObject>

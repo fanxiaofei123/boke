@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataMigration Caption="无通知收货-明细收货完成" Key="MG_102_LRP" SrcDataObjectKey="LRP_WMTx" TgtDataObjectKey="LRP_Quant" StatusFieldKey="Status" HeadCondition="LRP_WMTx_H.TxTypeCode=='102'" Condition="LRP_WMTx_L.Status&gt;=90" StatusValue="finished">
+    <SourceTableCollection Height="990" Width="260" X="30" Y="30">
+        <SourceTable TableKey="LRP_WMTx_H">
+            <SourceField Type="Field" Definition="WarehouseCenterId" TargetFieldKey="WarehouseCenterId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="OwnerId" TargetFieldKey="OwnerId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+			<SourceField Type="Field" Definition="No" TargetFieldKey="RefOrderNo" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+			<SourceField Type="Field" Definition="OID" TargetFieldKey="RefSOID" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+        </SourceTable>
+        <SourceTable TableKey="LRP_WMTx_L" IsPrimary="True">
+            <SourceField Type="Field" Definition="MaterialId" TargetFieldKey="MaterialId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestBatchNo" TargetFieldKey="BatchNo" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestManufDate" TargetFieldKey="ManufDate" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+			<SourceField Type="Field" Definition="DestRecvDate" TargetTableKey="LRP_Quant" TargetFieldKey="RecvDate" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestExpireDate" TargetFieldKey="ExpireDate" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestProjectId" TargetFieldKey="ProjectId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestStrUserDef1" TargetFieldKey="StrUserDef1" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestStrUserDef2" TargetFieldKey="StrUserDef2" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestStrUserDef3" TargetFieldKey="StrUserDef3" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestStrUserDef4" TargetFieldKey="StrUserDef4" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestStrUserDef5" TargetFieldKey="StrUserDef5" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestDictUserDef1" TargetFieldKey="DictUserDef1" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestDictUserDef2" TargetFieldKey="DictUserDef2" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestDictUserDef3" TargetFieldKey="DictUserDef3" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestDictUserDef4" TargetFieldKey="DictUserDef4" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestDictUserDef5" TargetFieldKey="DictUserDef5" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestDateUserDef1" TargetFieldKey="DateUserDef1" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestDateUserDef2" TargetFieldKey="DateUserDef2" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestNumUserDef1" TargetFieldKey="NumUserDef1" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestNumUserDef2" TargetFieldKey="NumUserDef2" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestNumUserDef3" TargetFieldKey="NumUserDef3" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestStoreroomId" TargetFieldKey="StoreroomId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestStoreareaId" TargetFieldKey="StoreareaId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestLocationId" TargetFieldKey="LocationId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="DestMaterialStatusId" TargetFieldKey="MaterialStatusId" TargetTableKey="LRP_Quant" OpSign="Assign"/>
+            <SourceField Type="Field" Definition="BasicQty" TargetFieldKey="OnhandQty" TargetTableKey="LRP_Quant"/>
+			<SourceField Type="Field" Definition="OID" TargetFieldKey="RefLineOID" TargetTableKey="LRP_Quant"/>
+			<SourceField Definition="DestHandingUnitNo" OpSign="Assign" TargetFieldKey="HandingUnitNo" TargetTableKey="LRP_Quant"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="930" Width="227" X="430" Y="16">
+        <TargetTable TableKey="LRP_Quant">
+            <TargetField FieldKey="WarehouseCenterId"/>
+            <TargetField FieldKey="OwnerId"/>
+			<TargetField FieldKey="RefOrderNo"/>
+			<TargetField FieldKey="RefSOID"/>
+            <TargetField FieldKey="MaterialId"/>
+            <TargetField FieldKey="OnhandQty"/>
+            <TargetField FieldKey="BatchNo"/>
+            <TargetField FieldKey="ManufDate"/>
+            <TargetField FieldKey="ExpireDate"/>
+			<TargetField FieldKey="RecvDate"/>
+            <TargetField FieldKey="ProjectId"/>
+            <TargetField FieldKey="StrUserDef1"/>
+            <TargetField FieldKey="StrUserDef2"/>
+            <TargetField FieldKey="StrUserDef3"/>
+            <TargetField FieldKey="StrUserDef4"/>
+            <TargetField FieldKey="StrUserDef5"/>
+            <TargetField FieldKey="DictUserDef1"/>
+            <TargetField FieldKey="DictUserDef2"/>
+            <TargetField FieldKey="DictUserDef3"/>
+            <TargetField FieldKey="DictUserDef4"/>
+            <TargetField FieldKey="DictUserDef5"/>
+            <TargetField FieldKey="DateUserDef1"/>
+            <TargetField FieldKey="DateUserDef2"/>
+            <TargetField FieldKey="NumUserDef1"/>
+            <TargetField FieldKey="NumUserDef2"/>
+            <TargetField FieldKey="NumUserDef3"/>
+            <TargetField FieldKey="StoreroomId"/>
+            <TargetField FieldKey="StoreareaId"/>
+            <TargetField FieldKey="LocationId"/>
+            <TargetField FieldKey="MaterialStatusId"/>
+			<TargetField FieldKey="RefLineOID"/>
+			<TargetField FieldKey="HandingUnitNo"/>
+        </TargetTable>
+    </TargetTableCollection>
+</DataMigration>

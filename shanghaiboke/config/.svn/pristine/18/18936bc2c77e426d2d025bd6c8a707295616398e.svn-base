@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Lab_SplitNum>Input Row Number !</Lab_SplitNum>
+        <bntCancel>No</bntCancel>
+        <bntOK>Yes</bntOK>
+		<V_GetSplitNum>GetSplitNum</V_GetSplitNum>
+    </UI>
+</StringTable>

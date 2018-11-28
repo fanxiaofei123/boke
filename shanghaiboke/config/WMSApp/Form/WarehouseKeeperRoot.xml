@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="WarehouseKeeperRoot" Caption="仓库管理Root" Authenticate="false">
+    <Body>
+        <Block>
+            <Container Key="root" Caption="根容器">
+                <TabGroup>
+                    <TabItem Text="首页" FormKey="WarehouseToDoList" Icon="30.png" SelectedIcon="30-1.png"/>
+                    <TabItem Text="我的" FormKey="WarehouseKeeper" Icon="32.png" SelectedIcon="32-1.png"/>
+                </TabGroup>
+            </Container>
+        </Block>
+    </Body>
+    <NavigationBar Style="Custom"/>
+</Form>

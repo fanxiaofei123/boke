@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+	<V_StockCollect>StockCollect</V_StockCollect>
+        <cancel>Reset</cancel>
+        <Query>Query</Query>
+        <ListView0>Storage Area Inventory</ListView0>
+        <Lab_MaterialStatusId>Material Status</Lab_MaterialStatusId>
+        <ListView1>Receiving Area Inventory</ListView1>
+        <ListView2>Delivery Area Inventory</ListView2>
+        <ListView3>Sample Inspection Area Inventory</ListView3>
+        <Lab_OwnerId>Shipper</Lab_OwnerId>
+        <Lab_MaterialId>Material</Lab_MaterialId>
+        <ListView4>Processing Area Inventory</ListView4>
+        <Lab_WarehouseCenterId>Storage Center </Lab_WarehouseCenterId>
+    </UI>
+    <ListViewColumn>
+        <V_OwnerId>Shipper</V_OwnerId>
+        <OnhandQty>On-hand Tota Quantity</OnhandQty>
+        <Picture_No2>Picture_No</Picture_No2>
+        <V_OwnerId_02>Shipper</V_OwnerId_02>
+        <V_OwnerId_03>Shipper</V_OwnerId_03>
+        <V_OwnerId_04>Shipper</V_OwnerId_04>
+        <V_OwnerId_05>Shipper</V_OwnerId_05>
+        <V_BasicUnit>Basic Unit</V_BasicUnit>
+        <V_WarehouseCenterId>Storage Center </V_WarehouseCenterId>
+        <V_MaterialId_03>Material</V_MaterialId_03>
+        <V_MaterialId_02>Material</V_MaterialId_02>
+        <V_MaterialStatusId>Material Status</V_MaterialStatusId>
+        <EnglishName1>English Name</EnglishName1>
+        <Picture_No1>Picture_No</Picture_No1>
+        <EnglishName2>English Name</EnglishName2>
+        <V_MaterialId_05>Material</V_MaterialId_05>
+        <V_MaterialId_04>Material</V_MaterialId_04>
+        <OnhandQty_05>On-hand Tota Quantity</OnhandQty_05>
+        <OnhandQty_03>On-hand Tota Quantity</OnhandQty_03>
+        <V_BasicUnit_03>Basic Unit</V_BasicUnit_03>
+        <V_BasicUnit_02>Basic Unit</V_BasicUnit_02>
+        <OnhandQty_04>On-hand Tota Quantity</OnhandQty_04>
+        <V_BasicUnit_05>Basic Unit</V_BasicUnit_05>
+        <V_MaterialId>Material</V_MaterialId>
+        <OnhandQty_02>On-hand Tota Quantity</OnhandQty_02>
+        <V_BasicUnit_04>Basic Unit</V_BasicUnit_04>
+        <V_MaterialStatusId_04>Material Status</V_MaterialStatusId_04>
+        <V_MaterialStatusId_05>Material Status</V_MaterialStatusId_05>
+        <Picture_No>Picture_No</Picture_No>
+        <V_MaterialStatusId_02>Material Status</V_MaterialStatusId_02>
+        <V_MaterialStatusId_03>Material Status</V_MaterialStatusId_03>
+        <V_WarehouseCenterId_02>Storage Center </V_WarehouseCenterId_02>
+        <V_WarehouseCenterId_03>Storage Center </V_WarehouseCenterId_03>
+        <V_WarehouseCenterId_04>Storage Center </V_WarehouseCenterId_04>
+        <V_WarehouseCenterId_05>Storage Center </V_WarehouseCenterId_05>
+        <EnglishName>English Name</EnglishName>
+    </ListViewColumn>
+</StringTable>

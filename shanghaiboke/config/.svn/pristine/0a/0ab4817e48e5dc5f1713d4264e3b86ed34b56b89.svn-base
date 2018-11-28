@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="引入库存下推盘点单" Key="Quant-TakeStock" SrcDataObjectKey="LRP_QuoteQuant" TgtDataObjectKey="LRP_TakeStock">
+    <SourceTableCollection Height="930" Width="245" X="30" Y="30">
+        <SourceTable Key="LRP_QuoteQuant" TargetTableKey="LRP_TakeStock_L" IsPrimary="true">
+            <SourceField Definition="MaterialId" TargetFieldKey="MaterialId"/>
+            <SourceField Definition="StoreroomId" TargetFieldKey="StoreroomId"/>
+            <SourceField Definition="StoreareaId" TargetFieldKey="StoreareaId"/>
+            <SourceField Definition="LocationId" TargetFieldKey="LocationId"/>
+            <SourceField Definition="MaterialStatusId" TargetFieldKey="MaterialStatusId"/>
+            <SourceField Definition="AddQty" TargetFieldKey="Qty"/>
+            <SourceField Definition="AddQty" TargetFieldKey="CheckQty"/>
+            <SourceField Definition="BatchNo" TargetFieldKey="BatchNo"/>
+            <SourceField Definition="ManufDate" TargetFieldKey="ManufDate"/>
+            <SourceField Definition="ExpireDate" TargetFieldKey="ExpireDate"/>
+            <SourceField Definition="ProjectId" TargetFieldKey="ProjectId"/>
+            <SourceField Definition="RecvDate" TargetFieldKey="RecvDate"/>
+            <SourceField Definition="StrUserDef1" TargetFieldKey="StrUserDef1"/>
+            <SourceField Definition="StrUserDef2" TargetFieldKey="StrUserDef2"/>
+            <SourceField Definition="StrUserDef3" TargetFieldKey="StrUserDef3"/>
+            <SourceField Definition="StrUserDef4" TargetFieldKey="StrUserDef4"/>
+            <SourceField Definition="StrUserDef5" TargetFieldKey="StrUserDef5"/>
+            <SourceField Definition="DictUserDef1" TargetFieldKey="DictUserDef1"/>
+            <SourceField Definition="DictUserDef2" TargetFieldKey="DictUserDef2"/>
+            <SourceField Definition="DictUserDef3" TargetFieldKey="DictUserDef3"/>
+            <SourceField Definition="DictUserDef4" TargetFieldKey="DictUserDef4"/>
+            <SourceField Definition="DictUserDef5" TargetFieldKey="DictUserDef5"/>
+            <SourceField Definition="DateUserDef1" TargetFieldKey="DateUserDef1"/>
+            <SourceField Definition="DateUserDef2" TargetFieldKey="DateUserDef2"/>
+            <SourceField Definition="NumUserDef1" TargetFieldKey="NumUserDef1"/>
+            <SourceField Definition="NumUserDef2" TargetFieldKey="NumUserDef2"/>
+            <SourceField Definition="NumUserDef3" TargetFieldKey="NumUserDef3"/>
+            <SourceField Definition="0" Type="Const" TargetFieldKey="GenMethod"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="960" Width="258" X="343" Y="30">
+        <TargetTable Key="LRP_TakeStock_L">
+            <TargetField Definition="MaterialId"/>
+            <TargetField Definition="StoreroomId"/>
+            <TargetField Definition="StoreareaId"/>
+            <TargetField Definition="LocationId"/>
+            <TargetField Definition="MaterialStatusId"/>
+            <TargetField Definition="Qty"/>
+            <TargetField Definition="CheckQty"/>
+            <TargetField Definition="BatchNo"/>
+            <TargetField Definition="ManufDate"/>
+            <TargetField Definition="ExpireDate"/>
+            <TargetField Definition="ProjectId"/>
+            <TargetField Definition="RecvDate"/>
+            <TargetField Definition="StrUserDef1"/>
+            <TargetField Definition="StrUserDef2"/>
+            <TargetField Definition="StrUserDef3"/>
+            <TargetField Definition="StrUserDef4"/>
+            <TargetField Definition="StrUserDef5"/>
+            <TargetField Definition="DictUserDef1"/>
+            <TargetField Definition="DictUserDef2"/>
+            <TargetField Definition="DictUserDef3"/>
+            <TargetField Definition="DictUserDef4"/>
+            <TargetField Definition="DictUserDef5"/>
+            <TargetField Definition="DateUserDef1"/>
+            <TargetField Definition="DateUserDef2"/>
+            <TargetField Definition="NumUserDef1"/>
+            <TargetField Definition="NumUserDef2"/>
+            <TargetField Definition="NumUserDef3"/>
+            <TargetField Definition="GenMethod"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="自车运输调度单" FormType="Entity" Key="V_SelfTruckTransportDispatch">
+    <DataSource RefObjectKey="LRP_TransportDispatch"/>
+    <OperationCollection>
+        <Operation Caption="新增" Key="New" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				New('V_SelfTruckTransportDispatch');
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="复制新增" Key="CopyNew" RefKey="CopyNew" ShortCuts="Ctrl+E"/>
+        <Operation Caption="保存" Key="Save" ShortCuts="Ctrl+S" Visible="!ReadOnly()&amp;&amp;(Status==StatusValue('prepared')||Status==StatusValue('ontheway'))">
+            <Action>
+                <![CDATA[	
+					if(TransMethod == ""){
+						Confirm('运输类型不可为空','OK','OK:{}');
+						return true;
+					}
+					if(GetRowCount('Grid0',false)<=0){
+						Confirm('明细不可为空','OK','OK:{}');
+						return true;
+					}
+					if(TruckLicenseNo == ""){
+						Confirm('车牌号不可为空','OK','OK:{}');
+						return true;
+					}
+					if(Driver == ""){
+						Confirm('司机不可为空','OK','OK:{}');
+						return true;
+					}
+					var ir = IsRefreshDriver;
+					var od = DriverId;
+					SaveData();
+					var BatchAdd = parent.GetPara('BatchAdd_para');
+					if(ToString(BatchAdd) == "1"){
+						Parent.ReloadGrid("Grid0");
+					}
+					
+					UpdateView();
+					IsRefreshDriver = ir;
+					DriverId = od;
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;(Status==StatusValue('prepared')||Status==StatusValue('ontheway'))">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="Delete" ShortCuts="Ctrl+D" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+						InvokeService("LRP_TransportDispatchDelete", false, false,OID);
+						UpdateView();Close();
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Caption="添加作业单" Key="AddNewDetail" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[
+				if(Length(TransMethod)>0){
+					//SetPara('Form_para',"V_SelfTruckTransportDispatch");
+					//SetPara('TransMethod_para',TransMethod);
+					//SetPara('DispatchOrgId_para',DispatchOrgId);
+					//SetPara('RouteId_para',RouteId);
+					ShowModal('V_QuoteTransportJobView',{Form_para:{'V_SelfTruckTransportDispatch'},TransMethod_para:{TransMethod},DispatchOrgId_para:{DispatchOrgId},RouteId_para:{RouteId}});
+				}else{
+					Confirm('请先选择运输类型', 'OK',{OK:{}});
+				}
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="发车" Key="Depart" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+				
+				//检查车牌号、司机、司机手机号不能为空 
+				if(TruckLicenseNo == ""){
+					Confirm('车牌号不可为空','OK','OK:{}');
+					return true;
+				}
+				if(Driver == ""){
+					Confirm('司机不可为空','OK','OK:{}');
+					return true;
+				}
+				if(DriverMobile == ""){
+					Confirm('司机手机不可为空','OK','OK:{}');
+					return true;
+				}
+				//检查引用的作业单类型是否正确
+				var rst = DBNamedQuery('CheckTransportJobDetailStatus',OID);
+				var b = false;
+				rst.beforefirst();
+				while(rst.next()){
+					b = true;
+				}
+				if(b){
+					Confirm('明细中发现还未装货的运输作业单，是否自动将其状态改成已装货？','YES_NO_CANCEL',{
+						CANCEL:{},
+						YES:{SetValue("Par_ChangeDetailStatus",1);Status=StatusValue('ontheway');SaveData();UpdateView();},
+						NO:{SetValue("Par_ChangeDetailStatus",0);Status=StatusValue('ontheway');SaveData();UpdateView();}
+						});
+				}
+				else{
+					SetValue("Par_ChangeDetailStatus",0);
+					Status=StatusValue('ontheway');SaveData();UpdateView();
+				}		
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('prepared');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销发车" Key="Depart-R" Visible="ReadOnly()&amp;&amp;Status==StatusValue('ontheway')">
+            <Action>
+                <![CDATA[Status=StatusValue('prepared');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('ontheway');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="完成" Key="Finish" Visible="ReadOnly()&amp;&amp;Status==StatusValue('ontheway')">
+            <Action>
+                <![CDATA[Status=StatusValue('finished');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('ontheway');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="撤销完成" Key="Finish-R" Visible="ReadOnly()&amp;&amp;Status==StatusValue('finished')">
+            <Action>
+                <![CDATA[Status=StatusValue('ontheway');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('finished');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+        <Operation Key="Deliver" Caption="发站月台预约" Enable="ReadOnly()&amp;&amp;Status&lt;900">
+            <Action>
+                <![CDATA[
+var count = 0;//记录选中行数
+var index = -1;
+var SelectIndex = -1;
+loop "Grid0" (true){
+    index = index + 1;
+    if(Select == true){
+        count = count + 1;
+        SelectIndex = index;
+        if(count>1){
+            Confirm("最多只能选择一条运输作业单明细。");
+            return true;
+        }
+        if(SendOrg == '' || IsNull(SendOrg)){
+            Confirm("发站仓储中心必须输入。");
+            return true;
+        }
+    }
+}
+if(count==0){
+    Confirm("请选择一条运输作业单明细。");
+    return true;
+}
+PlatformOrder2(
+    5, 
+    GetCellValue('Grid0',SelectIndex,'SendOrg'),
+    GetCellValue('Grid0',SelectIndex,'TJId'),
+    GetCellValue('Grid0',SelectIndex,'TransportJobNo'),
+    '',
+    TruckLicenseNo,Driver,DriverMobile);
+
+
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="Arrival" Caption="到站月台预约" Enable="ReadOnly()&amp;&amp;Status&lt;900">
+            <Action>
+                <![CDATA[
+var count = 0;//记录选中行数
+var index = -1;
+var SelectIndex = -1;
+loop "Grid0" (true){
+    index = index + 1;
+    if(Select == true){
+        count = count + 1;
+        SelectIndex = index;
+        if(count>1){
+            Confirm("最多只能选择一条运输作业单明细。");
+            return true;
+        }
+        if(DestOrg == '' || IsNull(DestOrg)){
+            Confirm("到站仓储中心必须输入。");
+            return true;
+        }
+    }
+}
+if(count==0){
+    Confirm("请选择一条运输作业单明细。");
+    return true;
+}
+PlatformOrder2(
+    6, 
+    GetCellValue('Grid0',SelectIndex,'DestOrg'),
+    GetCellValue('Grid0',SelectIndex,'TJId'),
+    GetCellValue('Grid0',SelectIndex,'TransportJobNo'),
+    '',
+    TruckLicenseNo,Driver,DriverMobile);
+
+
+]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Description="读取引用的作业单明细的详细信息" Key="GetTransportJobDetails">
+            <Statement>
+                <![CDATA[				
+		select j.* from LRP_TransportJob_H j join LRP_TransportDJ_L l on j.oid =l.TJId where l.SOID =?				
+			]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Description="读取引用的作业单明细的状态中是否有小于已装货" Key="CheckTransportJobDetailStatus">
+            <Statement>
+                <![CDATA[				
+		select j.* from LRP_TransportJob_H j join LRP_TransportDJ_L l on j.oid =l.TJId where l.SOID =? and 	j.Status<730		
+			]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                            <TextEditor Caption="调度单号" Enable="false" Key="No" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="No" TableKey="LRP_TransportDispatch_H"/>
+                            </TextEditor>
+                            <Label Caption="调度单号" Key="L_No" X="0" Y="0"/>
+                            <ComboBox Caption="运输类型" Key="TransMethod" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="TransMethod" TableKey="LRP_TransportDispatch_H" Required="true" DefaultValue="807">
+                                    <ValueChanging>
+                                        <![CDATA[
+											Confirm('修改运输类型后需要清空明细的记录，是否继续？','YES_NO',{
+												YES:{
+													CommitValue('TransMethod');
+													ClearAllRows('Grid0');},
+												NO:{RollbackValue('TransMethod');}
+												});]]>
+                                    </ValueChanging>
+                                    <ValueValidation>
+                                        <![CDATA[GetRowCount('Grid0')<=1]]>
+                                    </ValueValidation>
+                                </DataBinding>
+                                <Item Caption="提货" Key="801" Value="801"/>
+                                <Item Caption="配送" Key="802" Value="802"/>
+                                <Item Caption="干线" Key="803" Value="803"/>
+                                <Item Caption="直发" Key="804" Value="804"/>
+                                <Item Caption="回程" Key="805" Value="805"/>
+                                <Item Caption="短驳" Key="806" Value="806"/>
+                                <Item Caption="混合" Key="807" Value="807"/>
+                            </ComboBox>
+                            <Label Caption="运输类型" Key="L_TransMethod" X="4" Y="0"/>
+                            <Dict BuddyKey="Lab_RouteId" Caption="运输路线" ItemKey="LRP_Route" Key="RouteId" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" X="9" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="RouteId" TableKey="LRP_TransportDispatch_H"/>
+                            </Dict>
+                            <Label Caption="运输路线" Key="Lab_RouteId" X="8" Y="0"/>
+                            <Dict BuddyKey="Lab_TruckId" Caption="车辆" ItemKey="LRP_Truck" Key="TruckId" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="TruckId" TableKey="LRP_TransportDispatch_H"/>
+                            </Dict>
+                            <Label Caption="车辆" Key="Lab_TruckId" X="0" Y="1"/>
+                            <TextEditor Caption="车型" Key="TruckTypeId" Visible="false" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="TruckTypeId" DefaultFormulaValue="GetDictValue('LRP_Truck',TruckId,'TruckTypeId')" TableKey="LRP_TransportDispatch_H"/>
+                            </TextEditor>
+                            <Label Caption="车型" Key="L_TruckTypeId" Visible="false" X="4" Y="1"/>
+                            <TextEditor Caption="车牌号" Key="TruckLicenseNo" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="TruckLicenseNo" DefaultFormulaValue="GetDictValue('LRP_Truck',TruckId,'LicenseNo')" TableKey="LRP_TransportDispatch_H"/>
+                            </TextEditor>
+                            <Label Caption="车牌号" Key="L_TruckLicenseNo" X="4" Y="1"/>
+                            <GridLayoutPanel Caption="司机信息" Key="DriverMessager" X="0" XSpan="3" Y="2">
+                                <Dict BuddyKey="Lab_DriverId" Caption="司机" ItemKey="LRP_Driver" Key="DriverId" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" X="1" Y="0">
+                                    <DataBinding ColumnKey="DriverId" TableKey="LRP_TransportDispatch_H"/>
+                                    <ItemFilter ItemKey="LRP_Driver">
+                                        <Filter Type="FieldValue" Condition="IsRefreshDriver" FilterDependency="IsRefreshDriver">
+                                            <FilterValue FieldKey="AppStatus" RefValue="1" Type="Const" DataType="Integer"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="司机" Key="Lab_DriverId" X="0" Y="0"/>
+                                <TextEditor Caption="姓名" Key="Driver" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" X="3" Y="0">
+                                    <DataBinding ColumnKey="Driver" DefaultFormulaValue="GetDictValue('LRP_Truck',TruckId,'Driver')" TableKey="LRP_TransportDispatch_H"/>
+                                </TextEditor>
+                                <Label Caption="姓名" Key="L_Driver" X="2" Y="0"/>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="4">
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="50%" MinWidth="20px"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="50%" MinWidth="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <TextEditor Caption="手机" Key="DriverMobile" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" X="5" XSpan="2" Y="2">
+                                <DataBinding ColumnKey="DriverMobile" DefaultFormulaValue="GetDictValue('LRP_Truck',TruckId,'DriverMobile')" TableKey="LRP_TransportDispatch_H"/>
+                            </TextEditor>
+                            <Label Caption="手机" Key="L_DriverMobile" X="4" Y="2"/>
+                            <ComboBox BuddyKey="L_DriverTaskStatus" Caption="司机接收状态" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" Key="DriverTaskStatus" X="9" XSpan="2" Y="2">
+                                <DataBinding ColumnKey="DriverTaskStatus" TableKey="LRP_TransportDispatch_H">
+                                    <ValueChanged>
+                                        <![CDATA[
+							            if(DriverTaskStatus!=2){
+							                     SetValue('DriverRejectCause','');SetEnable('DriverRejectCause',false);
+							            }else{
+							                     SetEnable('DriverRejectCause',true);
+							            }
+							            ]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <Item Caption="待接" Key="0" Value="0"/>
+                                <Item Caption="已接" Key="1" Value="1"/>
+                                <Item Caption="拒绝" Key="2" Value="2"/>
+                                <Item Caption="开始" Key="3" Value="3"/>
+                            </ComboBox>
+                            <Label Caption="司机接收状态" Key="L_DriverTaskStatus" X="8" Y="2"/>
+                            <GridLayoutPanel Caption="地址信息" Key="AddressMessager" X="0" XSpan="11" Y="4">
+                                <Dict BuddyKey="Lab_StartProvinceId" Caption="起运省" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" ItemKey="LRP_Province" Key="StartProvinceId" X="1" Y="0">
+                                    <DataBinding ColumnKey="StartProvinceId" TableKey="LRP_TransportDispatch_H" Required="true" ErrorInfo="起运省不能为空"/>
+                                </Dict>
+                                <Label Caption="起运省" Key="Lab_StartProvinceId" X="0" Y="0"/>
+                                <Dict BuddyKey="Lab_StartCityId" Caption="市" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" ItemKey="LRP_City" Key="StartCityId" X="3" Y="0">
+                                    <DataBinding ColumnKey="StartCityId" TableKey="LRP_TransportDispatch_H" Required="true" ErrorInfo="起运市不能为空"/>
+                                    <ItemFilter ItemKey="LRP_City">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="ProvinceId" RefValue="StartProvinceId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="市" Key="Lab_StartCityId" X="2" Y="0"/>
+                                <Dict BuddyKey="Lab_StartDistrictId" Caption="区县" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" ItemKey="LRP_District" Key="StartDistrictId" X="5" Y="0">
+                                    <DataBinding ColumnKey="StartDistrictId" TableKey="LRP_TransportDispatch_H"/>
+                                    <ItemFilter ItemKey="LRP_District">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="SOID" RefValue="StartCityId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="区县" Key="Lab_StartDistrictId" X="4" Y="0"/>
+                                <Dict BuddyKey="Lab_EndProvinceId" Caption="目的省" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" ItemKey="LRP_Province" Key="EndProvinceId" X="7" Y="0">
+                                    <DataBinding ColumnKey="EndProvinceId" TableKey="LRP_TransportDispatch_H" Required="true" ErrorInfo="目的省不能为空"/>
+                                </Dict>
+                                <Label Caption="目的省" Key="Lab_EndProvinceId" X="6" Y="0"/>
+                                <Dict BuddyKey="Lab_EndCityId" Caption="市" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" ItemKey="LRP_City" Key="EndCityId" X="9" Y="0">
+                                    <DataBinding ColumnKey="EndCityId" TableKey="LRP_TransportDispatch_H" Required="true" ErrorInfo="目的市不能为空"/>
+                                    <ItemFilter ItemKey="LRP_City">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="ProvinceId" RefValue="EndProvinceId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="市" Key="Lab_EndCityId" X="8" Y="0"/>
+                                <Dict BuddyKey="Lab_EndDistrictId" Caption="区县" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" ItemKey="LRP_District" Key="EndDistrictId" X="11" Y="0">
+                                    <DataBinding ColumnKey="EndDistrictId" TableKey="LRP_TransportDispatch_H"/>
+                                    <ItemFilter ItemKey="LRP_District">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="SOID" RefValue="EndCityId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="区县" Key="Lab_EndDistrictId" X="10" Y="0"/>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="4">
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="16%" MinWidth="20px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="16%" MinWidth="20px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="16%" MinWidth="20px"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="17%" MinWidth="20px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="17%" MinWidth="20px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="17%" MinWidth="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <DatePicker Caption="下单日期时间" Enable="false" Key="OrderDateTime" X="9" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="OrderDateTime" DefaultFormulaValue="ServerDate()" TableKey="LRP_TransportDispatch_H"/>
+                            </DatePicker>
+                            <Label Caption="下单日期时间" Key="L_OrderDateTime" X="8" Y="1"/>
+                            <TextEditor BuddyKey="Lab_DriverRejectCause" Caption="司机拒绝原因" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" Key="DriverRejectCause" X="1" XSpan="6" Y="3">
+                                <DataBinding ColumnKey="DriverRejectCause" TableKey="LRP_TransportDispatch_H"/>
+                            </TextEditor>
+                            <Label Caption="司机拒绝原因" Key="Lab_DriverRejectCause" X="0" Y="3"/>
+                            <ComboBox Caption="状态" Enable="false" Key="Status" SourceType="Status" X="9" XSpan="2" Y="3">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_TransportDispatch_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Caption="状态" Key="L_Status" X="8" Y="3"/>
+                            <TextEditor BuddyKey="Lab_Remark" Caption="备注" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')" Key="Remark" X="1" XSpan="6" Y="5">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_TransportDispatch_H"/>
+                            </TextEditor>
+                            <Label Caption="备注" Key="Lab_Remark" X="0" Y="5"/>
+                            <CheckBox Caption="是否过滤未签到司机" Key="IsRefreshDriver" X="8" XSpan="3" Y="5">
+                                <DataBinding DefaultValue="true"/>
+                            </CheckBox>
+                            <Dict BuddyKey="Lab_DispatchOrgId" Caption="调度组织" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId" Visible="false" X="9" XSpan="2" Y="6">
+                                <DataBinding ColumnKey="DispatchOrgId" DefaultFormulaValue="getCurDispatchOrgID()" TableKey="LRP_TransportDispatch_H"/>
+                            </Dict>
+                            <Label Caption="调度组织" Key="Lab_DispatchOrgId" Visible="false" X="8" Y="6"/>
+                            <TextEditor BuddyKey="Lab_OID" Caption="OID" Enable="false" Key="OID" Visible="false" X="1" Y="6">
+                                <DataBinding ColumnKey="OID" TableKey="LRP_TransportDispatch_H"/>
+                            </TextEditor>
+                            <Label Caption="OID" Key="Lab_OID" X="0" Y="6"/>
+                            <Label Caption="0" Key="FirstLoad" Visible="false" X="0" Y="0"/>
+                            <Label Caption="Par_ChangeDetailStatus" Key="Par_ChangeDetailStatus" Visible="false" X="0" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_TransportDispatch_H"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TransportDispatch_H"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TransportDispatch_H"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_TransportDispatch_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="4" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <GridLayoutPanel Caption="运输作业单明细" Key="DetailTab">
+                            <Grid Caption="运输作业单明细" Key="Grid0" CanInsert="false" NewEmptyRow="false" Enable="true" X="0" Y="0">
+                                <GridColumnCollection>
+                                    <GridColumn Caption="选择" Key="Select" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="作业单ID" Key="TJId" Visible="false" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="状态" Key="DetailStatus" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="作业单号" Key="TransportJobNo" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="运输订单号" Key="OrderNo" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="货主" Key="OwnerId" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="下单日期时间" Key="TransportJobOrderDateTime" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="收货方" Key="RecvPartyName" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="收货地址" Key="RecvAddress" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="发货方" Key="SendPartyName" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="发货地址" Key="SendAddress" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="发站" Key="SendOrg" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="到站" Key="DestOrg" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="作业单类型" Key="JobType" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="运输要求" Key="Requirement" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="代收货款" Key="AgencyFund" Width="80px" Sortable="true"/>
+                                    <GridColumn Caption="付款方式" Key="PayMethod" Width="80px" Sortable="true"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="R3" TableKey="LRP_TransportDJ_L">
+                                        <GridCell Caption="选择" CellType="CheckBox" IsSelect="true" Key="Select"/>
+                                        <GridCell Caption="作业单ID" CellType="TextEditor" Enable="false" Key="TJId">
+                                            <DataBinding ColumnKey="TJId" Required="true"/>
+                                        </GridCell>
+                                        <GridCell Caption="状态" CellType="ComboBox" Enable="false" SourceType="Status" Key="DetailStatus"/>
+                                        <GridCell Caption="作业单号" CellType="HyperLink" Enable="true" Key="TransportJobNo">
+                                            <OnClick>
+                                                <![CDATA[	
+													if(JobType == "701"){
+														Open('V_701', TJId);
+													}
+													if(JobType == "702"){
+														Open('V_702', TJId);
+													}
+													if(JobType == "703"){
+														Open('V_703', TJId);
+													}
+													if(JobType == "704"){
+														Open('V_704', TJId);
+													}
+													if(JobType == "705"){
+														Open('V_705', TJId);
+													}
+													if(JobType == "706"){
+														Open('V_706', TJId);
+													}
+												]]>
+                                            </OnClick>
+                                        </GridCell>
+                                        <GridCell Caption="运输订单号" CellType="TextEditor" Enable="false" Key="OrderNo" OnlyDate="false"/>
+                                        <GridCell Caption="货主" CellType="Dict" Enable="false" ItemKey="LRP_Owner" Key="OwnerId"/>
+                                        <GridCell Caption="下单日期时间" CellType="DatePicker" Enable="false" Key="TransportJobOrderDateTime"/>
+                                        <GridCell Caption="收货方" CellType="TextEditor" Enable="false" Key="RecvPartyName"/>
+                                        <GridCell Caption="收货地址" CellType="TextEditor" Enable="false" Key="RecvAddress"/>
+                                        <GridCell Caption="发货方" CellType="TextEditor" Enable="false" Key="SendPartyName"/>
+                                        <GridCell Caption="发货地址" CellType="TextEditor" Enable="false" Key="SendAddress"/>
+                                        <GridCell Caption="发站" CellType="Dict" Enable="false" Key="SendOrg" ItemKey="LRP_WarehouseCenter"/>
+                                        <GridCell Caption="到站" CellType="Dict" Enable="false" Key="DestOrg" ItemKey="LRP_WarehouseCenter"/>
+                                        <GridCell Caption="作业单类型" CellType="ComboBox" Enable="false" Key="JobType">
+                                            <Item Caption="提货" Key="701" Value="701"/>
+                                            <Item Caption="配送" Key="702" Value="702"/>
+                                            <Item Caption="中转" Key="703" Value="703"/>
+                                            <Item Caption="直发" Key="704" Value="704"/>
+                                            <Item Caption="自送" Key="705" Value="705"/>
+                                            <Item Caption="自提" Key="706" Value="706"/>
+                                            <Item Caption="客退" Key="707" Value="707"/>
+                                        </GridCell>
+                                        <GridCell Caption="运输要求" CellType="TextEditor" Enable="false" Key="Requirement"/>
+                                        <GridCell Caption="代收货款" CellType="NumberEditor" Enable="false" Key="AgencyFund"/>
+                                        <GridCell Caption="付款方式" CellType="ComboBox" Enable="false" Key="PayMethod">
+                                            <Item Caption="现付" Key="0" Value="0"/>
+                                            <Item Caption="回单付 " Key="1" Value="1"/>
+                                            <Item Caption="月结 " Key="2" Value="2"/>
+                                            <Item Caption="到付 " Key="3" Value="3"/>
+                                            <Item Caption="预付 " Key="4" Value="4"/>
+                                            <Item Caption="提付" Key="5" Value="5"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <RowDefCollection RowGap="2">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="265px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[	
+		if(!IsNew()){
+			RefreshTransportJobDetails();
+		}
+		if(Length(GetValue("FirstLoad")) == 0){
+			SetValue("FirstLoad", "1");
+			var BatchAdd = parent.GetPara('BatchAdd_para');
+			if(ToString(BatchAdd) == "1"){
+				//从批量调度窗口复制数据				
+				var count = Parent.GetRowCount('Grid0',false);
+				var i=0;				
+				while ( i < count ){
+					if(Parent.GetCellValue('Grid0', i, 'Select')){
+						var index = InsertRow('Grid0',-1);
+						SetCellValue('Grid0', index,'TJId',Parent.GetCellValue('Grid0', i, 'OID'));
+						SetCellValue('Grid0', index,'DetailStatus',Parent.GetCellValue('Grid0', i, 'Status'));
+						SetCellValue('Grid0', index,'TransportJobNo',Parent.GetCellValue('Grid0', i, 'No'));
+						SetCellValue('Grid0', index,'JobType',Parent.GetCellValue('Grid0', i, 'JobType'));
+						SetCellValue('Grid0', index,'OrderNo',Parent.GetCellValue('Grid0', i, 'OrderNo'));
+						SetCellValue('Grid0', index,'OwnerId',Parent.GetCellValue('Grid0', i, 'OwnerId'));
+						SetCellValue('Grid0', index,'TransportJobOrderDateTime',Parent.GetCellValue('Grid0', i, 'OrderDateTime'));
+						SetCellValue('Grid0', index,'RecvPartyName',Parent.GetCellValue('Grid0', i, 'RecvPartyName'));
+						SetCellValue('Grid0', index,'RecvAddress',Parent.GetCellValue('Grid0', i, 'RecvAddress'));						
+						SetCellValue('Grid0', index,'SendPartyName',Parent.GetCellValue('Grid0', i, 'SendPartyName'));
+						SetCellValue('Grid0', index,'SendAddress',Parent.GetCellValue('Grid0', i, 'SendAddress'));
+						SetCellValue('Grid0', index,'SendOrg',Parent.GetCellValue('Grid0', i, 'SendOrg'));
+						SetCellValue('Grid0', index,'DestOrg',Parent.GetCellValue('Grid0', i, 'DestOrg'));
+						SetCellValue('Grid0', index,'Requirement',Parent.GetCellValue('Grid0', i, 'Requirement'));
+						SetCellValue('Grid0', index,'AgencyFund',Parent.GetCellValue('Grid0', i, 'AgencyFund'));
+						SetCellValue('Grid0', index,'PayMethod',Parent.GetCellValue('Grid0', i, 'PayMethod'));
+					}
+					i = i + 1;
+				}
+				
+				count = Parent.GetRowCount('Grid1',false);
+				i=0;				
+				while ( i < count ){
+					if(Parent.GetCellValue('Grid1', i, 'Select1')){					
+						SetValue("TruckId",ToLong(Parent.GetCellValue('Grid1', i, 'OID1')));
+						SetValue("TruckLicenseNo",Parent.GetCellValue('Grid1', i, 'LicenseNo'));
+						SetValue("Driver",Parent.GetCellValue('Grid1', i, 'Driver'));
+						SetValue("DriverMobile",Parent.GetCellValue('Grid1', i, 'DriverMobile'));
+					}
+					i = i + 1;
+				}
+			}
+		}
+		
+	]]>
+    </OnPostShow>
+    <MacroCollection>
+        <Macro Key="RefreshTransportJobDetails">
+            <![CDATA[			
+			//读取作业单引用并填入明细表			
+			var rst = DBNamedQuery('GetTransportJobDetails',OID);
+			rst.beforefirst();
+			while(rst.next()){
+				var b = false;
+				var index = 0;
+				loop"Grid0"(true){
+					if(rst.OID == TJId){
+						b = true;
+						
+						//复制明细
+						SetCellValue('Grid0', index,'DetailStatus',rst.Status);
+						SetCellValue('Grid0', index,'TransportJobNo',rst.No);
+						SetCellValue('Grid0', index,'JobType',rst.JobType);
+						SetCellValue('Grid0', index,'OrderNo',rst.OrderNo);
+						SetCellValue('Grid0', index,'OwnerId',rst.OwnerId);
+						SetCellValue('Grid0', index,'TransportJobOrderDateTime',rst.OrderDateTime);
+						SetCellValue('Grid0', index,'RecvPartyName',rst.RecvPartyName);
+						SetCellValue('Grid0', index,'RecvAddress',rst.RecvAddress);
+						
+						SetCellValue('Grid0', index,'SendPartyName',rst.SendPartyName);
+						SetCellValue('Grid0', index,'SendAddress',rst.SendAddress);
+						SetCellValue('Grid0', index,'SendOrg',rst.SendOrg);
+						SetCellValue('Grid0', index,'DestOrg',rst.DestOrg);
+						
+						SetCellValue('Grid0', index,'Requirement',rst.Requirement);
+						SetCellValue('Grid0', index,'AgencyFund',rst.AgencyFund);
+						SetCellValue('Grid0', index,'PayMethod',rst.PayMethod);
+					}
+					index = index + 1;
+				}
+			}				
+			]]>
+        </Macro>
+    </MacroCollection>
+    <FormParaCollection>
+        <FormPara Key="Par_ChangeDetailStatus" Type="Formula" Formula="GetValue({Par_ChangeDetailStatus})"/>
+    </FormParaCollection>
+</Form>

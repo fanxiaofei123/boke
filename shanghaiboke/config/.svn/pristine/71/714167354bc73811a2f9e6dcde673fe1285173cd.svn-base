@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataMigration Caption="包装材料出库" Key="MG_PackingOutbound_LRP" SrcDataObjectKey="LRP_PackingOutbound" StatusFieldKey="Status" StatusValue="confirmed" TgtDataObjectKey="LRP_PackingMaterialQuant" Condition="LRP_PackingOutbound_L.Status&gt;=90&amp;&amp;LRP_PackingOutbound_L.SourceType==0">
+    <SourceTableCollection Height="1020" Width="260" X="30" Y="30">
+        <SourceTable TableKey="LRP_PackingOutbound_H">
+            <SourceField Definition="WarehouseCenterId" OpSign="Assign" TargetFieldKey="WarehouseCenterId" TargetTableKey="LRP_PackingMaterialQuant"/>
+        </SourceTable>
+        <SourceTable IsPrimary="true" TableKey="LRP_PackingOutbound_L">
+            <SourceField Definition="MaterialId" OpSign="Assign" TargetFieldKey="PackingMaterialId" TargetTableKey="LRP_PackingMaterialQuant"/>
+            <SourceField Definition="Qty" IsNegtive="True" TargetFieldKey="OnhandQty" TargetTableKey="LRP_PackingMaterialQuant"/>
+            <SourceField Definition="MaterialBarCode" OpSign="Assign" TargetFieldKey="MaterialBarCode" TargetTableKey="LRP_PackingMaterialQuant"/>
+            <SourceField Definition="StoreroomId" OpSign="Assign" TargetFieldKey="StoreroomId" TargetTableKey="LRP_PackingMaterialQuant"/>
+            <SourceField Definition="StoreareaId" OpSign="Assign" TargetFieldKey="StoreareaId" TargetTableKey="LRP_PackingMaterialQuant"/>
+			<SourceField Definition="LocationId" OpSign="Assign" TargetFieldKey="LocationId" TargetTableKey="LRP_PackingMaterialQuant"/>
+			<SourceField Definition="InboundDateTime" OpSign="Assign" TargetFieldKey="RecvDate" TargetTableKey="LRP_PackingMaterialQuant"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="960" Width="227" X="390" Y="30">
+        <TargetTable TableKey="LRP_PackingMaterialQuant">
+            <TargetField FieldKey="WarehouseCenterId"/>
+            <TargetField FieldKey="RecvDate"/>
+            <TargetField FieldKey="PackingMaterialId"/>
+            <TargetField FieldKey="OnhandQty"/>
+            <TargetField FieldKey="MaterialBarCode"/>
+            <TargetField FieldKey="StoreroomId"/>
+            <TargetField FieldKey="StoreareaId"/>
+            <TargetField FieldKey="LocationId"/>
+        </TargetTable>
+    </TargetTableCollection>
+</DataMigration>

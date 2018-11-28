@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DoSampleMoveIn" Caption="样品入库" HasNavigationBar="false" Authenticate="false">
+    <DataSource>
+        <DataObject Key="DoSampleMoveIn" PrimaryTableKey="LRP_WMTx_L">
+            <TableCollection>
+                <Table Key="LRP_WMTx_L" Caption="样品物料明细" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="表单标识" DataType="Long"/>
+                    <Column Key="MaterialId" Caption="物料ID" DataType="Long"/>
+                    <Column Key="MaterialUnit" Caption="单位" DataType="Varchar" Length="10"/>
+                    <Column Key="SrcBatchNo" Caption="批号" DataType="Varchar" Length="100"/>
+                    <Column Key="Qty" Caption="数量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="BasicQty" Caption="基本数量" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="MtlName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MtlCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Column Key="SrcLocationName" Caption="源储位名称" DataType="Varchar" Length="200"/>
+                    <Column Key="DestLocationName" Caption="目标储位名称" DataType="Varchar"/>
+                    <Column Key="SrcLocCode" Caption="源储位代码" DataType="Varchar"/>
+                    <Column Key="DestLocCode" Caption="目标储位代码" DataType="Varchar"/>
+                    <Column Key="SrcStoreroomId" Caption="源仓间" DataType="Long"/>
+                    <Column Key="SrcStoreareaId" Caption="源库区" DataType="Long"/>
+                    <Column Key="SrcLocationId" Caption="源储位" DataType="Long"/>
+                    <Column Key="DestStoreroomId" Caption="目标仓间" DataType="Long"/>
+                    <Column Key="DestStoreareaId" Caption="目标库区" DataType="Long"/>
+                    <Column Key="DestLocationId" Caption="目标储位" DataType="Long"/>
+                    <Column Caption="源生产日期" DataType="Date" DefaultValue="1980-01-01" Key="SrcManufDate"/>
+                    <Column Caption="源失效日期" DataType="Date" DefaultValue="1980-01-01" Key="SrcExpireDate"/>
+                    <Column Caption="源项目" DataType="Long" Key="SrcProjectId"/>
+                    <Column Caption="源入库日期" DataType="Date" Key="SrcRecvDate" DefaultValue="1980-01-01"/>
+                    <Column Caption="源字符型1" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef1" Length="100"/>
+                    <Column Caption="源字符型2" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef2" Length="100"/>
+                    <Column Caption="源字符型3" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef3" Length="100"/>
+                    <Column Caption="源字符型4" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef4" Length="100"/>
+                    <Column Caption="源字符型5" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef5" Length="100"/>
+                    <Column Caption="源字典型1" DataType="Long" Key="SrcDictUserDef1"/>
+                    <Column Caption="源字典型2" DataType="Long" Key="SrcDictUserDef2"/>
+                    <Column Caption="源字典型3" DataType="Long" Key="SrcDictUserDef3"/>
+                    <Column Caption="源字典型4" DataType="Long" Key="SrcDictUserDef4"/>
+                    <Column Caption="源字典型5" DataType="Long" Key="SrcDictUserDef5"/>
+                    <Column Caption="源日期型1" DataType="Date" DefaultValue="1980-01-01" Key="SrcDateUserDef1"/>
+                    <Column Caption="源日期型2" DataType="Date" DefaultValue="1980-01-01" Key="SrcDateUserDef2"/>
+                    <Column Key="SrcNumUserDef1" Caption="源数值型1" DataType="Varchar"/>
+                    <Column Key="SrcNumUserDef2" Caption="源数值型2" DataType="Varchar"/>
+                    <Column Key="SrcNumUserDef3" Caption="源数值型3" DataType="Varchar"/>
+                    <Column Key="SrcHandingUnitNo" Caption="源周转容器号" DataType="Varchar" Length="100" DefaultValue="*"/>
+                    <Column Key="DestHandingUnitNo" Caption="目标周转容器号" DataType="Varchar" Length="100" DefaultValue="*"/>
+                    <Column Key="SrcMaterialStatusId" Caption="物料状态" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="DestRefLineOID" Caption="目标相关单据id" DataType="Long"/>
+                    <Column Key="SrcRefLineOID" Caption="源相关单据id" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('OID');"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT l.OID,
+  l.SOID,
+  l.MaterialId,
+  l.MaterialUnit,
+  l.SrcBatchNo,
+  l.Qty,
+  l.BasicQty,
+  m.Name AS MtlName,
+  m.Code AS MtlCode,
+  l.SrcStoreroomId,
+  l.SrcStoreareaId,
+  l.SrcLocationId,
+  l.DestStoreroomId,
+  l.DestStoreareaId,
+  l.DestLocationId,
+  l.SrcManufDate,
+  l.SrcExpireDate,
+  l.SrcProjectId,
+  l.SrcRecvDate,
+  l.SrcStrUserDef1,
+  l.SrcStrUserDef2,
+  l.SrcStrUserDef3,
+  l.SrcStrUserDef4,
+  l.SrcStrUserDef5,
+  l.SrcDictUserDef1,
+  l.SrcDictUserDef2,
+  l.SrcDictUserDef3,
+  l.SrcDictUserDef4,
+  l.SrcDictUserDef5,
+  l.SrcDateUserDef1,
+  l.SrcDateUserDef2,
+  l.SrcNumUserDef1,
+  l.SrcNumUserDef2,
+  l.SrcNumUserDef3,
+  l.SrcHandingUnitNo,
+  l.DestHandingUnitNo,
+  l.Status,
+  l.SrcMaterialStatusId,
+  l.DestRefLineOID,
+  l.SrcRefLineOID,
+  srcloc.code  AS SrcLocCode,
+  srcloc.Name  AS SrcLocationName,
+  destloc.code AS DestLocCode,
+  destloc.Name AS DestLocationName
+FROM LRP_WMTx_L l
+LEFT JOIN LRP_Material m
+ON m.oid = l.MaterialId
+LEFT JOIN LRP_Location srcloc
+ON srcloc.oid = l.SrcLocationId
+LEFT JOIN LRP_Location destloc
+ON destloc.oid = l.DestLocationId
+where  l.SOID = ? 
+ORDER BY srcloc.Code DESC]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Key="Location" Description="根据储位代码查询仓间库区储位id">
+            <Statement>
+                <![CDATA[select OID, StoreroomId, StoreareaId from LRP_Location where code = ?]]>
+            </Statement>
+        </Query>
+        <Query Key="IsStorearea" Description="是否是存储区">
+            <Statement>
+                <![CDATA[select * from LRP_Storearea where IsRecvArea = 0 and IsShipArea = 0 and IsSampleTestArea = 0 and IsKittingArea = 0 and oid = ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#e6e6e6"/>
+                <LinearLayoutPanel Caption="Title3" Key="Title" Orientation="Horizontal" X="0" Y="0" Padding="5px">
+                    <Format BackColor="#f14c52"/>
+                    <Button Key="Cancel" Caption="取消" Height="auto" Width="60px">
+                        <Format HAlign="Left" ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									ShowConfirm('是否放弃本次移位？', 'YES_NO', 
+										{
+											YES: {
+													Back();
+												}, 
+											NO: {} 
+										}
+												)
+								]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="OrderTitle3" Caption="样品入库" Height="auto" Weight="1.0">
+                        <Format HAlign="Center" ForeColor="#ffffff">
+                            <Font Size="20"/>
+                        </Format>
+                    </Label>
+                    <Button Key="Comfirm" Caption="完成" Height="auto" Width="60px">
+                        <Format HAlign="Right" ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									var count = GetRowCount('list',false);
+									var b = true;
+									var oid = GetPara('OID');
+									if(count > 0){
+										InvokeService("LRP_CopyAndInsertRow", true, false,oid);
+										ShowToast("样品入库完成");
+										Parent.LoadData();
+										Back();
+									}
+									
+									]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <TableView Caption="扫描明细" Key="TableView2" X="0" Y="1" Padding="5px">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="row6" SelectColor="#cccccc" SeparatorColor="#e6e6e6" SeparatorStyle="none none solid none">
+                            <GridLayoutPanel Key="EnterCode" Caption="扫描">
+                                <Format BackColor="#FFFFFF">
+                                    <Font Size="20"/>
+                                </Format>
+                                <TextEditor Key="TextMaterialCode" Caption="扫描物料条码" X="1" Y="1" Enable="True" PromptText="扫描物料条码">
+                                    <Format HAlign="Left"/>
+                                    <KeyEnter>
+                                        <![CDATA[
+										ScanMaterial();
+										
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Image Key="GetMaterialCode" X="3" Y="1" Enable="true" Image="12.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true" Padding="10px">
+                                    <OnClick>
+                                        <![CDATA[ScanMaterial();]]>
+                                    </OnClick>
+                                </Image>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="35px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="35px"/>
+                                    <ColumnDef Width="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row2" SelectColor="#cccccc" SeparatorColor="#e6e6e6" SeparatorStyle="none none solid none">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Caption="GridLayoutPanel3">
+                                <TextEditor Key="TextSrcLoc" Caption="扫描源储位" X="1" Y="1" Enable="true" PromptText="扫描源储位">
+                                    <Format HAlign="Left"/>
+                                    <KeyEnter>
+                                        <![CDATA[
+										ScanLoc();
+										
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Image Key="GetSrcLoc" X="3" Y="1" Enable="true" Image="12.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true" Padding="10px">
+                                    <OnClick>
+                                        <![CDATA[ScanLoc();]]>
+                                    </OnClick>
+                                </Image>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="35px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="35px"/>
+                                    <ColumnDef Width="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <TableView Caption="物料明细" Key="TableView1" X="0" Y="2" Padding="5px">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="list" RowType="Detail" TableKey="LRP_WMTx_L" SelectColor="#dddddd" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2">
+                            <GridLayoutPanel Key="GridLayoutPanel2" Height="pref" Caption="GridLayoutPanel2">
+                                <Label Key="MtlCode" Caption="物料代码" X="1" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MtlCode"/>
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <Label Key="MtlName" Caption="无物料名称" X="4" Y="0" XSpan="3">
+                                    <DataBinding ColumnKey="MtlName"/>
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <TextEditor Key="SrcBatchNo" Caption="批号" BuddyKey="Lab_SrcBatchNo" X="2" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="SrcBatchNo"/>
+                                    <Format HAlign="Left" VAlign="Bottom"/>
+                                </TextEditor>
+                                <Label Key="Lab_SrcBatchNo" Caption="批号：" X="1" Y="1"/>
+                                <TextEditor Key="SrcLocationName" Caption="源储位名称" BuddyKey="Lab_SrcLocationName" X="2" Y="2" Enable="false">
+                                    <DataBinding ColumnKey="SrcLocationName"/>
+                                    <Format HAlign="Left"/>
+                                </TextEditor>
+                                <Label Key="Lab_SrcLocationName" Caption="源：" X="1" Y="2"/>
+                                <NumberEditor Key="Qty" Caption="数量" BuddyKey="Lab_Qty" X="5" Y="1" Scale="0">
+                                    <DataBinding ColumnKey="Qty"/>
+                                    <Format HAlign="Left"/>
+                                </NumberEditor>
+                                <Label Key="Lab_Qty" Caption="数量：" X="4" Y="1"/>
+                                <TextEditor Key="MaterialUnit" X="6" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                </TextEditor>
+                                <TextEditor Key="DestLocationName" Caption="目标储位名称" BuddyKey="Lab_DestLocationName" X="5" Y="2">
+                                    <DataBinding ColumnKey="DestLocationName">
+                                        <ValueChanged>
+                                            <![CDATA[
+				var destLocationName = GetCellValue('list', -1,'DestLocationName');
+				if(IsNull(destLocationName) || Length(destLocationName) == 0){
+					ShowToast("目标储位名称不能为空！");
+					SetCellValue('list', -1, 'DestStoreroomId', 0,false);
+					SetCellValue('list', -1, 'DestStoreareaId', 0,false);
+					SetCellValue('list', -1, 'DestLocationId', 0,false);
+					return 0;
+				}
+				var location  = DBNamedQuery("Location", destLocationName);
+				var destStoreroomId = 0;
+				var destStoreareaId = 0;
+				var destLocationId = 0;
+				location.beforefirst();
+				if(location.next()){
+					destStoreroomId = location.StoreroomId;
+					destStoreareaId = location.StoreareaId;
+					destLocationId = location.OId;
+				}else{
+					ShowToast("目标储位不存在,请检查！");
+					SetCellValue('list', -1, 'DestStoreroomId', 0,false);
+					SetCellValue('list', -1, 'DestStoreareaId', 0,false);
+					SetCellValue('list', -1, 'DestLocationId', 0,false);
+					return 0;
+				}
+				
+				
+				var isStorearea  = DBNamedQuery("IsStorearea", destStoreareaId);
+				isStorearea.beforefirst();
+				if(!isStorearea.next()){
+					ShowToast("目标储位不在存储区！");
+					SetCellValue('list', -1, 'DestStoreroomId', 0,false);
+					SetCellValue('list', -1, 'DestStoreareaId', 0,false);
+					SetCellValue('list', -1, 'DestLocationId', 0,false);
+					return 0;
+				}
+				
+				SetCellValue('list', -1, 'DestStoreroomId', destStoreroomId,false);
+				SetCellValue('list', -1, 'DestStoreareaId', destStoreareaId,false);
+				SetCellValue('list', -1, 'DestLocationId', destLocationId,false);
+											]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                </TextEditor>
+                                <Label Key="Lab_DestLocationName" Caption="目标：" X="4" Y="2"/>
+                                <Label Key="SrcLocCode" Caption="SrcLocCode" X="1" Y="1" Visible="false">
+                                    <DataBinding ColumnKey="SrcLocCode"/>
+                                </Label>
+                                <Label Key="DestLocCode" Caption="DestLocCode" X="1" Y="1" Visible="false">
+                                    <DataBinding ColumnKey="DestLocCode"/>
+                                </Label>
+                                <Label Key="OID" Caption="OID" X="1" Y="1" Visible="false">
+                                    <DataBinding ColumnKey="OID"/>
+                                </Label>
+                                <Button Key="Button1" Caption="拆分明细" X="9" Y="0" BorderColor="#cccccc" HasBorder="true" YSpan="3" Padding="5px">
+                                    <Format ForeColor="#ffffff" BackColor="#f14c52">
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[var MtlCode = GetCellValue('list', -1, 'MtlCode');
+var MtlName = GetCellValue('list', -1, 'MtlName');
+var SrcBatchNo = GetCellValue('list', -1, 'SrcBatchNo');
+var SrcLocationName = GetCellValue('list', -1, 'SrcLocationName');
+var MaterialUnit = GetCellValue('list', -1, 'MaterialUnit');
+var DestLocationName = GetCellValue('list', -1, 'DestLocationName');
+var MaterialId = GetCellValue('list', -1, 'MaterialId');
+var SrcStoreroomId = GetCellValue('list', -1, 'SrcStoreroomId');
+var SrcStoreareaId = GetCellValue('list', -1, 'SrcStoreareaId');
+var SrcLocationId = GetCellValue('list', -1, 'SrcLocationId');
+var DestStoreroomId = GetCellValue('list', -1, 'DestStoreroomId');
+var DestStoreareaId = GetCellValue('list', -1, 'DestStoreareaId');
+var DestLocationId = GetCellValue('list', -1, 'DestLocationId');
+var Status = GetCellValue('list', -1, 'Status');
+var SrcMaterialStatusId = GetCellValue('list', -1, 'SrcMaterialStatusId');
+var SrcManufDate = GetCellValue('list', -1, 'SrcManufDate');
+var SrcExpireDate = GetCellValue('list', -1, 'SrcExpireDate');
+var SrcProjectId = GetCellValue('list', -1, 'SrcProjectId');
+var SrcRecvDate = GetCellValue('list', -1, 'SrcRecvDate');
+var SrcStrUserDef1 = GetCellValue('list', -1, 'SrcStrUserDef1');
+var SrcStrUserDef2 = GetCellValue('list', -1, 'SrcStrUserDef2');
+var SrcStrUserDef3 = GetCellValue('list', -1, 'SrcStrUserDef3');
+var SrcStrUserDef4 = GetCellValue('list', -1, 'SrcStrUserDef4');
+var SrcStrUserDef5 = GetCellValue('list', -1, 'SrcStrUserDef5');
+var SrcDictUserDef1 = GetCellValue('list', -1, 'SrcDictUserDef1');
+var SrcDictUserDef2 = GetCellValue('list', -1, 'SrcDictUserDef2');
+var SrcDictUserDef3 = GetCellValue('list', -1, 'SrcDictUserDef3');
+var SrcDictUserDef4 = GetCellValue('list', -1, 'SrcDictUserDef4');
+var SrcDictUserDef5 = GetCellValue('list', -1, 'SrcDictUserDef5');
+var SrcDateUserDef1 = GetCellValue('list', -1, 'SrcDateUserDef1');
+var SrcDateUserDef2 = GetCellValue('list', -1, 'SrcDateUserDef2');
+var SrcHandingUnitNo = GetCellValue('list', -1, 'SrcHandingUnitNo');
+var DestHandingUnitNo = GetCellValue('list', -1, 'DestHandingUnitNo');
+var DestRefLineOID = GetCellValue('list', -1, 'DestRefLineOID');
+var SrcRefLineOID = GetCellValue('list', -1, 'SrcRefLineOID');
+
+var rowIndex= InsertRow('list',GetRowIndex('list')+1);
+
+SetCellValue('list', rowIndex, 'MtlCode', MtlCode);
+SetCellValue('list', rowIndex, 'MtlName', MtlName);
+SetCellValue('list', rowIndex, 'SrcBatchNo', SrcBatchNo);
+SetCellValue('list', rowIndex, 'SrcLocationName', SrcLocationName);
+SetCellValue('list', rowIndex, 'Qty', 0);
+SetCellValue('list', rowIndex, 'MaterialUnit', MaterialUnit);
+SetCellValue('list', rowIndex, 'DestLocationName', DestLocationName,false);
+SetCellValue('list', rowIndex, 'MaterialId', MaterialId);
+SetCellValue('list', rowIndex, 'SrcStoreroomId', SrcStoreroomId);
+SetCellValue('list', rowIndex, 'SrcStoreareaId', SrcStoreareaId);
+SetCellValue('list', rowIndex, 'SrcLocationId', SrcLocationId);
+SetCellValue('list', rowIndex, 'DestStoreroomId', DestStoreroomId,false);
+SetCellValue('list', rowIndex, 'DestStoreareaId', DestStoreareaId,false);
+SetCellValue('list', rowIndex, 'DestLocationId', DestLocationId,false);
+SetCellValue('list', rowIndex, 'Status', Status);
+SetCellValue('list', rowIndex, 'SrcMaterialStatusId', SrcMaterialStatusId);
+SetCellValue('list', rowIndex, 'SrcManufDate', SrcManufDate);
+SetCellValue('list', rowIndex, 'SrcExpireDate', SrcExpireDate);
+SetCellValue('list', rowIndex, 'SrcProjectId', SrcProjectId);
+SetCellValue('list', rowIndex, 'SrcRecvDate', SrcRecvDate);
+SetCellValue('list', rowIndex, 'SrcStrUserDef1', SrcStrUserDef1);
+SetCellValue('list', rowIndex, 'SrcStrUserDef2', SrcStrUserDef2);
+SetCellValue('list', rowIndex, 'SrcStrUserDef3', SrcStrUserDef3);
+SetCellValue('list', rowIndex, 'SrcStrUserDef4', SrcStrUserDef4);
+SetCellValue('list', rowIndex, 'SrcStrUserDef5', SrcStrUserDef5);
+SetCellValue('list', rowIndex, 'SrcDictUserDef1', SrcDictUserDef1);
+SetCellValue('list', rowIndex, 'SrcDictUserDef2', SrcDictUserDef2);
+SetCellValue('list', rowIndex, 'SrcDictUserDef3', SrcDictUserDef3);
+SetCellValue('list', rowIndex, 'SrcDictUserDef4', SrcDictUserDef4);
+SetCellValue('list', rowIndex, 'SrcDictUserDef5', SrcDictUserDef5);
+SetCellValue('list', rowIndex, 'SrcDateUserDef1', SrcDateUserDef1);
+SetCellValue('list', rowIndex, 'SrcDateUserDef2', SrcDateUserDef2);
+SetCellValue('list', rowIndex, 'SrcHandingUnitNo', SrcHandingUnitNo);
+SetCellValue('list', rowIndex, 'DestHandingUnitNo', DestHandingUnitNo);
+SetCellValue('list', rowIndex, 'DestRefLineOID', DestRefLineOID);
+SetCellValue('list', rowIndex, 'SrcRefLineOID', SrcRefLineOID);
+
+]]>
+                                    </OnClick>
+                                </Button>
+                                <Dict Key="MaterialId" Caption="MaterialId" X="1" Y="2" Visible="false" ItemKey="LRP_Material">
+                                    <DataBinding ColumnKey="MaterialId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <Dict Key="SrcStoreroomId" Caption="SrcStoreroomId" X="2" Y="2" Visible="false" ItemKey="LRP_Storeroom">
+                                    <DataBinding ColumnKey="SrcStoreroomId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <Dict Key="SrcStoreareaId" Caption="SrcStoreareaId" X="3" Y="2" Visible="false" ItemKey="LRP_Storearea">
+                                    <DataBinding ColumnKey="SrcStoreareaId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <Dict Key="SrcLocationId" Caption="SrcLocationId" X="4" Y="1" Visible="false" ItemKey="LRP_Location">
+                                    <DataBinding ColumnKey="SrcLocationId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <Dict Key="DestStoreroomId" Caption="DestStoreroomId" X="5" Y="1" Visible="false" ItemKey="LRP_Storeroom">
+                                    <DataBinding ColumnKey="DestStoreroomId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <Dict Key="DestStoreareaId" Caption="DestStoreareaId" X="6" Y="1" Visible="false" ItemKey="LRP_Storearea">
+                                    <DataBinding ColumnKey="DestStoreareaId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <Dict Key="DestLocationId" Caption="DestLocationId" X="7" Y="1" Visible="false" ItemKey="LRP_Location">
+                                    <DataBinding ColumnKey="DestLocationId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <ComboBox Key="Status" Caption="Status" X="4" Y="2" SourceType="Status" Visible="false">
+                                    <DataBinding ColumnKey="Status" TableKey="LRP_WMTx_L"/>
+                                </ComboBox>
+                                <DatePicker Key="SrcManufDate" X="1" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcManufDate" TableKey="LRP_WMTx_L"/>
+                                </DatePicker>
+                                <DatePicker Key="SrcExpireDate" X="1" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcExpireDate" TableKey="LRP_WMTx_L"/>
+                                </DatePicker>
+                                <DatePicker Key="SrcRecvDate" X="1" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcRecvDate" TableKey="LRP_WMTx_L"/>
+                                </DatePicker>
+                                <DatePicker Key="SrcDateUserDef1" X="1" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcDateUserDef1" TableKey="LRP_WMTx_L"/>
+                                </DatePicker>
+                                <DatePicker Key="SrcDateUserDef2" X="1" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcDateUserDef2" TableKey="LRP_WMTx_L"/>
+                                </DatePicker>
+                                <Dict Key="SrcProjectId" X="2" Y="2" Visible="false" ItemKey="LRP_Project">
+                                    <DataBinding ColumnKey="SrcProjectId" TableKey="LRP_WMTx_L"/>
+                                </Dict>
+                                <Label Key="SrcDictUserDef1" X="2" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcDictUserDef1" TableKey="LRP_WMTx_L"/>
+                                </Label>
+                                <Label Key="SrcDictUserDef2" X="2" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcDictUserDef2" TableKey="LRP_WMTx_L"/>
+                                </Label>
+                                <Label Key="SrcDictUserDef3" X="2" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcDictUserDef3" TableKey="LRP_WMTx_L"/>
+                                </Label>
+                                <Label Key="SrcDictUserDef4" X="2" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcDictUserDef4" TableKey="LRP_WMTx_L"/>
+                                </Label>
+                                <Label Key="SrcDictUserDef5" X="2" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcDictUserDef5" TableKey="LRP_WMTx_L"/>
+                                </Label>
+                                <TextEditor Key="SrcStrUserDef1" X="3" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcStrUserDef1" TableKey="LRP_WMTx_L"/>
+                                </TextEditor>
+                                <TextEditor Key="SrcStrUserDef2" X="3" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcStrUserDef2" TableKey="LRP_WMTx_L"/>
+                                </TextEditor>
+                                <TextEditor Key="SrcStrUserDef3" X="3" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcStrUserDef3" TableKey="LRP_WMTx_L"/>
+                                </TextEditor>
+                                <TextEditor Key="SrcStrUserDef4" X="3" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcStrUserDef4" TableKey="LRP_WMTx_L"/>
+                                </TextEditor>
+                                <TextEditor Key="SrcStrUserDef5" X="3" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcStrUserDef5" TableKey="LRP_WMTx_L"/>
+                                </TextEditor>
+                                <TextEditor Key="SrcHandingUnitNo" X="3" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcHandingUnitNo" TableKey="LRP_WMTx_L"/>
+                                </TextEditor>
+                                <TextEditor Key="DestHandingUnitNo" X="3" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="DestHandingUnitNo" TableKey="LRP_WMTx_L"/>
+                                </TextEditor>
+                                <Label Key="SrcMaterialStatusId" X="4" Y="2" Visible="false">
+                                    <DataBinding ColumnKey="SrcMaterialStatusId"/>
+                                </Label>
+                                <Label Key="DestRefLineOID" X="5" Y="1" Visible="false">
+                                    <DataBinding ColumnKey="DestRefLineOID"/>
+                                </Label>
+                                <Label Key="SrcNumUserDef1" X="6" Y="1" Visible="false">
+                                    <DataBinding ColumnKey="SrcNumUserDef1"/>
+                                </Label>
+                                <Label Key="SrcNumUserDef2" X="6" Y="1" Visible="false">
+                                    <DataBinding ColumnKey="SrcNumUserDef2"/>
+                                </Label>
+                                <Label Key="SrcNumUserDef3" X="6" Y="1" Visible="false">
+                                    <DataBinding ColumnKey="SrcNumUserDef3"/>
+                                </Label>
+                                <Label Key="SrcRefLineOID" X="4" Y="2"/>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="35px"/>
+                                    <RowDef Height="35px"/>
+                                    <RowDef Height="35px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="30%"/>
+                                    <ColumnDef Width="20%"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="50px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowActionCollection>
+                                <RowAction Key="delete" Caption="删除" BackColor="#ff5000" ForeColor="#ffffff">
+                                    <![CDATA[
+											ShowConfirm('确定删除该条明细吗?', 'YES_NO', 
+												{
+													YES: {
+														DeleteRow('list', GetRowIndex('list'));
+														ShowToast('已删除');
+													}, 
+													NO: {} 
+												}
+											)
+									]]>
+                                </RowAction>
+                            </RowActionCollection>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="120px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="QueryLocationByCode">
+            <![CDATA[
+				
+				
+			]]>
+        </Macro>
+        <Macro Key="ScanLoc">
+            <![CDATA[
+				if(TextSrcLoc <> ''){
+					var flag = false;
+					var count = GetRowCount('list',false);
+					var i = 0;
+					while(i < count){
+						if(GetCellValue('list', i,'SrcLocCode') == TextSrcLoc ){
+						
+								SetFocusRow('list',i);
+								SetRowIndex('list',i);
+								ScrollTo('list',i);
+								
+								flag=true;
+								break;
+						}
+						i=i+1;
+					}
+					if(flag==false){
+						ShowToast("样品入库明细中找不到该代码的源储位。");
+					}
+				}
+				SetFocus('TextSrcLoc');
+			]]>
+        </Macro>
+        <Macro Key="ScanMaterial">
+            <![CDATA[				
+				if(TextMaterialCode <> ''){
+					var flag = false;
+					var count = GetRowCount('list',false);
+					var i = 0;
+					while(i < count){
+						if(GetCellValue('list', i,'MtlCode') == TextMaterialCode ){
+						
+								SetFocusRow('list',i);
+								SetRowIndex('list',i);
+								ScrollTo('list',i);
+								
+								flag=true;
+								break;
+						}
+						i=i+1;
+					}
+					if(flag==false){
+						ShowToast("样品入库明细中找不到该条码物料。");
+					}
+				}
+				SetFocus('TextMaterialCode');
+			]]>
+        </Macro>
+    </MacroCollection>
+    <FormParaCollection>
+        <FormPara Formula="Para('OID')" Key="OID" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="样品入库" Location="Center">
+            <Label Key="TitleCenter" Caption="样品入库" Width="auto">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

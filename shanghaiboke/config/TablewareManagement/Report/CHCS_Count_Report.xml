@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Report BottomMargin="15" Caption="盘点单报表" FormKey="CHCS_Count_H" Key="CHCS_Count_Report" LeftMargin="25" PageHeight="842" PageID="A4" PageWidth="595" PaperHeight="297" PaperID="A4" PaperWidth="210" RightMargin="25" TopMargin="15">
+    <DataSource>
+        <Table Key="CHCS_Count_H" Caption="盘点单" SourceType="DataObject">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="单据编号" Key="NO"/>
+            <Field Caption="单据状态" Key="Status"/>
+            <Field Caption="单据日期" Key="BillDate"/>
+            <Field Caption="航食公司" Key="Vendor"/>
+            <Field Caption="备注" Key="Remark"/>
+            <Field Caption="制单人" Description="保存人员" Key="Creator"/>
+            <Field Caption="制单日期" Key="CreateTime"/>
+            <Field Caption="修改人" Key="Modifier"/>
+            <Field Caption="修改时间" Key="ModifyTime"/>
+            <Field Caption="映射数量标记" Key="MapCount"/>
+        </Table>
+        <Table Key="CHCS_Count_L" Caption="盘点单明细" SourceType="DataObject">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="餐具名称" Key="Tableware_Name"/>
+            <Field Caption="标准库存量" Key="Standard_Stock"/>
+            <Field Caption="现存数量" Key="Extant_Number"/>
+            <Field Caption="单位" Key="Unit"/>
+            <Field Caption="备注" Key="Remark"/>
+        </Table>
+    </DataSource>
+    <Grid>
+        <Section Key="CHCS_Count_H" Type="Paragraph">
+            <Columns>
+                <Column Width="540"/>
+            </Columns>
+            <Rows>
+                <Row Height="50">
+                    <Cell Caption="盘点单">
+                        <Display>
+                            <Font Bold="true" Name="SimSun" Size="14"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Key="first_head" Type="Paragraph">
+            <Columns>
+                <Column Width="67"/>
+                <Column Width="67"/>
+                <Column Width="67"/>
+                <Column Width="67"/>
+                <Column Width="67"/>
+                <Column Width="67"/>
+                <Column Width="67"/>
+                <Column Width="71"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell Caption="系统单号" Key="Lab_NO" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="系统单号" FieldKey="NO" Key="NO" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单据日期" Key="Lab_BillDate" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单据日期" FieldKey="BillDate" Key="BillDate" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单据状态" Key="Lab_Status" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单据状态" FieldKey="Status" Key="Status" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Format DataType="List">
+                                <ListItem Text="已作废" Value="20"/>
+                                <ListItem Text="已输入" Value="100"/>
+                                <ListItem Text="竞价中" Value="150"/>
+                                <ListItem Text="已确认" Value="200"/>
+                                <ListItem Text="已提交" Value="110"/>
+                                <ListItem Text="已建波" Value="300"/>
+                                <ListItem Text="已入场" Value="400"/>
+                                <ListItem Text="处理中" Value="500"/>
+                                <ListItem Text="已拣货" Value="600"/>
+                                <ListItem Text="已配载" Value="710"/>
+                                <ListItem Text="已装货" Value="730"/>
+                                <ListItem Text="在途" Value="750"/>
+                                <ListItem Text="中途停靠" Value="800"/>
+                                <ListItem Text="已完成" Value="900"/>
+                                <ListItem Text="已签收" Value="920"/>
+                                <ListItem Text="拒收" Value="930"/>
+                                <ListItem Text="已回单" Value="940"/>
+                                <ListItem Text="已对账" Value="960"/>
+                                <ListItem Text="已输入" Value="10"/>
+                                <ListItem Text="处理中" Value="50"/>
+                                <ListItem Text="已完成" Value="90"/>
+                                <ListItem Text="已审核" Value="80"/>
+                            </Format>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="航食公司" Key="Lab_Vendor" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="航食公司" FieldKey="Vendor" Key="Vendor" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="Vendor"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="备注" Key="Lab_Remark" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="备注" FieldKey="Remark" IsMerged="true" IsMergedHead="true" Key="Remark" MergedColumnSpan="7" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Key="SystemInfo" Type="Paragraph">
+            <Columns>
+                <Column Width="90"/>
+                <Column Width="90"/>
+                <Column Width="90"/>
+                <Column Width="90"/>
+                <Column Width="90"/>
+                <Column Width="90"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell Caption="创建人" Key="L_CREATOR" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="创建人" FieldKey="Creator" IsMerged="true" IsMergedHead="true" Key="CREATOR" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="Operator"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="创建时间" Key="L_CREATETIME" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="创建时间" FieldKey="CreateTime" IsMerged="true" IsMergedHead="true" Key="CREATETIME" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="修改人" Key="L_MODIFIER" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="修改人" FieldKey="Modifier" IsMerged="true" IsMergedHead="true" Key="MODIFIER" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="Operator"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="修改时间" Key="L_MODIFYTIME" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="修改时间" FieldKey="ModifyTime" IsMerged="true" IsMergedHead="true" Key="MODIFYTIME" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Count_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Key="Grid1" Type="Table">
+            <Columns>
+                <Column Width="108"/>
+                <Column Width="108"/>
+                <Column Width="108"/>
+                <Column Width="108"/>
+                <Column Width="108"/>
+            </Columns>
+            <Rows>
+                <Row Height="30" Type="DetailHead">
+                    <Cell Caption="餐具名称">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="标准库存量">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="现存数量">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单位">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="备注">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30" TableKey="CHCS_Count_L" Type="Detail">
+                    <Cell Caption="餐具名称" FieldKey="Tableware_Name" Key="Tableware_Name" SourceType="Field" TableKey="CHCS_Count_L">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Product"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="标准库存量" FieldKey="Standard_Stock" Key="Standard_Stock" SourceType="Field" TableKey="CHCS_Count_L">
+                        <Display>
+                            <Format DataType="Number" FormatString="##,###"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="现存数量" FieldKey="Extant_Number" Key="Extant_Number" SourceType="Field" TableKey="CHCS_Count_L">
+                        <Display>
+                            <Format DataType="Number" FormatString="##,###"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单位" FieldKey="Unit" Key="Unit" SourceType="Field" TableKey="CHCS_Count_L">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="LRP_Lookup_L"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="备注" FieldKey="Remark" Key="Remark_L" SourceType="Field" TableKey="CHCS_Count_L">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+    </Grid>
+</Report>

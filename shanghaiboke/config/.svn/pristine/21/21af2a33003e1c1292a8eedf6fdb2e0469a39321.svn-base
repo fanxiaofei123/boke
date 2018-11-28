@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Count_H" Caption="盘点单" FormType="Entity">
+    <DataSource RefObjectKey="CHCS_Count_H"/>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData(); UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="修改" Visible="ReadOnly()" RefKey="Edit">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+        <Operation Key="put" Caption="生成补货申请单" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Map('CHCS_Count_H2CHCS_Replenishment_H','CHCS_Replenishment_H');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Export" Caption="导出" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[UIExportExcel()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Print" Caption="打印盘点单" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Print();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[DeleteData();UpdateView();Close();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="updateWorkstatus" Description="更改司机工作状态">
+            <Statement DBType="Oracle">
+                <![CDATA[update LRP_Driver set WorkState=(select  OID from  LRP_Lookup_L  where headcode='DriverWorkStatus' and  name=? ) where oid=?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <Label Key="Lab_NO" Caption="系统单号" X="0" Y="0"/>
+                            <TextEditor Key="NO" Caption="系统单号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false" AsQuery="true" Trim="true" XSpan="2">
+                                <DataBinding ColumnKey="NO" TableKey="CHCS_Count_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillDate" Caption="单据日期" X="4" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="单据日期" BuddyKey="Lab_BillDate" X="5" Y="0" Enable="false" AsQuery="true" OnlyDate="true" XSpan="2">
+                                <DataBinding ColumnKey="BillDate" TableKey="CHCS_Count_H"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                            <Label Key="Lab_Status" Caption="单据状态" X="8" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="9" Y="0" SourceType="Status" Enable="false" AsQuery="true" XSpan="2">
+                                <DataBinding ColumnKey="Status" TableKey="CHCS_Count_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <TextEditor Key="Remark" Caption="备注" BuddyKey="Lab_Remark" X="1" Y="2" XSpan="10">
+                                <DataBinding ColumnKey="Remark" TableKey="CHCS_Count_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remark" Caption="备注" X="0" Y="2"/>
+                            <Dict Key="Vendor" Caption="航食公司" BuddyKey="Lab_Vendor" X="1" Y="1" ItemKey="Vendor" XSpan="2">
+                                <DataBinding ColumnKey="Vendor" TableKey="CHCS_Count_H"/>
+                            </Dict>
+                            <Label Key="Lab_Vendor" Caption="航食公司" X="0" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="120px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding DefaultFormulaValue="GetOperator()" ColumnKey="Creator" TableKey="CHCS_Count_H"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding DefaultFormulaValue="ServerDate()" ColumnKey="ModifyTime" TableKey="CHCS_Count_H"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="5" XSpan="2" Y="0">
+                                <DataBinding DefaultFormulaValue="ServerDate()" ColumnKey="CreateTime" TableKey="CHCS_Count_H"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="4" Y="0"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="1" XSpan="2" Y="1">
+                                <DataBinding DefaultFormulaValue="GetOperator()" ColumnKey="Modifier" TableKey="CHCS_Count_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                        <Grid Key="Grid1" Caption="盘点明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="Tableware_Name" Caption="餐具名称" Width="80px"/>
+                                <GridColumn Key="Standard_Stock" Caption="标准库存量" Width="80px"/>
+                                <GridColumn Key="Extant_Number" Caption="现存数量" Width="80px"/>
+                                <GridColumn Key="Unit" Caption="单位" Width="80px"/>
+                                <GridColumn Key="Remark_L" Caption="备注" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="CHCS_Count_L">
+                                    <GridCell Key="Tableware_Name" Caption="餐具名称" CellType="Dict" ItemKey="CHCS_Product">
+                                        <DataBinding ColumnKey="Tableware_Name"/>
+                                        <ItemFilter>
+                                            <Filter Query="select oid from CHCS_Product where Type=(select oid from LRP_Lookup_L where code='CPLX-CJ')" Type="DataSet"/>
+                                        </ItemFilter>
+                                    </GridCell>
+                                    <GridCell Key="Standard_Stock" Caption="标准库存量" CellType="NumberEditor" Format="" IntegerValue="true" Scale="0">
+                                        <DataBinding ColumnKey="Standard_Stock"/>
+                                    </GridCell>
+                                    <GridCell Key="Extant_Number" Caption="现存数量" CellType="NumberEditor" Format="" IntegerValue="true" Scale="0">
+                                        <DataBinding CheckDependency="Standard_Stock ,Extant_Number" CheckRule="Standard_Stock &gt; Extant_Number" ColumnKey="Extant_Number" ErrorInfo="现存数量不能大于标准库存数量！"/>
+                                    </GridCell>
+                                    <GridCell Key="Unit" Caption="单位" CellType="Dict" ItemKey="LRP_Lookup_L">
+                                        <DataBinding ColumnKey="Unit"/>
+                                        <ItemFilter>
+                                            <Filter Query="select oid  from LRP_Lookup_L where HeadCode='DW'" Type="DataSet"/>
+                                        </ItemFilter>
+                                    </GridCell>
+                                    <GridCell Key="Remark_L" Caption="备注" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Remark"/>
+                                    </GridCell>
+                                </GridRow>
+                                <GridRow Key="row2" RowType="Total">
+                                    <GridCell Key="Total" Caption="合计数:"/>
+                                    <GridCell Key="cell2"/>
+                                    <GridCell Key="cell3" CellType="NumberEditor" Format="" IntegerValue="true" Scale="0">
+                                        <DataBinding DefaultFormulaValue="Sum('Extant_Number')" ValueDependency="Extant_Number"/>
+                                    </GridCell>
+                                    <GridCell Key="cell4"/>
+                                    <GridCell Key="cell5"/>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

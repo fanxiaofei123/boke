@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="物料" FormulaAbbrCaption="Para('EntryCaption')" FormulaCaption="Para('EntryCaption')" Key="V_Material_LRP">
+    <DataSource RefObjectKey="LRP_Material"/>
+    <QueryCollection>
+        <Query Description="查找策略类型是上架的策略" Key="PSSelect">
+            <Statement>
+                <![CDATA[select OID ,Name from LRP_PutawayStrategy_H where status=200 and  WarehouseCenterId=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Description="查找策略类型是订单拣货的策略" Key="SSSelect">
+            <Statement>
+                <![CDATA[select OID ,Name from LRP_NoticePickStrategy_H where status=200 and  WarehouseCenterId=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Description="查找策略类型是波次拣货的策略" Key="WSSelect">
+            <Statement>
+                <![CDATA[select OID ,Name from  LRP_WavePickStrategy_H where status=200 and  WarehouseCenterId=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Description="查找策略类型是补货的策略" Key="RSSelect">
+            <Statement>
+                <![CDATA[select OID ,Name from LRP_ReprenishStrategy_H where status=200 and  WarehouseCenterId=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <UICheckRuleCollection>
+        <UICheckRule ErrorInfo="货主不能重复">
+            <![CDATA[
+					
+							!CheckDuplicate("OwnerId");
+						
+				]]>
+        </UICheckRule>
+        <UICheckRule ErrorInfo="仓储中心+策略不可重复">
+            <![CDATA[				
+							!CheckDuplicate("StrategyId","WarehouseCenterId");
+				]]>
+        </UICheckRule>
+        <UICheckRule ErrorInfo="储位类型不可重复">
+            <![CDATA[!CheckDuplicate("LocType");]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <TextEditor Caption="代码" Key="Code" Tip="「代码」不可为空" X="1" XSpan="4" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="LRP_Material" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="名称" Key="Name" Tip="「名称」不可为空" X="7" XSpan="7" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="LRP_Material" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="别名" Key="DisplayName" X="1" XSpan="4" Y="1">
+                            <DataBinding ColumnKey="DisplayName" TableKey="LRP_Material"/>
+                        </TextEditor>
+                        <TextEditor Caption="规格" Key="Spec" X="7" XSpan="7" Y="1">
+                            <DataBinding ColumnKey="Spec" TableKey="LRP_Material"/>
+                        </TextEditor>
+                        <Dict Caption="物料类型" ItemKey="MaterialType" Key="MaterialTypeId" Tip="「物料类型」不可为空" X="1" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="MaterialTypeId" TableKey="LRP_Material" Required="true"/>
+                        </Dict>
+                        <TextEditor Caption="基本单位" Key="BasicUnit" Tip="「基本单位」不可为空" X="1" Y="3">
+                            <DataBinding ColumnKey="BasicUnit" TableKey="LRP_Material" Required="true"/>
+                        </TextEditor>
+                        <NumberEditor Caption="基本单位重量" Key="BasicUnitWeight" Precision="15" Scale="3" X="1" Y="4">
+                            <DataBinding ColumnKey="BasicUnitWeight" TableKey="LRP_Material"/>
+                        </NumberEditor>
+                        <NumberEditor Caption="基本单位长度" Key="BasicUnitLength" Precision="15" Scale="3" X="4" Y="3">
+                            <DataBinding ColumnKey="BasicUnitLength" TableKey="LRP_Material">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('BasicUnitCubage',BasicUnitLength*BasicUnitWidth*BasicUnitHeight)]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </NumberEditor>
+                        <NumberEditor Caption="基本单位宽度" Key="BasicUnitWidth" Precision="15" Scale="3" X="7" Y="3">
+                            <DataBinding ColumnKey="BasicUnitWidth" TableKey="LRP_Material">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('BasicUnitCubage',BasicUnitLength*BasicUnitWidth*BasicUnitHeight)]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </NumberEditor>
+                        <NumberEditor Caption="基本单位高度" Key="BasicUnitHeight" Precision="15" Scale="3" X="10" Y="3">
+                            <DataBinding ColumnKey="BasicUnitHeight" TableKey="LRP_Material">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('BasicUnitCubage',BasicUnitLength*BasicUnitWidth*BasicUnitHeight)]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </NumberEditor>
+                        <NumberEditor Caption="基本单位体积" Key="BasicUnitCubage" Precision="15" Scale="3" X="4" Y="4">
+                            <DataBinding ColumnKey="BasicUnitCubage" TableKey="LRP_Material"/>
+                        </NumberEditor>
+                        <TextEditor Caption="整件单位" Key="PackingUnit" X="1" Y="5">
+                            <DataBinding ColumnKey="PackingUnit" TableKey="LRP_Material"/>
+                        </TextEditor>
+                        <NumberEditor Caption="整件单位重量" Key="PackingUnitWeight" Precision="15" Scale="3" X="1" Y="6">
+                            <DataBinding ColumnKey="PackingUnitWeight" TableKey="LRP_Material"/>
+                        </NumberEditor>
+                        <NumberEditor Caption="整件单位长度" Key="PackingUnitLength" Precision="15" Scale="3" X="4" Y="5">
+                            <DataBinding ColumnKey="PackingUnitLength" TableKey="LRP_Material">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('PackingUnitCubage',PackingUnitLength*PackingUnitWidth*PackingUnitHeight)]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </NumberEditor>
+                        <NumberEditor Caption="整件单位宽度" Key="PackingUnitWidth" Precision="15" Scale="3" X="7" Y="5">
+                            <DataBinding ColumnKey="PackingUnitWidth" TableKey="LRP_Material">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('PackingUnitCubage',PackingUnitLength*PackingUnitWidth*PackingUnitHeight)]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </NumberEditor>
+                        <NumberEditor Caption="整件单位高度" Key="PackingUnitHeight" Precision="15" Scale="3" X="10" Y="5">
+                            <DataBinding ColumnKey="PackingUnitHeight" TableKey="LRP_Material">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('PackingUnitCubage',PackingUnitLength*PackingUnitWidth*PackingUnitHeight)]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </NumberEditor>
+                        <NumberEditor Caption="整件单位体积" Key="PackingUnitCubage" Precision="15" Scale="3" X="4" Y="6">
+                            <DataBinding ColumnKey="PackingUnitCubage" TableKey="LRP_Material"/>
+                        </NumberEditor>
+                        <NumberEditor Caption="整件包含基本单位数量" Key="PackingQty" Precision="15" Scale="3" X="7" Y="6">
+                            <DataBinding ColumnKey="PackingQty" TableKey="LRP_Material"/>
+                        </NumberEditor>
+                        <Dict Caption="默认托盘类型" ItemKey="LRP_HandlingUnitType" Key="DefaultPalletTypeId" X="1" Y="7">
+                            <DataBinding ColumnKey="DefaultPalletTypeId" TableKey="LRP_Material"/>
+                        </Dict>
+                        <NumberEditor Caption="每托盘基本数量" Key="QtyPerPallet" Precision="15" Scale="3" X="4" Y="7">
+                            <DataBinding ColumnKey="QtyPerPallet" TableKey="LRP_Material"/>
+                        </NumberEditor>
+                        <Dict Caption="重量单位" ItemKey="Unit" Key="WeightUnit" X="7" Y="7" Visible="false">
+                            <DataBinding ColumnKey="WeightUnit" TableKey="LRP_Material"/>
+                        </Dict>
+                        <Dict Caption="体积单位" ItemKey="Unit" Key="CubageUnit" X="10" Y="7" Visible="false">
+                            <DataBinding ColumnKey="CubageUnit" TableKey="LRP_Material"/>
+                        </Dict>
+                        <Dict Caption="维度单位" ItemKey="Unit" Key="DimensionUnit" X="13" Y="7" Visible="false">
+                            <DataBinding ColumnKey="DimensionUnit" TableKey="LRP_Material"/>
+                        </Dict>
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <Label Caption="名称" Key="L_Name" X="6" Y="0"/>
+                        <Label Caption="别名" Key="L_DisplayNam" X="0" Y="1"/>
+                        <Label Caption="规格" Key="L_Spec" X="6" Y="1"/>
+                        <Label Caption="物料类型" Key="L_MaterialTypeId" X="0" Y="2"/>
+                        <Label Caption="基本单位" Key="L_WeightLimitUnit" X="0" Y="3"/>
+                        <Label Caption="基本重量" Key="L_BasicUnitWeight" X="0" Y="4"/>
+                        <Label Caption="长" Key="L_BasicUnitLength" X="3" Y="3"/>
+                        <Label Caption="宽" Key="L_BasicUnitWidth" X="6" Y="3"/>
+                        <Label Caption="高" Key="L_BasicUnitHeight" X="9" Y="3"/>
+                        <Label Caption="基本体积" Key="L_BasicUnitCubage" X="3" Y="4"/>
+                        <Label Caption="整件单位" Key="L_PackingUnit" X="0" Y="5"/>
+                        <Label Caption="整件重量" Key="L_PackingUnitWeight" X="0" Y="6"/>
+                        <Label Caption="长" Key="L_PackingUnitLength" X="3" Y="5"/>
+                        <Label Caption="宽" Key="L_PackingUnitWidth" X="6" Y="5"/>
+                        <Label Caption="高" Key="L_PackingUnitHeight" X="9" Y="5"/>
+                        <Label Caption="整件体积" Key="L_PackingUnitCubage" X="3" Y="6"/>
+                        <Label Caption="整件包含基本单位数量" Key="L_PackingQty" X="6" Y="6"/>
+                        <Label Caption="默认托盘类型" Key="L_DefaultPalletTypeId" X="0" Y="7"/>
+                        <Label Caption="每托盘基本数量" Key="L_QtyPerPallet" X="3" Y="7"/>
+                        <Label Caption="重量单位" Key="L_WeightUnit" X="6" Y="7" Visible="false"/>
+                        <Label Caption="体积单位" Key="L_CubageUnit" X="9" Y="7" Visible="false"/>
+                        <Label Caption="维度单位" Key="L_DimensionUnit" X="12" Y="7" Visible="false"/>
+                        <ComboBox BuddyKey="Lab_SerialControlMethod" Caption="序列号管控方式" Key="SerialControlMethod" X="7" XSpan="7" Y="2">
+                            <DataBinding ColumnKey="SerialControlMethod" TableKey="LRP_Material"/>
+                            <Item Caption="不管控" Key="DoNothing" Value="0"/>
+                            <Item Caption="仅出入库" Key="InOrOut" Value="1"/>
+                            <Item Caption="所有事务" Key="All" Value="2"/>
+                        </ComboBox>
+                        <Label Caption="序列号管控方式" Key="Lab_SerialControlMethod" X="6" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="75px"/>
+                            <ColumnDef Width="25%" MinWidth="40px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="25%" MinWidth="40px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="120px"/>
+                            <ColumnDef Width="15%" MinWidth="40px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="15%" MinWidth="40px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="15%"/>
+                            <ColumnDef Width="10px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_Material"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Material"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_Material"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Material"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                    <Grid Caption="货主分配明细" Key="Grid0">
+                        <GridColumnCollection>
+                            <GridColumn Caption="货主" Key="C_OwnerId" Width="80px"/>
+                            <GridColumn Caption="货主系统编号" Key="C_OwnerSysCode" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" TableKey="LRP_OwnerMaterial">
+                                <GridCell Caption="货主" CellType="Dict" ItemKey="LRP_Owner" Key="OwnerId">
+                                    <DataBinding ColumnKey="OwnerId" Required="true"/>
+                                </GridCell>
+                                <GridCell Caption="货主系统编号" CellType="TextEditor" Key="OwnerSysCode">
+                                    <DataBinding ColumnKey="OwnerSysCode"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <Grid Caption="仓储策略明细" Key="Grid1">
+                        <GridColumnCollection>
+                            <GridColumn Caption="仓储中心" Key="C_WarehouseCenterId" Width="80px"/>
+                            <GridColumn Caption="策略类型" Key="C_StrategyType" Width="80px"/>
+                            <GridColumn Caption="策略" Key="C_StrategyId" Width="80px"/>
+                            <GridColumn Key="ReplenishWarningQty" Caption="补货预警量" Width="80px"/>
+                            <GridColumn Key="MaxWaitQty" Caption="最大备发量" Width="80px"/>
+                            <GridColumn Caption="排序" Key="C_SortOrder" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" TableKey="LRP_MaterialStrategy">
+                                <GridCell Caption="仓储中心" CellType="Dict" ItemKey="LRP_WarehouseCenter" Key="WarehouseCenterId">
+                                    <DataBinding ColumnKey="WarehouseCenterId" Required="true"/>
+                                </GridCell>
+                                <GridCell Caption="策略类型" CellType="ComboBox" Key="StrategyType">
+                                    <DataBinding ColumnKey="StrategyType" Required="true"/>
+                                    <Item Caption="上架" Key="PA" Value="PA"/>
+                                    <Item Caption="订单拣货" Key="OP" Value="OP"/>
+                                    <Item Caption="波次拣货" Key="WP" Value="WP"/>
+                                    <Item Caption="普通补货" Key="NP" Value="NP"/>
+                                    <Item Caption="紧急补货" Key="IP" Value="IP"/>
+                                </GridCell>
+                                <GridCell Caption="策略" CellType="ComboBox" Key="StrategyId" SourceType="Formula" ItemsDependency="StrategyType,WarehouseCenterId" DynamicItems="true">
+                                    <DataBinding ColumnKey="StrategyId" Required="true"/>
+                                    <FormulaItems>
+                                        <![CDATA[IIFS(StrategyType=='PA',DBNamedQuery('PSSelect',WarehouseCenterId),StrategyType=='OP',DBNamedQuery('SSSelect',WarehouseCenterId),StrategyType=='WP',DBNamedQuery('WSSelect',WarehouseCenterId),StrategyType=='NP'||StrategyType=='IP',DBNamedQuery('RSSelect',WarehouseCenterId))
+                                            ]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="ReplenishWarningQty" Caption="补货预警量" CellType="NumberEditor" Precision="15" Scale="6">
+                                    <DataBinding ColumnKey="ReplenishWarningQty" CheckRule="if(StrategyType=='NP'){ReplenishWarningQty&gt;0}else{true}" ErrorInfo="策略类型是普通补货，则补货预警量必须大于0" CheckDependency="StrategyType" DefaultValue="0"/>
+                                </GridCell>
+                                <GridCell Key="MaxWaitQty" Caption="最大备发量" CellType="NumberEditor" Precision="15" Scale="6">
+                                    <DataBinding ColumnKey="MaxWaitQty" CheckRule="if(StrategyType=='NP'||StrategyType=='IP'){MaxWaitQty&gt;0}else{true}" ErrorInfo="策略类型是普通补货或紧急补货，则最大备发量必须大于0" CheckDependency="StrategyType" DefaultValue="0"/>
+                                </GridCell>
+                                <GridCell Caption="排序" CellType="NumberEditor" Key="SortOrder">
+                                    <DataBinding ColumnKey="SortOrder"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <Grid Key="Grid2" Caption="物料-储位类型">
+                        <GridColumnCollection>
+                            <GridColumn Key="LocType" Caption="储位类型" Width="80px"/>
+                            <GridColumn Key="Qty" Caption="可存放量" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" TableKey="LRP_MaterialLocType" RowHeight="35">
+                                <GridCell Key="LocType" Caption="储位类型" CellType="Dict" ItemKey="LRP_LocType">
+                                    <DataBinding ColumnKey="LocType" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="Qty" Caption="可存放量" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="Qty" CheckRule="Qty&gt;0" ErrorInfo="可存放量必须大于0"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+                <SplitSize Size="400px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

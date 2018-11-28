@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_Name>Name</L_Name>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <SystemTab>SystemTab</SystemTab>
+        <BasicTab>BasicTab</BasicTab>
+        <Lab_RegionId>Area</Lab_RegionId>
+        <L_Code>Code</L_Code>
+        <Lab_CountryId>Country</Lab_CountryId>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+    </UI>
+    <Tip>
+        <CountryId>CanNotBeEmpty</CountryId>
+        <RegionId>CanNotBeEmpty</RegionId>
+        <Code>CanNotBeEmpty</Code>
+        <Name>CanNotBeEmpty</Name>
+    </Tip>
+</StringTable>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_AddRecordsQuery-Abbr>AddRecordsQuery</V_AddRecordsQuery-Abbr>
+	 
+        <Lab_username>Username</Lab_username>
+		<Lab_uprname>Uprname</Lab_uprname>
+        <Lab_refbillno>Refbillno</Lab_refbillno>
+        <Lab_createtimefrom>CreateTime</Lab_createtimefrom>
+        <Lab_createtimeto>To</Lab_createtimeto>
+        <Lab_ExpireDatefrom>ExpireDate</Lab_ExpireDatefrom>
+        <Lab_ExpireDateto>To</Lab_ExpireDateto>
+    </UI>
+	<GridColumn>
+        <ouname_L>Ouname</ouname_L>
+        <uprno_L>Uprno</uprno_L>
+        <uprname_L>Uprname</uprname_L>
+        <RefNo_L>RefNo</RefNo_L>
+        <Points_L>Points</Points_L>
+        <UsedPoints_L>UsedPoints</UsedPoints_L>
+        <ExpireDate_L>ExpireDate</ExpireDate_L>
+	</GridColumn>
+</StringTable>

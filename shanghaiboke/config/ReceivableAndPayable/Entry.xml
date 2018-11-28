@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="应收应付管理" Key="CustomBill">
+        <EntryItem Caption="应收发票" FormKey="V_InvoiceReceiveableView" Key="V_InvoiceReceiveableView" Type="Form"/>
+        <EntryItem Caption="应付发票" FormKey="V_InvoicePayableView" Key="V_InvoicePayableView" Type="Form"/>
+        <EntryItem Caption="按发票收款" FormKey="V_ReceiptByInvoiceView" Key="V_ReceiptByInvoiceView" Type="Form"/>
+        <EntryItem Caption="按发票付款" FormKey="V_PaymentByInvoiceView" Key="V_PaymentByInvoiceView" Type="Form"/>
+        <EntryItem Caption="按对账单收款" FormKey="V_ReceiptByStatementView" Key="V_ReceiptByStatementView" Type="Form"/>
+        <EntryItem Caption="按对账单付款" FormKey="V_PaymentByStatementView" Key="V_PaymentByStatementView" Type="Form"/>
+        <EntryItem Caption="预收款" FormKey="V_AdvanceReceiptByInvoiceView" Key="V_AdvanceReceiptByInvoiceView" Type="Form"/>
+        <EntryItem Caption="预付款" FormKey="V_AdvancePaymentByInvoiceView" Key="V_AdvancePaymentByInvoiceView" Type="Form"/>
+        <EntryItem Caption="预收款核销" FormKey="V_AdvanceReceiptView" Key="V_AdvanceReceiptView" Type="Form"/>
+        <EntryItem Caption="预付款核销" FormKey="V_AdvancePaymentView" Key="V_AdvancePaymentView" Type="Form"/>
+        <EntryItem Caption="应收收入情况报表" FormKey="V_AccountsReceivableReport" Key="V_AccountsReceivableReport" Type="Form"/>
+        <EntryItem Caption="应付费用情况报表" FormKey="V_AccountsPayableReport" Key="V_AccountsPayableReport" Type="Form"/>
+    </Entry>
+</Entry>

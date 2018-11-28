@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <ToCancel>ToCancel</ToCancel>
+        <New>New</New>
+        <Confirm-R>Confirm-R</Confirm-R>
+        <Pick>Pick</Pick>
+        <Cancel>Cancel</Cancel>
+        <CopyNew>CopyNew</CopyNew>
+        <Confirm>Confirm</Confirm>
+        <Edit>BatchMaterialBarcode</Edit>
+        <Finish-R>Finish-R</Finish-R>
+        <ToCancel-R>ToCancel-R</ToCancel-R>
+        <QuoteQuant>QuoteQuant</QuoteQuant>
+        <Save>Save</Save>
+        <Close>Close</Close>
+        <Ship>FastDelivery</Ship>
+        <Finish>Finish</Finish>
+		
+    </Opt>
+    <UI>
+<V_PackingInbound>PackingInbound</V_PackingInbound>
+		<BasicTab>Basic Info</BasicTab>
+		<L_No>No</L_No>
+		<L_Status>Status</L_Status>
+		<L_CREATETIME>createtime</L_CREATETIME>
+		<L_InboundDateTime>InboundDateTime</L_InboundDateTime>
+		<Lab_Remark>Remark</Lab_Remark>
+		<Lab_EnterMaterialCode>EnterMaterialCode</Lab_EnterMaterialCode>
+		<Lab_CurMaterial>CurMaterial</Lab_CurMaterial>
+		<Lab_EnterLocationCode>EnterLocationCode</Lab_EnterLocationCode>
+		<Lab_CurLocation>CurLocation</Lab_CurLocation>
+		<Lab_EnterMaterialBarCode>EnterMaterialBarCode</Lab_EnterMaterialBarCode>
+		
+		<DetailTab>OrderDetails</DetailTab>
+		<Grid_Sum>SummaryOfOrders</Grid_Sum>
+		
+		<DeleteDetail>DeleteDetail</DeleteDetail>
+    </UI>
+    <GridColumn>
+		<MaterialId>MaterialId</MaterialId>
+		<MaterialBarCode>MaterialBarCode</MaterialBarCode>
+		<Qty>Qty</Qty>
+		<StoreroomId>StoreroomId</StoreroomId>
+		<StoreareaId>StoreareaId</StoreareaId>
+		<LocationId>LocationId</LocationId>
+		
+		<MaterialId_Sum>MaterialId</MaterialId_Sum>
+		<Qty_Sum>Qty</Qty_Sum>
+		<StoreroomId_Sum>StoreroomId</StoreroomId_Sum>
+		<StoreareaId_Sum>StoreareaId</StoreareaId_Sum>
+		<LocationId_Sum>LocationId</LocationId_Sum>
+    </GridColumn>
+    <Cell>
+        <Qty>QtyGreaterThan0</Qty>
+    </Cell>
+</StringTable>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

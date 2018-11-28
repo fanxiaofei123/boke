@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <ToCancel>ToCancel</ToCancel>
+        <New>New</New>
+        <Confirm-R>Confirm-R</Confirm-R>
+        <ToCancel-R>ToCancel-R</ToCancel-R>
+        <Receipt>Receipt</Receipt>
+        <Cancel>Cancel</Cancel>
+        <CopyNew>CopyNew</CopyNew>
+        <Confirm>Confirm</Confirm>
+        <Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+	 <V_CrossDocking>CrossDocking</V_CrossDocking>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <SystemInfo>SystemInfo</SystemInfo>
+        <second_head>shipper receiver</second_head>
+        <Lab_ContactTel>ContactTel</Lab_ContactTel>
+        <Lab_Address>Address</Lab_Address>
+        <Lab_RecvPartyName>RecvPartyName</Lab_RecvPartyName>
+        <Lab_ShipCarrierContactor>ShipCarrierContactor</Lab_ShipCarrierContactor>
+        <Lab_DistrictId>District</Lab_DistrictId>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <Lab_PlatformId>PlatformId</Lab_PlatformId>
+        <Lab_NoticeNo>Cross Docking Order No</Lab_NoticeNo>
+        <Lab_LogisticsOrderNo>LogisticsOrderNo</Lab_LogisticsOrderNo>
+        <Grid0>Grid0</Grid0>
+        <Lab_RecvPartyId>receiver</Lab_RecvPartyId>
+        <Lab_WarehouseCenterId>Storage Centre</Lab_WarehouseCenterId>
+        <Lab_Contactor>Contactor</Lab_Contactor>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <Lab_ShipWaybillNo>ShipWaybillNo</Lab_ShipWaybillNo>
+        <Lab_OwnerId>Shipper</Lab_OwnerId>
+        <Lab_ProvinceId>Province</Lab_ProvinceId>
+        <Lab_CityId>City</Lab_CityId>
+        <first_head>BasicInformation</first_head>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+        <Lab_ShipCarrierId>ShipCarrierId</Lab_ShipCarrierId>
+        <Lab_ShipCarrierTel>ShipCarrierTel</Lab_ShipCarrierTel>
+        <Lab_ExpectShipDateTimeTo>ExpectDateTimeTo</Lab_ExpectShipDateTimeTo>
+        <Lab_ContactEmail>ContactEmail</Lab_ContactEmail>
+        <Lab_SendPartyId>sender</Lab_SendPartyId>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_OwnerNo>Contract No</Lab_OwnerNo>
+        <Lab_Remark>SendPartyId</Lab_Remark>
+        <third_head>carrier</third_head>
+        <Lab_ExpectShipDateTimeFrom>ExpectDateTimeFrom</Lab_ExpectShipDateTimeFrom>
+    </UI>
+    <GridColumn>
+        <ExpireDate>ExpireDate</ExpireDate>
+        <BatchNo>BatchNo</BatchNo>
+        <RecvDate>RecvDate</RecvDate>
+        <column-9>column-9</column-9>
+        <column-8>column-8</column-8>
+        <column-7>column-7</column-7>
+        <ManufDate>ManufDate</ManufDate>
+        <MaterialId>MaterialId</MaterialId>
+        <DictUserDef5>DictUserDef5</DictUserDef5>
+        <DictUserDef4>DictUserDef4</DictUserDef4>
+        <ProjectId>ProjectId</ProjectId>
+        <column-6>column-6</column-6>
+        <DateUserDef2>DateUserDef2</DateUserDef2>
+        <column-5>column-5</column-5>
+        <Picture_No>Picture No</Picture_No>
+        <DateUserDef1>DateUserDef1</DateUserDef1>
+        <column-4>column-4</column-4>
+        <column-3>column-3</column-3>
+        <NumUserDef3>NumUserDef3</NumUserDef3>
+        <column-2>column-2</column-2>
+        <NumUserDef2>NumUserDef2</NumUserDef2>
+        <column-1>column-1</column-1>
+        <NumUserDef1>NumUserDef1</NumUserDef1>
+        <Select>Select</Select>
+        <DictUserDef3>DictUserDef3</DictUserDef3>
+        <DictUserDef2>DictUserDef2</DictUserDef2>
+        <DictUserDef1>DictUserDef1</DictUserDef1>
+        <StrUserDef5>StrUserDef5</StrUserDef5>
+        <StrUserDef4>StrUserDef4</StrUserDef4>
+        <StrUserDef3>StrUserDef3</StrUserDef3>
+        <StrUserDef2>StrUserDef2</StrUserDef2>
+        <EnglishName>English Name</EnglishName>
+        <StrUserDef1>StrUserDef1</StrUserDef1>
+    </GridColumn>
+    <Cell>
+        <Qty>QtybeGreaterThan0</Qty>
+    </Cell>
+</StringTable>

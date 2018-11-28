@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Cancel>Cancel</Cancel>
+        <Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+	    <V_QuantUserDefFields_LRP>QuantUserDefFields</V_QuantUserDefFields_LRP>
+        <Grid3>InventoryReserveField</Grid3>
+    </UI>
+    <GridColumn>
+        <column-2>ShowName</column-2>
+        <column-1>Isvisible</column-1>
+        <column-0>Code</column-0>
+    </GridColumn>
+</StringTable>

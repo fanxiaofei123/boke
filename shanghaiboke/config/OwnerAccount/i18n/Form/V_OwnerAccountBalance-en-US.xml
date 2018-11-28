@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_OwnerAccountBalance-Abbr>OwnerAccountBalance</V_OwnerAccountBalance-Abbr>
+	 
+        <Lab_OwnerId1>OwnerId</Lab_OwnerId1>
+		<Lab_MODIFYTIME>ModifyTIime</Lab_MODIFYTIME>
+        <Lab_MODIFYTIME_Comp2>To</Lab_MODIFYTIME_Comp2>
+    </UI>
+	<ListViewColumn>
+        <OID>OID</OID>
+        <OwnerId>OwnerId</OwnerId>
+        <Currency>Currency</Currency>
+        <Balance>Balance</Balance>
+        <FreezeAmount>FreezeAmount</FreezeAmount>
+	</ListViewColumn>
+</StringTable>

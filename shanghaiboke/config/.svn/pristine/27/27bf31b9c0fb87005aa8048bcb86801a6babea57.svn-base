@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+		<V_W_CalculateIncome_LRP>CalculateIncome</V_W_CalculateIncome_LRP>
+		
+        <Lab_WarehouseCenter>WarehouseCenter</Lab_WarehouseCenter>
+        <Lab_Owner>Owner</Lab_Owner>
+        <Lab_StartDate>StartDate</Lab_StartDate>
+        <Lab_EndDate>EndDate</Lab_EndDate>
+    </UI>
+</StringTable>

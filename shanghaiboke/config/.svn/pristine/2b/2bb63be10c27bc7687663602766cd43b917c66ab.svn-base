@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="包装材料" Key="LRP_PackingMaterial" PrimaryTableKey="LRP_PackingMaterial" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="包装材料" DBTableName="LRP_PackingMaterial" Key="LRP_PackingMaterial">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="版本号" DataType="Integer" Key="VERID"/>
+            <Column Caption="明细版本号" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status" DefaultValue="0"/>
+            <Column Caption="启用状态" DataType="Integer" Key="Enable" DefaultValue="1"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="字典父亲OID" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="创建人员" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人员" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="100"/>
+            <Column Caption="包材类别" DataType="Long" Key="Category"/>
+            <Column Caption="规格" DataType="Varchar" Key="Spec" Length="100" Cache="true"/>
+            <Column Caption="型号" DataType="Varchar" Key="Model" Length="100" Cache="true"/>
+            <Column Caption="单位" DataType="Varchar" Key="Unit" Length="10" Cache="true"/>
+            <Column Caption="重量" DataType="Numeric" Key="Weight" Precision="18" Scale="3" Cache="true"/>
+            <Column Key="PreCool" Caption="预冷时间" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Discharging" Caption="释冷时间" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="DischargingOverTime" Caption="释冷超时" DataType="Numeric" Precision="16" Scale="2"/>
+			<Column Key="PackingOverTime" Caption="包装超时" DataType="Numeric" Precision="16" Scale="2"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+	<MaterialLoction>MaterialLoction</MaterialLoction>
+        <Query>
+Query        
+        </Query>
+        <Lab_Code>
+Material        
+        </Lab_Code>
+        <Label1>
+MaterialLoctionQuery        
+        </Label1>
+        <reset>
+Reset        
+        </reset>
+        <Lab_Name>
+Location        
+        </Lab_Name>
+    </UI>
+    <GridColumn>
+        <Code1>
+Location
+        </Code1>
+        <column4>
+Picno
+        </column4>
+        <column3>
+Englishname
+        </column3>
+        <column9>
+Onhandqty
+        </column9>
+        <column8>
+Materail
+        </column8>
+        <column7>
+WarehouseCenterid
+        </column7>
+        <column6>
+Ownerid
+        </column6>
+    </GridColumn>
+</StringTable>

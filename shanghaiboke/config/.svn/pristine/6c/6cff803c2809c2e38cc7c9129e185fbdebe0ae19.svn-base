@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>New</New>
+        <BatchDelete>Delete</BatchDelete>
+        <BatchFinish>Finish</BatchFinish>
+        <BatchUnFinish>Finish-R</BatchUnFinish>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+	<V_Tx402View-Abbr>AdjustIncreaseOrdersView</V_Tx402View-Abbr>
+        <L_OwnerId>No</L_OwnerId>
+        <cancel>Reset</cancel>
+        <Query>Query</Query>
+        <Lab_Status_H>Status</Lab_Status_H>
+        <L_TxDateTime2>TxDateEndTime</L_TxDateTime2>
+        <L_No>TxNo</L_No>
+        <L_OwnerNo>Shipper</L_OwnerNo>
+        <L_TxDateTime>TxDateTime</L_TxDateTime>
+        <Lab_WarehouseCenterId>Storage Centre ID</Lab_WarehouseCenterId>
+        <Lab_DataObjectKey>DataObjectKey</Lab_DataObjectKey>
+    </UI>
+    <Items-Status_H>
+        <Item-prepared>prepared</Item-prepared>
+        <Item-finished>finished</Item-finished>
+    </Items-Status_H>
+    <Items-Status>
+        <Item-prepared>prepared</Item-prepared>
+        <Item-finished>finished</Item-finished>
+    </Items-Status>
+    <ListViewColumn>
+        <Status>Status</Status>
+        <Remark_LV>Remark</Remark_LV>
+        <OwnerNo_LV>OwnerNo</OwnerNo_LV>
+        <No_LV>TxNo</No_LV>
+        <OwnerId_LV>OwnerId</OwnerId_LV>
+        <Select>Select</Select>
+        <OID>ObjectId</OID>
+        <TxDateTime_LV>TxdateTime</TxDateTime_LV>
+    </ListViewColumn>
+</StringTable>

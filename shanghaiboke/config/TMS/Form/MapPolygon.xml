@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MapPolygon" Caption="地图区域划分" InitState="Default">
+    <DataSource>
+        <DataObject Key="MapPolygon" Caption="地图区域划分" PrimaryTableKey="MapPolygon">
+            <TableCollection>
+                <Table Key="MapPolygon" Caption="地图区域划分" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="region" Caption="区域" DataType="Varchar"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select * from LRP_Polygon_H where oid>0]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="showmap" Caption="地图展示" Visible="true">
+            <Action>
+                <![CDATA[var pctype = "bdl90";
+var polygoninfo=InvokeService('LRP_GetPolygonPointsInfo', false, false);
+var url = "LRP_Map/baidumap_drawpolygon.html?" & polygoninfo &  "&" & pctype;
+SetValue('WebBrowser', url);
+OUT(url);
+return true;]]>
+            </Action>
+        </Operation>
+        <Operation Key="editregion" Caption="编辑区域" Visible="ReadOnly();">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="cancel" Caption="取消" Visible="!ReadOnly();">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100%">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Height="100%" Caption="SplitPanel1">
+                    <Grid Key="Grid1" Caption="Grid1" Enable="!ReadOnly()" CanDelete="false" CanShift="false" CanInsert="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="column1" Caption="选择" Width="80px" Visible="false"/>
+                            <GridColumn Key="region" Caption="区域" Width="80px"/>
+                            <GridColumn Key="code" Caption="code" Width="80px" Enable="false" Visible="false"/>
+                            <GridColumn Key="oid" Caption="oid" Width="80px" Visible="false"/>
+                            <GridColumn Key="delete" Caption="删除" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="MapPolygon">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                <GridCell Key="region" Caption="区域" CellType="TextEditor">
+                                    <DataBinding ColumnKey="region"/>
+                                </GridCell>
+                                <GridCell Key="code" Caption="code" CellType="TextEditor">
+                                    <DataBinding ColumnKey="Code"/>
+                                </GridCell>
+                                <GridCell Key="oid" Caption="oid" CellType="NumberEditor" Scale="0">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Key="delete" Caption="删除" CellType="Button" Enable="!ReadOnly()">
+                                    <OnClick>
+                                        <![CDATA[InvokeService('LRP_DeletePolygon', false, false,GetCellValue('Grid1', -1, 'oid'));
+LoadData();ShowData();
+var pctype = "bdl90";
+var polygoninfo=InvokeService('LRP_GetPolygonPointsInfo', false, false);
+var url = "LRP_Map/baidumap_drawpolygon.html?" & polygoninfo &  "&" & pctype;
+SetValue('WebBrowser', url);]]>
+                                    </OnClick>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <WebBrowser Caption="WebBrowser" Height="100%" Key="WebBrowser" Width="100%"/>
+                    <SplitSize Size="20%"/>
+                    <SplitSize Size="80%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();ShowData();]]>
+    </OnLoad>
+</Form>

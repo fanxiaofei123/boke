@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="#FormKey#View" Caption="#FormCaption#视图" FormType="View" AbbrCaption="#FormCaption#视图">
+    <DataSource>
+        <DataObject Key="#FormKey#" Caption="#FormCaption#视图" PrimaryTableKey="#TableKey#" SecondaryType="Normal" PrimaryType="Virtual">
+            <TableCollection>
+                <Table Key="#TableKey#" Caption="" DBTableName="#TableKey#" TableMode="Detail" SourceType="Query" Persist="False">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" Persist="True" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" Persist="True" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" Persist="True" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" Persist="True" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" Persist="True" DBColumnName="DVERID"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('#FormKey#')]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <OnLoad type="Formula">
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+                <ToolBar Key="main_toolbar" IsDefault="True" X="0" XSpan="1" Y="0" YSpan="1"/>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" XSpan="1" Y="1" YSpan="1">
+                    <SplitSize Size="35%"/>
+                    <SplitSize Size="65%"/>
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="ButtonPanel" Padding="5px" Caption="按钮面板">
+                            <Button Key="Query" Caption="查询" X="1" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="2" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowHeight="20" RowGap="6">
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="100%"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="list" PageLoadType="DB" TableKey="#TableKey#" X="0" XSpan="1" Y="1" YSpan="1">
+                        <RowDblClick>
+                            <![CDATA[Open('#FormKey#', OID)]]>
+                        </RowDblClick>
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="#TableKey#" Visible="false" Width="30px"/>
+                        </ListViewColumnCollection>
+                    </ListView>
+                </SplitPanel>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

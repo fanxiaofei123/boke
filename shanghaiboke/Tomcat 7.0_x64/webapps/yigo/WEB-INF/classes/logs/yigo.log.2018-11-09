@@ -1,0 +1,249 @@
+2018-11-09 09:25:26,490 - Using default implementation for ThreadExecutor
+2018-11-09 09:25:26,520 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-09 09:25:26,520 - Quartz Scheduler v.2.2.1 created.
+2018-11-09 09:25:26,520 - Registering Quartz Job Initialization Plug-in.
+2018-11-09 09:25:26,520 - RAMJobStore initialized.
+2018-11-09 09:25:26,530 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-09 09:25:26,530 - Quartz scheduler 'YigoQuartzScheduler' initialized from an externally opened InputStream.
+2018-11-09 09:25:26,530 - Quartz scheduler version: 2.2.1
+2018-11-09 09:25:26,620 - Parsing XML file: quartz_jobs.xml with systemId: quartz_jobs.xml
+2018-11-09 09:25:26,922 - Adding 0 jobs, 0 triggers.
+2018-11-09 09:25:26,922 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED started.
+2018-11-09 09:30:26,612 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  09:30:26 11/09/2018
+2018-11-09 09:30:26,682 - Job TokenGroup.TokenJob execution complete at  09:30:26 11/09/2018 and reports: null
+2018-11-09 09:35:26,594 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  09:35:26 11/09/2018
+2018-11-09 09:35:26,595 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  09:35:26 11/09/2018
+2018-11-09 09:35:26,597 - Job TokenGroup.TokenJob execution complete at  09:35:26 11/09/2018 and reports: null
+2018-11-09 09:35:26,612 - Job DictMaintain.DictMaintain execution complete at  09:35:26 11/09/2018 and reports: null
+2018-11-09 09:40:26,543 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  09:40:26 11/09/2018
+2018-11-09 09:40:26,545 - Job TokenGroup.TokenJob execution complete at  09:40:26 11/09/2018 and reports: null
+2018-11-09 09:45:26,599 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  09:45:26 11/09/2018
+2018-11-09 09:45:26,599 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  09:45:26 11/09/2018
+2018-11-09 09:45:26,599 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  09:45:26 11/09/2018
+2018-11-09 09:45:26,603 - Job TokenGroup.TokenJob execution complete at  09:45:26 11/09/2018 and reports: null
+2018-11-09 09:45:26,602 - Job DictMaintain.DictMaintain execution complete at  09:45:26 11/09/2018 and reports: null
+2018-11-09 09:45:26,604 - Job SessionGroup.SessionJob execution complete at  09:45:26 11/09/2018 and reports: null
+2018-11-09 09:50:26,543 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  09:50:26 11/09/2018
+2018-11-09 09:50:26,545 - Job TokenGroup.TokenJob execution complete at  09:50:26 11/09/2018 and reports: null
+2018-11-09 09:55:26,543 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  09:55:26 11/09/2018
+2018-11-09 09:55:26,544 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  09:55:26 11/09/2018
+2018-11-09 09:55:26,549 - Job DictMaintain.DictMaintain execution complete at  09:55:26 11/09/2018 and reports: null
+2018-11-09 09:55:26,549 - Job TokenGroup.TokenJob execution complete at  09:55:26 11/09/2018 and reports: null
+2018-11-09 10:00:26,531 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  10:00:26 11/09/2018
+2018-11-09 10:00:26,531 - Job SessionGroup.SessionJob execution complete at  10:00:26 11/09/2018 and reports: null
+2018-11-09 10:00:26,541 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:00:26 11/09/2018
+2018-11-09 10:00:26,541 - Job TokenGroup.TokenJob execution complete at  10:00:26 11/09/2018 and reports: null
+2018-11-09 10:05:26,542 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:05:26 11/09/2018
+2018-11-09 10:05:26,542 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  10:05:26 11/09/2018
+2018-11-09 10:05:26,543 - Job TokenGroup.TokenJob execution complete at  10:05:26 11/09/2018 and reports: null
+2018-11-09 10:05:26,545 - Job DictMaintain.DictMaintain execution complete at  10:05:26 11/09/2018 and reports: null
+2018-11-09 10:10:26,542 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:10:26 11/09/2018
+2018-11-09 10:10:26,546 - Job TokenGroup.TokenJob execution complete at  10:10:26 11/09/2018 and reports: null
+2018-11-09 10:15:26,535 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  10:15:26 11/09/2018
+2018-11-09 10:15:26,543 - Job SessionGroup.SessionJob execution complete at  10:15:26 11/09/2018 and reports: null
+2018-11-09 10:15:26,548 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:15:26 11/09/2018
+2018-11-09 10:15:26,558 - Job TokenGroup.TokenJob execution complete at  10:15:26 11/09/2018 and reports: null
+2018-11-09 10:15:26,545 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  10:15:26 11/09/2018
+2018-11-09 10:15:26,573 - Job DictMaintain.DictMaintain execution complete at  10:15:26 11/09/2018 and reports: null
+2018-11-09 10:19:59,825 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-09 10:19:59,826 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-09 10:19:59,829 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-09 10:20:25,600 - Using default implementation for ThreadExecutor
+2018-11-09 10:20:25,616 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-09 10:20:25,616 - Quartz Scheduler v.2.2.1 created.
+2018-11-09 10:20:25,617 - Registering Quartz Job Initialization Plug-in.
+2018-11-09 10:20:25,619 - RAMJobStore initialized.
+2018-11-09 10:20:25,620 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-09 10:20:25,622 - Quartz scheduler 'YigoQuartzScheduler' initialized from an externally opened InputStream.
+2018-11-09 10:20:25,622 - Quartz scheduler version: 2.2.1
+2018-11-09 10:20:25,640 - Parsing XML file: quartz_jobs.xml with systemId: quartz_jobs.xml
+2018-11-09 10:20:25,728 - Adding 0 jobs, 0 triggers.
+2018-11-09 10:20:25,730 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED started.
+2018-11-09 10:25:25,677 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:25:25 11/09/2018
+2018-11-09 10:25:25,697 - Job TokenGroup.TokenJob execution complete at  10:25:25 11/09/2018 and reports: null
+2018-11-09 10:30:25,635 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  10:30:25 11/09/2018
+2018-11-09 10:30:25,635 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:30:25 11/09/2018
+2018-11-09 10:30:25,653 - Job TokenGroup.TokenJob execution complete at  10:30:25 11/09/2018 and reports: null
+2018-11-09 10:30:25,658 - Job DictMaintain.DictMaintain execution complete at  10:30:25 11/09/2018 and reports: null
+2018-11-09 10:35:25,636 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:35:25 11/09/2018
+2018-11-09 10:35:25,637 - Job TokenGroup.TokenJob execution complete at  10:35:25 11/09/2018 and reports: null
+2018-11-09 10:35:29,786 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-09 10:35:29,787 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-09 10:35:29,789 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-09 10:36:16,562 - Using default implementation for ThreadExecutor
+2018-11-09 10:36:16,581 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-09 10:36:16,582 - Quartz Scheduler v.2.2.1 created.
+2018-11-09 10:36:16,583 - Registering Quartz Job Initialization Plug-in.
+2018-11-09 10:36:16,586 - RAMJobStore initialized.
+2018-11-09 10:36:16,587 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-09 10:36:16,588 - Quartz scheduler 'YigoQuartzScheduler' initialized from an externally opened InputStream.
+2018-11-09 10:36:16,589 - Quartz scheduler version: 2.2.1
+2018-11-09 10:36:16,609 - Parsing XML file: quartz_jobs.xml with systemId: quartz_jobs.xml
+2018-11-09 10:36:16,709 - Adding 0 jobs, 0 triggers.
+2018-11-09 10:36:16,715 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED started.
+2018-11-09 10:41:16,611 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:41:16 11/09/2018
+2018-11-09 10:41:16,621 - Job TokenGroup.TokenJob execution complete at  10:41:16 11/09/2018 and reports: null
+2018-11-09 10:46:16,603 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:46:16 11/09/2018
+2018-11-09 10:46:16,610 - Job TokenGroup.TokenJob execution complete at  10:46:16 11/09/2018 and reports: null
+2018-11-09 10:46:16,615 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  10:46:16 11/09/2018
+2018-11-09 10:46:16,638 - Job DictMaintain.DictMaintain execution complete at  10:46:16 11/09/2018 and reports: null
+2018-11-09 10:51:16,656 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:51:16 11/09/2018
+2018-11-09 10:51:16,674 - Job TokenGroup.TokenJob execution complete at  10:51:16 11/09/2018 and reports: null
+2018-11-09 10:56:16,678 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  10:56:16 11/09/2018
+2018-11-09 10:56:16,678 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  10:56:16 11/09/2018
+2018-11-09 10:56:16,678 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  10:56:16 11/09/2018
+2018-11-09 10:56:16,683 - Job TokenGroup.TokenJob execution complete at  10:56:16 11/09/2018 and reports: null
+2018-11-09 10:56:16,683 - Job SessionGroup.SessionJob execution complete at  10:56:16 11/09/2018 and reports: null
+2018-11-09 10:56:16,684 - Job DictMaintain.DictMaintain execution complete at  10:56:16 11/09/2018 and reports: null
+2018-11-09 11:01:16,602 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:01:16 11/09/2018
+2018-11-09 11:01:16,604 - Job TokenGroup.TokenJob execution complete at  11:01:16 11/09/2018 and reports: null
+2018-11-09 11:06:16,602 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  11:06:16 11/09/2018
+2018-11-09 11:06:16,602 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:06:16 11/09/2018
+2018-11-09 11:06:16,612 - Job TokenGroup.TokenJob execution complete at  11:06:16 11/09/2018 and reports: null
+2018-11-09 11:06:16,615 - Job DictMaintain.DictMaintain execution complete at  11:06:16 11/09/2018 and reports: null
+2018-11-09 11:11:16,596 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  11:11:16 11/09/2018
+2018-11-09 11:11:16,601 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:11:16 11/09/2018
+2018-11-09 11:11:16,610 - Job SessionGroup.SessionJob execution complete at  11:11:16 11/09/2018 and reports: null
+2018-11-09 11:11:16,613 - Job TokenGroup.TokenJob execution complete at  11:11:16 11/09/2018 and reports: null
+2018-11-09 11:16:16,602 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  11:16:16 11/09/2018
+2018-11-09 11:16:16,602 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:16:16 11/09/2018
+2018-11-09 11:16:16,614 - Job TokenGroup.TokenJob execution complete at  11:16:16 11/09/2018 and reports: null
+2018-11-09 11:16:16,617 - Job DictMaintain.DictMaintain execution complete at  11:16:16 11/09/2018 and reports: null
+2018-11-09 11:21:16,600 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:21:16 11/09/2018
+2018-11-09 11:21:16,600 - Job TokenGroup.TokenJob execution complete at  11:21:16 11/09/2018 and reports: null
+2018-11-09 11:24:57,433 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-09 11:24:57,434 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-09 11:24:57,437 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-09 11:25:29,415 - Using default implementation for ThreadExecutor
+2018-11-09 11:25:29,430 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-09 11:25:29,430 - Quartz Scheduler v.2.2.1 created.
+2018-11-09 11:25:29,431 - Registering Quartz Job Initialization Plug-in.
+2018-11-09 11:25:29,434 - RAMJobStore initialized.
+2018-11-09 11:25:29,435 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-09 11:25:29,436 - Quartz scheduler 'YigoQuartzScheduler' initialized from an externally opened InputStream.
+2018-11-09 11:25:29,437 - Quartz scheduler version: 2.2.1
+2018-11-09 11:25:29,453 - Parsing XML file: quartz_jobs.xml with systemId: quartz_jobs.xml
+2018-11-09 11:25:29,536 - Adding 0 jobs, 0 triggers.
+2018-11-09 11:25:29,538 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED started.
+2018-11-09 11:30:29,484 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:30:29 11/09/2018
+2018-11-09 11:30:29,505 - Job TokenGroup.TokenJob execution complete at  11:30:29 11/09/2018 and reports: null
+2018-11-09 11:35:29,502 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  11:35:29 11/09/2018
+2018-11-09 11:35:29,502 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:35:29 11/09/2018
+2018-11-09 11:35:29,504 - Job TokenGroup.TokenJob execution complete at  11:35:29 11/09/2018 and reports: null
+2018-11-09 11:35:29,515 - Job DictMaintain.DictMaintain execution complete at  11:35:29 11/09/2018 and reports: null
+2018-11-09 11:40:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:40:29 11/09/2018
+2018-11-09 11:40:29,451 - Job TokenGroup.TokenJob execution complete at  11:40:29 11/09/2018 and reports: null
+2018-11-09 11:45:29,518 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  11:45:29 11/09/2018
+2018-11-09 11:45:29,518 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:45:29 11/09/2018
+2018-11-09 11:45:29,518 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  11:45:29 11/09/2018
+2018-11-09 11:45:29,521 - Job DictMaintain.DictMaintain execution complete at  11:45:29 11/09/2018 and reports: null
+2018-11-09 11:45:29,520 - Job TokenGroup.TokenJob execution complete at  11:45:29 11/09/2018 and reports: null
+2018-11-09 11:45:29,523 - Job SessionGroup.SessionJob execution complete at  11:45:29 11/09/2018 and reports: null
+2018-11-09 11:50:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:50:29 11/09/2018
+2018-11-09 11:50:29,448 - Job TokenGroup.TokenJob execution complete at  11:50:29 11/09/2018 and reports: null
+2018-11-09 11:55:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  11:55:29 11/09/2018
+2018-11-09 11:55:29,447 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  11:55:29 11/09/2018
+2018-11-09 11:55:29,449 - Job TokenGroup.TokenJob execution complete at  11:55:29 11/09/2018 and reports: null
+2018-11-09 11:55:29,452 - Job DictMaintain.DictMaintain execution complete at  11:55:29 11/09/2018 and reports: null
+2018-11-09 12:00:29,442 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  12:00:29 11/09/2018
+2018-11-09 12:00:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:00:29 11/09/2018
+2018-11-09 12:00:29,450 - Job TokenGroup.TokenJob execution complete at  12:00:29 11/09/2018 and reports: null
+2018-11-09 12:00:29,450 - Job SessionGroup.SessionJob execution complete at  12:00:29 11/09/2018 and reports: null
+2018-11-09 12:05:29,447 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  12:05:29 11/09/2018
+2018-11-09 12:05:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:05:29 11/09/2018
+2018-11-09 12:05:29,454 - Job TokenGroup.TokenJob execution complete at  12:05:29 11/09/2018 and reports: null
+2018-11-09 12:05:29,457 - Job DictMaintain.DictMaintain execution complete at  12:05:29 11/09/2018 and reports: null
+2018-11-09 12:10:29,446 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:10:29 11/09/2018
+2018-11-09 12:10:29,449 - Job TokenGroup.TokenJob execution complete at  12:10:29 11/09/2018 and reports: null
+2018-11-09 12:15:29,440 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  12:15:29 11/09/2018
+2018-11-09 12:15:29,441 - Job SessionGroup.SessionJob execution complete at  12:15:29 11/09/2018 and reports: null
+2018-11-09 12:15:29,445 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  12:15:29 11/09/2018
+2018-11-09 12:15:29,445 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:15:29 11/09/2018
+2018-11-09 12:15:29,446 - Job TokenGroup.TokenJob execution complete at  12:15:29 11/09/2018 and reports: null
+2018-11-09 12:15:29,446 - Job DictMaintain.DictMaintain execution complete at  12:15:29 11/09/2018 and reports: null
+2018-11-09 12:20:29,445 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:20:29 11/09/2018
+2018-11-09 12:20:29,445 - Job TokenGroup.TokenJob execution complete at  12:20:29 11/09/2018 and reports: null
+2018-11-09 12:25:29,446 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  12:25:29 11/09/2018
+2018-11-09 12:25:29,446 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:25:29 11/09/2018
+2018-11-09 12:25:29,452 - Job TokenGroup.TokenJob execution complete at  12:25:29 11/09/2018 and reports: null
+2018-11-09 12:25:29,453 - Job DictMaintain.DictMaintain execution complete at  12:25:29 11/09/2018 and reports: null
+2018-11-09 12:30:29,443 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  12:30:29 11/09/2018
+2018-11-09 12:30:29,446 - Job SessionGroup.SessionJob execution complete at  12:30:29 11/09/2018 and reports: null
+2018-11-09 12:30:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:30:29 11/09/2018
+2018-11-09 12:30:29,449 - Job TokenGroup.TokenJob execution complete at  12:30:29 11/09/2018 and reports: null
+2018-11-09 12:35:29,447 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  12:35:29 11/09/2018
+2018-11-09 12:35:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:35:29 11/09/2018
+2018-11-09 12:35:29,452 - Job TokenGroup.TokenJob execution complete at  12:35:29 11/09/2018 and reports: null
+2018-11-09 12:35:29,453 - Job DictMaintain.DictMaintain execution complete at  12:35:29 11/09/2018 and reports: null
+2018-11-09 12:40:29,446 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:40:29 11/09/2018
+2018-11-09 12:40:29,447 - Job TokenGroup.TokenJob execution complete at  12:40:29 11/09/2018 and reports: null
+2018-11-09 12:45:29,441 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  12:45:29 11/09/2018
+2018-11-09 12:45:29,445 - Job SessionGroup.SessionJob execution complete at  12:45:29 11/09/2018 and reports: null
+2018-11-09 12:45:29,447 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  12:45:29 11/09/2018
+2018-11-09 12:45:29,450 - Job DictMaintain.DictMaintain execution complete at  12:45:29 11/09/2018 and reports: null
+2018-11-09 12:45:29,456 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  12:45:29 11/09/2018
+2018-11-09 12:45:29,458 - Job TokenGroup.TokenJob execution complete at  12:45:29 11/09/2018 and reports: null
+2018-11-09 13:55:29,446 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  13:55:29 11/09/2018
+2018-11-09 13:55:29,446 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  13:55:29 11/09/2018
+2018-11-09 13:55:29,447 - Job DictMaintain.DictMaintain execution complete at  13:55:29 11/09/2018 and reports: null
+2018-11-09 13:55:29,447 - Job TokenGroup.TokenJob execution complete at  13:55:29 11/09/2018 and reports: null
+2018-11-09 14:00:29,442 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  14:00:29 11/09/2018
+2018-11-09 14:00:29,448 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:00:29 11/09/2018
+2018-11-09 14:00:29,452 - Job TokenGroup.TokenJob execution complete at  14:00:29 11/09/2018 and reports: null
+2018-11-09 14:00:29,468 - Job SessionGroup.SessionJob execution complete at  14:00:29 11/09/2018 and reports: null
+2018-11-09 14:05:29,448 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  14:05:29 11/09/2018
+2018-11-09 14:05:29,449 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:05:29 11/09/2018
+2018-11-09 14:05:29,454 - Job TokenGroup.TokenJob execution complete at  14:05:29 11/09/2018 and reports: null
+2018-11-09 14:05:29,455 - Job DictMaintain.DictMaintain execution complete at  14:05:29 11/09/2018 and reports: null
+2018-11-09 14:10:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:10:29 11/09/2018
+2018-11-09 14:10:29,449 - Job TokenGroup.TokenJob execution complete at  14:10:29 11/09/2018 and reports: null
+2018-11-09 14:15:29,442 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  14:15:29 11/09/2018
+2018-11-09 14:15:29,445 - Job SessionGroup.SessionJob execution complete at  14:15:29 11/09/2018 and reports: null
+2018-11-09 14:15:29,447 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  14:15:29 11/09/2018
+2018-11-09 14:15:29,448 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:15:29 11/09/2018
+2018-11-09 14:15:29,450 - Job TokenGroup.TokenJob execution complete at  14:15:29 11/09/2018 and reports: null
+2018-11-09 14:15:29,454 - Job DictMaintain.DictMaintain execution complete at  14:15:29 11/09/2018 and reports: null
+2018-11-09 14:20:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:20:29 11/09/2018
+2018-11-09 14:20:29,450 - Job TokenGroup.TokenJob execution complete at  14:20:29 11/09/2018 and reports: null
+2018-11-09 14:25:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:25:29 11/09/2018
+2018-11-09 14:25:29,448 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  14:25:29 11/09/2018
+2018-11-09 14:25:29,452 - Job TokenGroup.TokenJob execution complete at  14:25:29 11/09/2018 and reports: null
+2018-11-09 14:25:29,457 - Job DictMaintain.DictMaintain execution complete at  14:25:29 11/09/2018 and reports: null
+2018-11-09 14:30:29,443 - Job SessionGroup.SessionJob fired (by trigger SessionTriggerGroup.SessionTriggerName) at:  14:30:29 11/09/2018
+2018-11-09 14:30:29,446 - Job SessionGroup.SessionJob execution complete at  14:30:29 11/09/2018 and reports: null
+2018-11-09 14:30:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:30:29 11/09/2018
+2018-11-09 14:30:29,448 - Job TokenGroup.TokenJob execution complete at  14:30:29 11/09/2018 and reports: null
+2018-11-09 14:35:29,447 - Job DictMaintain.DictMaintain fired (by trigger DictMaintain.DictMaintain) at:  14:35:29 11/09/2018
+2018-11-09 14:35:29,455 - Job DictMaintain.DictMaintain execution complete at  14:35:29 11/09/2018 and reports: null
+2018-11-09 14:35:29,493 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:35:29 11/09/2018
+2018-11-09 14:35:29,494 - Job TokenGroup.TokenJob execution complete at  14:35:29 11/09/2018 and reports: null
+2018-11-09 14:40:29,447 - Job TokenGroup.TokenJob fired (by trigger TokenTriggerGroup.TokenTriggerName) at:  14:40:29 11/09/2018
+2018-11-09 14:40:29,448 - Job TokenGroup.TokenJob execution complete at  14:40:29 11/09/2018 and reports: null

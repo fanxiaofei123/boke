@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="添加作业单" FormType="View" Key="V_QuoteTransportJobView">
+    <DataSource>
+        <DataObject Caption="添加作业单" Key="V_QuoteTransportJobView" PrimaryTableKey="LRP_TransportJob_H">
+            <TableCollection>
+                <Table Caption="添加作业单" Key="LRP_TransportJob_H" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Key="No" Caption="作业单号" DataType="Varchar" Length="100"/>
+                    <Column Key="OrderNo" Caption="运输订单号" DataType="Varchar" Length="100"/>
+                    <Column Key="OwnerNo" Caption="货主单号" DataType="Varchar" Length="100"/>
+                    <Column Key="OwnerId" Caption="货主id" DataType="Long"/>
+                    <Column Key="JobType" Caption="作业单类型" DataType="Varchar" Length="10"/>
+                    <Column Key="OrderType" Caption="订单类型" DataType="Varchar" Length="10"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="OrderDateTime" Caption="下单日期时间" DataType="DateTime"/>
+                    <Column Key="SendOrg" Caption="发站" DataType="Long"/>
+                    <Column Key="DestOrg" Caption="到站" DataType="Long"/>
+                    <Column Key="SendCityId" Caption="发货城市" DataType="Long"/>
+                    <Column Key="RecvCityId" Caption="收货城市" DataType="Long"/>
+                    <Column Key="SumQty" Caption="总数量" DataType="Numeric" Precision="10" Scale="0"/>
+                    <Column Key="SumWeight" Caption="总重量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="SumCubage" Caption="总体积" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="RecvPartyId" Caption="收货方" DataType="Long"/>
+                    <Column Key="SendPartyName" Caption="发货方名称" DataType="Varchar" Length="100"/>
+                    <Column Key="RecvPartyName" Caption="收货方名称" DataType="Varchar" Length="100"/>
+                    <Column Key="SendAddress" Caption="发货方地址" DataType="Varchar" Length="100"/>
+                    <Column Key="RecvAddress" Caption="收货方地址" DataType="Varchar" Length="100"/>
+                    <Column Key="Requirement" Caption="运输要求" DataType="Varchar" Length="1000"/>
+                    <Column Key="AgencyFund" Caption="代收货款" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="PayMethod" Caption="付款方式" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select * from (select h.oid,sum(l.Qty) as SumQty,sum(l.Weight) as SumWeight,sum(l.Cubage) as SumCubage from LRP_TransportJob_H h join LRP_TransportJobMat_L l on l.soid=h.soid where h.Status=200 group by h.oid)a join LRP_TransportJob_H h on a.oid = h.oid]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Description="获取运输路线的详细节点信息" Key="GetRouteDetail">
+            <Statement>
+                <![CDATA[				
+				select oid,Sequence,NodeType,NodeId,PickOrSend from LRP_Route_L where SOID =?	order by Sequence			
+			]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body PopHeight="80%" PopWidth="80%">
+        <Block>
+            <FlexFlowLayoutPanel Caption="根面板" Key="root">
+                <ToolBar Caption="ToolBar1" Height="pref" Key="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Caption="SplitPanel1" Height="100%" Key="SplitPanel1" Orientation="Vertical">
+                    <GridLayoutPanel Caption="基本信息" Height="pref" Key="first_head" Padding="5px">
+                        <DatePicker Caption="下单日期时间" Key="OrderDateTime_C" X="1" XSpan="3" Y="3" BuddyKey="L_OrderDateTime">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition ColumnKey="OrderDateTime" CondSign="between" TableKey="LRP_TransportJob_H" Group="OrderDateTime" GroupHead="true">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="OrderDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="下单日期时间" Key="L_OrderDateTime" X="0" Y="3"/>
+                        <DatePicker Caption="至" Key="OrderDateTime_C_1" X="6" XSpan="3" Y="3" BuddyKey="L_OrderDateTime_1">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition CondSign="none" Group="OrderDateTime" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="OrderDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_OrderDateTime_1" X="5" Y="3"/>
+                        <TextEditor Caption="作业单号" Key="No_C" X="1" XSpan="3" Y="0">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="No"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="作业单号" Key="L_No" X="0" Y="0"/>
+                        <CheckListBox BuddyKey="Lab_JobType_C" Caption="类型" Key="JobType_C" X="6" XSpan="3" Y="0" SourceType="Formula">
+                            <Condition ColumnKey="JobType" CondSign="in" TableKey="LRP_TransportJob_H" LimitToSource="true"/>
+                            <FormulaItems>
+                                <![CDATA[GetJobType();]]>
+                            </FormulaItems>
+                        </CheckListBox>
+                        <Label Caption="类型" Key="Lab_JobType_C" X="5" Y="0"/>
+                        <TextEditor Caption="订单号" Key="OrderNo_C" X="1" XSpan="3" Y="1">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="OrderNo"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="订单号" Key="L_OrderNo" X="0" Y="1"/>
+                        <TextEditor Caption="货主单号" Key="OwnerNo_C" X="6" XSpan="3" Y="1">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="OwnerNo"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="货主单号" Key="L_OwnerNo" X="5" Y="1"/>
+                        <Dict BuddyKey="Lab_SendOrg" Caption="发站" ItemKey="LRP_WarehouseCenter" Key="SendOrg_C" X="1" XSpan="3" Y="2">
+                            <Condition ColumnKey="SendOrg" CondSign="=" TableKey="LRP_TransportJob_H"/>
+                        </Dict>
+                        <Label Caption="发站" Key="Lab_SendOrg" X="0" Y="2"/>
+                        <Dict BuddyKey="Lab_DestOrg" Caption="到站" ItemKey="LRP_WarehouseCenter" Key="DestOrg_C" X="6" XSpan="3" Y="2">
+                            <Condition ColumnKey="DestOrg" CondSign="=" TableKey="LRP_TransportJob_H"/>
+                        </Dict>
+                        <Label Caption="到站" Key="Lab_DestOrg" X="5" Y="2"/>
+                        <TextEditor Caption="发货方" Key="SendPartyName_C" X="1" XSpan="3" Y="4">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="SendPartyName"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="发货方" Key="L_SendPartyName" X="0" Y="4"/>
+                        <TextEditor Caption="收货方" Key="RecvPartyName_C" X="6" XSpan="3" Y="4">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="RecvPartyName"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="收货方" Key="L_RecvPartyName" X="5" Y="4"/>
+                        <Dict BuddyKey="Lab_RouteId" Caption="运输路线" ItemKey="LRP_Route" Key="RouteId" X="1" XSpan="3" Y="5">
+                            <Condition CondSign="custom" Impl="com.bokesoft.lrp_v3.mid.tms.TransportJobView_RouteConditionBuilder">
+                                <ConditionTarget TableKey="LRP_TransportJob_H" ColumnKey="RouteId"/>
+                            </Condition>
+                        </Dict>
+                        <Label Caption="运输路线" Key="Lab_RouteId" X="0" Y="5"/>
+                        <CheckListBox BuddyKey="Lab_OrderType_C" Caption="订单类型" Key="OrderType_C" X="6" XSpan="3" Y="5">
+                            <Condition ColumnKey="OrderType" CondSign="in" TableKey="LRP_TransportJob_H"/>
+                            <Item Caption="零担" Key="LTL" Value="LTL"/>
+                            <Item Caption="整车" Key="FTL" Value="FTL"/>
+                            <Item Caption="集装箱" Key="FCL" Value="FCL"/>
+                            <Item Caption="仓配" Key="WD" Value="WD"/>
+                            <Item Caption="快递" Key="EX" Value="EX"/>
+                            <Item Caption="水运" Key="WT" Value="WT"/>
+                            <Item Caption="空运" Key="AF" Value="AF"/>
+                            <Item Caption="多式联运" Key="MT" Value="MT"/>
+                        </CheckListBox>
+                        <Label Caption="订单类型" Key="Lab_OrderType_C" X="5" Y="5"/>
+                        <Dict BuddyKey="Lab_DispatchOrgId" Caption="调度组织" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId" Visible="false" X="1" XSpan="3" Y="6"/>
+                        <!-- <Condition ColumnKey="DispatchOrgId" CondSign="=" TableKey="LRP_TransportJob_H"/> -->
+                        <Label Caption="调度组织" Key="Lab_DispatchOrgId" Visible="false" X="0" Y="6"/>
+                        <Label Caption="运输路线查询条件" Visible="false" Key="Par_RouteId" X="0" Y="6"/>
+                        <Label Caption="调用窗口" Key="Par_Form" Visible="false" X="0" Y="6"/>
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[
+								//获取运输路线相关的查询条件
+								var where = "";
+								var id = RouteId;
+								if(Length(id) > 0){
+									var rst = DBNamedQuery('GetRouteDetail',id);									
+									rst.beforefirst();
+									while(rst.next()){
+										//仓储中心
+										if(rst.NodeType == "LRP_WarehouseCenter"){
+											//配送点
+											if(rst.PickOrSend = 1){
+												where = where & "DestOrg=" & rst.NodeId & " or ";
+											}
+											//提货点
+											else{
+												where = where & "SendOrg=" & rst.NodeId & " or ";
+											}
+										}
+										
+										//城市
+										if(rst.NodeType == "LRP_City"){
+											//配送点
+											if(rst.PickOrSend = 1){
+												where = where & "RecvCityId=" & rst.NodeId & " or ";
+											}
+											//提货点
+											else{
+												where = where & "SendCityId=" & rst.NodeId & " or ";
+											}
+										}
+										
+										//区县
+										if(rst.NodeType == "LRP_District"){
+											//配送点
+											if(rst.PickOrSend = 1){
+												where = where & "RecvDistrictId=" & rst.NodeId & " or ";
+											}
+											//提货点
+											else{
+												where = where & "SendDistrictId=" & rst.NodeId & " or ";
+											}
+										}
+									}
+								}
+								if(Length(where) == 0){
+									where = "1=1";
+								}
+								else{
+									where = Left(where, Length(where)-4);
+								}
+									
+								SetValue("Par_RouteId",where);
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Enable="true" Key="cancle" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition(); 
+								SetValue("DispatchOrgId",GetPara('DispatchOrgId_para'));
+								SetValue("RouteId",GetPara('RouteId_para'));			
+								//SetValue("TransMethod",GetPara('TransMethod_para'));			
+								]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="25px"/>
+                            <RowDef Height="25px"/>
+                            <RowDef Height="25px"/>
+                            <RowDef Height="25px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Caption="Grid0" Height="pref" Key="Grid0" NewEmptyRow="false" PageLoadType="UI" PageRowCount="10" RowAlterable="false">
+                        <GridColumnCollection>
+                            <GridColumn Caption="选择" Key="Select" Width="80px"/>
+                            <GridColumn Caption="作业单ID" Key="OID" Visible="false" Width="80px"/>
+                            <GridColumn Caption="作业单号" Key="No" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="类型" Key="JobType" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="订单号" Key="OrderNo" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="货主单号" Key="OwnerNo" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="订单类型" Key="OrderType" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="下单日期时间" Key="OrderDateTime" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="发站" Key="SendOrg" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="到站" Key="DestOrg" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="发货城市" Key="SendCityId" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="收货城市" Key="RecvCityId" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="总数量" Key="SumQty" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="总重量" Key="SumWeight" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="总体积" Key="SumCubage" Width="80px" Sortable="true"/>
+                            <GridColumn Caption="货主" Key="OwnerId" Visible="false" Width="80px"/>
+                            <GridColumn Caption="收货方" Key="RecvPartyName" Visible="false" Width="80px"/>
+                            <GridColumn Caption="收货地址" Key="RecvAddress" Visible="false" Width="80px"/>
+                            <GridColumn Caption="发货方" Key="SendPartyName" Visible="false" Width="80px"/>
+                            <GridColumn Caption="发货地址" Key="SendAddress" Visible="false" Width="80px"/>
+                            <GridColumn Caption="运输要求" Key="Requirement" Visible="false" Width="80px"/>
+                            <GridColumn Caption="代收货款" Key="AgencyFund" Visible="false" Width="80px"/>
+                            <GridColumn Caption="付款方式" Key="PayMethod" Visible="false" Width="80px"/>
+                            <GridColumn Caption="状态" Key="Status" Visible="false" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_TransportJob_H">
+                                <GridCell Caption="选择" CellType="CheckBox" IsSelect="true" Key="Select"/>
+                                <GridCell Caption="作业单ID" CellType="TextEditor" Enable="false" Key="OID">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Caption="作业单号" CellType="TextEditor" Enable="false" Key="No">
+                                    <DataBinding ColumnKey="No"/>
+                                </GridCell>
+                                <GridCell Caption="类型" CellType="ComboBox" Enable="false" Key="JobType">
+                                    <DataBinding ColumnKey="JobType"/>
+                                    <Item Caption="提货" Key="701" Value="701"/>
+                                    <Item Caption="配送" Key="702" Value="702"/>
+                                    <Item Caption="中转" Key="703" Value="703"/>
+                                    <Item Caption="直发" Key="704" Value="704"/>
+                                    <Item Caption="自送" Key="705" Value="705"/>
+                                    <Item Caption="自提" Key="706" Value="706"/>
+                                    <Item Caption="客退" Key="707" Value="707"/>
+                                </GridCell>
+                                <GridCell Caption="订单号" CellType="TextEditor" Enable="false" Key="OrderNo">
+                                    <DataBinding ColumnKey="OrderNo"/>
+                                </GridCell>
+                                <GridCell Caption="货主单号" CellType="TextEditor" Enable="false" Key="OwnerNo">
+                                    <DataBinding ColumnKey="OwnerNo"/>
+                                </GridCell>
+                                <GridCell Caption="订单类型" CellType="ComboBox" Enable="false" Key="OrderType">
+                                    <DataBinding ColumnKey="OrderType"/>
+                                    <Item Caption="零担" Key="LTL" Value="LTL"/>
+                                    <Item Caption="整车" Key="FTL" Value="FTL"/>
+                                    <Item Caption="集装箱" Key="FCL" Value="FCL"/>
+                                    <Item Caption="仓配" Key="WD" Value="WD"/>
+                                    <Item Caption="快递" Key="EX" Value="EX"/>
+                                    <Item Caption="水运" Key="WT" Value="WT"/>
+                                    <Item Caption="空运" Key="AF" Value="AF"/>
+                                    <Item Caption="多式联运" Key="MT" Value="MT"/>
+                                </GridCell>
+                                <GridCell Caption="下单日期时间" CellType="DatePicker" Enable="false" Key="OrderDateTime" Format="yyyy-MM-dd HH:mm:ss" OnlyDate="false">
+                                    <DataBinding ColumnKey="OrderDateTime"/>
+                                </GridCell>
+                                <GridCell Caption="发站" CellType="Dict" Enable="false" Key="SendOrg" ItemKey="LRP_WarehouseCenter">
+                                    <DataBinding ColumnKey="SendOrg"/>
+                                </GridCell>
+                                <GridCell Caption="到站" CellType="Dict" Enable="false" Key="DestOrg" ItemKey="LRP_WarehouseCenter">
+                                    <DataBinding ColumnKey="DestOrg"/>
+                                </GridCell>
+                                <GridCell Caption="发货城市" CellType="Dict" Enable="false" Key="SendCityId" ItemKey="LRP_City">
+                                    <DataBinding ColumnKey="SendCityId"/>
+                                </GridCell>
+                                <GridCell Caption="收货城市" CellType="Dict" Enable="false" Key="RecvCityId" ItemKey="LRP_City">
+                                    <DataBinding ColumnKey="RecvCityId"/>
+                                </GridCell>
+                                <GridCell Caption="总数量" CellType="NumberEditor" Enable="false" Key="SumQty">
+                                    <DataBinding ColumnKey="SumQty"/>
+                                </GridCell>
+                                <GridCell Caption="总重量" CellType="NumberEditor" Enable="false" Key="SumWeight">
+                                    <DataBinding ColumnKey="SumWeight"/>
+                                </GridCell>
+                                <GridCell Caption="总体积" CellType="NumberEditor" Enable="false" Key="SumCubage">
+                                    <DataBinding ColumnKey="SumCubage"/>
+                                </GridCell>
+                                <GridCell Caption="货主" CellType="Dict" Enable="false" ItemKey="LRP_Owner" Key="OwnerId">
+                                    <DataBinding ColumnKey="OwnerId"/>
+                                </GridCell>
+                                <GridCell Caption="收货方" CellType="TextEditor" Enable="false" Key="RecvPartyName">
+                                    <DataBinding ColumnKey="RecvPartyName"/>
+                                </GridCell>
+                                <GridCell Caption="收货地址" CellType="TextEditor" Enable="false" Key="RecvAddress">
+                                    <DataBinding ColumnKey="RecvAddress"/>
+                                </GridCell>
+                                <GridCell Caption="发货方" CellType="TextEditor" Enable="false" Key="SendPartyName">
+                                    <DataBinding ColumnKey="SendPartyName"/>
+                                </GridCell>
+                                <GridCell Caption="发货地址" CellType="TextEditor" Enable="false" Key="SendAddress">
+                                    <DataBinding ColumnKey="SendAddress"/>
+                                </GridCell>
+                                <GridCell Caption="运输要求" CellType="TextEditor" Enable="false" Key="Requirement">
+                                    <DataBinding ColumnKey="Requirement"/>
+                                </GridCell>
+                                <GridCell Caption="代收货款" CellType="NumberEditor" Enable="false" Key="AgencyFund">
+                                    <DataBinding ColumnKey="AgencyFund"/>
+                                </GridCell>
+                                <GridCell Caption="付款方式" CellType="ComboBox" Enable="false" Key="PayMethod">
+                                    <DataBinding ColumnKey="PayMethod"/>
+                                    <Item Caption="现付" Key="0" Value="0"/>
+                                    <Item Caption="回单付 " Key="1" Value="1"/>
+                                    <Item Caption="月结 " Key="2" Value="2"/>
+                                    <Item Caption="到付 " Key="3" Value="3"/>
+                                    <Item Caption="预付 " Key="4" Value="4"/>
+                                    <Item Caption="提付" Key="5" Value="5"/>
+                                </GridCell>
+                                <GridCell Caption="状态" CellType="ComboBox" Enable="false" Key="Status">
+                                    <DataBinding ColumnKey="Status"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <GridLayoutPanel Caption="GridLayoutPanel1" Key="GridLayoutPanel1">
+                        <Button Caption="确定" Key="OK" X="1" Y="0">
+                            <OnClick>
+                                <![CDATA[
+									var count = GetRowCount('Grid0',false);
+									var parentGridCount = Parent.GetRowCount('Grid0',false);
+									var i=0;
+									var b = false;
+									var bselect = false;
+											  
+									//遍历表格,是否有被勾选的明细行
+									while ( i < count ){
+										//设置当前行
+										SetRowIndex('Grid0', i);
+										if(ToInt(Select)==1){
+											bselect = true;
+											var j=0;	
+											var noexist = true;
+											//检查父窗口是否已经有引用该单据
+											while ( j < parentGridCount ){
+												if(ToString(OID)==ToString(parent.GetCellValue('Grid0', j,'TJId'))){
+													noexist = false;
+													j = parentGridCount;
+												}
+												j = j+1;
+											}
+											if(noexist==true){
+												//在父窗口插入一条记录
+												b = true;
+												var index = parent.InsertRow('Grid0',-1);
+												parent.SetCellValue('Grid0', index,'TJId',OID);
+												parent.SetCellValue('Grid0', index,'DetailStatus',Status);
+												parent.SetCellValue('Grid0', index,'TransportJobNo',No);
+												parent.SetCellValue('Grid0', index,'JobType',JobType);
+												parent.SetCellValue('Grid0', index,'OrderNo',OrderNo);
+												parent.SetCellValue('Grid0', index,'OwnerId',OwnerId);
+												parent.SetCellValue('Grid0', index,'TransportJobOrderDateTime',OrderDateTime);
+												parent.SetCellValue('Grid0', index,'RecvPartyName',RecvPartyName);
+												parent.SetCellValue('Grid0', index,'RecvAddress',RecvAddress);
+												parent.SetCellValue('Grid0', index,'SendPartyName',SendPartyName);
+												parent.SetCellValue('Grid0', index,'SendAddress',SendAddress);
+												parent.SetCellValue('Grid0', index,'SendOrg',SendOrg);
+												parent.SetCellValue('Grid0', index,'DestOrg',DestOrg);
+												parent.SetCellValue('Grid0', index,'Requirement',Requirement);
+												parent.SetCellValue('Grid0', index,'AgencyFund',AgencyFund);
+												parent.SetCellValue('Grid0', index,'PayMethod',PayMethod);
+											}
+										}
+										i=i+1;
+									}
+									//if(b){
+										//parent.RefreshOutboundNoticeQuantDetails();
+									//}
+									if(!bselect){
+										Confirm('请选择一条记录','OK','OK:{}');
+									}
+									else{
+										Close();
+									}
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="取消" Key="Cancle" X="2" Y="0">
+                            <OnClick>
+                                <![CDATA[Close();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <SplitSize Size="250px"/>
+                    <SplitSize Size="100%"/>
+                    <SplitSize Size="50px"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			SetValue("DispatchOrgId",GetPara('DispatchOrgId_para'));
+			SetValue("RouteId",GetPara('RouteId_para'));		
+			SetValue("Par_RouteId",GetPara('RouteId_para'));					
+			SetValue("Par_Form",GetPara('Form_para'));			
+			//SetValue("TransMethod",GetPara('TransMethod_para'));
+	]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="GetJobType">
+            <![CDATA[						
+			var returnvalue = "";
+			var TransMethod = GetPara('TransMethod_para');
+			if(TransMethod == "801"){
+				returnvalue = "701,提货";
+			}
+			if(TransMethod == "802"){
+				returnvalue = "702,配送";
+			}
+			if(TransMethod == "803"){
+				returnvalue = "703,中转";
+			}
+			if(TransMethod == "804"){
+				returnvalue = "704,直发";
+			}
+			if(TransMethod == "805"){
+				returnvalue = "701,提货;702,配送;703,中转;704,直发;707,客退";
+			}
+			if(TransMethod == "806"){
+				returnvalue = "703,中转";
+			}
+			if(TransMethod == "807"){
+				returnvalue = "701,提货;702,配送;703,中转;704,直发;707,客退";
+			}
+			if(TransMethod == "808"){
+				returnvalue = "701,提货;702,配送;703,中转;704,直发;707,客退";
+			}
+			if(TransMethod == "809"){
+				returnvalue = "701,提货;702,配送;703,中转;704,直发;707,客退";
+			}
+			if(TransMethod == "810"){
+				returnvalue = "701,提货;702,配送;703,中转;704,直发;707,客退";
+			}
+			if(TransMethod == "811"){
+				returnvalue = "701,提货;702,配送;703,中转;704,直发;707,客退";
+			}
+			returnvalue;
+			]]>
+        </Macro>
+    </MacroCollection>
+    <FormParaCollection>
+        <FormPara Key="Par_RouteId" Type="Formula" Formula="GetValue({Par_RouteId})"/>
+    </FormParaCollection>
+</Form>

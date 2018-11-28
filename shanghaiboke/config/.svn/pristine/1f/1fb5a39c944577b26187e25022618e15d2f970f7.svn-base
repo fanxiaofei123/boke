@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataMigration Caption="运输作业单自送完成-签收量迁移至中转库存" Key="TG_705_LRP" SrcDataObjectKey="LRP_TransportJob" TgtDataObjectKey="LRP_TransportQuant" StatusFieldKey="Status" HeadCondition="LRP_TransportJob_H.JobType=='705'" StatusValue="finished">
+    <SourceTableCollection Height="330" Width="364" X="30" Y="30">
+        <SourceTable TableKey="LRP_TransportJob_H">
+            <SourceField Definition="OwnerId" TargetFieldKey="OwnerId" TargetTableKey="LRP_TransportQuant" OpSign="Assign"/>
+            <SourceField Definition="DestOrg" TargetFieldKey="WarehouseCenterId" TargetTableKey="LRP_TransportQuant" OpSign="Assign"/>
+            <SourceField Definition="FinishDateTime" TargetFieldKey="LastRecvDate" TargetTableKey="LRP_TransportQuant" OpSign="Assign"/>
+        </SourceTable>
+        <SourceTable TableKey="LRP_TransportJobMat_L" IsPrimary="true">
+            <SourceField Definition="RefOID" TargetFieldKey="TMLOID" TargetTableKey="LRP_TransportQuant" OpSign="Assign"/>
+            <SourceField Definition="SignQty" TargetFieldKey="OnhandQty" TargetTableKey="LRP_TransportQuant"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="270" Width="280" X="466" Y="25">
+        <TargetTable TableKey="LRP_TransportQuant">
+            <TargetField FieldKey="OwnerId"/>
+            <TargetField FieldKey="WarehouseCenterId"/>
+            <TargetField FieldKey="LastRecvDate"/>
+            <TargetField FieldKey="TMLOID"/>
+            <TargetField FieldKey="OnhandQty"/>
+        </TargetTable>
+    </TargetTableCollection>
+</DataMigration>

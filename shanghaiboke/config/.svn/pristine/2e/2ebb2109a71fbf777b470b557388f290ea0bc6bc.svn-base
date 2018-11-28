@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<PutawayByReceive>PutawayByReceive</PutawayByReceive>
+        <Label2>Not currently has stores documents!Not currently has stores documents!</Label2>
+        <OrderTitle>PutawayByReceive</OrderTitle>
+        <lab_NoticeNo3>NoticeNo</lab_NoticeNo3>
+        <lab_OwnerId3>Owner</lab_OwnerId3>
+        <lab_ReceiveDate>ReceiveDate</lab_ReceiveDate>
+        <lab_OwnerNo3>OwnerNo</lab_OwnerNo3>
+        <Qurey>Qurey</Qurey>
+        <NoticeNo>NoticeNo</NoticeNo>
+        <OwnerName>Owner</OwnerName>
+        <TxTypeCode>TransactionType</TxTypeCode>
+        <Creator>consignee</Creator>
+        <CREATETIME>CREATETIME</CREATETIME>
+        <No2>No</No2>
+        <OwnerName2>OwnerName</OwnerName2>
+        <OwnerNo2>OwnerNo</OwnerNo2>
+        <CREATETIME2>CREATETIME</CREATETIME2>
+        <Status>Status</Status>
+        <czshd>search</czshd>
+        <sjls>history</sjls>
+    </UI>
+		<Items-TxTypeCode> 
+			<Item-101>Notice</Item-101>
+			<Item-102>salesReturn</Item-102>
+			<Item-103>CrossDocking</Item-103>
+		</Items-TxTypeCode>
+	<Items-Status> 
+		<Item-100>enter</Item-100>
+		<Item-500>processing</Item-500>
+		<Item-900>finish</Item-900>
+	</Items-Status>
+</StringTable>

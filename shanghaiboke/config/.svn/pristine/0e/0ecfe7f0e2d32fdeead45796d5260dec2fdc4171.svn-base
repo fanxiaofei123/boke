@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form AbbrCaption="包装材料入库单序事簿" Caption="包装材料入库单序事簿" FormType="View" Key="V_PackingInboundView">
+    <DataSource>
+        <DataObject Caption="包装材料入库单序事簿" Key="V_PackingInboundView" PrimaryTableKey="LRP_PackingInbound_H">
+            <TableCollection>
+                <Table Key="LRP_PackingInbound_H" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DBColumnName="POID" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DBColumnName="SOID" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DBColumnName="VERID" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DBColumnName="DVERID" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="创建日期时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="入库时间" DataType="DateTime" Key="InboundDateTime"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <TableFilter>
+                        <![CDATA[]]>
+                    </TableFilter>
+                </Table>
+            </TableCollection>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="新增" Icon="new.png" Key="New">
+            <Action>
+                <![CDATA[
+				New('V_PackingInbound')	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="10px">
+                        <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="0" Y="0">
+                            <DataBinding DefaultValue="LRP_PackingInbound_H"/>
+                        </TextEditor>
+                        <TextEditor Caption="入库单号" Key="No_C" X="1" XSpan="2" Y="0">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_PackingInbound_H" ColumnKey="No"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="入库单号" Key="L_No" X="0" Y="0"/>
+                        <CheckListBox Caption="状态" Key="Status_C" X="5" XSpan="2" Y="0">
+                            <Condition CondSign="in">
+                                <ConditionTarget TableKey="LRP_PackingInbound_H" ColumnKey="Status"/>
+                            </Condition>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                        </CheckListBox>
+                        <Label Caption="状态" Key="L_Status" X="4" Y="0"/>
+                        <NumberEditor Caption="仓储中心" Key="WarehouseCenterId_C" X="1" XSpan="2" Y="3" Visible="false">
+                            <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                            <Condition CondSign="=">
+                                <ConditionTarget TableKey="LRP_PackingInbound_H" ColumnKey="WarehouseCenterId"/>
+                            </Condition>
+                        </NumberEditor>
+                        <Label Caption="仓储中心" Key="L_WarehouseCenterId" X="0" Y="3" Visible="false"/>
+                        <Button Caption="查询" Key="Query" X="8" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Key="Reset" X="8" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <DatePicker Caption="创建日期时间" Key="CREATETIME_C" X="1" XSpan="2" Y="1">
+                            <Condition CondSign="between" Group="CREATETIME" GroupHead="true">
+                                <ConditionTarget TableKey="LRP_PackingInbound_H" ColumnKey="CREATETIME"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="创建日期时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <DatePicker Caption="至" Key="CREATETIME_C_1" X="5" XSpan="2" Y="1">
+                            <Condition CondSign="none" Group="CREATETIME" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_PackingInbound_H" ColumnKey="CREATETIME"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_CREATETIME_1" X="4" Y="1"/>
+                        <DatePicker Caption="入库日期时间" Key="InboundDateTime_C" X="1" XSpan="2" Y="2">
+                            <Condition CondSign="between" Group="InboundDateTime" GroupHead="true">
+                                <ConditionTarget TableKey="LRP_PackingInbound_H" ColumnKey="InboundDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="入库日期时间" Key="L_InboundDateTime" X="0" Y="2"/>
+                        <DatePicker Caption="至" Key="InboundDateTime_C_1" X="5" XSpan="2" Y="2">
+                            <Condition CondSign="none" Group="InboundDateTime" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_PackingInbound_H" ColumnKey="InboundDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_InboundDateTime_1" X="4" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView0" Key="ListView0" TableKey="LRP_PackingInbound_H" PageLoadType="DB">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Key="OID" Visible="false"/>
+                            <ListViewColumn Caption="选择" ColumnType="CheckBox" Enable="true" IsSelect="true" Key="Select"/>
+                            <ListViewColumn Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Key="Status" SourceType="Status"/>
+                            <ListViewColumn Caption="入库单号" ColumnType="HyperLink" DataColumnKey="No" Key="No">
+                                <OnClick>
+                                    <![CDATA[
+									
+									Open('V_PackingInbound', OID);
+									]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="创建日期时间" ColumnType="DatePicker" DataColumnKey="CREATETIME" Key="CREATETIME"/>
+                            <ListViewColumn Caption="入库日期时间" ColumnType="DatePicker" DataColumnKey="InboundDateTime" Key="InboundDateTime"/>
+                            <ListViewColumn Caption="备注" ColumnType="TextEditor" DataColumnKey="Remark" Key="Remark"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[
+								Open('V_PackingInbound', OID);
+						]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="130px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+        
+    ]]>
+    </OnLoad>
+</Form>

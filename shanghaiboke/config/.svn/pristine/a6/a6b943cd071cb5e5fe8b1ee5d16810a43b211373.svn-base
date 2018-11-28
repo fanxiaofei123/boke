@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="供应商管理" Key="SupplierManagementCustomBill">
+        <EntryItem Caption="供应商合同" FormKey="CHCS_Verdor_ContractView" Key="CHCS_Verdor_ContractView" Type="Form"/>
+        <EntryItem Caption="合同有效期预警" FormKey="CHCS_Contract_Warning_View" Key="CHCS_Contract_Warning_View" Type="Form"/>
+    </Entry>
+</Entry>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<job-scheduling-data xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd" 
+   version="1.8">  
+      
+   <processing-directives>  
+       <overwrite-existing-data>true</overwrite-existing-data>  
+       <ignore-duplicates>false</ignore-duplicates>   
+   </processing-directives>
+      
+   <!-- 同一个group中多个job或者group的那么不能相同,若未设置group则所有未设置group的job为同一个分组 -->
+   <schedule>  
+   		<!-- <job>  
+           <name>Test</name>
+           <group>DEFAULT</group>  
+           <description>定时任务</description>  
+           <job-class>com.bokesoft.yes.scheduler.job.TestScheduleJob</job-class>  
+       </job>
+       <trigger>
+	      	<simple>
+                <name>TestTrigger</name>  
+                <group>DEFAULT</group>  
+                <job-name>Test</job-name>
+                <job-group>DEFAULT</job-group>  
+                <start-time>2015-12-08T16:27:00</start-time>
+                <repeat-count>-1</repeat-count> 
+                <repeat-interval>3600000</repeat-interval> 
+            </simple>
+       </trigger> -->
+      <!--<job>
+           <name>TestQuartz</name>  
+           <group>DEFAULT</group>  
+           <description>测试Quartz定时调度任务</description>  
+           <job-class>com.bokesoft.yigo.mid.job.ScheduleJobA</job-class>  
+       </job>  
+       <trigger>
+	      	<cron>
+                <name>TestQuartzTrigger</name>  
+                <group>DEFAULT</group>  
+                <job-name>TestQuartz</job-name>
+                <job-group>DEFAULT</job-group>  
+               	<cron-expression>0 */1 * * * ?</cron-expression>
+            </cron>   
+       </trigger>-->
+   </schedule>      
+</job-scheduling-data>

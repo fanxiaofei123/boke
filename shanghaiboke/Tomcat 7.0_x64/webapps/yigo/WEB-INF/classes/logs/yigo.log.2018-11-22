@@ -1,0 +1,126 @@
+2018-11-22 09:18:46,210 - Using default implementation for ThreadExecutor
+2018-11-22 09:18:46,229 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-22 09:18:46,229 - Quartz Scheduler v.2.2.1 created.
+2018-11-22 09:18:46,231 - Registering Quartz Job Initialization Plug-in.
+2018-11-22 09:18:46,233 - RAMJobStore initialized.
+2018-11-22 09:18:46,234 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-22 09:18:46,235 - Quartz scheduler 'YigoQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2018-11-22 09:18:46,235 - Quartz scheduler version: 2.2.1
+2018-11-22 09:18:46,236 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-22 09:18:46,236 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-22 09:18:46,237 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-22 09:28:31,774 - Using default implementation for ThreadExecutor
+2018-11-22 09:28:31,792 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-22 09:28:31,793 - Quartz Scheduler v.2.2.1 created.
+2018-11-22 09:28:31,794 - Registering Quartz Job Initialization Plug-in.
+2018-11-22 09:28:31,796 - RAMJobStore initialized.
+2018-11-22 09:28:31,797 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-22 09:28:31,798 - Quartz scheduler 'YigoQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2018-11-22 09:28:31,798 - Quartz scheduler version: 2.2.1
+2018-11-22 09:28:31,799 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-22 09:28:31,799 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-22 09:28:31,800 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-22 09:44:56,243 - Using default implementation for ThreadExecutor
+2018-11-22 09:44:56,260 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-22 09:44:56,261 - Quartz Scheduler v.2.2.1 created.
+2018-11-22 09:44:56,262 - Registering Quartz Job Initialization Plug-in.
+2018-11-22 09:44:56,264 - RAMJobStore initialized.
+2018-11-22 09:44:56,265 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-22 09:44:56,265 - Quartz scheduler 'YigoQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2018-11-22 09:44:56,265 - Quartz scheduler version: 2.2.1
+2018-11-22 09:44:56,266 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-22 09:44:56,266 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-22 09:44:56,268 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-22 09:53:02,402 - Using default implementation for ThreadExecutor
+2018-11-22 09:53:02,420 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-22 09:53:02,420 - Quartz Scheduler v.2.2.1 created.
+2018-11-22 09:53:02,421 - Registering Quartz Job Initialization Plug-in.
+2018-11-22 09:53:02,423 - RAMJobStore initialized.
+2018-11-22 09:53:02,425 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-22 09:53:02,425 - Quartz scheduler 'YigoQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2018-11-22 09:53:02,425 - Quartz scheduler version: 2.2.1
+2018-11-22 09:53:02,426 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-22 09:53:02,426 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-22 09:53:02,427 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-22 14:56:37,742 - Using default implementation for ThreadExecutor
+2018-11-22 14:56:37,773 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-22 14:56:37,774 - Quartz Scheduler v.2.2.1 created.
+2018-11-22 14:56:37,775 - Registering Quartz Job Initialization Plug-in.
+2018-11-22 14:56:37,778 - RAMJobStore initialized.
+2018-11-22 14:56:37,779 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-22 14:56:37,779 - Quartz scheduler 'YigoQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2018-11-22 14:56:37,780 - Quartz scheduler version: 2.2.1
+2018-11-22 14:56:37,780 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-22 14:56:37,780 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-22 14:56:37,781 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-22 14:58:23,760 - Using default implementation for ThreadExecutor
+2018-11-22 14:58:23,778 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-22 14:58:23,778 - Quartz Scheduler v.2.2.1 created.
+2018-11-22 14:58:23,779 - Registering Quartz Job Initialization Plug-in.
+2018-11-22 14:58:23,781 - RAMJobStore initialized.
+2018-11-22 14:58:23,782 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-22 14:58:23,782 - Quartz scheduler 'YigoQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2018-11-22 14:58:23,783 - Quartz scheduler version: 2.2.1
+2018-11-22 14:58:23,783 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-22 14:58:23,784 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-22 14:58:23,784 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+2018-11-22 15:00:44,573 - Using default implementation for ThreadExecutor
+2018-11-22 15:00:44,589 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-11-22 15:00:44,589 - Quartz Scheduler v.2.2.1 created.
+2018-11-22 15:00:44,591 - Registering Quartz Job Initialization Plug-in.
+2018-11-22 15:00:44,593 - RAMJobStore initialized.
+2018-11-22 15:00:44,594 - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'YigoQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-11-22 15:00:44,594 - Quartz scheduler 'YigoQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2018-11-22 15:00:44,594 - Quartz scheduler version: 2.2.1
+2018-11-22 15:00:44,594 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutting down.
+2018-11-22 15:00:44,595 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED paused.
+2018-11-22 15:00:44,596 - Scheduler YigoQuartzScheduler_$_NON_CLUSTERED shutdown complete.

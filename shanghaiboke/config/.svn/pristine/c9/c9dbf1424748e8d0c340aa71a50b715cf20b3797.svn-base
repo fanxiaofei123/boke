@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_CustomerID>Customer</L_CustomerID>
+        <L_MODIFIER>Modifier</L_MODIFIER>
+        <L_CREATOR>Creator</L_CREATOR>
+        <L_RegionID>Region</L_RegionID>
+        <L_PostalCode>PostalCode</L_PostalCode>
+        <L_CountryID>Region</L_CountryID>
+        <L_Code>Code</L_Code>
+        <Lab_Email>E-mail</Lab_Email>
+        <L_CREATETIME>CreateTime</L_CREATETIME>
+        <L_MobilePhone>MobilePhone</L_MobilePhone>
+        <L_Faxl>Fax</L_Faxl>
+        <Lab_Principal>Principal Responsible</Lab_Principal>
+        <L_Name>Mame</L_Name>
+        <L_Address>Address</L_Address>
+        <L_VendorAccountGroupID>VendorAccountGroup</L_VendorAccountGroupID>
+        <L_MODIFYTIME>ModifyTime</L_MODIFYTIME>
+        <L_City>City</L_City>
+        <Lab_Alias>Byname</Lab_Alias>
+        <SystemTab>SystemMessage</SystemTab>
+        <BasicTab>BasicInformation</BasicTab>
+        <L_Call>Call</L_Call>
+        <Lab_Nationality_area>Nationality_area</Lab_Nationality_area>
+    </UI>
+    <GridColumn>
+        <column1>select</column1>
+        <ccode>code</ccode>
+        <address>address</address>
+        <phone>phone</phone>
+        <postcode>postcode</postcode>
+        <cellphone>phone</cellphone>
+        <fax>fax</fax>
+        <ContactName>ContactName</ContactName>
+        <Email_l>Email</Email_l>
+    </GridColumn>
+</StringTable>

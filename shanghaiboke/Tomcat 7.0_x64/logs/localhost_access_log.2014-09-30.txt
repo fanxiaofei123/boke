@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:08:40 +0800] "GET /yes/yesui/datepicker/DatepickerTest.html HTTP/1.1" 404 1031
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:08:50 +0800] "GET /yes/yesui/test/datepicker/DatepickerTest.html HTTP/1.1" 200 845
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:08:51 +0800] "GET /yes/yesui/ui/css/core.css HTTP/1.1" 200 17921
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:08:51 +0800] "GET /yes/yesui/YESUI-all.js HTTP/1.1" 200 959464
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:08:51 +0800] "GET /yes/yesui/ui/css/images/calendar.gif HTTP/1.1" 200 269
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:09:15 +0800] "GET /yes/yesui/test/datepicker/DatepickerTest.html HTTP/1.1" 200 937
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:09:15 +0800] "GET /yes/yesui/ui/css/core.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [30/Sep/2014:14:09:15 +0800] "GET /yes/yesui/YESUI-all.js HTTP/1.1" 304 -

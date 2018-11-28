@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MyModifyRoute" FormType="Entity">
+    <DataSource RefObjectKey="LRP_OwnerUserRoute"/>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#f1f3f8"/>
+                <TableView Key="RouteName_table" X="0" Y="0">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="r0" SeparatorStyle="solid none none none" TopMargin="20px" SeparatorColor="#dde0e7">
+                            <GridLayoutPanel Key="RouteName_Panel" Caption="GridLayoutPanel0">
+                                <TextEditor Key="RouteName" Caption="线路名" PromptText="请输入线路名，方便记忆，如周三路线" BorderStyle="none" Enable="True" Width="0px" Weight="1.0" Height="auto" LeftPadding="10px" X="0" Y="0" Tip="输入路线名称方便记忆哦">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="RouteName"/>
+                                    <Format ForeColor="#969696" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </TextEditor>
+                                <Label Key="lbl0" Width="80px" HasBorder="True" BorderColor="#dde0e7" Height="auto" X="0" Y="1">
+                                    <Format BackColor="#f1f3f8"/>
+                                </Label>
+                                <RowDefCollection>
+                                    <RowDef Height="60px"/>
+                                    <RowDef Height="20px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="1">
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r1" SeparatorStyle="none" Enable="true" SeparatorColor="#dde0e7">
+                            <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                                <Image Key="SendImage" Caption="SendImage" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="10.png" Margin="5px" ImageScaleType="Fit_Center" X="0" Y="0" YSpan="2"/>
+                                <Dict Key="SendProvinceId" Caption="省" ItemKey="LRP_Province" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartProvinceId"/>
+                                </Dict>
+                                <Dict Key="SendCityId" Caption="市" ItemKey="LRP_City" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartCityId"/>
+                                </Dict>
+                                <Dict Key="SendDistrictId" Caption="区" ItemKey="LRP_District" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartDistrictId"/>
+                                </Dict>
+                                <Label Key="SendLatitude" Caption="起点纬度" Width="80px" Height="auto" Visible="False" X="1" Y="0" Precision="11" Scale="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartLatitude"/>
+                                </Label>
+                                <Label Key="SendLongitude" Caption="起点经度" Width="80px" Height="auto" Visible="False" X="1" Y="0" Precision="11" Scale="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartLongitude"/>
+                                </Label>
+                                <Label Key="SendOrgId" Caption="地址名称" Width="80px" Visible="False" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartName"/>
+                                </Label>
+                                <Label Key="SendAddress" Caption="地址" Width="80px" Height="auto" X="2" Y="0" Visible="False">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartAddress"/>
+                                </Label>
+                                <Label Key="Address1" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="IIF(SendAddress=='',SendOrgId,SendOrgId&amp;'('&amp;SendAddress&amp;')')" ValueDependency="SendOrgId,SendAddress"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="SendContact" Width="80px" Height="auto" X="2" Y="1">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartContactor"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="SendTel" Width="80px" Height="auto" X="1" Y="1">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="StartContactMobile"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Button Key="spec_sel1" Icon="more_arrow.png" Enable="true" OnlyIcon="True" Width="20px" Height="auto" BorderStyle="none" X="3" Y="0" YSpan="2">
+                                    <Format ForeColor="#969696"/>
+                                </Button>
+                                <Label Key="lbl1" Width="80px" Height="auto" HasBorder="True" BorderColor="#dde0e7" X="0" Y="2" XSpan="4">
+                                    <Format BackColor="#f1f3f8"/>
+                                </Label>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="10px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="12%"/>
+                                    <ColumnDef Width="40%"/>
+                                    <ColumnDef Width="40%"/>
+                                    <ColumnDef Width="8%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowClick>
+                                <![CDATA[
+									Root.SetPara('grandfatherKey',GetFormKey());
+									Show('SendInformation');
+								]]>
+                            </RowClick>
+                        </TableRow>
+                        <TableRow Key="list" SeparatorStyle="none" RowType="Detail" SeparatorColor="#dde0e7" TableKey="LRP_OwnerUserRoute_L" Enable="true">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Caption="GridLayoutPanel1">
+                                <Image Key="Image1" Caption="Image1" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="38.png" Margin="5px" ImageScaleType="Fit_Center" X="0" Y="0" YSpan="2"/>
+                                <Dict Key="ProvinceId" Caption="省" ItemKey="LRP_Province" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding ColumnKey="ProvinceId"/>
+                                </Dict>
+                                <Dict Key="CityId" Caption="市" ItemKey="LRP_City" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding ColumnKey="CityId"/>
+                                </Dict>
+                                <Dict Key="DistrictId" Caption="区" ItemKey="LRP_District" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding ColumnKey="DistrictId"/>
+                                </Dict>
+                                <Label Key="Latitude" Caption="纬度" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding ColumnKey="Latitude"/>
+                                </Label>
+                                <Label Key="Longitude" Caption="经度" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding ColumnKey="Longitude"/>
+                                </Label>
+                                <Label Key="SEQUENCE" Caption="序号" Width="80px" Height="auto" Visible="false" X="1" Y="0">
+                                    <DataBinding ColumnKey="SEQUENCE"/>
+                                </Label>
+                                <Label Key="AddressType" Caption="地址类型" Width="80px" Height="auto" Visible="false" X="1" Y="0">
+                                    <DataBinding ColumnKey="AddressType" DefaultValue="50"/>
+                                </Label>
+                                <Label Key="OrgId" Caption="地址名称" Width="80px" Height="auto" Visible="false" X="1" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="AddressName"/>
+                                </Label>
+                                <Label Key="Address" Caption="地址" Width="80px" Height="auto" Visible="false" X="2" Y="0">
+                                    <DataBinding ColumnKey="Address"/>
+                                </Label>
+                                <Label Key="Address2" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="IIF(Address=='',OrgId,OrgId&amp;'('&amp;Address&amp;')')" ValueDependency="OrgId,Address"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Contact" Width="80px" Height="auto" X="2" Y="1">
+                                    <DataBinding ColumnKey="Contact"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Tel" Width="80px" Height="auto" X="1" Y="1">
+                                    <DataBinding ColumnKey="Tel"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Button Key="spec_sel2" Icon="more_arrow.png" OnlyIcon="True" Enable="true" Width="20px" Height="auto" BorderStyle="none" X="3" Y="0" YSpan="2">
+                                    <Format ForeColor="#969696"/>
+                                </Button>
+                                <Label Key="lbl2" Width="80px" Height="auto" HasBorder="True" BorderColor="#dde0e7" X="0" Y="2" XSpan="4">
+                                    <Format BackColor="#f1f3f8"/>
+                                </Label>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="10px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="3">
+                                    <ColumnDef Width="12%"/>
+                                    <ColumnDef Width="40%"/>
+                                    <ColumnDef Width="40%"/>
+                                    <ColumnDef Width="8%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowClick>
+                                <![CDATA[
+								PushPara('rowcount',GetRowCount('list'));
+								PushPara('rowIndex',GetRowIndex('list'));
+								PushPara('formkey','MyModifyRoute');
+								PushPara('RecType',0);
+								Root.SetPara('grandfatherKey',GetFormKey());
+								Show('RecInformation');
+								]]>
+                            </RowClick>
+                            <RowActionCollection>
+                                <RowAction Key="delete" Caption="删除" BackColor="#ff5000" ForeColor="#ffffff">
+                                    <![CDATA[
+											ShowConfirm('确定删除该途径地吗?', 'YES_NO', 
+												{
+													YES: {
+														DeleteRow('list', GetRowIndex('list'));
+														ShowToast('已删除');
+													}, 
+													NO: {} 
+												}
+											)
+									]]>
+                                </RowAction>
+                            </RowActionCollection>
+                        </TableRow>
+                        <TableRow Key="r2" SeparatorStyle="none none none solid" Enable="true" SeparatorColor="#dde0e7">
+                            <GridLayoutPanel Key="GridLayoutPanel2" Caption="GridLayoutPanel1">
+                                <Image Key="DestImage" Caption="DestImage" Height="auto" Width="30px" Stretch="true" SourceType="Resource" Image="11.png" Margin="5px" ImageScaleType="Fit_Center" X="0" Y="0" YSpan="2"/>
+                                <Dict Key="DestProvinceId" Caption="省" ItemKey="LRP_Province" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestProvinceId"/>
+                                </Dict>
+                                <Dict Key="DestCityId" Caption="市" ItemKey="LRP_City" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestCityId"/>
+                                </Dict>
+                                <Dict Key="DestDistrictId" Caption="区" ItemKey="LRP_District" Width="80px" Height="auto" Visible="False" X="1" Y="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestDistrictId"/>
+                                </Dict>
+                                <Label Key="DestLatitude" Caption="终点纬度" Width="80px" Height="auto" Visible="False" X="1" Y="0" Precision="11" Scale="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestLatitude"/>
+                                </Label>
+                                <Label Key="DestLongitude" Caption="终点经度" Width="80px" Height="auto" Visible="False" X="1" Y="0" Precision="11" Scale="0">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestLongitude"/>
+                                </Label>
+                                <Label Key="DestOrgId" Caption="地址名称" Width="80px" Height="auto" Visible="false" X="1" Y="0" XSpan="2">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestName"/>
+                                </Label>
+                                <Label Key="DestAddress" Caption="地址" Width="80px" Height="auto" X="2" Y="0" Visible="False">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestAddress"/>
+                                </Label>
+                                <Label Key="Address3" Height="auto" X="1" Y="0" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="IIF(DestAddress=='',DestOrgId,DestOrgId&amp;'('&amp;DestAddress&amp;')')" ValueDependency="DestOrgId,DestAddress"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="DestContact" Width="80px" Height="auto" X="2" Y="1">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestContactor"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="DestTel" Width="80px" Height="auto" X="1" Y="1">
+                                    <DataBinding TableKey="LRP_OwnerUserRoute_H" ColumnKey="DestContactMobile"/>
+                                    <Format ForeColor="#969696" HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Button Key="spec_sel3" Icon="more_arrow.png" OnlyIcon="True" Enable="true" Width="20px" Height="auto" BorderStyle="none" X="3" Y="0" YSpan="2">
+                                    <Format ForeColor="#969696"/>
+                                </Button>
+                                <Label Key="lbl3" Width="80px" Height="auto" X="0" Y="2" XSpan="4">
+                                    <Format BackColor="#f1f3f8"/>
+                                </Label>
+                                <RowDefCollection>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="20px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="12%"/>
+                                    <ColumnDef Width="40%"/>
+                                    <ColumnDef Width="40%"/>
+                                    <ColumnDef Width="8%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <RowClick>
+                                <![CDATA[
+									PushPara('rowcount',-1);
+									PushPara('formkey','MyModifyRoute');
+									Root.SetPara('grandfatherKey',GetFormKey());
+									Show('RecInformation');
+								]]>
+                            </RowClick>
+                        </TableRow>
+                        <TableRow Key="r4" SeparatorStyle="none none none none" SeparatorColor="#f1f3f8">
+                            <LinearLayoutPanel Key="spet" Orientation="Horizontal" Height="50px" LeftPadding="20px">
+                                <Button Key="order1" Caption="+添加途径地" Width="pref" Height="auto" Enable="True" Margin="5px">
+                                    <Format ForeColor="#ffffff" BackColor="#f14c52">
+                                        <Font Size="16"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[
+										PushPara('rowcount',GetRowCount('list'));
+										PushPara('rowIndex',-1);
+										PushPara('RecType',1);
+										PushPara('formkey','MyModifyRoute');
+										Root.SetPara('grandfatherKey',GetFormKey());
+										Show('RecInformation');
+									]]>
+                                    </OnClick>
+                                </Button>
+                                <Label Key="Dest" Caption="请按卸货顺序填写以便估计价格(长按删除)" Width="pref" Height="auto">
+                                    <Format>
+                                        <Font Size="10"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_see1" Width="0px" Weight="1.0" Height="auto"/>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <GridLayoutPanel Key="opt_panel" X="0" Y="1">
+                    <Format BackColor="#f1f3f8"/>
+                    <Button Key="order" Caption="保存" Enable="True" Height="auto" BorderStyle="none" X="0" Y="0" XSpan="3">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+							if(IsNull(RouteName) || Length(RouteName) == 0){
+								ShowToast('填写路线名方便记忆哦');
+								return true;
+							}
+							SaveData();
+							SendSignal('RouteChanged');
+							Close();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection>
+                        <RowDef Height="45px"/>
+                        <RowDef Height="10px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="20px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="修改常用路线" Location="Center">
+            <Label Key="TitleCenter" Caption="修改常用路线" Width="100%">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

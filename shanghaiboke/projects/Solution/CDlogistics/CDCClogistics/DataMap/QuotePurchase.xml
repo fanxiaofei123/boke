@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="上引采购单数据至入库单" Key="QuotePurchase" SrcDataObjectKey="PurchaseData" TgtDataObjectKey="StockIn">
+    <SourceTableCollection Height="300" Width="236" X="30" Y="30">
+        <SourceTable Key="PurchaseData" TargetTableKey="StockInDetail" IsPrimary="true">
+            <SourceField Definition="Warehouse" TargetFieldKey="Warehouse"/>
+            <SourceField Definition="Materiel" TargetFieldKey="Materiel"/>
+            <SourceField Definition="Amount" EdgeType="Focus" TargetFieldKey="Amount"/>
+            <SourceField Definition="Unit" TargetFieldKey="Unit"/>
+            <SourceField Definition="Price" TargetFieldKey="Price"/>
+            <SourceField Definition="Purchase2StockIn" EdgeType="MapKey" TargetFieldKey="MapKey" Type="Const"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="300" Width="205" X="360" Y="30">
+        <TargetTable IsPrimary="true" Key="StockInDetail">
+            <TargetField Definition="Warehouse"/>
+            <TargetField Definition="Materiel"/>
+            <TargetField Definition="Amount"/>
+            <TargetField Definition="Unit"/>
+            <TargetField Definition="Price"/>
+            <TargetField Definition="MapKey"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

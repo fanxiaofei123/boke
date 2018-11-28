@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MyMessage" Caption="" Authenticate="false">
+    <NavigationBar BackColor="#f14c52">
+		<BarItem Key="Centertitle" Caption="消息" Location="Center">
+		<Label Key="TitleCenter" Caption="消息" Width="60px">
+		    <Format ForeColor="#ffffff" HAlign="Center">
+                <Font Size="20"/>
+            </Format>
+		</Label>
+		</BarItem>
+	</NavigationBar>
+    <DataSource>
+        <DataObject Caption="用户消息" Key="LRP_OwnerUserMessage" NoPrefix="OM" ZeroPrefix="9" PrimaryTableKey="LRP_OwnerUserMessage_H">
+            <TableCollection>
+                <Table Caption="用户消息头" Key="LRP_OwnerUserMessage_H" SourceType="Query" Persist="false">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+			
+                    <Column Caption="货主用户" DataType="Long" Key="OwnerUserId"/>
+                    <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="相关单号" DataType="Varchar" Key="RefNo" Length="40"/>
+                    <Column Caption="消息内容" DataType="Varchar" Key="Message" Length="100"/>
+			        <Column Caption="阅读状态" DataType="Integer" Key="IsRead" DefaultValue="0"/>
+                </Table>        
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+	<QueryCollection>
+		<Query Key="UpdateMessage" Description="修改阅读状态">
+            <Statement>
+                <![CDATA[
+				update LRP_OwnerUserMessage_H set IsRead = 1 where OID = ?
+				]]>
+            </Statement>
+			<ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <TableView Key="main">
+				<Format BackColor="#ffffff">
+				</Format>
+				<TableRowCollection>
+				    <TableRow Key="r1" RowType="Group" GroupColumnKeys="IsRead">	
+						<ComboBox Key="spec_sel_IsRead" Caption="阅读状态" Height="40px" Width="auto" Padding="5px" Enable="false">
+                                <Format HAlign="Left" BackColor="#eeeeee">
+                                    <Font Size="20"/>
+                                </Format>
+                                <Item Caption="未读" Key="0" Value="0"/>
+                                <Item Caption="已读" Key="1" Value="1"/>
+                                <DataBinding TableKey="LRP_OwnerUserMessage_H" ColumnKey="IsRead">
+								</DataBinding>
+                        </ComboBox>
+					</TableRow>
+					<TableRow Key="r2" RowType="Detail" TableKey="LRP_OwnerUserMessage_H" SeparatorStyle="solid none" SeparatorColor="#b8becc">
+						<GridLayoutPanel Key="product_panel" Height="110px">
+							<RowDefCollection>
+                            <RowDef Height="10px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="10px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="10px"/>
+                        </ColumnDefCollection>
+                            <Label Key="NoLabel" Caption="单号" X="1" Y="1">
+								<Format>
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<HyperLink Key="No" Caption="单号" X="2" Y="1">
+								<Format HAlign="Left">
+									<Font Size="16"/>
+								</Format>
+								<DataBinding ColumnKey="No">
+								</DataBinding>
+								<OnClick>
+								    <![CDATA[PushPara('CurrentOrderOID','681235');Show('CurrentOrder')]]>
+								</OnClick>
+							</HyperLink>
+							<Label Key="TimeLabel" Caption="创建时间" X="1" Y="2">
+								<Format>
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<DatePicker Key="CREATETIME" X="2" Y="2" Enable="false"  Format="MM月dd日 HH:mm">
+                                <DataBinding ColumnKey="CREATETIME"/>
+                                <Format HAlign="Left" BackColor="#ffffff">
+                                    <Font Size="16"/>
+								</Format>
+                            </DatePicker>
+							<Label Key="MessageLabel" Caption="信息" X="1" Y="3">
+								<Format>
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<Label Key="Message" Caption="信息" X="2" Y="3">
+								<Format HAlign="Left">
+									<Font Size="16"/>
+								</Format>
+								<DataBinding ColumnKey="Message">
+								</DataBinding>
+							</Label>
+							<Label Key="OID" Caption="OID" X="0" Y="0" Visible="False">
+								<Format HAlign="Left">
+									<Font Size="16"/>
+								</Format>
+								<DataBinding ColumnKey="OID">
+								</DataBinding>
+							</Label>
+							<Label Key="IsRead" Caption="IsRead" X="0" Y="4" Visible="False">
+								<Format HAlign="Left">
+									<Font Size="16"/>
+								</Format>
+								<DataBinding ColumnKey="IsRead">
+								</DataBinding>
+							</Label>
+						</GridLayoutPanel>
+						<RowClick>
+					        <![CDATA[
+					        var read=GetValue('IsRead');
+					        if(read==0){
+					        DBNamedUpdate('UpdateMessage', OID);
+					        LoadData();
+					        }
+					        ]]>
+				        </RowClick>
+					</TableRow>
+				</TableRowCollection>
+			</TableView>	
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

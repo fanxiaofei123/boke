@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="库存事务单" CustomNoPrefix="'X'+LRP_WMTx_H.TxTypeCode+Format(ServerDate(),'yyyyMMdd')" Key="LRP_WMTx" PrimaryTableKey="LRP_WMTx_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="库存事务单头" Key="LRP_WMTx_H">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="事务单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="事务类型" DataType="Long" Key="TxTypeId"/>
+            <Column Caption="事务代码" DataType="Varchar" Key="TxTypeCode" Length="10"/>
+            <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+            <Column Caption="通知单号" DataType="Varchar" Key="NoticeNo" Length="100"/>
+            <Column Caption="关联单号" DataType="Varchar" Key="RefNo" Length="100"/>
+            <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+            <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+            <Column Caption="事务日期时间" DataType="DateTime" Key="TxDateTime"/>
+			<Column Caption="仓管员id" DataType="Long" Key="WarehouseKeeperId"/>
+			<Column Caption="接收任务日期时间" DataType="datetime" Key="AcceptTaskDateTime"/>
+			<Column Caption="操作完成日期时间" DataType="datetime" Key="FinishDateTime"/>
+            <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+            
+        </Table>
+        <Table Caption="库存事务单明细" Key="LRP_WMTx_L" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status" DefaultValue="10"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+            <Column Caption="正负" DataType="Integer" DefaultValue="1" Key="PositiveNegative"/>
+            <Column Caption="数量" DataType="Numeric" DefaultValue="0" Key="Qty" Precision="18" Scale="6"/>
+            <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="10"/>
+            <Column Caption="基本单位量" DataType="Numeric" Key="BasicQty" Precision="18" Scale="6"/>
+            <Column Caption="操作时间" DataType="DateTime" Key="OpDatetime"/>
+            <Column Caption="源货主" DataType="Long" Key="SrcOwnerId"/>
+            <Column Caption="源批号" DataType="Varchar" DefaultValue="*" Key="SrcBatchNo" Length="100"/>
+            <Column Caption="源生产日期" DataType="Date" DefaultValue="1980-01-01" Key="SrcManufDate"/>
+            <Column Caption="源失效日期" DataType="Date" DefaultValue="1980-01-01" Key="SrcExpireDate"/>
+            <Column Caption="源项目" DataType="Long" Key="SrcProjectId"/>
+            <Column Caption="源入库日期" DataType="Date" Key="SrcRecvDate" DefaultValue="1980-01-01"/>
+            <Column Caption="源字符型1" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef1" Length="100"/>
+            <Column Caption="源字符型2" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef2" Length="100"/>
+            <Column Caption="源字符型3" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef3" Length="100"/>
+            <Column Caption="源字符型4" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef4" Length="100"/>
+            <Column Caption="源字符型5" DataType="Varchar" DefaultValue="*" Key="SrcStrUserDef5" Length="100"/>
+            <Column Caption="源字典型1" DataType="Long" Key="SrcDictUserDef1"/>
+            <Column Caption="源字典型2" DataType="Long" Key="SrcDictUserDef2"/>
+            <Column Caption="源字典型3" DataType="Long" Key="SrcDictUserDef3"/>
+            <Column Caption="源字典型4" DataType="Long" Key="SrcDictUserDef4"/>
+            <Column Caption="源字典型5" DataType="Long" Key="SrcDictUserDef5"/>
+            <Column Caption="源日期型1" DataType="Date" DefaultValue="1980-01-01" Key="SrcDateUserDef1"/>
+            <Column Caption="源日期型2" DataType="Date" DefaultValue="1980-01-01" Key="SrcDateUserDef2"/>
+            <Column Caption="源数值型1" DataType="Numeric" DefaultValue="0" Key="SrcNumUserDef1" Precision="18" Scale="6"/>
+            <Column Caption="源数值型2" DataType="Numeric" DefaultValue="0" Key="SrcNumUserDef2" Precision="18" Scale="6"/>
+            <Column Caption="源数值型3" DataType="Numeric" DefaultValue="0" Key="SrcNumUserDef3" Precision="18" Scale="6"/>
+            <Column Caption="源仓间" DataType="Long" Key="SrcStoreroomId"/>
+            <Column Caption="源库区" DataType="Long" Key="SrcStoreareaId"/>
+            <Column Caption="源储位" DataType="Long" Key="SrcLocationId"/>
+            <Column Caption="源物料状态" DataType="Long" Key="SrcMaterialStatusId"/>
+            <Column Caption="源相关单据id" DataType="Long" Key="SrcRefSOID"/>
+            <Column Key="SrcRefLineOID" Caption="源相关单据明细id" DataType="Long"/>
+            <Column Caption="源相关单号" DataType="Varchar" Key="SrcRefOrderNo" Length="100"/>
+            <Column Caption="目标货主" DataType="Long" Key="DestOwnerId"/>
+            <Column Caption="目标批号" DataType="Varchar" DefaultValue="*" Key="DestBatchNo" Length="100"/>
+            <Column Caption="目标生产日期" DataType="Date" DefaultValue="1980-01-01" Key="DestManufDate"/>
+            <Column Caption="目标失效日期" DataType="Date" DefaultValue="1980-01-01" Key="DestExpireDate"/>
+            <Column Caption="目标项目" DataType="Long" Key="DestProjectId"/>
+            <Column Caption="目标入库日期" DataType="Date" Key="DestRecvDate" DefaultValue="1980-01-01"/>
+            <Column Caption="目标字符型1" DataType="Varchar" DefaultValue="*" Key="DestStrUserDef1" Length="100"/>
+            <Column Caption="目标字符型2" DataType="Varchar" DefaultValue="*" Key="DestStrUserDef2" Length="100"/>
+            <Column Caption="目标字符型3" DataType="Varchar" DefaultValue="*" Key="DestStrUserDef3" Length="100"/>
+            <Column Caption="目标字符型4" DataType="Varchar" DefaultValue="*" Key="DestStrUserDef4" Length="100"/>
+            <Column Caption="目标字符型5" DataType="Varchar" DefaultValue="*" Key="DestStrUserDef5" Length="100"/>
+            <Column Caption="目标字典型1" DataType="Long" Key="DestDictUserDef1"/>
+            <Column Caption="目标字典型2" DataType="Long" Key="DestDictUserDef2"/>
+            <Column Caption="目标字典型3" DataType="Long" Key="DestDictUserDef3"/>
+            <Column Caption="目标字典型4" DataType="Long" Key="DestDictUserDef4"/>
+            <Column Caption="目标字典型5" DataType="Long" Key="DestDictUserDef5"/>
+            <Column Caption="目标日期型1" DataType="Date" DefaultValue="1980-01-01" Key="DestDateUserDef1"/>
+            <Column Caption="目标日期型2" DataType="Date" DefaultValue="1980-01-01" Key="DestDateUserDef2"/>
+            <Column Caption="目标数值型1" DataType="Numeric" DefaultValue="0" Key="DestNumUserDef1" Precision="18" Scale="6"/>
+            <Column Caption="目标数值型2" DataType="Numeric" DefaultValue="0" Key="DestNumUserDef2" Precision="18" Scale="6"/>
+            <Column Caption="目标数值型3" DataType="Numeric" DefaultValue="0" Key="DestNumUserDef3" Precision="18" Scale="6"/>
+            <Column Caption="目标仓间" DataType="Long" Key="DestStoreroomId"/>
+            <Column Caption="目标库区" DataType="Long" Key="DestStoreareaId"/>
+            <Column Caption="目标储位" DataType="Long" Key="DestLocationId"/>
+            <Column Caption="目标物料状态" DataType="Long" Key="DestMaterialStatusId"/>
+            <Column Caption="目标相关单据id" DataType="Long" Key="DestRefSOID"/>
+            <Column Key="DestRefLineOID" Caption="目标相关单据明细id" DataType="Long"/>
+            <Column Caption="目标相关单号" DataType="Varchar" Key="DestRefOrderNo" Length="100"/>
+            <Column Caption="MapKey" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="SrcOID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="SrcSOID" DataType="Long" Key="SrcSOID"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="SrcHandingUnitNo" Caption="源周转容器号" DataType="Varchar" Length="100" DefaultValue="*"/>
+            <Column Key="DestHandingUnitNo" Caption="目标周转容器号" DataType="Varchar" Length="100" DefaultValue="*"/>
+        </Table>
+        <Table Caption="库存事务单序列号明细" Key="LRP_WMTxSerial_L" ParentKey="LRP_WMTx_L" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="序列号" DataType="Varchar" Key="SerialNo" Length="100"/>
+            <Column Caption="数量" DataType="Numeric" DefaultValue="1" Key="Qty" Precision="18" Scale="6"/>
+            <Column Caption="MapKey" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="SrcOID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="SrcSOID" DataType="Long" Key="SrcSOID"/>
+        </Table>
+    </TableCollection>
+	<PreDeleteProcess>
+        <Process Description="修改对应单据的状态">
+            <![CDATA[LRP_PreTxBillDelete();]]>
+        </Process>
+    </PreDeleteProcess>
+    <PreSaveProcess>
+        <Process Description="序列号检查">
+            <![CDATA[LRP_PreSaveCheckSerial();]]>
+        </Process>
+    </PreSaveProcess>
+    <PostSaveProcess>
+        <Process>
+            <![CDATA[
+               LRP_PostTxBillSave();
+			]]>
+        </Process>
+    </PostSaveProcess>
+    <OIDFilter/>
+</DataObject>

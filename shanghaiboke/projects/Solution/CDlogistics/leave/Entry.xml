@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="请假自定义表单" Icon="Bill.png" Key="leaveCustomBill">
+        <EntryItem Caption="请假单" FormKey="LeaveView" Key="LeaveView" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
+    </Entry>
+</Entry>

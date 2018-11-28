@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<BPM InitDate="2018.09.28 11:14:55 CST">
+    <DeployInfoCollection>
+        <DeployInfo InitDate="2018-9-28 16:28:01" Key="PurchaseAudit"/>
+        <DeployInfo InitDate="2018-9-28 16:45:41" Key="StockInAudit"/>
+        <DeployInfo InitDate="2018-9-28 16:55:37" Key="StockOutAudit"/>
+    </DeployInfoCollection>
+    <ProcessMapCollection>
+        <ProcessMap InitDate="2018.09.28 16:56:58 CST" Key="Purchase" ProcessKey="PurchaseAudit" StartCaption="提交审批"/>
+        <ProcessMap InitDate="2018.09.28 16:56:58 CST" Key="StockIn" ProcessKey="StockInAudit" StartCaption="提交审批"/>
+        <ProcessMap InitDate="2018.09.28 16:56:58 CST" Key="StockOut" ProcessKey="StockOutAudit" StartCaption="提交审批"/>
+    </ProcessMapCollection>
+</BPM>

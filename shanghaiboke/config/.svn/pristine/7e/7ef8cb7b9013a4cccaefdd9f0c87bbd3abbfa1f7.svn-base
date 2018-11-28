@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Label1>
+Currently there is no picking orders, come to rob the single!Currently there is no picking orders, come to rob the single!        
+        </Label1>
+		<ReceiveOp>Receive</ReceiveOp>
+        <Label2>
+No pick order !        
+        </Label2>
+        <OrderTitle>
+PickManage        
+        </OrderTitle>
+		<finished>finished</finished>
+		<progress>progress</progress>
+    </UI>
+    <Items-TxTypeCode>
+        <Item-205>
+PickingBackFactory        
+        </Item-205>
+        <Item-203>
+NoOrderPicking        
+        </Item-203>
+        <Item-201>
+OutboundPicking        
+        </Item-201>
+    </Items-TxTypeCode>
+    <ListViewColumn>
+        <No>
+No
+        </No>
+        <OwnerName2>
+Owner
+        </OwnerName2>
+    </ListViewColumn>
+    <Items-TxTypeCode2>
+        <Item-205>
+PickingBackFactory        
+        </Item-205>
+        <Item-203>
+NoOrder        
+        </Item-203>
+        <Item-201>
+OutboundPicking        
+        </Item-201>
+    </Items-TxTypeCode2>
+</StringTable>

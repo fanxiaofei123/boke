@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_NoticePickStategyView" Caption="订单拣货策略序事簿" FormType="View" AbbrCaption="订单拣货策略序事簿">
+    <DataSource>
+        <DataObject Key="LRP_NoticePickStrategyView" Caption="订单拣货策略序时簿" PrimaryTableKey="LRP_NoticePickStrategy_H">
+            <TableCollection>
+                <Table Key="LRP_NoticePickStrategy_H" Caption="订单拣货策略头" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="CREATOR" Caption="创建用户ID" DataType="Long"/>
+                    <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="MODIFIER" Caption="修改用户ID" DataType="Long"/>
+                    <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+                    <Column Key="No" Caption="策略号" DataType="Varchar" Length="100"/>
+                    <Column Key="Name" Caption="策略名称" DataType="Varchar" Length="100"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心" DataType="Long"/>
+                    <Column Key="StrategyType" Caption="策略类型" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="NearExpiredDays" Caption="近效期天数" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="Remarks" Caption="备注" DataType="Varchar" Length="1000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[
+				New('V_NoticePickStategy')
+			]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchConfirm" Caption="确认">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm(LocaleString('CommonDef','key17'),'OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',100,')){
+	Confirm(LocaleString('CommonDef','key18'),'OK','OK:{}');
+	return true;
+}	
+Confirm(LocaleString('CommonDef','key19'),'YES_NO',{YES:{
+	loop "ListView0" (true)
+	{			
+		if(Select == true)
+		{ 
+			var DataObjectKey = GetDataObjectKey('V_NoticePickStategy');
+			InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,200,-1);
+			LoadData();ShowData();
+		}					
+	}
+},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchConfirm-R" Caption="撤销确认">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm(LocaleString('CommonDef','key20'),'OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',200,')){
+	Confirm(LocaleString('CommonDef','key21'),'OK','OK:{}');
+	return true;		
+}
+Confirm(LocaleString('CommonDef','key22'),'YES_NO',{YES:{
+	loop "ListView0" (true)
+	{			
+		if(Select == true)
+		{ 
+			//查询选中的订单拣货策略是否被物料引用
+			var count=DBNamedQueryValue("SMaStrategy",OID);
+			if(count==0){
+				InvokeService("LRP_BillStatusChange", false, false,GetDataObjectKey('V_NoticePickStategy'),OID,100,-1);
+				LoadData();ShowData();
+			}else{
+				Confirm(LocaleParaFormat('STshow','stkey1',GetValue("Name")),'OK','OK{}');
+			}
+		}					
+	}
+},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchDelete" Caption="删除">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm(LocaleString('OwnerNull','key100'),'OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',100,')){
+	Confirm(LocaleString('CommonDef','key36'),'OK','OK:{}');
+	return true;
+}	
+Confirm(LocaleString('OwnerNull','key102'),'YES_NO',{YES:{BatchDeleteData('LRP_NoticePickStrategy', 'LRP_NoticePickStrategy_H');
+LoadData();ShowData();
+},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchCancel" Caption="作废">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm(LocaleString('CommonDef','key23'),'OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',100,')){
+	Confirm(LocaleString('CommonDef','key24'),'OK','OK:{}');
+	return true;
+}		
+Confirm(LocaleString('CommonDef','key25'),'YES_NO',{YES:{
+	loop "ListView0" (true)
+	{			
+		if(Select == true)
+		{ 
+			InvokeService("LRP_BillStatusChange", false, false,GetDataObjectKey('V_NoticePickStategy'),OID,20,-1);
+			LoadData();ShowData();
+		}					
+	}
+},NO:{}});
+			]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchCancel-R" Caption="撤销作废">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm(LocaleString('CommonDef','key26'),'OK','OK:{}');
+	return true;
+}
+if(!CheckListSelectStatus(',20,')){
+	Confirm(LocaleString('CommonDef','key27'),'OK','OK:{}');
+	return true;
+}
+Confirm(LocaleString('CommonDef','key28'),'YES_NO',{YES:{
+	loop "ListView0" (true)
+	{			
+		if(Select == true)
+		{ 
+			InvokeService("LRP_BillStatusChange", false, false,GetDataObjectKey('V_NoticePickStategy'),OID,100,-1);
+			LoadData();ShowData();
+		}					
+	}
+},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="SMaStrategy">
+            <Statement>
+                <![CDATA[select count(*) as count from LRP_MaterialStrategy where StrategyId= ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <SplitPanel Key="base_split" Orientation="Vertical" Height="100%">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="10px" Caption="查询字段">
+                            <TextEditor Key="No" Caption="订单拣货策略号" BuddyKey="Lab_No" X="2" Y="0" XSpan="3">
+                                <Condition ColumnKey="No" TableKey="LRP_NoticePickStrategy_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="订单拣货策略号" X="0" Y="0" XSpan="2"/>
+                            <TextEditor Key="Name" Caption="策略名称" BuddyKey="Lab_Name" X="7" Y="0" XSpan="3">
+                                <Condition ColumnKey="Name" TableKey="LRP_NoticePickStrategy_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name" Caption="策略名称" X="6" Y="0"/>
+                            <ComboBox Key="StrategyType" Caption="策略类型" BuddyKey="Lab_StrategyType" X="2" Y="1" XSpan="3">
+                                <Condition ColumnKey="StrategyType" TableKey="LRP_NoticePickStrategy_H" CondSign="="/>
+                                <Item Caption="先进先出" Key="StrategyType0" Value="0"/>
+                                <Item Caption="后进先出" Key="StrategyType1" Value="1"/>
+                                <Item Caption="批号早先出" Key="StrategyType2" Value="2"/>
+                                <Item Caption="固定储位" Key="StrategyType3" Value="3"/>
+                                <Item Caption="近效期先出" Key="StrategyType4" Value="4"/>
+                                <Item Caption="整零分开" Key="StrategyType5" Value="5"/>
+                                <Item Caption="自定义" Key="StrategyType6" Value="6"/>
+                            </ComboBox>
+                            <Label Key="Lab_StrategyType" Caption="策略类型" X="0" Y="1" XSpan="2"/>
+                            <CheckListBox BuddyKey="Lab_Status_h" Caption="状态" Key="Status_h" X="7" XSpan="3" Y="1">
+                                <Condition ColumnKey="Status" TableKey="LRP_NoticePickStrategy_H" CondSign="in"/>
+                                <Item Caption="已输入" Key="prepared" Value="100"/>
+                                <Item Caption="已确认" Key="confirmed" Value="200"/>
+                                <Item Caption="已作废" Key="cancelled" Value="20"/>
+                            </CheckListBox>
+                            <Label Key="Lab_Status_h" Caption="状态" X="6" Y="1"/>
+                            <Button Key="Query" Caption="查询" X="11" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="11" Y="1" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();SetValue('WarehouseCenterId',getCurOrgID());
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Dict Key="WarehouseCenterId" Caption="仓储中心" BuddyKey="Lab_WarehouseCenterId" X="2" Y="2" Visible="false" ItemKey="LRP_WarehouseCenter">
+                                <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                                <Condition ColumnKey="WarehouseCenterId" TableKey="LRP_NoticePickStrategy_H" CondSign="="/>
+                            </Dict>
+                            <Label Key="Lab_WarehouseCenterId" Caption="仓储中心" X="0" Y="2" XSpan="2"/>
+                            <RowDefCollection RowHeight="25" RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="15px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <ListView Key="ListView0" PageLoadType="DB" TableKey="LRP_NoticePickStrategy_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" Visible="false" DataColumnKey="OID"/>
+                            <ListViewColumn Key="Select" Caption="选择" ColumnType="CheckBox" Width="80px" Enable="true" IsSelect="true"/>
+                            <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Enable="false" SourceType="Status"/>
+                            <ListViewColumn Key="No_LV" Caption="订单拣货策略号" ColumnType="HyperLink" DataColumnKey="No" Width="104px">
+                                <OnClick>
+                                    <![CDATA[Open('V_NoticePickStategy', OID)]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="Name_LV" Caption="策略名称" ColumnType="TextEditor" DataColumnKey="Name"/>
+                            <ListViewColumn Key="StrategyType_LV" Caption="策略类型" ColumnType="ComboBox" DataColumnKey="StrategyType">
+                                <Item Caption="先进先出" Key="StrategyType0" Value="0"/>
+                                <Item Caption="后进先出" Key="StrategyType1" Value="1"/>
+                                <Item Caption="批号早先出" Key="StrategyType2" Value="2"/>
+                                <Item Caption="固定储位" Key="StrategyType3" Value="3"/>
+                                <Item Caption="近效期先出" Key="StrategyType4" Value="4"/>
+                                <Item Caption="整零分开" Key="StrategyType5" Value="5"/>
+                                <Item Caption="自定义" Key="StrategyType6" Value="6"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="NearExpiredDays_LV" Caption="近效期天数" DataColumnKey="NearExpiredDays" ColumnType="NumberEditor" Scale="0"/>
+                            <ListViewColumn Key="Remarks_LV" Caption="备注" ColumnType="TextEditor" DataColumnKey="Remarks"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_NoticePickStategy', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="90px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="30">
+                    <RowDef/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

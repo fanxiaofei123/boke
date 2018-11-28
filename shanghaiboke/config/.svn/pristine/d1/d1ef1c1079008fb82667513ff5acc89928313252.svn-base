@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_CouponView" Caption="券叙事簿" FormType="View" AbbrCaption="券叙事簿">
+    <DataSource>
+        <DataObject Key="V_CouponView" Caption="券叙事簿" PrimaryTableKey="LRP_Coupon">
+            <TableCollection>
+                <Table Key="LRP_Coupon" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="No" Caption="单号" DataType="Varchar" Length="100"/>
+                    <Column Key="EffectiveDateTime" Caption="生效日期时间" DataType="DateTime"/>
+                    <Column Key="ExpireDateTime" Caption="失效日期时间" DataType="DateTime"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="40"/>
+                    <Column Key="CouponTypeId" Caption="劵类型" DataType="Long"/>
+                    <Column Key="CalculationMethod" Caption="计算方式" DataType="Integer"/>
+                    <Column Key="FaceValue" Caption="面值" DataType="Numeric" DefaultValue="0" Precision="10" Scale="6"/>
+                    <Column Key="EnoughMoney" Caption="满多少钱" DataType="Numeric" DefaultValue="0" Precision="10" Scale="6"/>
+                    <Column Key="Discount" Caption="折扣" DataType="Numeric" DefaultValue="1" Precision="10" Scale="6"/>
+                    <Column Key="MinusChangeType" Caption="去零头类型" DataType="Varchar" Length="40"/>
+                    <Column Key="UseDispatchOrgID" Caption="可用调度组织id" DataType="Varchar" Length="40"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="UseBusiness" Caption="使用业务范围" DataType="Varchar"/>
+                    <Column Key="UseDispatchOrgName" Caption="可用调度组织名称" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('V_Coupon')]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="150px" Padding="5px" Caption="查询字段">
+                            <Label Key="L_EffectiveDate" Caption="生效日期" X="0" Y="2"/>
+                            <DatePicker Key="EffectiveDate" Caption="生效日期" BuddyKey="L_EffectiveDate" X="1" Y="2" XSpan="2">
+                                <Format/>
+                                <Condition ColumnKey="EffectiveDateTime" TableKey="LRP_Coupon" CondSign="between" Group="EffectiveDate" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="L_EffectiveDate_Comp2" Caption="到" X="4" Y="2"/>
+                            <DatePicker Key="EffectiveDate_Comp2" Caption="到" BuddyKey="L_EffectiveDate_Comp2" X="5" Y="2" XSpan="2">
+                                <Format/>
+                                <Condition ColumnKey="EffectiveDateTime" TableKey="LRP_Coupon" CondSign="between" Group="EffectiveDate" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="L_ExpireDate" Caption="失效日期" X="0" Y="3"/>
+                            <DatePicker Key="ExpireDate" Caption="失效日期" BuddyKey="L_ExpireDate" X="1" Y="3" XSpan="2">
+                                <Format/>
+                                <Condition ColumnKey="ExpireDateTime" TableKey="LRP_Coupon" CondSign="between" Group="ExpireDate" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="L_ExpireDate_Comp2" Caption="到" X="4" Y="3"/>
+                            <DatePicker Key="ExpireDate_Comp2" Caption="到" BuddyKey="L_ExpireDate_Comp2" X="5" Y="3" XSpan="2">
+                                <Format/>
+                                <Condition ColumnKey="ExpireDateTime" TableKey="LRP_Coupon" CondSign="between" Group="ExpireDate" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="L_Name" Caption="名称" X="0" Y="0"/>
+                            <TextEditor Key="Name" Caption="名称" BuddyKey="L_Name" X="1" Y="0" XSpan="2">
+                                <Condition ColumnKey="Name" TableKey="LRP_Coupon" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_CouponTypeId" Caption="劵类型" X="4" Y="0"/>
+                            <Dict Key="CouponTypeId" Caption="劵类型" BuddyKey="L_CouponTypeId" X="5" Y="0" AllowMultiSelection="true" ItemKey="LRP_CouponType" XSpan="2">
+                                <Condition ColumnKey="CouponTypeId" TableKey="LRP_Coupon" CondSign="in"/>
+                            </Dict>
+                            <Label Key="L_CalculationMethod" Caption="计算方式" X="0" Y="1"/>
+                            <ComboBox Key="CalculationMethod" Caption="计算方式" BuddyKey="L_CalculationMethod" X="1" Y="1" XSpan="2">
+                                <Condition ColumnKey="CalculationMethod" TableKey="LRP_Coupon" CondSign="="/>
+                                <Item Caption="按面值" Key="1" Value="1"/>
+                                <Item Caption="按折扣" Key="2" Value="2"/>
+                                <Item Caption=" 去零头" Key="3" Value="3"/>
+                            </ComboBox>
+                            <Button Key="Query" Caption="查询" X="8" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="8" Y="1" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <CheckListBox Key="Status" Caption="ComboBox1" BuddyKey="Lab_Status" X="5" Y="1" XSpan="2">
+                                <Condition ColumnKey="Status" TableKey="LRP_LTLQuote_H" CondSign="="/>
+                                <Item Caption="已输入" Key="prepared" Value="100"/>
+                                <Item Caption="已确认" Key="confirmed" Value="200"/>
+                                <Item Caption="已作废" Key="cancelled" Value="20"/>
+                            </CheckListBox>
+                            <Label Key="Lab_Status" Caption="状态" X="4" Y="1"/>
+                            <TextEditor Key="DataObjectKey" Caption="DataObjectKey" X="8" Y="3" Visible="false" Enable="false">
+                                <DataBinding DefaultValue="LRP_Coupon"/>
+                            </TextEditor>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="list" PageLoadType="DB" TableKey="LRP_Coupon" Height="100px">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="LRP_Coupon" Visible="false" Width="92px"/>
+                            <ListViewColumn Key="status_LV" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                            <ListViewColumn Key="No_LV" Caption="单号" ColumnType="HyperLink" DataColumnKey="No">
+                                <OnClick>
+                                    <![CDATA[Open('V_Coupon', OID);]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="Name_LV" Caption="名称" ColumnType="TextEditor" DataColumnKey="Name"/>
+                            <ListViewColumn Key="CouponTypeId_LV" Caption="劵类型" ColumnType="Dict" DataColumnKey="CouponTypeId" ItemKey="LRP_CouponType"/>
+                            <ListViewColumn Key="CalculationMethod_LV" Caption="计算方式" ColumnType="ComboBox" DataColumnKey="CalculationMethod">
+                                <Item Caption="按面值" Key="1" Value="1"/>
+                                <Item Caption="按折扣" Key="2" Value="2"/>
+                                <Item Caption=" 去零头" Key="3" Value="3"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="ExpireDate_LV" Caption="失效日期" ColumnType="DatePicker" DataColumnKey="ExpireDateTime"/>
+                            <ListViewColumn Key="EffectiveDate_LV" Caption="生效日期" ColumnType="DatePicker" DataColumnKey="EffectiveDateTime"/>
+                            <ListViewColumn Key="FaceValue_LV" Caption="面值" ColumnType="NumberEditor" DataColumnKey="FaceValue"/>
+                            <ListViewColumn Key="EnoughMoney_LV" Caption="满多少钱" ColumnType="NumberEditor" DataColumnKey="EnoughMoney"/>
+                            <ListViewColumn Key="Discount_LV" Caption="折扣" ColumnType="NumberEditor" DataColumnKey="Discount"/>
+                            <ListViewColumn Key="MinusChangeType_LV" Caption="去零头类型" ColumnType="ComboBox" DataColumnKey="MinusChangeType">
+                                <Item Caption="个位" Key="unit" Value="unit"/>
+                                <Item Caption=" 十位" Key="decade" Value="decade"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="UseBusiness_LV" Caption="使用业务范围" ColumnType="CheckListBox" DataColumnKey="UseBusiness" Width="200px">
+                                <Item Caption="零担" Key="LTL" Value="LTL"/>
+                                <Item Caption="整车" Key="FTL" Value="FTL"/>
+                                <Item Caption="仓配" Key="WD" Value="WD"/>
+                                <Item Caption="多式联运" Key="MT" Value="MT"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="UseDispatchOrgname_LV" Caption="可用调度组织" ColumnType="TextEditor" DataColumnKey="UseDispatchOrgName" Width="400px"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_Coupon', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

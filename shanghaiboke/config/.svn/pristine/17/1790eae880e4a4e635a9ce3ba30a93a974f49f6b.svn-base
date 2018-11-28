@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_703View" Caption="运输作业单-中转序事簿" FormType="View" AbbrCaption="运输作业单-中转序事簿">
+    <DataSource>
+        <DataObject Key="V_703View" Caption="运输作业单-中转序事簿" PrimaryTableKey="LRP_TransportJob_H">
+            <TableCollection>
+                <Table Key="LRP_TransportJob_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Key="No" Caption="作业单号" DataType="Varchar" Length="100" SortType="Desc"/>
+                    <Column Key="OwnerId" Caption="货主id" DataType="Long"/>
+                    <Column Key="OrderNo" Caption="运输订单号" DataType="Varchar" Length="100"/>
+                    <Column Key="OwnerNo" Caption="货主单号" DataType="Varchar" Length="100"/>
+                    <Column Key="OrderDateTime" Caption="下单日期时间" DataType="DateTime"/>
+                    <Column Key="SendOrg" Caption="发站" DataType="Long"/>
+                    <Column Key="LoadDateTime" Caption="装货日期时间" DataType="DateTime"/>
+                    <Column Key="FinishDateTime" Caption="完成日期时间" DataType="DateTime"/>
+                    <Column Key="Requirement" Caption="运输要求" DataType="Varchar" Length="1000"/>
+                    <Column Key="RecvPartyName" Caption="收货方名称" DataType="Varchar"/>
+                    <Column Key="AgencyFund" Caption="代收货款" DataType="Numeric" Precision="15" Scale="3"/>
+                    <Column Key="PayMethod" Caption="付款方式" DataType="Integer"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="DestOrg" Caption="到站" DataType="Long"/>
+                    <TableFilter>
+                        <![CDATA[JobType='703']]>
+                    </TableFilter>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="BatchFinishTrans" Caption="完成" RefKey="BatchFinishTrans"/>
+        <Operation Key="BatchFinishTrans-R" Caption="撤销完成" RefKey="BatchFinishTrans-R"/>
+        <Operation Key="BatchLoad" Caption="装货" RefKey="BatchLoad"/>
+        <Operation Key="BatchLoad-R" Caption="撤销装货" RefKey="BatchLoad-R"/>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="100%" Padding="10px" Caption="查询字段">
+                        <Label Key="L_No" Caption="作业单号" X="0" Y="0"/>
+                        <TextEditor Key="No" Caption="作业单号" BuddyKey="L_No" X="1" Y="0" XSpan="3">
+                            <Condition ColumnKey="No" TableKey="LRP_TransportJob_H" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="L_OwnerId" Caption="货主" X="5" Y="0"/>
+                        <Dict Key="OwnerId" Caption="货主" BuddyKey="L_OwnerId" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_Owner" XSpan="3">
+                            <Condition ColumnKey="OwnerId" TableKey="LRP_TransportJob_H" CondSign="in"/>
+                        </Dict>
+                        <Label Key="L_OwnerNo" Caption="货主单号" X="0" Y="1"/>
+                        <TextEditor Key="OwnerNo" Caption="货主单号" BuddyKey="L_OwnerNo" X="1" Y="1" XSpan="3">
+                            <Condition ColumnKey="OwnerNo" TableKey="LRP_TransportJob_H" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Status_H" Caption="状态" X="5" Y="1"/>
+                        <CheckListBox BuddyKey="Lab_Status_H" Caption="状态" Key="Status_H" X="6" XSpan="3" Y="1">
+                            <Condition ColumnKey="Status" TableKey="LRP_TransportJob_H" CondSign="in"/>
+                            <Item Caption="已确认" Key="confirmed" Value="200"/>
+                            <Item Caption="已配载" Key="arranged" Value="710"/>
+                            <Item Caption="已装货" Key="loaded" Value="730"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                        </CheckListBox>
+                        <Label Key="L_OrderNo" Caption="运输订单号" X="0" Y="2"/>
+                        <TextEditor Key="OrderNo" Caption="运输订单号" BuddyKey="L_OrderNo" X="1" Y="2" XSpan="3">
+                            <Condition ColumnKey="OrderNo" TableKey="LRP_TransportJob_H" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="L_OrderDateTime" Caption="下单日期时间" X="0" Y="3"/>
+                        <DatePicker Key="OrderDateTime" Caption="下单日期时间" BuddyKey="L_OrderDateTime" X="1" Y="3" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition ColumnKey="OrderDateTime" TableKey="LRP_TransportJob_H" CondSign="between" Group="OrderDateTime" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="L_OrderDateTime@2" Caption="至" X="5" Y="3"/>
+                        <DatePicker Key="OrderDateTime@2" Caption="至" BuddyKey="L_OrderDateTime@2" X="6" Y="3" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition ColumnKey="OrderDateTime" TableKey="LRP_TransportJob_H" CondSign="in" Group="OrderDateTime" GroupTail="true"/>
+                        </DatePicker>
+                        <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[						
+										DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="cancel" Caption="重置" X="10" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition();SetValue('DispatchOrgId',getCurDispatchOrgID());	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="DispatchOrgId" Caption="调度组织" BuddyKey="Lab_DispatchOrgId" X="1" Y="4" Visible="false" XSpan="3" ItemKey="LRP_DispatchOrg">
+                            <DataBinding DefaultFormulaValue="getCurDispatchOrgID()"/>
+                            <Condition ColumnKey="DispatchOrgId" TableKey="LRP_TransportJob_H" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_DispatchOrgId" Caption="调度组织" Visible="false" X="0" Y="4"/>
+                        <Dict Key="DestOrg" Caption="到站" BuddyKey="Lab_DestOrg" X="6" Y="2" ItemKey="LRP_WarehouseCenter" XSpan="3" AllowMultiSelection="true">
+                            <Condition ColumnKey="DestOrg" TableKey="LRP_TransportJob_H" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_DestOrg" Caption="到站" X="5" Y="2"/>
+                        <RowDefCollection RowHeight="25" RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Key="ListView0" TableKey="LRP_TransportJob_H" PageLoadType="DB" CanDelete="false" CanInsert="false" CanShift="false">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="Select" Caption="选择" ColumnType="CheckBox" Width="80px" IsSelect="true"/>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="LRP_TransportJob_H" Visible="false" Width="91px"/>
+                            <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                            <ListViewColumn Key="No_LV" Caption="作业单号" ColumnType="HyperLink" DataColumnKey="No" Width="125px">
+                                <OnClick>
+                                    <![CDATA[Open('V_703', OID)]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="OrderNo_LV" Caption="运输订单号" ColumnType="TextEditor" DataColumnKey="OrderNo"/>
+                            <ListViewColumn Key="OwnerId_LV" Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" ItemKey="LRP_Owner"/>
+                            <ListViewColumn Key="OwnerNo_LV" Caption="货主单号" ColumnType="TextEditor" DataColumnKey="OwnerNo"/>
+                            <ListViewColumn Key="OrderDateTime_LV" Caption="下单日期时间" ColumnType="DatePicker" DataColumnKey="OrderDateTime"/>
+                            <ListViewColumn Key="SendOrg" Caption="发站" ColumnType="Dict" DataColumnKey="SendOrg" ItemKey="LRP_WarehouseCenter"/>
+                            <ListViewColumn Key="DestOrg_LV" Caption="到站" ColumnType="Dict" DataColumnKey="DestOrg" ItemKey="LRP_WarehouseCenter"/>
+                            <ListViewColumn Key="LoadDateTime" Caption="装货日期时间" ColumnType="DatePicker" DataColumnKey="LoadDateTime"/>
+                            <ListViewColumn Key="FinishDateTime" Caption="完成日期时间" ColumnType="DatePicker" DataColumnKey="FinishDateTime"/>
+                            <ListViewColumn Key="Requirement" Caption="运输要求" ColumnType="TextEditor" DataColumnKey="Requirement"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_703', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="165px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

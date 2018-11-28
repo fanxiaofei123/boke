@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Workbook Caption="盘点单Excel模板" Key="V_TakeStockExcel" FormKey="V_TakeStock">
+    <Sheet Name="盘点明细">
+		<Rows>
+			<Row Height="20" Type="Fix" RowIndex="1">
+				<Cell CellIndex="1" SourceType="Const" Definition="盘点单号"/>
+				<Cell CellIndex="2" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="No"  MergedColumnSpan="2"/>
+				<Cell CellIndex="4" SourceType="Const" Definition="货主"/>
+				<Cell CellIndex="5" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="OwnerId"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Owner"/>
+					</Display>
+				</Cell>
+			</Row>
+			<Row Height="20" Type="Fix" RowIndex="2">
+				<Cell CellIndex="1" SourceType="Const" Definition="仓间"/>
+				<Cell CellIndex="2" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="StoreroomId"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Storeroom"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="4" SourceType="Const" Definition="库区">
+				</Cell>
+				<Cell CellIndex="5" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="StoreareaId"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Storearea"/>
+					</Display>
+				</Cell>	
+				<Cell CellIndex="7" SourceType="Const" Definition="储位"/>
+				<Cell CellIndex="8" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="LocationId"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Location"/>
+					</Display>
+				</Cell>	
+			</Row>
+			<Row Height="20" Type="Fix" RowIndex="3">
+				<Cell CellIndex="1" SourceType="Const" Definition="物料"/>
+				<Cell CellIndex="2" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="MaterialId"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Material"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="4" SourceType="Const" Definition="异动日期"/>
+				<Cell CellIndex="5" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="StartDate"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="Date" Format="YYYY-MM-dd HH:mm:ss"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="7" SourceType="Const" Definition="至"/>
+				<Cell CellIndex="8" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="EndDate"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="Date" Format="YYYY-MM-dd HH:mm:ss"/>
+					</Display>
+				</Cell>
+			</Row>
+			<Row Height="20" Type="Fix" RowIndex="4">
+				<Cell CellIndex="1" SourceType="Const" Definition="盘点员"/>
+				<Cell CellIndex="2" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="CheckPerson"  MergedColumnSpan="2">
+				</Cell>
+				<Cell CellIndex="4" SourceType="Const" Definition="盘点日期时间"/>
+				<Cell CellIndex="5" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="CheckDatetime"  MergedColumnSpan="2">
+				<Display>
+						<Format DataType="Date" Format="YYYY-MM-dd HH:mm:ss"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="7" SourceType="Const" Definition="状态"/>
+				<Cell CellIndex="8" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="Status"  MergedColumnSpan="2">
+					<Display>
+						<Format DataType="List">
+							<ListItem Text="已输入" Value="100"/>
+							<ListItem Text="已确认" Value="200"/>
+							<ListItem Text="已确认" Value="900"/>
+						</Format>
+					</Display>
+				</Cell>
+			</Row>
+			<Row Height="20" Type="Fix" RowIndex="5">
+				<Cell CellIndex="1" SourceType="Const" Definition="备注"/>
+				<Cell CellIndex="2" SourceType="Field" TableKey="LRP_TakeStock_H" Definition="Remark"  MergedColumnSpan="8"/>
+			</Row>
+			<Row Height="20" Type="DetailHead" RowIndex="7">
+				<Cell CellIndex="1" SourceType="Const" Definition="物料"/>
+				<Cell CellIndex="2" SourceType="Const" Definition="批号"/>
+				<Cell CellIndex="3" SourceType="Const" Definition="生产日期"/>
+				<Cell CellIndex="4" SourceType="Const" Definition="失效日期"/>
+				<Cell CellIndex="5" SourceType="Const" Definition="项目"/>
+				<Cell CellIndex="6" SourceType="Const" Definition="物料状态"/>
+				<Cell CellIndex="7" SourceType="Const" Definition="账面量"/>
+				<Cell CellIndex="8" SourceType="Const" Definition="实盘量"/>
+				<Cell CellIndex="9" SourceType="Const" Definition="单位"/>
+				<Cell CellIndex="10" SourceType="Const" Definition="仓间"/>
+				<Cell CellIndex="11" SourceType="Const" Definition="库区"/>
+				<Cell CellIndex="12" SourceType="Const" Definition="储位"/>
+				<Cell CellIndex="13" SourceType="Const" Definition="生成方式"/>
+			</Row>
+			<Row Height="20" Type="Detail" GridKey="Grid0" TableKey="LRP_TakeStock_L" RowIndex="8">
+				<Cell CellIndex="1" SourceType="Field" Definition="MaterialId">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Material"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="2" SourceType="Field" Definition="BatchNo">
+				</Cell>
+				<Cell CellIndex="3" SourceType="Field" Definition="ManufDate">
+					<Display>
+						<Format DataType="Date" Format="yyyy-MM-dd"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="4" SourceType="Field" Definition="ExpireDate">
+					<Display>
+						<Format DataType="Date" Format="yyyy-MM-dd"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="5" SourceType="Field" Definition="ProjectId">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Project"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="6" SourceType="Field" Definition="MaterialStatusId">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_MaterialStatus"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="7" SourceType="Field" Definition="Qty">
+				</Cell>
+				<Cell CellIndex="8" SourceType="Field" Definition="CheckQty">
+				</Cell>
+				<Cell CellIndex="9" SourceType="Field" Definition="MaterialId">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Material" FieldKeys="BasicUnit"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="10" SourceType="Field" Definition="StoreroomId">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Storeroom"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="11" SourceType="Field" Definition="StoreareaId">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Storearea"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="12" SourceType="Field" Definition="LocationId">
+					<Display>
+						<Format DataType="Dict" ItemKey="LRP_Location"/>
+					</Display>
+				</Cell>
+				<Cell CellIndex="13" SourceType="Field" Definition="GenMethod">
+					<Display>
+						<Format DataType="List">
+							<ListItem Text="系统生成" Value="0"/>
+							<ListItem Text="盘点录入" Value="1"/>
+						</Format>
+					</Display>
+				</Cell>
+			</Row>
+		</Rows>
+	</Sheet>
+</Workbook>

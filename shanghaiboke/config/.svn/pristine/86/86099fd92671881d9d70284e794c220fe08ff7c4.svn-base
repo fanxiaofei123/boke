@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="车辆安检单" FormType="Entity" Key="V_TruckCheck" ViewKey="V_TruckCheckView">
+    <DataSource RefObjectKey="LRP_TruckCheck"/>
+    <OperationCollection>
+        <Operation Caption="新增" Key="New" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				New('V_TruckCheck');
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="复制新增" Key="CopyNew" RefKey="CopyNew" ShortCuts="Ctrl+E"/>
+        <Operation Caption="保存" Key="Save" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[			
+				if(GetRowCount('Grid0', false)<=0){ 
+				Confirm('明细列表不可为空', 'OK','OK:{}');
+				return true;
+				}
+			    SaveData(); UpdateView();
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Caption="删除" Key="Delete" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+			Confirm('是否确定删除当前单据？','YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});
+			
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Caption="作废" Key="ToCancel" RefKey="ToCancel"/>
+        <Operation Caption="撤销作废" Key="ToCancel-R" RefKey="ToCancel-R"/>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+        <Operation Key="Finish" Caption="完成" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Confirm('确定要将当前记录进行完成吗？','YES_NO',{YES:{Status=StatusValue('finished');SaveData();UpdateView();},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="FinishR" Caption="撤销完成" Enable="ReadOnly()&amp;&amp;Status==StatusValue('finished')">
+            <Action>
+                <![CDATA[Confirm('确定要将当前记录进行撤销完成吗？','YES_NO',{YES:{Status=StatusValue('prepared');SaveData();UpdateView();},NO:{}});]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Caption="根面板" Key="root">
+                <ToolBar Caption="ToolBar1" Height="pref" Key="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Caption="基本信息" Key="first_head" Padding="5px">
+                            <TextEditor AsQuery="true" BuddyKey="Lab_NoticeNo" Caption="安检单号" Enable="false" Key="NoticeNo" X="1" Y="0">
+                                <DataBinding ColumnKey="No" TableKey="LRP_TruckCheck_H"/>
+                            </TextEditor>
+                            <Label Caption="安检单号" Key="Lab_NoticeNo" X="0" Y="0"/>
+                            <Dict Key="FleetId" Caption="车队" BuddyKey="Lab_FleetId" X="4" Y="0" Enable="!ReadOnly()" ItemKey="LRP_Fleet">
+                                <DataBinding Required="true" ColumnKey="FleetId" TableKey="LRP_TruckCheck_H">
+                                    <ValueChanging>
+                                        <![CDATA[   ]]>
+                                    </ValueChanging>
+                                </DataBinding>
+                            </Dict>
+                            <Label Key="Lab_FleetId" Caption="车队" X="3" Y="0"/>
+                            <TextEditor Key="LicenseNo" Caption="车牌号" BuddyKey="Lab_LicenseNo" X="1" Y="1" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="LicenseNo" DefaultFormulaValue="GetDictValue(&quot;LRP_Truck&quot;, TruckId, &quot;LicenseNo&quot;);" TableKey="LRP_TruckCheck_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_LicenseNo" Caption="车牌号" X="0" Y="1"/>
+                            <ComboBox BuddyKey="Lab_Status" Caption="状态" Enable="false" Key="Status" SourceType="Status" X="7" Y="2">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_TruckCheck_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Caption="状态" Key="Lab_Status" X="6" Y="2"/>
+                            <DatePicker Key="CheckDate" Caption="安检日期" BuddyKey="Lab_CheckDate" X="4" Y="1" Enable="!ReadOnly()">
+                                <DataBinding Required="true" ColumnKey="CheckDate" TableKey="LRP_TruckCheck_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_CheckDate" Caption="安检日期" X="3" Y="1"/>
+                            <Dict Key="TruckId" Caption="车辆" BuddyKey="Lab_TruckId" X="7" Y="0" Enable="!ReadOnly()" Visible="true" ItemKey="LRP_Truck">
+                                <DataBinding Required="true" ColumnKey="TruckId" TableKey="LRP_TruckCheck_H"/>
+                                <ItemFilter ItemKey="LRP_Truck">
+                                    <Filter Query="select  t.oid from LRP_Truck t join LRP_Fleet f on t.FleetId=f.oid where f.oid=?" Type="DataSet">
+                                        <FilterValue DataType="Long" ParaValue="FleetId" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_TruckId" Caption="车辆" X="6" Y="0"/>
+                            <TextEditor BuddyKey="Lab_Remark" Caption="备注" Enable="!ReadOnly()" Key="Remark" X="1" XSpan="4" Y="2">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_TruckCheck_H"/>
+                            </TextEditor>
+                            <Label Caption="备注" Key="Lab_Remark" X="0" Y="2"/>
+                            <ComboBox Key="Result" Caption="安检结果" BuddyKey="Lab_Result" X="7" Y="1">
+                                <DataBinding ColumnKey="Result" TableKey="LRP_TruckCheck_H"/>
+                                <Item Caption="未通过" Key="0" Value="0"/>
+                                <Item Caption="通过" Key="1" Value="1"/>
+                            </ComboBox>
+                            <Label Key="Lab_Result" Caption="安检结果" X="6" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="99px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_TruckCheck_H"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TruckCheck_H"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TruckCheck_H"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_TruckCheck_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="4" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="50%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel2" Height="pref" Key="TabPanel2">
+                        <Grid Caption="安检明细" Key="Grid0">
+                            <GridColumnCollection>
+                                <GridColumn Key="CheckItemId" Caption="安检项目" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Inspector" Caption="检查员" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_TruckCheck_L">
+                                    <GridCell Key="CheckItemId" Caption="安检项目" CellType="Dict" ItemKey="LRP_CheckItem">
+                                        <DataBinding Required="true" ColumnKey="CheckItemId"/>
+                                    </GridCell>
+                                    <GridCell Key="Inspector" Caption="检查员" CellType="TextEditor" MaxLength="8">
+                                        <DataBinding Required="true" ColumnKey="Inspector"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="155px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="BantchSerials" Caption="物料条码批量入库">
+    <DataSource/>
+    <QueryCollection>
+        <Query Description="查询扫描得储位" Key="QueryLocation">
+            <Statement>
+                <![CDATA[select OID,StoreroomId,StoreareaId from LRP_Location where Code=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+		<Query Description="从库存表中查询扫入条码对应的库存记录" Key="QueryPackingMaterialQuant">
+            <Statement>
+                <![CDATA[select m.Name as MaterialName,m.PreCool,m.Discharging,m.DischargingOverTime,q.PackingMaterialId,q.MaterialBarCode,q.RecvDate,q.StoreroomId,q.StoreareaId,q.LocationId from LRP_PackingMaterialQuant q join LRP_PackingMaterial m on q.PackingMaterialID = m.oid where q.OnhandQty > 0 and q.LocationId=?]]>
+            </Statement>
+            <ParameterCollection>
+				<Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body PopHeight="120px" PopWidth="600px">
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板" Height="pref" Width="pref">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <NumberEditor BuddyKey="Lab_Start" Caption="起始" Enable="True" Scale="0" Key="Start" X="2" Y="0">
+						<DataBinding DefaultValue="1"/>
+					</NumberEditor>
+					<Label Caption="起始" Key="Lab_Start" X="1" Y="0"/>
+					<NumberEditor BuddyKey="Lab_Count" Caption="数量" Enable="True" Scale="0" Key="Count" X="4" Y="0">
+                    </NumberEditor>
+					<Label Caption="数量" Key="Lab_Count" X="3" Y="0"/>
+					
+                    <Button Key="OK" Caption="确定" X="1" XSpan="2" Y="1">
+                        <OnClick>
+                            <![CDATA[
+								if(Start <= 0){	
+									Confirm('物料条码起始必须大于0','OK','OK:{}');	
+									return true;
+								}
+								if(Count <= 0){	
+									Confirm('物料条码数量必须大于0','OK','OK:{}');	
+									return true;
+								}
+								
+								//生成对应的序列号
+								var dt=InvokeService('LRP_GetPackingBatchSerials',false,false,Start,Count);
+
+								//检查扫入的条码是否已存在
+								dt.beforefirst();
+								while(dt.next()){
+									
+									var count = Parent.GetRowCount('Grid0');
+									var i = 0;
+									while ( i < count ) {
+										if(Parent.GetCellValue('Grid0',i,"MaterialBarCode") == dt.MaterialBarCode){
+											i = i + 1;
+											Confirm('生成的物料条码'+dt.MaterialBarCode+'与第'+i+'条记录相同，插入失败，请检查物料条码起始和数量','OK','OK:{}');
+											return true;
+										}
+										i = i + 1;
+									}
+								}
+								
+								dt.beforefirst();
+								while(dt.next()){
+									//逐行新增入库记录
+									var index = Parent.InsertRow('Grid0',-1);
+									Parent.SetCellValue('Grid0', index,'MaterialId',Parent.GetValue('CurMaterial'));
+									Parent.SetCellValue('Grid0', index,'MaterialBarCode',dt.MaterialBarCode);
+									Parent.SetCellValue('Grid0', index,'Qty',1);
+									Parent.SetCellValue('Grid0', index,'StoreroomId',Parent.GetValue('CurStoreroomId'));
+									Parent.SetCellValue('Grid0', index,'StoreareaId',Parent.GetValue('CurStoreareaId'));
+									Parent.SetCellValue('Grid0', index,'LocationId',Parent.GetValue('CurLocation'));
+									
+									//为汇总界面添加记录
+									var b = false;
+									count = Parent.GetRowCount('Grid_Sum');
+									i = 0;
+									while ( i < count ) {
+										if(Parent.GetCellValue('Grid_Sum',i,"MaterialId_Sum") == Parent.GetValue('CurMaterial')
+										&& Parent.GetCellValue('Grid_Sum',i,"LocationId_Sum") == Parent.GetValue('CurLocation')){
+											Parent.SetCellValue('Grid_Sum', i,'Qty_Sum',Parent.GetCellValue('Grid_Sum',i,"Qty_Sum") +1);
+											b = true;
+											break;													
+										}
+										i = i + 1;
+									}
+									if(!b){
+										//添加一条汇总记录
+										var index1 = Parent.InsertRow('Grid_Sum',-1);
+										Parent.SetCellValue('Grid_Sum', index1,'MaterialId_Sum',Parent.GetValue('CurMaterial'));
+										Parent.SetCellValue('Grid_Sum', index1,'Qty_Sum',1);
+										Parent.SetCellValue('Grid_Sum', index1,'StoreroomId_Sum',Parent.GetValue('CurStoreroomId'));
+										Parent.SetCellValue('Grid_Sum', index1,'StoreareaId_Sum',Parent.GetValue('CurStoreareaId'));
+										Parent.SetCellValue('Grid_Sum', index1,'LocationId_Sum',Parent.GetValue('CurLocation'));
+									}
+									Parent.SetFocus('EnterMaterialBarCode',true);
+								}
+								Close();
+							]]>
+                        </OnClick>
+                    </Button>
+					<Button Key="Cancel" Caption="取消" X="3" XSpan="2" Y="1">
+                        <OnClick>
+                            <![CDATA[Close();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowHeight="30" RowGap="6">
+                        <RowDef/>
+                        <RowDef/>
+                        <RowDef/>
+                        <RowDef/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="20">
+                        <ColumnDef Width="30px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="30px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

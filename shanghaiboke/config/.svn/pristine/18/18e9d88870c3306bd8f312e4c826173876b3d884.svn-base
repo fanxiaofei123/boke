@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Flight_Plan" Caption="航班计划" FormType="View">
+    <DataSource>
+        <DataObject Key="CHCS_Flight_Plan" Caption="航班计划" PrimaryTableKey="CHCS_Flight_Plan">
+            <TableCollection>
+                <Table Key="CHCS_Flight_Plan" Caption="航班计划" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="FLIGHT_ID" Caption="FLIGHT_ID" DataType="Long"/>
+                    <Column Key="FLIGHT_DATE" Caption="航班日期" DataType="DateTime"/>
+                    <Column Key="FLIGHT_TYPE" Caption="航班类型" DataType="Varchar"/>
+                    <Column Key="FLIGHT_NO" Caption="航班号" DataType="Varchar"/>
+                    <Column Key="AC_TYPE" Caption="机型" DataType="Varchar"/>
+                    <Column Key="AC_REG" Caption="机号" DataType="Varchar"/>
+                    <Column Key="DEPARTURE_AIRPORT" Caption="起飞机场" DataType="Varchar"/>
+                    <Column Key="ARRIVAL_AIRPORT" Caption="目的机场" DataType="Varchar"/>
+                    <Column Key="STD" Caption="计飞" DataType="DateTime"/>
+                    <Column Key="STA" Caption="计达" DataType="DateTime"/>
+                    <Column Key="AC_LINK_LINE" Caption="飞机联线" DataType="Varchar"/>
+                    <Column Key="CREW_LINK_LINE" Caption="机组联线" DataType="Numeric" Precision="16" Scale="0"/>
+                    <Column Key="DTT" Caption="计划飞行时长" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Statement>
+                        <![CDATA[SELECT
+        FLIGHT_ID,
+	FLIGHT_DATE,
+	FLIGHT_TYPE,
+	FLIGHT_NO,
+	AC_TYPE,
+	AC_REG,
+	DEPARTURE_AIRPORT,
+	ARRIVAL_AIRPORT,
+	STD,
+	STA,
+	AC_LINK_LINE,
+	CREW_LINK_LINE,
+	round((UNIX_TIMESTAMP(STA) - UNIX_TIMESTAMP(STD)) / 60) AS DTT
+FROM
+	chcs_flight_plan]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <FlowLayoutPanel Caption="FlowLayoutPanel1" Key="FlowLayoutPanel1" Height="100%">
+                        <GridLayoutPanel Key="first_head" Padding="5px" Height="100%" Caption="基本信息">
+                            <DatePicker Key="FLIGHT_DATE_S" Caption="航班计划日期 从" BuddyKey="Lab_FLIGHT_DATE_S" X="1" Y="0" OnlyDate="true">
+                                <Condition ColumnKey="FLIGHT_DATE" TableKey="CHCS_Flight_Plan" CondSign="between" Group="FLIGHT_DATE" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_FLIGHT_DATE_S" Caption="航班计划日期 从" X="0" Y="0"/>
+                            <DatePicker Key="FLIGHT_DATE_E" Caption="航班计划日期 止" BuddyKey="Lab_FLIGHT_DATE_E" X="4" Y="0" OnlyDate="true">
+                                <Condition ColumnKey="FLIGHT_DATE" TableKey="CHCS_Flight_Plan" CondSign="between" Group="FLIGHT_DATE" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_FLIGHT_DATE_E" Caption="航班计划日期 止" X="3" Y="0"/>
+                            <TextEditor Key="AC_LINK_LINE_H" Caption="飞机联线号" BuddyKey="Lab_AC_LINK_LINE_H" X="1" Y="1">
+                                <Condition ColumnKey="AC_LINK_LINE" TableKey="CHCS_Flight_Plan" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_AC_LINK_LINE_H" Caption="飞机联线号" X="0" Y="1"/>
+                            <NumberEditor Key="CREW_LINK_LINE_H" Caption="机组联线号" BuddyKey="Lab_CREW_LINK_LINE_H" X="1" Y="2" Format="">
+                                <Condition ColumnKey="CREW_LINK_LINE" TableKey="CHCS_Flight_Plan" CondSign="like"/>
+                            </NumberEditor>
+                            <Label Key="Lab_CREW_LINK_LINE_H" Caption="机组联线号" X="0" Y="2"/>
+                            <TextEditor Key="DEPARTURE_AIRPORT_H" Caption="起飞站" BuddyKey="Lab_DEPARTURE_AIRPORT_H" X="4" Y="1">
+                                <Condition ColumnKey="DEPARTURE_AIRPORT" TableKey="CHCS_Flight_Plan" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_DEPARTURE_AIRPORT_H" Caption="起飞站" X="3" Y="1"/>
+                            <TextEditor Key="FLIGHT_NO_H" Caption="航班号" BuddyKey="Lab_FLIGHT_NO_H" X="7" Y="0">
+                                <Condition ColumnKey="FLIGHT_NO" TableKey="CHCS_Flight_Plan" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_FLIGHT_NO_H" Caption="航班号" X="6" Y="0"/>
+                            <TextEditor Key="ARRIVAL_AIRPORT_H" Caption="到达站" BuddyKey="Lab_ARRIVAL_AIRPORT_H" X="7" Y="1">
+                                <Condition ColumnKey="ARRIVAL_AIRPORT" TableKey="CHCS_Flight_Plan" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_ARRIVAL_AIRPORT_H" Caption="到达站" X="6" Y="1"/>
+                            <TextEditor Key="FLIGHT_TYPE_H" Caption="航班类型" BuddyKey="Lab_FLIGHT_TYPE_H" X="4" Y="2">
+                                <Condition ColumnKey="FLIGHT_TYPE" TableKey="CHCS_Flight_Plan" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_FLIGHT_TYPE_H" Caption="航班类型" X="3" Y="2"/>
+                            <Button Key="Query" Caption="查询" X="9" Y="0">
+                                <OnClick>
+                                    <![CDATA[DealCondition();LoadData();ShowData();]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="Cancel" Caption="重置" X="9" Y="1">
+                                <OnClick>
+                                    <![CDATA[ResetCondition();]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="132px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="135px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlowLayoutPanel>
+                    <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="CHCS_Flight_Plan">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="CreateMealsPlan" Caption="生成配餐计划" ColumnType="Button">
+                                <OnClick>
+                                    <![CDATA[var resp = InvokeService("CreateMealsPlan", true, false, FLIGHT_TYPE, FLIGHT_NO, AC_TYPE, AC_REG, STD, STA, DTT, DEPARTURE_AIRPORT, ARRIVAL_AIRPORT, FLIGHT_ID);
+var state = NewJSONObject("{0:'超出自动配餐范围',1:'没有适合的规则',2:'配餐失败',3:'该航班已有配餐计划'}");
+if(resp>1000){
+    Open("CHCS_Meals_Provide_P", resp);
+}else{
+    Confirm(state.get(ToString(resp)));
+}]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="FLIGHT_ID" Caption="FLIGHT_ID" ColumnType="NumberEditor" DataColumnKey="FLIGHT_ID" Visible="false" Format="" IntegerValue="true"/>
+                            <ListViewColumn Key="FLIGHT_TYPE" Caption="航班类型" ColumnType="TextEditor" DataColumnKey="FLIGHT_TYPE"/>
+                            <ListViewColumn Key="FLIGHT_DATE" Caption="航班日期" ColumnType="DatePicker" DataColumnKey="FLIGHT_DATE" Width="99px" OnlyDate="true"/>
+                            <ListViewColumn Key="FLIGHT_NO" Caption="航班号" ColumnType="TextEditor" DataColumnKey="FLIGHT_NO"/>
+                            <ListViewColumn Key="AC_TYPE" Caption="机型" ColumnType="TextEditor" DataColumnKey="AC_TYPE"/>
+                            <ListViewColumn Key="AC_REG" Caption="机号" ColumnType="TextEditor" DataColumnKey="AC_REG"/>
+                            <ListViewColumn Key="STD" Caption="计划起飞时间" ColumnType="DatePicker" DataColumnKey="STD" Width="175px"/>
+                            <ListViewColumn Key="STA" Caption="计划到达时间" ColumnType="DatePicker" DataColumnKey="STA" Width="167px"/>
+                            <ListViewColumn Key="DTT" Caption="计划飞行时长" ColumnType="NumberEditor" DataColumnKey="DTT" Width="141px" Format="" IntegerValue="true" Scale="0"/>
+                            <ListViewColumn Key="DEPARTURE_AIRPORT" Caption="起飞机场" ColumnType="TextEditor" DataColumnKey="DEPARTURE_AIRPORT"/>
+                            <ListViewColumn Key="ARRIVAL_AIRPORT" Caption="目的机场" ColumnType="TextEditor" DataColumnKey="ARRIVAL_AIRPORT"/>
+                            <ListViewColumn Key="AC_LINK_LINE" Caption="飞机联线" ColumnType="TextEditor" DataColumnKey="AC_LINK_LINE"/>
+                            <ListViewColumn Key="CREW_LINK_LINE" Caption="机组联线" ColumnType="NumberEditor" DataColumnKey="CREW_LINK_LINE" Format="" IntegerValue="true" Scale="0"/>
+                        </ListViewColumnCollection>
+                    </ListView>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="应收发票引入对账单" Key="Statement-InvoiceReceiveable" SrcDataObjectKey="LRP_QuoteStatement" TgtDataObjectKey="LRP_InvoiceReceiveable">
+    <SourceTableCollection Height="240" Width="289" X="30" Y="30">
+        <SourceTable Key="LRP_QuoteStatement" TableKey="LRP_QuoteStatement" TargetTableKey="LRP_IncomeStatement_L_Show" IsPrimary="true">
+            <SourceField Definition="No" TargetFieldKey="StatementNo" TargetTableKey="LRP_IncomeStatement_L_Show"/>
+            <SourceField Definition="IncomeId" TargetFieldKey="StatementIncomeId" TargetTableKey="LRP_IncomeStatement_L_Show"/>
+            <SourceField Definition="OrderDate" TargetFieldKey="StatementDate" TargetTableKey="LRP_IncomeStatement_L_Show"/>
+            <SourceField Definition="AdjustAmount" TargetFieldKey="StatementMoney" TargetTableKey="LRP_IncomeStatement_L_Show"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="240" Width="356" X="350" Y="29">
+        <TargetTable Key="LRP_IncomeStatement_L_Show" TableKey="LRP_IncomeStatement_L_Show">
+            <TargetField Definition="StatementNo"/>
+            <TargetField Definition="StatementIncomeId"/>
+            <TargetField Definition="StatementDate"/>
+            <TargetField Definition="StatementMoney"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

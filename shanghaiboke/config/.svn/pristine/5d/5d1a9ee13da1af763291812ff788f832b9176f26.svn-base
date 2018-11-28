@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="包装出库单" Key="LRP_PackingOutbound" NoPrefix="PO" PrimaryTableKey="LRP_PackingOutbound_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="包装出库单头" Key="LRP_PackingOutbound_H" SourceType="DataObject">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+            <Column Caption="出库时间" DataType="DateTime" Key="OutboundDateTime"/>
+			<Column Caption="完成释冷时间" DataType="DateTime" Key="DischargEndDateTime"/>
+			<Column Caption="完成时间" DataType="DateTime" Key="FinishDateTime"/>
+			<Column Caption="始发地" DataType="Long" Key="SendCityId"/>
+            <Column Caption="始发地最高温度" DataType="Numeric" Key="SendMaxTemp" Precision="16" Scale="2"/>
+            <Column Caption="始发地最低温度" DataType="Numeric" Key="SendMinTemp" Precision="16" Scale="2"/>
+			<Column Caption="目的地" DataType="Long" Key="DestCityId"/>
+            <Column Caption="目的地最高温度" DataType="Numeric" Key="DestMaxTemp" Precision="16" Scale="2"/>
+            <Column Caption="目的地最低温度" DataType="Numeric" Key="DestMinTemp" Precision="16" Scale="2"/>
+            <Column Caption="货物数量" DataType="Integer" DefaultValue="0" Key="MaterialQty"/>           
+            <Column Caption="包装数量" DataType="Integer" DefaultValue="0" Key="PackingQty"/>           
+            <Column Caption="每包装单位数量" DataType="Integer" DefaultValue="2" Key="PackingUnitQty"/>           
+            <Column Caption="完成包装数量" DataType="Integer" DefaultValue="0" Key="FinishedPackingQty"/>  
+			<Column Caption="包装方案" DataType="Long" Key="PackingStrategyId"/>
+            <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>  
+            <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+            <Column Key="MaterialTypeID" Caption="对应的物料类型" DataType="Long"/>
+			<Column Caption="来源" DataType="Integer" Key="SourceType" DefaultValue="0"/>
+        </Table>
+        <Table Caption="包装出库单物料明细汇总" Key="LRP_PackingOutbound_Sum_L" TableMode="Detail" SourceType="DataObject">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="序号" Key="SEQUENCE" DataType="Integer"/>
+            <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+            <Column Caption="数量" DataType="Numeric" DefaultValue="0" Precision="18" Scale="6" Key="Qty"/>  
+            <Column Caption="已出库数量" DataType="Numeric" DefaultValue="0" Precision="18" Scale="6"  Key="OutboundQty"/> 
+            <Column Caption="已使用数量" DataType="Numeric" DefaultValue="0" Precision="18" Scale="6"  Key="FinishedQty"/> 
+        </Table>
+		<Table Caption="包装出库单物料明细" Key="LRP_PackingOutbound_L" TableMode="Detail" SourceType="DataObject">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="序号" Key="SEQUENCE" DataType="Integer"/>
+            <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+			<Column Caption="物料条码" DataType="Varchar" Key="MaterialBarCode" Length="100"/>
+            <Column Caption="数量" DataType="Integer" DefaultValue="0" Key="Qty"/>            
+            <Column Caption="仓间" DataType="Long" Key="StoreroomId"/>
+            <Column Caption="库区" DataType="Long" Key="StoreareaId"/>
+            <Column Caption="储位" DataType="Long" Key="LocationId"/>
+			<Column Caption="入库时间" DataType="DateTime" Key="InboundDateTime"/>
+			<Column Caption="出库时间" DataType="DateTime" Key="OutboundDateTime"/>
+			<Column Caption="完成释冷时间" DataType="DateTime" Key="DischargEndDateTime"/>
+			<Column Caption="状态" DataType="Integer" Key="Status"/>
+			<Column Caption="来源" DataType="Integer" Key="SourceType" DefaultValue="0"/>
+        </Table>
+		<Table Caption="包装出库单已使用物料明细" Key="LRP_PackingFinish_L" TableMode="Detail" SourceType="DataObject">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="序号" Key="SEQUENCE" DataType="Integer"/>
+            <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+			<Column Caption="物料条码" DataType="Varchar" Key="MaterialBarCode" Length="100"/>
+            <Column Caption="数量" DataType="Integer" DefaultValue="0" Key="Qty"/>            
+            <Column Caption="仓间" DataType="Long" Key="StoreroomId"/>
+            <Column Caption="库区" DataType="Long" Key="StoreareaId"/>
+            <Column Caption="储位" DataType="Long" Key="LocationId"/>
+			<Column Caption="入库时间" DataType="DateTime" Key="InboundDateTime"/>
+			<Column Caption="出库时间" DataType="DateTime" Key="OutboundDateTime"/>
+        </Table>
+		<Table Caption="包装出库单包装方案物料明细" Key="LRP_POStrategy_L" TableMode="Detail" SourceType="DataObject">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="序号" Key="SEQUENCE" DataType="Integer"/>
+            
+			<Column Caption="物料" DataType="Long" Key="MaterialId"/>
+			<Column Caption="物料名称" DataType="Varchar" Key="MaterialName" Length="100"/>
+            <Column Caption="数量" DataType="Numeric" Precision="18" Scale="3" DefaultValue="0" Key="Qty"/>       
+            <Column Caption="已使用数量" DataType="Numeric" Precision="18" Scale="3" DefaultValue="0" Key="FinishQty"/> 
+            <Column Caption="预冷时间" DataType="Numeric" Precision="16" Scale="2" Key="PreCool"/> 
+            <Column Caption="释冷时间" DataType="Numeric" Precision="16" Scale="2" Key="Discharging"/> 
+            <Column Caption="释冷超时" DataType="Numeric" Precision="16" Scale="2" Key="DischargingOverTime"/> 
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

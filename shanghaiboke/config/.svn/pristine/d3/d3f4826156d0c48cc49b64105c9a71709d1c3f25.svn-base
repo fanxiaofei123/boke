@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="点餐管理" Key="MealManagementCustomBill">
+        <EntryItem Caption="旅客点餐单" FormKey="CHCS_Passenger_Meal_OrderView" Key="CHCS_Passenger_Meal_OrderView" Type="Form"/>
+    </Entry>
+</Entry>

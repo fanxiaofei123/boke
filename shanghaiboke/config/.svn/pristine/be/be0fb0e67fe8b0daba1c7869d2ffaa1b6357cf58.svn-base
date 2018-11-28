@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <L_CubageLimit>VolumeLimit</L_CubageLimit>
+        <L_CubageLimitUnit>Unit</L_CubageLimitUnit>
+        <L_WeightLimitUnit>Unit</L_WeightLimitUnit>
+        <AllowPallet>AllowTray</AllowPallet>
+        <L_Code>Code</L_Code>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+        <L_Name>Name</L_Name>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <L_ABC>ABCClassification</L_ABC>
+        <L_DefaultPalletTypeId>DefaultTrayType</L_DefaultPalletTypeId>
+        <L_WeightLimit>LoadLimit</L_WeightLimit>
+        <SystemTab>SystemTab</SystemTab>
+        <BasicTab>BasicTab</BasicTab>
+        <L_PalletQtyLimit>TheMaximumNumberOfTrays</L_PalletQtyLimit>
+    </UI>
+    <Items-ABC分类>
+        <A>fast</A>
+        <B>normal</B>
+        <C>slow</C>
+    </Items-ABC分类>
+    <Tip>
+        <Code>CanNotBeEmpty</Code>
+        <Name>CanNotBeEmpty</Name>
+    </Tip>
+    <Items-ABC>
+        <Item-A>Fast</Item-A>
+        <Item-C>Slow</Item-C>
+        <Item-B>Ordinary</Item-B>
+    </Items-ABC>
+</StringTable>

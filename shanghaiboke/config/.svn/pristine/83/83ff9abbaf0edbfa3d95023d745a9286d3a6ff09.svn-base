@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="TransportJobAttach" FormType="Entity">
+    <DataSource RefObjectKey="LRP_TransportJob"/>
+    <OperationCollection>
+        <Operation Key="Task" Caption="拍照" Visible="True">
+            <Action>
+                <![CDATA[TakePhoto('logo',true,'TransportJobAttach',GetOperator(),true);
+						
+   var uri= GetValue('logo');
+    if(uri<>null){
+        var rowIndex= InsertRow('ListView1',0);
+        SetCellValue('ListView1', rowIndex,'AttachmentURL', uri);
+      }]]>
+            </Action>
+        </Operation>
+        <Operation Key="Choose" Caption="我的相册" Visible="True">
+            <Action>
+                <![CDATA[SelectPhoto('logo',true,'TransportJobAttach',GetOperator(),true);
+   var uri= GetValue('logo');
+    if(uri<>null){
+        var rowIndex= InsertRow('ListView1',0);
+        SetCellValue('ListView1', rowIndex,'AttachmentURL', uri);
+      }]]>
+            </Action>
+        </Operation>
+        <!-- <OperationCollection Key="Delete" Visible="False">
+            <Operation Key="DeleteP" Caption="删除">
+                <Action>
+                    <![CDATA[DeleteRow('ListView1',-1);]]>
+                </Action>
+            </Operation>
+        </OperationCollection> -->
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <LinearLayoutPanel Key="opt_panel" X="0" Y="1" Orientation="Horizontal" BorderStyle="solid none">
+                    <Button Key="order" Caption="确认" Enable="True" Width="pref" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="20"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+							SaveData();Close();
+							]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel1" Padding="5px" Caption="GridLayoutPanel1" X="0" Y="0" Margin="5px">
+                    <ListView Caption="ListView1" Key="ListView1" Enable="true" TableKey="AttachmentURL" X="1" Y="0" XSpan="2" Margin="5px" Padding="5px" RowHeight="220">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="AttachmentURL" Enable="true" Caption="图片" ColumnType="Image" DataColumnKey="AttachmentURL" Width="150px" Stretch="true" ImageScaleType="Fit_XY" ViewMode="Pop" ViewOpt="true" MaxSize="200">
+                                <OnClick>
+                                    <![CDATA[
+											var row = GetRowIndex('ListView1');
+											ShowConfirm('是否删除该图片?', 'YES_NO', 
+												{YES: { 
+                                                    DeleteRow('ListView1',row);
+													ShowToast('已删除');
+												}, 
+												NO: {}});
+												
+													]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="Blank"/>
+                        </ListViewColumnCollection>
+                        <RowClick>
+                            <![CDATA[]]>
+                        </RowClick>
+                        <!-- <ListViewRow SeparatorColor="#cccccc" SeparatorStyle="none none solid none " TopMargin="5px">
+                            <RowActionCollection>
+                                <RowAction Caption="删除" Key="Delete">
+                                     <![CDATA[
+											var row = GetRowIndex('ListView1');
+											ShowConfirm('是否删除该图片?', 'YES_NO', 
+												{YES: { 
+                                                    DeleteRow('ListView1',row);
+													ShowToast('已删除');
+												}, 
+												NO: {}});
+												
+													]]>
+                                </RowAction>
+                            </RowActionCollection>
+                        </ListViewRow> -->
+                    </ListView>
+                    <Image Key="logo" Caption="Image1" X="0" Y="0" Visible="false"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="30px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="30px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="50px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="ListView1">
+                    <GridLayout Key="ListView1">
+                        <LayoutSpan Key="AttachmentURL" X="1" Y="1"/>
+                        <LayoutSpan Key="Blank" X="0" Y="2" XSpan="3"/>
+                        <RowDefCollection>
+                            <RowDef Height="10px"/>
+                            <RowDef Height="200px"/>
+                            <RowDef Height="10px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="10px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="签收信息" Location="Center">
+            <Label Key="TitleCenter" Caption="签收拍照" Width="100%">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+        <RightButton>
+            <![CDATA[PopMenu('', '', '')]]>
+        </RightButton>
+    </NavigationBar>
+</Form>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="凭证类型" Key="VoucherType" PrimaryTableKey="BK_VoucherType" PrimaryType="Entity"  SecondaryType="Dict">
+	<TableCollection>
+                <Table Caption="凭证类型" DBTableName="BK_VoucherType" Key="BK_VoucherType">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+                    <Column Caption="父节点" DataType="Long" Key="ParentID"/>
+                    <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+                    <Column Caption="冲销凭证类型" DataType="Long" Key="ReverseVoucherTypeID"/>
+		    <Column Caption="供应商或客户检查" DataType="Integer" Key="IsCustormerOrVenderCheck" Length="1"/>
+		    <Column Caption="默认汇率类型" DataType="Long" Key="DefaultExchRateTypeID"/>
+		    <Column Caption="允许负数记账" DataType="Integer" Key="IsNegativePost" Length="1"/>
+		    <Column Caption="公司间凭证" DataType="Integer" Key="IsInterCompanyPosts" Length="1"/>
+		    <Column Caption="简称" DataType="varchar" Key="ShortName" Length="100"/>
+		    <Column Caption="资产" DataType="Integer" Key="IsAllowAssets" Length="1"/>
+		    <Column Caption="客户" DataType="Integer" Key="IsAllowCustomer" Length="1"/>
+		    <Column Caption="供应商" DataType="Integer" Key="IsAllowVendor" Length="1"/>
+		    <Column Caption="物料" DataType="Integer" Key="IsAllowMaterial" Length="1"/>
+		    <Column Caption="总账科目" DataType="Integer" Key="IsAllowGLAccount" Length="1"/>
+		    <Column Caption="净值凭证类型" DataType="Integer" Key="IsNetDocumentType" Length="1"/>
+		    <Column Caption="输入贸易伙伴" DataType="Integer" Key="IsEnterTradingPartner" Length="1"/>
+                </Table>
+	</TableCollection>
+</DataObject>

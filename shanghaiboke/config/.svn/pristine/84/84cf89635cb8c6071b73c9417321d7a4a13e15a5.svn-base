@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_AbsenceRequestView-Abbr>AbsenceRequestView</V_AbsenceRequestView-Abbr>
+		
+        <L_No>No</L_No>
+        <L_DriverId>DriverId</L_DriverId>
+        <L_AbsenceType>AbsenceType</L_AbsenceType>
+        <Lab_Status_c>Status</Lab_Status_c>
+        <L_StartDate>StartDate</L_StartDate>
+		<L_EndDate_1>EndDate</L_EndDate_1>
+		<Lab_AddOrReduce>AddOrReduce</Lab_AddOrReduce>
+        <Lab_Expire>Expire</Lab_Expire>
+        <Lab_ExpireUnit>ExpireUnit</Lab_ExpireUnit>
+		<Lab_Remarks>Remarks</Lab_Remarks>
+    </UI>
+	<ListViewColumn>
+		<OID>OID</OID>
+		<Select>Select</Select>
+		<Status>Status</Status>
+		<No>No</No>
+		<DriverId>DriverId</DriverId>
+		<StartDate>StartDate</StartDate>
+		<EndDate>EndDate</EndDate>
+		<Days>Days</Days>
+		<AbsenceType>AbsenceType</AbsenceType>
+		<AbsenceReason>AbsenceReason</AbsenceReason>
+	</ListViewColumn>
+	
+    <Items-AbsenceType_C>
+	   <Item-0>Compassionate leave</Item-0>
+	   <Item-1>sick leave</Item-1>
+	   <Item-2>Annual leave</Item-2>
+	   <Item-3>Marriage holiday</Item-3>
+	   <Item-4>maternity leave</Item-4>
+	   <Item-5>Nursing leave</Item-5>
+	   <Item-6>Bereavement</Item-6>
+	   <Item-7>Make up for fake</Item-7>
+	   <Item-8>Other</Item-8>
+	</Items-AbsenceType_C>
+	
+</StringTable>

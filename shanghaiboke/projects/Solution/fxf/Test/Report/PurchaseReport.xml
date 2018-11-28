@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Report Caption="采购打印模板" FormKey="Purchase" Key="PurchaseReport" PageHeight="842" PageID="A4" PageWidth="595" PaperHeight="842" PaperID="A4" PaperWidth="595" LeftMargin="20" RightMargin="50">
+    <DataSource>
+        <Table Key="PurchaseHead" Caption="头表1" SourceType="DataObject">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="单据编号" Key="NO"/>
+            <Field Caption="单据状态" Key="Status"/>
+            <Field Caption="单据日期" Key="BillDate"/>
+            <Field Caption="制单人" Description="保存人员" Key="Creator"/>
+            <Field Caption="制单日期" Key="CreateTime"/>
+            <Field Caption="修改人" Key="Modifier"/>
+            <Field Caption="修改时间" Key="ModifyTime"/>
+            <Field Caption="流程实例" Key="InstanceID"/>
+        </Table>
+        <Table Key="PurchaseDetail" Caption="明细表" SourceType="DataObject" DBTableKey="PurchaseDetail">
+            <Field Caption="对象标识" DBFieldKey="OID" Key="OID"/>
+            <Field Caption="父对象标识" DBFieldKey="POID" Key="POID"/>
+            <Field Caption="主对象标识" DBFieldKey="SOID" Key="SOID"/>
+            <Field Caption="对象版本" DBFieldKey="VERID" Key="VERID"/>
+            <Field Caption="对象明细版本" DBFieldKey="DVERID" Key="DVERID"/>
+            <Field Caption="序号" DBFieldKey="SEQUENCE" Key="Sequence"/>
+            <Field Caption="物料" Key="Material"/>
+            <Field Caption="数量" Key="Amount"/>
+            <Field Caption="已入库数量" Key="StocklnAmount"/>
+        </Table>
+    </DataSource>
+    <Grid>
+        <Section Type="Paragraph">
+            <Columns>
+                <Column Width="178"/>
+                <Column Width="255"/>
+                <Column Width="114"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell>
+                        <Display EncodingType="" ErrorCorrectionLevel="">
+                            <Font Bold="true" Name="System" Size="18"/>
+                            <Border BottomColor="#1a4d4d" BottomStyle="1" LeftColor="#1a4d4d" LeftStyle="1" RightColor="#1a4d4d" RightStyle="1" TopColor="#1a4d4d" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[单据编号]]>
+                        </CellText>
+                    </Cell>
+                    <Cell>
+                        <Display EncodingType="" ErrorCorrectionLevel="">
+                            <Font Bold="true" Name="System" Size="18"/>
+                            <Border BottomColor="#1a4d4d" BottomStyle="1" LeftColor="#1a4d4d" LeftStyle="1" RightColor="#1a4d4d" RightStyle="1" TopColor="#1a4d4d" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[单据日期]]>
+                        </CellText>
+                    </Cell>
+                    <Cell>
+                        <Display EncodingType="" ErrorCorrectionLevel="">
+                            <Font Bold="true" Name="System" Size="18"/>
+                            <Border BottomColor="#1a4d4d" BottomStyle="1" LeftColor="#1a4d4d" LeftStyle="1" RightColor="#1a4d4d" RightStyle="1" TopColor="#1a4d4d" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[单据状态]]>
+                        </CellText>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="单据编号" FieldKey="NO" Key="NO" SourceType="Field" TableKey="PurchaseHead">
+                        <Display EncodingType="" ErrorCorrectionLevel="">
+                            <Format/>
+                            <Border BottomColor="#1a4d4d" BottomStyle="1" LeftColor="#1a4d4d" LeftStyle="1" RightColor="#1a4d4d" RightStyle="1" TopColor="#1a4d4d" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[单据编号]]>
+                        </CellText>
+                    </Cell>
+                    <Cell Caption="单据日期" FieldKey="BillDate" Key="BillDate" SourceType="Field" TableKey="PurchaseHead">
+                        <Display EncodingType="" ErrorCorrectionLevel="">
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#1a4d4d" BottomStyle="1" LeftColor="#1a4d4d" LeftStyle="1" RightColor="#1a4d4d" RightStyle="1" TopColor="#1a4d4d" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[单据日期]]>
+                        </CellText>
+                    </Cell>
+                    <Cell Caption="单据状态" FieldKey="Status" Key="Status" SourceType="Field" TableKey="PurchaseHead">
+                        <Display EncodingType="" ErrorCorrectionLevel="">
+                            <Format DataType="List">
+                                <ListItem Text="初始" Value="0"/>
+                                <ListItem Text="审批中" Value="1"/>
+                                <ListItem Text="审批通过" Value="2"/>
+                                <ListItem Text="驳回" Value="-1"/>
+                            </Format>
+                            <Border BottomColor="#1a4d4d" BottomStyle="1" LeftColor="#1a4d4d" LeftStyle="1" RightColor="#1a4d4d" RightStyle="1" TopColor="#1a4d4d" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[单据状态]]>
+                        </CellText>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Type="Paragraph">
+            <Columns>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+                <Row Height="30">
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+                <Row Height="30">
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Type="Table">
+            <Columns>
+                <Column Width="288"/>
+                <Column Width="259"/>
+            </Columns>
+            <Rows>
+                <Row Height="30" Type="DetailHead">
+                    <Cell>
+                        <Display EncodingType="" ErrorCorrectionLevel="" ForeColor="#1a3399">
+                            <Font Bold="true" Name="System" Size="18"/>
+                            <Border BottomColor="#1a3399" BottomStyle="1" LeftColor="#1a3399" LeftStyle="1" RightColor="#1a3399" RightStyle="1" TopColor="#1a3399" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[物料]]>
+                        </CellText>
+                    </Cell>
+                    <Cell>
+                        <Display EncodingType="" ErrorCorrectionLevel="" ForeColor="#1a3399">
+                            <Font Bold="true" Name="System" Size="18"/>
+                            <Border BottomColor="#1a3399" BottomStyle="1" LeftColor="#1a3399" LeftStyle="1" RightColor="#1a3399" RightStyle="1" TopColor="#1a3399" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[数量]]>
+                        </CellText>
+                    </Cell>
+                </Row>
+                <Row Height="30" BackColor="0xffffffff" TableKey="PurchaseDetail" Type="Detail">
+                    <Cell Caption="物料" FieldKey="Material" Key="Material" SourceType="Field">
+                        <Display EncodingType="" ErrorCorrectionLevel="" ForeColor="#1a3399">
+                            <Format DataType="Dict" ItemKey="MaterialDict"/>
+                            <Border BottomColor="#1a3399" BottomStyle="1" LeftColor="#1a3399" LeftStyle="1" RightColor="#1a3399" RightStyle="1" TopColor="#1a3399" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[物料]]>
+                        </CellText>
+                    </Cell>
+                    <Cell Caption="数量" FieldKey="Amount" Key="Amount" SourceType="Field">
+                        <Display EncodingType="" ErrorCorrectionLevel="" ForeColor="#1a3399">
+                            <Format DataType="Number" FormatString="###.##"/>
+                            <Border BottomColor="#1a3399" BottomStyle="1" LeftColor="#1a3399" LeftStyle="1" RightColor="#1a3399" RightStyle="1" TopColor="#1a3399" TopStyle="1"/>
+                        </Display>
+                        <CellText>
+                            <![CDATA[数量]]>
+                        </CellText>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+    </Grid>
+</Report>

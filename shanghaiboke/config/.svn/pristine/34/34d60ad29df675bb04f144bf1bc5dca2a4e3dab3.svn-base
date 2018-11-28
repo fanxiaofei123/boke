@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="车辆" FormType="Dict" Key="V_Truck_LRP">
+    <DataSource RefObjectKey="LRP_Truck"/>
+    <UICheckRuleCollection>
+        <UICheckRule ErrorInfo="调度组织不能重复">
+            <![CDATA[
+				!CheckDuplicate("DispatchOrgId");
+			]]>
+        </UICheckRule>
+        <UICheckRule ErrorInfo="调度组织不能为空">
+            <![CDATA[
+				var returnvalue = false;
+				if(GetRowCount('Grid0',false)>0){ returnvalue = true;}
+				returnvalue;
+			]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <TextEditor Caption="代码" Key="Code" Tip="「代码」不可为空" X="1" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="LRP_Truck" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="名称" Key="Name" Tip="「名称」不可为空" X="6" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="LRP_Truck" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+                        <TextEditor Caption="车牌号" Key="LicenseNo" Tip="「车牌号」不可为空" X="1" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="LicenseNo" TableKey="LRP_Truck" Required="true"/>
+                        </TextEditor>
+                        <ComboBox Caption="所有权" Key="OwnershipType" X="6" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="OwnershipType" TableKey="LRP_Truck" DefaultValue="1"/>
+                            <Item Caption="自有" Key="1" Value="1"/>
+                            <Item Caption="挂靠" Key="2" Value="2"/>
+                            <Item Caption="社会" Key="3" Value="3"/>
+                        </ComboBox>
+                        <Label Caption="车牌号" Key="L_LicenseNo" X="0" Y="1"/>
+                        <Label Caption="所有权" Key="L_OwnershipType" X="5" Y="1"/>
+                        <TextEditor Caption="司机" Key="Driver" X="1" XSpan="3" Y="2">
+                            <DataBinding ColumnKey="Driver" TableKey="LRP_Truck"/>
+                        </TextEditor>
+                        <TextEditor Caption="司机手机" Key="DriverMobile" X="6" XSpan="3" Y="2">
+                            <DataBinding ColumnKey="DriverMobile" TableKey="LRP_Truck"/>
+                        </TextEditor>
+                        <Label Caption="司机" Key="L_Driver" X="0" Y="2"/>
+                        <Label Caption="司机手机" Key="L_DriverMobile" X="5" Y="2"/>
+                        <Dict Caption="车辆类型" ItemKey="LRP_TruckType" Tip="「车辆类型」不可为空" Key="TruckTypeId" X="1" XSpan="3" Y="3">
+                            <DataBinding ColumnKey="TruckTypeId" TableKey="LRP_Truck" Required="true"/>
+                        </Dict>
+                        <NumberEditor Caption="载重" Key="LoadWeight" Precision="15" Scale="3" X="6" XSpan="3" Y="3">
+                            <DataBinding ColumnKey="LoadWeight" TableKey="LRP_Truck"/>
+                        </NumberEditor>
+                        <Label Caption="车辆类型" Key="L_TruckTypeId" X="0" Y="3"/>
+                        <Label Caption="载重" Key="L_LoadWeight" X="5" Y="3"/>
+                        <TextEditor Caption="品牌型号" Key="BrandModel" X="6" XSpan="3" Y="4">
+                            <DataBinding ColumnKey="BrandModel" TableKey="LRP_Truck"/>
+                        </TextEditor>
+                        <NumberEditor Caption="容积" Key="LoadCubage" Precision="15" Scale="3" X="1" XSpan="3" Y="4">
+                            <DataBinding ColumnKey="LoadCubage" TableKey="LRP_Truck"/>
+                        </NumberEditor>
+                        <Label Caption="容积" Key="L_LoadCubage" X="0" Y="4"/>
+                        <Label Caption="品牌型号" Key="L_BrandModel" X="5" Y="4"/>
+                        <TextEditor Caption="发动机号" Key="EngineNo" X="1" XSpan="3" Y="5">
+                            <DataBinding ColumnKey="EngineNo" TableKey="LRP_Truck"/>
+                        </TextEditor>
+                        <TextEditor Caption="底盘号" Key="ChassisNo" X="6" XSpan="3" Y="5">
+                            <DataBinding ColumnKey="ChassisNo" TableKey="LRP_Truck"/>
+                        </TextEditor>
+                        <Label Caption="发动机号" Key="L_EngineNo" X="0" Y="5"/>
+                        <Label Caption="底盘号" Key="L_ChassisNo" X="5" Y="5"/>
+                        <TextEditor Caption="车架号" Key="VINNo" X="1" XSpan="3" Y="6">
+                            <DataBinding ColumnKey="VINNo" TableKey="LRP_Truck"/>
+                        </TextEditor>
+                        <ComboBox Caption="车辆状态" Key="TruckStatus" X="6" XSpan="3" Y="6">
+                            <DataBinding ColumnKey="TruckStatus" TableKey="LRP_Truck" DefaultValue="1"/>
+                            <Item Caption="可用" Key="1" Value="1"/>
+                            <Item Caption="维修中" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Caption="车架号" Key="L_VINNo" X="0" Y="6"/>
+                        <Label Caption="车辆状态" Key="L_TruckStatus" X="5" Y="6"/>
+                        <Dict Key="FleetId" Caption="所属车队" BuddyKey="Lab_FleetId" X="1" Y="7" XSpan="3" ItemKey="LRP_Fleet">
+                            <DataBinding ColumnKey="FleetId" TableKey="LRP_Truck"/>
+                        </Dict>
+                        <Label Key="Lab_FleetId" Caption="所属车队" X="0" Y="7"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_Truck"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Truck"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_Truck"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Truck"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                    <Grid Caption="允许调度组织明细" Key="Grid0">
+                        <GridColumnCollection>
+                            <GridColumn Caption="调度组织" Key="C_DispatchOrgId" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" TableKey="LRP_TruckDispatchOrg">
+                                <GridCell Caption="调度组织" CellType="Dict" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId">
+                                    <DataBinding ColumnKey="DispatchOrgId" Required="true"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+                <SplitSize Size="400px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

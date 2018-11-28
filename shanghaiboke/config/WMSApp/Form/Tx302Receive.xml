@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Tx302Receive" FormType="View">
+    <DataSource>
+        <DataObject Caption="" Key="Tx302Receive" PrimaryTableKey="Tx302Receive">
+            <TableCollection>
+                <Table Caption="领取补货任务" Key="Tx302Receive" SourceType="Query" TableMode="Detail" Persist="false">
+					<Column Caption="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="补货单号" DataType="Varchar" Key="No"/>
+                    <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="普通补货单创建日期时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo"/>
+					<Statement>
+                        <![CDATA[
+						select OID,No,OwnerId,CreateTime,OwnerNo from LRP_WMTx_H where WarehouseKeeperId=0 and Status=200 and TxTypeCode='302'
+						]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+			<GridLayoutPanel Key="root">
+				<ListView Key="listConfirm" Caption="补货任务" TableKey="Tx302Receive" RowHeight="60" ShowHead="false" X="0" Y="0">
+					<ListViewColumnCollection>
+						<ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" ColumnType="TextEditor" Visible="false"/>
+						<ListViewColumn Key="No" Caption="补货单号" DataColumnKey="No" ColumnType="TextEditor"/>
+						<ListViewColumn Key="OwnerId" Caption="货主" DataColumnKey="OwnerId" ColumnType="Dict" ItemKey="LRP_Owner"/>
+						<ListViewColumn Key="CreateTime" Caption="补货单创建日期时间" DataColumnKey="CreateTime" ColumnType="DatePicker">
+							<Format HAlign="Left"/>
+						</ListViewColumn>
+						<ListViewColumn Key="OwnerNo" Caption="货主单号" DataColumnKey="OwnerNo" ColumnType="TextEditor"/>
+						<ListViewColumn Key="PickReceive" Caption="领取" ColumnType="Button" BorderStyle="none">
+							<Format BackColor="#f14c52" ForeColor="#ffffff">
+								<Font Size="16"/>
+							</Format>
+							<OnClick>
+								<![CDATA[
+									DBNamedUpdate('UpdateReplenish',GetOperator(),ServerDate(),OID);
+									ShowToast("领取成功。");
+									LoadData();ShowData();
+								]]>	
+							</OnClick>
+						</ListViewColumn>
+					</ListViewColumnCollection>
+					<RowClick>
+						<![CDATA[
+							Open('Tx302Detail',OID);      
+						]]>
+					</RowClick>
+				</ListView>
+				<RowDefCollection>
+					<RowDef Height="100%"/>
+				</RowDefCollection>
+				<ColumnDefCollection>
+					<ColumnDef Width="100%"/>
+				</ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="Confirm">
+                <ComponentView Key="listConfirm">
+                    <GridLayout Key="listConfirm">
+                        <LayoutSpan Key="No" X="0" Y="0"/>
+                        <LayoutSpan Key="OwnerId" X="1" Y="0"/>
+                        <LayoutSpan Key="CreateTime" X="0" Y="1"/>
+						<LayoutSpan Key="OwnerNo" X="1" Y="1"/>
+						<LayoutSpan Key="PickReceive" X="2" Y="0" YSpan="2"/>
+                        <RowDefCollection>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="70%"/>
+							<ColumnDef Width="30%"/>
+							<ColumnDef Width="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+	<NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="领取补货任务" Location="Center">
+            <Label Key="TitleCenter" Caption="领取补货任务" Width="150px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+	<QueryCollection>        
+		<Query Key="UpdateReplenish" Description="为选中补货单更新当前仓管员">
+            <Statement>
+                <![CDATA[
+				update LRP_WMTx_H set WarehouseKeeperId = ? , AcceptTaskDateTime = ? where oid = ?
+				]]>
+            </Statement>
+			<ParameterCollection>
+				<Parameter DataType="Long"/>				
+				<Parameter DataType="DateTime"/>
+				<Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+	<OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+</Form>

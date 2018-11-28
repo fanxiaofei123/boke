@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="应收收入情况报表" FormType="View" Key="V_AccountsReceivableReport">
+    <DataSource>
+        <DataObject Caption="收入情况报表" Key="LRP_AccountsReceivableReport" PrimaryTableKey="LRP_AccountsReceivableReport">
+            <TableCollection>
+                <Table Caption="收入情况报表" Key="LRP_AccountsReceivableReport" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对账单OID" DataType="Long" Key="OID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="StatementNo" Caption="对账单号" DataType="Varchar" Length="100" SortType="Desc"/>
+                    <Column Key="ReceiptNo" Caption="收款单号" DataType="Varchar"/>
+                    <Column Key="CompanyCodeId" Caption="公司" DataType="Long"/>
+                    <Column Key="SettlementId" Caption="结算方id" DataType="Long"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心" DataType="Long"/>
+                    <Column Key="IncomeId" Caption="收入名称" DataType="Long"/>
+                    <Column Key="HasVoice" Caption="是否开票" DataType="Integer"/>
+                    <Column Key="ReceiptStatus" Caption="支付状态" DataType="Varchar"/>
+                    <Column Key="StatementHookMoney" Caption="收款金额" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="StatementUnSettleMoney" Caption="未收金额" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="AdjustAmount" Caption="对账单金额" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Statement>
+                        <![CDATA[SELECT 
+    CompanyCodeId,
+    WarehouseCenterId,
+    DispatchOrgId,
+    SettlementId,
+    StatementNo,
+    IncomeId,
+    AdjustAmount,
+    ReceiptNo,
+    StatementHookMoney,
+    StatementUnSettleMoney,
+    ReceiptStatus,
+    HasVoice
+FROM
+    (SELECT 
+        r.No as InvoiceNo,
+            r.SumMoney,
+            r.HookMoney,
+            r.UnSettleMoney,
+            case
+                when r.OID > 0 then 1
+                else 0
+            end as HasVoice,
+            case
+                when
+                    s.StatementHookMoney = 0
+                        or s.StatementHookMoney is null
+                then
+                    0
+                when round(s.StatementHookMoney, 2) = round(s.StatementMoney, 2) then 2
+                else 1
+            end as ReceiptStatus,
+            t.No as ReceiptNo,
+            h.No as StatementNo,
+            h.CompanyCodeId,
+            o.SettlementId,
+            o.DispatchOrgId,
+            o.WarehouseCenterId,
+            o.IncomeId,
+            o.AdjustAmount,
+            case
+                when s.StatementHookMoney is null then 0
+                else s.StatementHookMoney
+            end as StatementHookMoney,
+            case
+                when
+                    StatementHookMoney is null
+                        or StatementUnSettleMoney is null
+                then
+                    o.AdjustAmount
+                else s.StatementUnSettleMoney
+            end as StatementUnSettleMoney
+    FROM
+        LRP_IncomeStatement_H h
+    LEFT JOIN LRP_IncomeStatement_L l ON h.OID = l.SOID
+    LEFT JOIN LRP_IncomeLine o ON o.oid = l.IncomeLineId
+    LEFT JOIN LRP_IncomeStatement_L_Show s ON S.SRCOID = l.OID
+    LEFT JOIN LRP_InvoiceReceiveable r ON S.SOID = r.OID
+    LEFT JOIN LRP_Receipt t ON S.SOID = t.OID
+    WHERE
+        o.STATUS = 960 AND h.STATUS = 900 
+ ) a
+   ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="80%" PopWidth="80%">
+        <Block>
+            <FlexFlowLayoutPanel Caption="根面板" Key="root">
+                <SplitPanel Caption="SplitPanel1" Height="100%" Key="SplitPanel1" Orientation="Vertical">
+                    <GridLayoutPanel Caption="基本信息" Height="pref" Key="first_head" Padding="10px">
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Enable="true" Key="cancle" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition(); 
+								SetValue("CompanyCodeId1",GetPara('CompanyCode_para'));
+								SetValue("SettlementId1",GetPara('SettlementId_para'));  						
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="CompanyCodeId1" Caption="公司" BuddyKey="Lab_CompanyCodeId1" X="1" Y="0" ItemKey="CompanyCode" XSpan="3">
+                            <Condition ColumnKey="CompanyCodeId" CondSign="=" TableKey="LRP_AccountsReceivableReport"/>
+                        </Dict>
+                        <Label Key="Lab_CompanyCodeId1" Caption="公司" X="0" Y="0"/>
+                        <Dict Key="SettlementId1" Caption="结算方" BuddyKey="Lab_SettlementId1" X="6" Y="0" ItemKey="Customer" XSpan="3">
+                            <Condition ColumnKey="SettlementId" CondSign="=" TableKey="LRP_AccountsReceivableReport"/>
+                        </Dict>
+                        <Label Key="Lab_SettlementId1" Caption="结算方" X="5" Y="0"/>
+                        <TextEditor Key="No1" Caption="对账单号" BuddyKey="Lab_No1" X="1" Y="1" XSpan="3">
+                            <Condition ColumnKey="StatementNo" CondSign="like" TableKey="LRP_AccountsReceivableReport"/>
+                        </TextEditor>
+                        <Label Key="Lab_No1" Caption="对账单号" X="0" Y="1"/>
+                        <Dict Key="IncomeId1" Caption="收入名称" BuddyKey="Lab_IncomeId1" X="6" Y="1" ItemKey="LRP_Income" XSpan="3">
+                            <Condition ColumnKey="IncomeId" CondSign="=" TableKey="LRP_AccountsReceivableReport"/>
+                        </Dict>
+                        <Label Key="Lab_IncomeId1" Caption="收入名称" X="5" Y="1"/>
+                        <CheckBox Caption="是否开票" Key="Voice" X="1" XSpan="3" Y="2">
+                            <Condition ColumnKey="HasVoice" CondSign="=" TableKey="LRP_AccountsReceivableReport"/>
+                        </CheckBox>
+                        <ComboBox Key="ReceiptStatus" Caption="支付状态" BuddyKey="Lab_ReceiptStatus" X="6" Y="2" XSpan="3">
+                            <Condition ColumnKey="ReceiptStatus" CondSign="=" TableKey="LRP_AccountsReceivableReport"/>
+                            <Item Caption="未支付" Key="0" Value="0"/>
+                            <Item Caption="部分支付" Key="1" Value="1"/>
+                            <Item Caption="全部支付" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Key="Lab_ReceiptStatus" Caption="支付状态" X="5" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Grid0" Caption="Grid0" NewEmptyRow="false" PageLoadType="DB" CanDelete="false" CanInsert="false" CanShift="false" PageRowCount="10">
+                        <GridColumnCollection>
+                            <GridColumn Key="CompanyCode" Caption="公司" Width="100px" Sortable="true"/>
+                            <GridColumn Key="SettlementId" Caption="结算方" Width="100px" Sortable="true"/>
+                            <GridColumn Key="WarehouseCenterId" Caption="仓储中心" Width="120px" Sortable="true"/>
+                            <GridColumn Key="DispatchOrgId" Caption="调度组织" Width="120px" Sortable="true"/>
+                            <GridColumn Key="StatementNo" Caption="对账单号" Width="150px" Sortable="true"/>
+                            <GridColumn Key="ReceiptNo" Caption="收款单号" Width="150px" Sortable="true"/>
+                            <GridColumn Key="IncomeId" Caption="收入名称" Width="100px" Sortable="true"/>
+                            <GridColumn Key="AdjustAmount" Caption="对账单金额" Width="100px" Sortable="true"/>
+                            <GridColumn Key="StatementHookMoney" Caption="已收金额" Width="100px" Sortable="true"/>
+                            <GridColumn Key="StatementUnSettleMoney" Caption="未收金额" Width="100px" Sortable="true"/>
+                            <GridColumn Key="HasVoice" Caption="是否开票" Width="80px" Enable="false" Sortable="true"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_AccountsReceivableReport">
+                                <GridCell Key="CompanyCode" Caption="公司" CellType="Dict" Enable="false" ItemKey="CompanyCode">
+                                    <DataBinding ColumnKey="CompanyCodeId"/>
+                                </GridCell>
+                                <GridCell Key="SettlementId" Caption="结算方" CellType="Dict" Enable="false" ItemKey="Customer">
+                                    <DataBinding ColumnKey="SettlementId"/>
+                                </GridCell>
+                                <GridCell Key="WarehouseCenterId" Caption="仓储中心" CellType="Dict" Enable="false" ItemKey="LRP_WarehouseCenter">
+                                    <DataBinding ColumnKey="WarehouseCenterId"/>
+                                </GridCell>
+                                <GridCell Key="DispatchOrgId" Caption="调度组织" CellType="Dict" Enable="false" ItemKey="LRP_DispatchOrg">
+                                    <DataBinding ColumnKey="DispatchOrgId"/>
+                                </GridCell>
+                                <GridCell Key="StatementNo" Caption="对账单号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="StatementNo"/>
+                                </GridCell>
+                                <GridCell Key="ReceiptNo" Caption="收款单号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ReceiptNo"/>
+                                </GridCell>
+                                <GridCell Key="IncomeId" Caption="收入名称" CellType="Dict" Enable="false" ItemKey="LRP_Income">
+                                    <DataBinding ColumnKey="IncomeId"/>
+                                </GridCell>
+                                <GridCell Key="AdjustAmount" Caption="对账单金额" CellType="NumberEditor" Enable="false" Precision="18" Scale="6">
+                                    <DataBinding ColumnKey="AdjustAmount"/>
+                                </GridCell>
+                                <GridCell Key="StatementHookMoney" Caption="已收金额" CellType="NumberEditor" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                    <DataBinding ColumnKey="StatementHookMoney" DefaultValue="0"/>
+                                </GridCell>
+                                <GridCell Key="StatementUnSettleMoney" Caption="未收金额" CellType="NumberEditor" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                    <DataBinding ColumnKey="StatementUnSettleMoney"/>
+                                </GridCell>
+                                <GridCell Key="HasVoice" Caption="是否开票" CellType="CheckBox" Enable="false">
+                                    <DataBinding ColumnKey="HasVoice"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="135px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+	]]>
+    </OnLoad>
+</Form>

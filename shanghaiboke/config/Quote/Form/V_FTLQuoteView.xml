@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form AbbrCaption="整车报价序事簿" Caption="整车报价序事簿" FormType="View" Key="V_FTLQuoteView">
+    <DataSource>
+        <DataObject Caption="整车报价事簿" Key="V_FTLQuoteView" PrimaryTableKey="LRP_FTLQuote_H">
+            <TableCollection>
+                <Table Key="LRP_FTLQuote_H" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="调度组织" DataType="Long" Key="DispatchOrgId"/>
+                    <Column Caption="车型" DataType="Long" Key="TruckTypeId"/>
+                    <Column Caption="生效日期" DataType="DateTime" Key="EffectiveDate"/>
+                    <Column Caption="截止日期" DataType="DateTime" Key="ExpireDate"/>
+                    <Column Key="FirstMileage" Caption="首段里程" DataType="Numeric" Precision="18" Scale="4"/>
+                    <Column Key="FirstPrice" Caption="首段价格" DataType="Numeric" Precision="18" Scale="4"/>
+                    <Column Key="AdditionalMileagePrice" Caption="续段单价" DataType="Numeric" Precision="18" Scale="4"/>
+                </Table>
+            </TableCollection>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="新增" Icon="new.png" Key="New">
+            <Action>
+                <![CDATA[
+				New('V_FTLQuote')	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="10px">
+                        <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="0" Y="0">
+                            <DataBinding DefaultValue="LRP_FTLQuote"/>
+                        </TextEditor>
+                        <Dict AllowMultiSelection="true" Caption="调度组织" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId_C" X="1" XSpan="2" Y="0">
+                            <Condition CondSign="in">
+                                <ConditionTarget TableKey="LRP_FTLQuote_H" ColumnKey="DispatchOrgId"/>
+                            </Condition>
+                        </Dict>
+                        <Label Caption="调度组织" Key="L_OwnerId" X="0" Y="0"/>
+                        <Dict AllowMultiSelection="true" Caption="车型" ItemKey="LRP_TruckType" Key="TruckTypeId_C" X="5" XSpan="2" Y="0">
+                            <Condition CondSign="in">
+                                <ConditionTarget TableKey="LRP_FTLQuote_H" ColumnKey="TruckTypeId"/>
+                            </Condition>
+                        </Dict>
+                        <Label Caption="车型" Key="L_TruckTypeId" X="4" Y="0"/>
+                        <Button Caption="查询" Key="Query" X="8" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Key="Reset" X="8" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <DatePicker Caption="生效日期" Key="EffectiveDate_C" X="1" XSpan="2" Y="1">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition CondSign="between" Group="EffectiveDate" GroupHead="true">
+                                <ConditionTarget TableKey="LRP_FTLQuote_H" ColumnKey="EffectiveDate"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="生效日期" Key="L_EffectiveDate" X="0" Y="1"/>
+                        <DatePicker Caption="至" Key="EffectiveDate_C_1" X="5" XSpan="2" Y="1">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition CondSign="none" Group="EffectiveDate" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_FTLQuote_H" ColumnKey="EffectiveDate"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_EffectiveDate_1" X="4" Y="1"/>
+                        <DatePicker Caption="截止日期" Key="ExpireDate_C" X="1" XSpan="2" Y="2">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition CondSign="between" Group="ExpireDate" GroupHead="true">
+                                <ConditionTarget TableKey="LRP_FTLQuote_H" ColumnKey="ExpireDate"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="截止日期" Key="L_ExpireDate" X="0" Y="2"/>
+                        <DatePicker Caption="至" Key="ExpireDate_C_1" X="5" XSpan="2" Y="2">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition CondSign="none" Group="ExpireDate" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_FTLQuote_H" ColumnKey="ExpireDate"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_ExpireDate_1" X="4" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView0" Key="ListView0" TableKey="LRP_FTLQuote_H" PageLoadType="DB" PageRowCount="10">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Key="OID" Visible="false"/>
+                            <ListViewColumn Caption="选择" ColumnType="CheckBox" Enable="true" IsSelect="true" Key="Select" ValueChanged="RefreshOperation();"/>
+                            <ListViewColumn Caption="报价单号" ColumnType="HyperLink" DataColumnKey="No" Key="No">
+                                <OnClick>
+                                    <![CDATA[
+									
+									Open('V_FTLQuote', OID);
+									]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="调度组织" ColumnType="Dict" DataColumnKey="DispatchOrgId" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId"/>
+                            <ListViewColumn Caption="车型" ColumnType="Dict" DataColumnKey="TruckTypeId" ItemKey="LRP_TruckType" Key="TruckTypeId"/>
+                            <ListViewColumn Caption="生效日期" ColumnType="DatePicker" DataColumnKey="EffectiveDate" Key="EffectiveDate"/>
+                            <ListViewColumn Caption="截止日期" ColumnType="DatePicker" DataColumnKey="ExpireDate" Key="ExpireDate"/>
+                            <ListViewColumn Caption="首段里程" ColumnType="NumberEditor" DataColumnKey="FirstMileage" Key="FirstMileage"/>
+                            <ListViewColumn Caption="首段价格" ColumnType="NumberEditor" DataColumnKey="FirstPrice" Key="FirstPrice"/>
+                            <ListViewColumn Caption="续段单价" ColumnType="NumberEditor" DataColumnKey="AdditionalMileagePrice" Key="AdditionalMileagePrice"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[
+								Open('V_FTLQuote', OID);
+						]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="135px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[]]>
+    </OnLoad>
+</Form>

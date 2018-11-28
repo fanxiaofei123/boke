@@ -1,0 +1,8 @@
+#定义应用的路径
+SolutionPath=
+#定义DSN来源，通过XXX.properties来定义数据的具体属性
+DSN=XXX
+#定义默认数据源
+DEFAULT=
+#定义日志服务
+LOGSVR=log4j

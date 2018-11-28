@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<StringTable> 
+  <UI> 
+    <V_PackingStockCollectView-Abbr>PackingStockCollectQuery</V_PackingStockCollectView-Abbr>  
+	
+    <L_WarehouseCenterId>WarehouseCenter</L_WarehouseCenterId>  
+    <Lab_PackingMaterialId_C>PackingMaterial</Lab_PackingMaterialId_C>  
+	
+    <Query>Query</Query>  
+    <Reset>Reset</Reset>  
+  </UI>  
+  <ListViewColumn> 
+	<OID>OID</OID>
+    <WarehouseCenterId>WarehouseCenter</WarehouseCenterId>  
+    <PackingMaterialId>PackingMaterial</PackingMaterialId>  
+    <OnhandQty>OnhandQty</OnhandQty>  
+    <Unit>Unit</Unit>  
+  </ListViewColumn>  
+</StringTable>

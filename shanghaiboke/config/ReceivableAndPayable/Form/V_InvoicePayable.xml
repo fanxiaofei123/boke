@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_InvoicePayable" Caption="应付发票" FormType="Entity" ViewKey="V_InvoicePayableView">
+    <DataSource RefObjectKey="LRP_InvoicePayable"/>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[var sumMoney = 0.0;
+var rate = GetValue('Rate');
+var taxRate = GetValue('TaxRate');
+loop "Grid1" (true){
+    sumMoney = sumMoney + StatementMoney;
+}
+if(TaxType == 0){
+    SetValue('Money', sumMoney);
+    SetValue('TaxMoney', sumMoney*taxRate);
+    SetValue('SumMoney', sumMoney*(1 + taxRate));
+    SetValue('NativeSumMoney', (sumMoney*(1 + taxRate))*rate);
+}
+if(TaxType == 1){
+    SetValue('Money', sumMoney*(1 - taxRate));
+    SetValue('TaxMoney', sumMoney*taxRate);
+    SetValue('SumMoney', sumMoney);
+    SetValue('NativeSumMoney', sumMoney*rate);
+}
+
+SetValue('UnSettleMoney', SumMoney - HookMoney);
+
+SaveData(); UpdateView();
+						
+                                ]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Key="QuoteStatement" Caption="引入对账单" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[if(CompanyCode > 0 && SettlementId > 0){
+	ShowModal('V_QuoteStatementPay',
+	{CompanyCode_para:{CompanyCode},
+	SettlementId_para:{SettlementId},
+	pFormKey:{GetFormKey()}
+	});
+}else{
+	Confirm(LocaleString('ReceivableAnd','key3'), 'OK',{OK:{}});
+}]]>
+            </Action>
+        </Operation>
+        <Operation Key="Confirm" Caption="确认" RefKey="Confirm"/>
+        <Operation Key="Confirm-R" Caption="撤销确认" Enable="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[if(HookMoney > 0){
+    Confirm(LocaleString('ReceivableAnd','key4'), 'OK',{OK:{}}); 
+    return 0;
+}
+var dt = DBNamedQuery('queryInvoice', OID);
+if(dt.count > 0){
+    Confirm(LocaleString('ReceivableAnd','key6'), 'OK',{OK:{}}); 
+    return 0;
+}
+
+Status=StatusValue('prepared');SaveData();UpdateView();
+
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete" ShortCuts="Ctrl+D"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="ToCancel" Caption="作废" RefKey="ToCancel"/>
+        <Operation Key="ToCancel-R" Caption="撤销作废" RefKey="ToCancel-R"/>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="queryInvoice" Description="查询是否有此发票被付款单引用">
+            <Statement>
+                <![CDATA[select  count(*) as count from LRP_InvoicePayable_Show where SrcOID = ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="10px" Caption="基本信息">
+                            <TextEditor Key="No" Caption="单号" BuddyKey="Lab_No" X="1" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_InvoicePayable"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="单号" X="0" Y="0"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="0" Enable="false" SourceType="Status" IntegerValue="true" AsQuery="true">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_InvoicePayable" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="6" Y="0"/>
+                            <TextEditor Key="Remarks" Caption="备注" BuddyKey="Lab_Remarks" X="1" Y="8" Enable="!ReadOnly()" AsQuery="true" XSpan="7">
+                                <DataBinding ColumnKey="Remarks" TableKey="LRP_InvoicePayable"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remarks" Caption="备注" X="0" Y="8"/>
+                            <Dict Key="CompanyCode" Caption="公司" BuddyKey="Lab_CompanyCode" X="4" Y="0" ItemKey="CompanyCode" AsQuery="true">
+                                <DataBinding ColumnKey="CompanyCode" TableKey="LRP_InvoicePayable"/>
+                            </Dict>
+                            <Label Key="Lab_CompanyCode" Caption="公司" X="3" Y="0"/>
+                            <Dict Key="SettlementId" Caption="结算方" BuddyKey="Lab_SettlementId" X="1" Y="1" ItemKey="Vendor" AsQuery="true">
+                                <DataBinding ColumnKey="SettlementId" TableKey="LRP_InvoicePayable"/>
+                            </Dict>
+                            <Label Key="Lab_SettlementId" Caption="结算方" X="0" Y="1"/>
+                            <Dict Key="ContractId" Caption="合同方" BuddyKey="Lab_ContractId" X="4" Y="1" ItemKey="Vendor">
+                                <DataBinding ColumnKey="ContractId" DefaultFormulaValue="GetValue('SettlementId')" TableKey="LRP_InvoicePayable" ValueDependency="SettlementId"/>
+                            </Dict>
+                            <Label Key="Lab_ContractId" Caption="合同方" X="3" Y="1"/>
+                            <TextEditor Key="OriginNo" Caption="实体票号" BuddyKey="Lab_OriginNo" X="7" Y="1" AsQuery="true">
+                                <DataBinding ColumnKey="OriginNo" TableKey="LRP_InvoicePayable" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_OriginNo" Caption="实体票号" X="6" Y="1"/>
+                            <DatePicker Key="BillDate" Caption="开票日期" BuddyKey="Lab_BillDate" X="1" Y="2" AsQuery="true">
+                                <DataBinding ColumnKey="BillDate" TableKey="LRP_InvoicePayable" Required="true"/>
+                                <Format/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="开票日期" X="0" Y="2"/>
+                            <Dict Key="ExpenseId" Caption="费用名称" BuddyKey="Lab_ExpenseId" X="7" Y="2" ItemKey="LRP_Expense">
+                                <DataBinding ColumnKey="ExpenseId" TableKey="LRP_InvoicePayable"/>
+                            </Dict>
+                            <Label Key="Lab_ExpenseId" Caption="费用名称" X="6" Y="2"/>
+                            <ComboBox Key="InvoiceType" Caption="发票类型" BuddyKey="Lab_InvoiceType" X="4" Y="2" AsQuery="true">
+                                <DataBinding ColumnKey="InvoiceType" TableKey="LRP_InvoicePayable" DefaultValue="0" Required="true"/>
+                                <Item Caption="蓝字发票" Key="0" Value="0"/>
+                                <Item Caption="红字发票" Key="1" Value="1"/>
+                            </ComboBox>
+                            <Label Key="Lab_InvoiceType" Caption="发票类型" X="3" Y="2"/>
+                            <ComboBox Key="TaxType" Caption="计税方式" BuddyKey="Lab_TaxType" X="7" Y="3">
+                                <DataBinding ColumnKey="TaxType" TableKey="LRP_InvoicePayable" DefaultValue="0" Required="true"/>
+                                <Item Caption="价外税" Key="0" Value="0"/>
+                                <Item Caption="价内税" Key="1" Value="1"/>
+                            </ComboBox>
+                            <Label Key="Lab_TaxType" Caption="计税方式" X="6" Y="3"/>
+                            <NumberEditor Key="TaxRate" Caption="税率" BuddyKey="Lab_TaxRate" X="1" Y="4" Precision="18" Scale="6">
+                                <DataBinding ColumnKey="TaxRate" TableKey="LRP_InvoicePayable"/>
+                            </NumberEditor>
+                            <Label Key="Lab_TaxRate" Caption="税率" X="0" Y="4"/>
+                            <NumberEditor Key="Rate" Caption="汇率" BuddyKey="Lab_Rate" X="4" Y="3" Precision="18" Scale="6">
+                                <DataBinding ColumnKey="Rate" TableKey="LRP_InvoicePayable" DefaultValue="1"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Rate" Caption="汇率" X="3" Y="3"/>
+                            <NumberEditor Key="SumMoney" Caption="合计金额" BuddyKey="Lab_SumMoney" X="1" Y="5" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                <DataBinding ColumnKey="SumMoney" TableKey="LRP_InvoicePayable" Required="true"/>
+                            </NumberEditor>
+                            <Label Key="Lab_SumMoney" Caption="合计金额" X="0" Y="5"/>
+                            <NumberEditor Key="TaxMoney" Caption="税额" BuddyKey="Lab_TaxMoney" X="4" Y="4" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                <DataBinding ColumnKey="TaxMoney" TableKey="LRP_InvoicePayable"/>
+                            </NumberEditor>
+                            <Label Key="Lab_TaxMoney" Caption="税额" X="3" Y="4"/>
+                            <NumberEditor Key="Money" Caption="不含税金额" BuddyKey="Lab_Money" X="7" Y="4" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                <DataBinding ColumnKey="Money" TableKey="LRP_InvoicePayable"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Money" Caption="不含税金额" X="6" Y="4"/>
+                            <Dict Key="CurrencyID" Caption="交易货币" BuddyKey="Lab_CurrencyID" X="1" Y="3" ItemKey="Currency">
+                                <DataBinding ColumnKey="CurrencyID" TableKey="LRP_InvoicePayable"/>
+                            </Dict>
+                            <Label Key="Lab_CurrencyID" Caption="交易货币" X="0" Y="3"/>
+                            <NumberEditor Key="NativeSumMoney" Caption="本币合计金额" BuddyKey="Lab_NativeSumMoney" X="4" Y="5" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                <DataBinding ColumnKey="NativeSumMoney" TableKey="LRP_InvoicePayable"/>
+                            </NumberEditor>
+                            <Label Key="Lab_NativeSumMoney" Caption="本币合计金额" X="3" Y="5"/>
+                            <ComboBox Key="HookStatus" Caption="核销状态" BuddyKey="Lab_HookStatus" X="7" Y="6" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="HookStatus" TableKey="LRP_InvoicePayable"/>
+                                <Item Caption="未核销" Key="0" Value="0"/>
+                                <Item Caption="部分核销" Key="1" Value="1"/>
+                                <Item Caption="全部核销" Key="2" Value="2"/>
+                            </ComboBox>
+                            <Label Key="Lab_HookStatus" Caption="核销状态" X="6" Y="6"/>
+                            <TextEditor Key="Contactor" Caption="联系人" BuddyKey="Lab_Contactor" X="1" Y="7">
+                                <DataBinding ColumnKey="Contactor" TableKey="LRP_InvoicePayable"/>
+                            </TextEditor>
+                            <Label Key="Lab_Contactor" Caption="联系人" X="0" Y="7"/>
+                            <TextEditor Key="TeleNo" Caption="联系电话" BuddyKey="Lab_TeleNo" X="4" Y="7">
+                                <DataBinding ColumnKey="TeleNo" TableKey="LRP_InvoicePayable"/>
+                            </TextEditor>
+                            <Label Key="Lab_TeleNo" Caption="联系电话" X="3" Y="7"/>
+                            <TextEditor Key="Address" Caption="联系地址" BuddyKey="Lab_Address" X="7" Y="7">
+                                <DataBinding ColumnKey="Address" TableKey="LRP_InvoicePayable"/>
+                            </TextEditor>
+                            <Label Key="Lab_Address" Caption="联系地址" X="6" Y="7"/>
+                            <Dict Key="EmployeeID" Caption="业务员" BuddyKey="Lab_EmployeeID" X="7" Y="5" ItemKey="Operator" AsQuery="true">
+                                <DataBinding ColumnKey="EmployeeID" TableKey="LRP_InvoicePayable"/>
+                            </Dict>
+                            <Label Key="Lab_EmployeeID" Caption="业务员" X="6" Y="5"/>
+                            <NumberEditor Key="HookMoney" Caption="核销金额" BuddyKey="Lab_HookMoney" X="1" Y="6" Enable="false" ShowZero="true" Precision="18" Scale="6">
+                                <DataBinding ColumnKey="HookMoney" TableKey="LRP_InvoicePayable"/>
+                            </NumberEditor>
+                            <Label Key="Lab_HookMoney" Caption="核销金额" X="0" Y="6"/>
+                            <NumberEditor Key="UnSettleMoney" Caption="未核金额" BuddyKey="Lab_UnSettleMoney" X="4" Y="6" Enable="false" ShowZero="true" Precision="18" Scale="6">
+                                <DataBinding ColumnKey="UnSettleMoney" TableKey="LRP_InvoicePayable"/>
+                            </NumberEditor>
+                            <Label Key="Lab_UnSettleMoney" Caption="未核金额" X="3" Y="6"/>
+                            <Label Key="OID" Caption="OID" X="2" Y="7" Visible="false">
+                                <DataBinding ColumnKey="OID" TableKey="LRP_InvoicePayable"/>
+                            </Label>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="second_head" Height="pref" Padding="10px" Caption="系统信息">
+                            <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" ItemKey="Operator">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator();" TableKey="LRP_InvoicePayable"/>
+                            </Dict>
+                            <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_InvoicePayable"/>
+                            </DatePicker>
+                            <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                            <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" ItemKey="Operator">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator();" TableKey="LRP_InvoicePayable"/>
+                            </Dict>
+                            <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_InvoicePayable"/>
+                            </DatePicker>
+                            <Label Key="Lab_MODIFYTIME" Caption="修改日期" X="2" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Height="100%" Key="DetailTab">
+                        <Grid Key="Grid1" Caption="对账单信息" Enable="!ReadOnly()" NewEmptyRow="false" Padding="10px" CanInsert="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="SrcOID" Caption="SrcOID" Width="80px" Visible="false" Sortable="true"/>
+                                <GridColumn Key="StatementNo" Caption="对账单号" Width="150px" Sortable="true"/>
+                                <GridColumn Key="StatementDate" Caption="对账单日期" Width="150px" Sortable="true"/>
+                                <GridColumn Key="StatementExpenseId" Caption="费用名称" Width="80px" Sortable="true"/>
+                                <GridColumn Key="StatementMoney" Caption="对账单金额" Width="80px" Sortable="true"/>
+                                <GridColumn Key="StatementHookMoney" Caption="已收金额" Width="80px" Sortable="true"/>
+                                <GridColumn Key="StatementUnSettleMoney" Caption="未收金额" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_ExpenseStm_L_Show">
+                                    <GridCell Key="SrcOID" Caption="SrcOID">
+                                        <DataBinding ColumnKey="SrcOID"/>
+                                    </GridCell>
+                                    <GridCell Key="StatementNo" Caption="对账单号" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="StatementNo"/>
+                                    </GridCell>
+                                    <GridCell Key="StatementDate" Caption="对账单日期" CellType="DatePicker" Enable="false">
+                                        <DataBinding ColumnKey="StatementDate"/>
+                                    </GridCell>
+                                    <GridCell Key="StatementExpenseId" Caption="费用名称" CellType="Dict" Enable="false" ItemKey="LRP_Expense">
+                                        <DataBinding ColumnKey="StatementExpenseId"/>
+                                    </GridCell>
+                                    <GridCell Key="StatementMoney" Caption="对账单金额" CellType="NumberEditor" Enable="false">
+                                        <DataBinding ColumnKey="StatementMoney"/>
+                                    </GridCell>
+                                    <GridCell Key="StatementHookMoney" Caption="已收金额" CellType="NumberEditor" Precision="18" Scale="6">
+                                        <DataBinding ColumnKey="StatementHookMoney"/>
+                                    </GridCell>
+                                    <GridCell Key="StatementUnSettleMoney" Caption="未收金额" CellType="NumberEditor" Precision="18" Scale="6">
+                                        <DataBinding ColumnKey="StatementUnSettleMoney"/>
+                                    </GridCell>
+                                    <UICheckRuleCollection>
+                                        <UICheckRule Description="对账单明细检查重复引用" ErrorInfo="您的对账单明细存在重复引用。">
+                                            <![CDATA[!CheckDuplicate("SrcOID")]]>
+                                        </UICheckRule>
+                                    </UICheckRuleCollection>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="380px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

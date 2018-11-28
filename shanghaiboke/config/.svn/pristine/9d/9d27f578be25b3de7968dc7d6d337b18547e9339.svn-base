@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <MSG>MSG</MSG>
+        <No>No</No>
+        <Cancel>Cancel</Cancel>
+        <Yes>Yes</Yes>
+        <OK>OK</OK>
+    </UI>
+</StringTable>

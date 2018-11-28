@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Label1>
+There is no good detail in the current order !
+        </Label1>
+        <OrderTitle>
+ShipDetail
+        </OrderTitle>
+    </UI>
+</StringTable>

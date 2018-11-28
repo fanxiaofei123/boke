@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="CHCS_ImportContract" Caption="引入供应商合同">
+    <TableCollection>
+        <Table Key="CHCS_Verdor_Contract" Caption="供应商合同" SourceType="Query" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Business_Unit" Caption="业务单元" DataType="Varchar" Length="20"/>
+            <Column Key="Contract_Name" Caption="合同名称" DataType="Varchar" Length="200"/>
+            <Column Key="Contract_Classify" Caption="合同分类" DataType="Varchar" Length="20"/>
+            <Column Key="Principal_Contract_Code" Caption="主合同编号" DataType="Varchar" Length="100"/>
+            <Column Key="Contract_Code" Caption="合同编号" DataType="Varchar" Length="200"/>
+            <Column Key="Supplier_NO" Caption="供应商编号" DataType="Varchar" Length="100"/>
+            <Column Key="Contract_Unit" Caption="签约单位" DataType="Varchar" Length="20"/>
+        </Table>
+        <Table Key="CHCS_Item_Management" Caption="条款管理" TableMode="Detail" SourceType="Query">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Standard_Clause" Caption="标准条款" DataType="Varchar" Length="200"/>
+            <Column Key="Deviation_Description" Caption="偏离描述" DataType="Varchar" Length="200"/>
+            <Column Key="Lnfluence_Link" Caption="影响环节" DataType="Varchar" Length="200"/>
+        </Table>
+        <Table Key="CHCS_Contract_Price" Caption="合同价格" TableMode="Detail" SourceType="Query">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Product" Caption="餐种" DataType="Long"/>
+            <Column Key="Unit_Price" Caption="单价" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Valid_Time_Start" Caption="有效期起" DataType="Date"/>
+            <Column Key="Valid_Time_End" Caption="有效期止" DataType="Date"/>
+            <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+        </Table>
+    </TableCollection>
+    <PostLoadProcess>
+        <Process>
+            <![CDATA[]]>
+        </Process>
+    </PostLoadProcess>
+</DataObject>

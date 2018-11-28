@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_W_CalculateIncome_LRP" Caption="仓储收入计算">
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <Dict Key="WarehouseCenter" Caption="仓储中心" BuddyKey="Lab_WarehouseCenter" X="1" Y="0" AllowMultiSelection="true" ItemKey="LRP_WarehouseCenter" TabOrder="10" XSpan="3"/>
+                    <Label Key="Lab_WarehouseCenter" Caption="仓储中心" X="0" Y="0"/>
+                    <Dict Key="Owner" Caption="货主" BuddyKey="Lab_Owner" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_Owner" TabOrder="20" XSpan="3"/>
+                    <Label Key="Lab_Owner" Caption="货主" X="5" Y="0"/>
+                    <DatePicker Key="StartDate" Caption="日期范围起" BuddyKey="Lab_StartDate" X="1" Y="1" TabOrder="30" XSpan="3"/>
+                    <Label Key="Lab_StartDate" Caption="日期范围起" X="0" Y="1"/>
+                    <DatePicker Key="EndDate" Caption="至" BuddyKey="Lab_EndDate" X="6" Y="1" TabOrder="40" XSpan="3"/>
+                    <Label Key="Lab_EndDate" Caption="至" X="5" Y="1"/>
+                    <Button Key="Calculate" Caption="计算" X="10" Y="0" TabOrder="100">
+                        <OnClick>
+                            <![CDATA[
+    if (IsControlNull("WarehouseCenter") || IsControlNull("Owner") || IsControlNull("StartDate") || IsControlNull("EndDate")) {
+         Confirm(LocaleString('CHshow','chkey19'),'OK');
+         return 0;
+    }
+
+
+
+//后台计算
+var r = InvokeService("LRP_W_CalculateIncome", false, false, GetJSONValue("WarehouseCenter"),GetJSONValue("Owner"),GetValue("StartDate"),GetValue("EndDate"));
+if (r == 1){
+    Confirm(LocaleString('CHshow','chkey5'),'OK','OK:{}');
+}
+]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="10" Y="1" TabOrder="120">
+                        <OnClick>
+                            <![CDATA[//设置各条件字段为空
+SetValue("WarehouseCenter","");
+SetValue("Owner","");
+SetValue("StartDate", "");
+SetValue("EndDate", "");
+]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="70px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="70px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="30px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

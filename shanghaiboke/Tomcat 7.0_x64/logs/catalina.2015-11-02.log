@@ -1,0 +1,122 @@
+十一月 02, 2015 3:01:57 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: D:\Env\Tomcat 7.0\jre1.8.0_60_x64\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\oraclexe\app\oracle\product\11.2.0\server\bin;;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;D:\Java\jdk1.8.0_60\bin;C:\Program Files\doxygen\bin;C:\Program Files\MiKTeX 2.9\miktex\bin\x64\;D:\Java\apache-maven-3.3.3\bin;C:\Program Files\TortoiseSVN\bin;.
+十一月 02, 2015 3:01:58 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-bio-8089"]
+十一月 02, 2015 3:01:58 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-bio-8009"]
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 1908 ms
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+十一月 02, 2015 3:01:58 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.util.SessionIdGenerator createSecureRandom
+信息: Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [130] milliseconds.
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+十一月 02, 2015 3:01:59 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+十一月 02, 2015 3:02:04 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-bio-8089"]
+十一月 02, 2015 3:02:04 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-bio-8009"]
+十一月 02, 2015 3:02:04 下午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 5995 ms
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: D:\Env\Tomcat 7.0\jre1.8.0_60_x64\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\oraclexe\app\oracle\product\11.2.0\server\bin;;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;D:\Java\jdk1.8.0_60\bin;C:\Program Files\doxygen\bin;C:\Program Files\MiKTeX 2.9\miktex\bin\x64\;D:\Java\apache-maven-3.3.3\bin;C:\Program Files\TortoiseSVN\bin;.
+十一月 02, 2015 3:03:10 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-bio-8089"]
+十一月 02, 2015 3:03:10 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-bio-8009"]
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 336 ms
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.HostConfig deployDescriptor
+信息: Deploying configuration descriptor D:\Env\Tomcat 7.0\conf\Catalina\localhost\path.xml
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.core.StandardContext resourcesStart
+严重: Error starting static Resources
+java.lang.IllegalArgumentException: Document base D:\Code_base\yes\test\Config\YigoApp\Data does not exist or is not a readable directory
+	at org.apache.naming.resources.FileDirContext.setDocBase(FileDirContext.java:138)
+	at org.apache.catalina.core.StandardContext.resourcesStart(StandardContext.java:5055)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5235)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:656)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1635)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error in resourceStart()
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Error getConfigured
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/path] startup failed due to previous errors
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\docs
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\examples
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\host-manager
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\manager
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\ROOT
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory D:\Env\Tomcat 7.0\webapps\yigo
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+十一月 02, 2015 3:03:10 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(D:\Env\Tomcat 7.0\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+十一月 02, 2015 3:03:13 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-bio-8089"]
+十一月 02, 2015 3:03:13 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-bio-8009"]
+十一月 02, 2015 3:03:13 下午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 2949 ms

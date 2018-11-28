@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="WarehouseKeeperInfo" Authenticate="True">
+	<NavigationBar BackColor="#f14c52">
+		<BarItem Key="TitleCenter_bar" Caption="个人资料" Location="Center">
+			<Label Key="TitleCenter" Caption="个人资料" Width="80px">
+				<Format HAlign="Center" ForeColor="#ffffff">
+					<Font Size="20"/>
+				</Format>
+			</Label>
+		</BarItem>
+	</NavigationBar>
+	<DataSource>
+		<DataObject Caption="仓管员" Key="WarehouseKeeperInfo"  PrimaryTableKey="LRP_WarehouseKeeper">
+			<TableCollection>
+				<Table Caption="仓管员" Key="LRP_WarehouseKeeper"  SourceType="Query" Persist="false">
+					<Column Key="OID" Caption="对象标识" Persist="True" DataType="Long"/>
+					<Column Key="POID" Caption="父对象标识" Persist="True" DataType="Long"/>
+					<Column Key="SOID" Caption="主对象标识" Persist="True" DataType="Long"/>
+					<Column Key="VERID" Caption="对象版本" Persist="True" DataType="Integer"/>
+					<Column Key="DVERID" Caption="对象明细版本" Persist="True" DataType="Integer"/>
+					<Column Key="Code" Caption="代码" Persist="True" DataType="Varchar" Length="100" Cache="true"/>
+					<Column Key="Name" Caption="名称" Persist="True" DataType="Varchar" Length="200" Cache="true"/>
+					<Column Key="Mobile" Caption="手机" DataType="Varchar" Length="100"/>
+					<Column Key="IDCardNo" Caption="身份证" DataType="Varchar" Length="40"/>
+					<Column Key="ContactAddress" Caption="联系地址" DataType="Varchar" Length="100"/>
+					<Column Key="AvatarUrl" Caption="头像路径" DataType="Varchar" Length="200"/>
+					<Column Key="Password" Caption="密码" DataType="Varchar" Length="1000"/>
+					<Column Key="AppStatus" Caption="App使用状态" DataType="Integer"/>
+					<TableFilter>
+					<![CDATA[LRP_WarehouseKeeper.OID=?]]>
+					</TableFilter>
+					<ParameterCollection>
+						<Parameter SourceType="Formula" Formula="GetUserOperator()"/>
+					</ParameterCollection>
+				</Table>
+			</TableCollection>
+		</DataObject>
+	</DataSource>
+	<OnLoad>
+		<![CDATA[LoadData()]]>
+	</OnLoad>
+	<EventHandlerCollection>
+		<EventHandler Key="UserInfoChanged" Trigger="Show" MergeEvent="True">
+			<![CDATA[LoadData()]]>
+		</EventHandler>
+	</EventHandlerCollection>
+    <Body>
+        <Block>
+			<TableView Key="main" TopMargin="10px">
+				<Format BackColor="#f1f3f8"/>
+				<TableRowCollection>
+					<TableRow Key="r1" RowType="Fix" SeparatorStyle="solid none" SeparatorColor="#e6eaf2">
+						<LinearLayoutPanel Key="my_logo_panel" Height="60px" Orientation="Horizontal" LeftPadding="10px">
+							<Label Key="lbl_my_logo" Caption="头像" Width="100px" Height="auto" Weight="0">
+								<Format BackColor="#ffffff">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<Label Key="OID" Width="100px" Height="auto" Weight="0" Visible="false">
+								<DataBinding TableKey="LRP_WarehouseKeeper" ColumnKey="OID">
+								</DataBinding>
+							</Label>
+							<Label Key="lbl_1" Caption="" Width="100px" Weight="1" Height="auto">
+							</Label>
+							<Image Key="my_logo" Caption="头像" Stretch="True" ImageScaleType="Fit_XY" Width="100px"  Height="auto">
+								<DataBinding TableKey="LRP_WarehouseKeeper" ColumnKey="AvatarUrl">
+								</DataBinding>
+							</Image>
+							<Button Key="my_logo_more" Caption="" Icon="more_arrow.png" Width="20px" Weight="0" Height="auto" BorderStyle="none">
+								<Format BackColor="transparent"/>
+							</Button>
+						</LinearLayoutPanel>
+						<RowClick>
+							<![CDATA[Open('WarehouseKeeperModifyLogo',OID)]]>
+						</RowClick>
+					</TableRow>
+					<TableRow Key="r2" RowType="Fix" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+						<LinearLayoutPanel Key="IDCardNo_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+							<Label Key="lbl_IDCardNo" Caption="身份证" Width="100px" Weight="0" Height="auto">
+								<Format BackColor="#ffffff">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<Label Key="IDCardNo" RightPadding="10px" Width="10px" Weight="1" Height="auto">
+								<DataBinding TableKey="LRP_WarehouseKeeper" ColumnKey="IDCardNo">
+								</DataBinding>
+								<Format BackColor="#ffffff" ForeColor="#969696" HAlign="Right">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+						</LinearLayoutPanel>
+					</TableRow>
+					
+					<TableRow Key="r4" RowType="Fix" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+						<LinearLayoutPanel Key="Mobile_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+							<Label Key="lbl_Mobile" Caption="手机" Width="100px" Weight="0" Height="auto">
+								<Format BackColor="#ffffff">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<Label Key="Mobile" RightPadding="10px" Width="10px" Weight="1" Height="auto">
+								<DataBinding TableKey="LRP_WarehouseKeeper" ColumnKey="Mobile">
+								</DataBinding>
+								<Format BackColor="#ffffff" ForeColor="#969696" HAlign="Right">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+						</LinearLayoutPanel>
+					</TableRow>
+					<TableRow Key="r5" RowType="Fix" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+						<LinearLayoutPanel Key="ContactAddress_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+							<Label Key="lbl_ContactAddress" Caption="联系地址" Width="100px" Weight="0" Height="auto">
+								<Format BackColor="#ffffff">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<Label Key="ContactAddress" RightPadding="10px" Width="10px" Weight="1" Height="auto">
+								<DataBinding TableKey="LRP_WarehouseKeeper" ColumnKey="ContactAddress">
+								</DataBinding>
+								<Format BackColor="#ffffff" ForeColor="#969696" HAlign="Right">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+						</LinearLayoutPanel>
+					</TableRow>
+					<TableRow Key="r6" RowType="Fix" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+						<LinearLayoutPanel Key="Password_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+							<Label Key="lbl_Password" Caption="修改密码" Width="100px" Weight="0" Height="auto">
+								<Format BackColor="#ffffff">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<Label Key="lbl_2" Caption="" Width="100px" Weight="1" Height="auto">
+							</Label>
+							<Button Key="password" Caption="" Icon="more_arrow.png" RightPadding="10px" Width="20px" Weight="0" Height="auto">
+								<Format BackColor="#ffffff" ForeColor="#969696" HAlign="Right">
+									<Font Size="16"/>
+								</Format>
+							</Button>
+						</LinearLayoutPanel>
+						<RowClick>
+							<![CDATA[Show('WarehouseKeeperModifyPsd')]]>
+						</RowClick>
+					</TableRow>
+				</TableRowCollection>
+			</TableView>
+        </Block>
+		<ViewCollection>
+			<View Key="All" Media="All">
+			</View>
+		</ViewCollection>
+    </Body>
+</Form>

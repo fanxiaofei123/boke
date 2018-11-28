@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+		<QuoteQuant>AddChargeDetails</QuoteQuant>
+    </Opt>
+    <UI>
+		<V_DispatchApportion_LRP>DispatchCostAllocation</V_DispatchApportion_LRP>
+		
+        <L_DispatchOrgId_C>DispatchOrgId</L_DispatchOrgId_C>
+        <L_ExpenseId_C>ExpenseId</L_ExpenseId_C>
+        <L_BizDate>BizDate</L_BizDate>
+        <L_BizDate_1>To</L_BizDate_1>
+        <L_ApportionMethod>ApportionMethod</L_ApportionMethod>
+        <L_BillNo>BillNo</L_BillNo>
+		
+		<Apportion>Apportion</Apportion>
+		<IsDelete>DeleteAllocatedRecords</IsDelete>
+		
+		<cancle>Reset</cancle>
+    </UI>
+	
+    <ListViewColumn>
+        <OID>OID</OID>
+        <CostApportionStatus>CostApportionStatus</CostApportionStatus>
+        <BillNo>BillNo</BillNo>
+        <BizDate>BizDate</BizDate>
+    </ListViewColumn>
+	
+	
+    <Items-cmb_amounttype>
+		<Item-10>default</Item-10>
+		<Item-20>price</Item-20>
+		<Item-30>amount</Item-30>
+    </Items-cmb_amounttype>
+	
+	
+</StringTable>

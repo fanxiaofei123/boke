@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DriverModifyLogo" FormType="Entity" Authenticate="false">
+    <DataSource RefObjectKey="LRP_Driver"/>
+    <OperationCollection>
+        <Operation Key="Task" Caption="拍照" Visible="True">
+            <Action>
+                <![CDATA[
+				TakePhoto('logo',true,'DriverModifyLogo',GetOperator(),true);]]>
+            </Action>
+        </Operation>
+        <Operation Key="Choose" Caption="我的相册" Visible="True">
+            <Action>
+                <![CDATA[
+				SelectPhoto('logo',true,'DriverModifyLogo',GetOperator(),true);]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Image Key="logo" Caption="头像" X="0" Y="0" PromptImage="logo.jpg">
+                    <DataBinding TableKey="LRP_Driver" ColumnKey="AvatarUrl"/>
+                </Image>
+                <GridLayoutPanel Key="opt_panel" X="0" Y="1">
+                    <Format BackColor="#ffffff"/>
+                    <Button Key="order" Caption="确认" Enable="True" Height="auto" MaxSize="200" BorderStyle="none" X="1" Y="0">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+SaveData();SendSignal('UserInfoChanged');Close();
+								]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection>
+                        <RowDef Height="45px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="20px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All"/>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <NavigationBar Style="Custom">
+        <RightButton>
+            <![CDATA[PopMenu('', '', '')]]>
+        </RightButton>
+    </NavigationBar>
+</Form>

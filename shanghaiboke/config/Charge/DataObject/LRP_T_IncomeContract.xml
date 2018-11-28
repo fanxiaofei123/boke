@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_T_IncomeContract" Caption="运输收入合约" NoPrefix="TIC" PrimaryTableKey="LRP_T_IncomeContract_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_T_IncomeContract_H" Caption="运输收入合约头" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="No" Caption="合约号" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+            <Column Key="OwnerNo" Caption="货主合约号" DataType="Varchar" Length="100"/>
+            <Column Key="OwnerId" Caption="货主" DataType="Long"/>
+            <Column Key="SettlementId" Caption="结算方" DataType="Long"/>
+            <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar" Length="1000"/>
+            <Column Key="EffectiveDate" Caption="生效日期" DataType="Date"/>
+            <Column Key="ExpireDate" Caption="截止日期" DataType="Date"/>
+        </Table>
+        <Table Key="LRP_T_IncomeContract_L" Caption="运输收入合约明细" TableMode="Detail" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+            <Column Key="IncomeId" Caption="收入名称" DataType="Long"/>
+            <Column Key="TermId" Caption="条款" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Lab_long_l>Long</Lab_long_l>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <L_Code>Code</L_Code>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+        <L_Name>Name</L_Name>
+        <Lab_Palletweight>PalletWeight</Lab_Palletweight>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <Lab_high_h>High</Lab_high_h>
+        <Lab_weight_w>Box_Weight</Lab_weight_w>
+        <SystemTab>SystemTab</SystemTab>
+        <BasicTab>BasicTab</BasicTab>
+        <Lab_bulk_b>Bulk</Lab_bulk_b>
+        <Lab_wide_w>Wide</Lab_wide_w>
+    </UI>
+    <Tip>
+        <Code>CanNotBeEmpty</Code>
+        <Name>CanNotBeEmpty</Name>
+    </Tip>
+</StringTable>

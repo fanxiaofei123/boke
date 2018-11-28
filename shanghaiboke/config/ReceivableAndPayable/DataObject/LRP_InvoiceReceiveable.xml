@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_InvoiceReceiveable" Caption="应收发票" NoPrefix="AR" PrimaryType="Entity" PrimaryTableKey="LRP_InvoiceReceiveable">
+    <TableCollection>
+        <Table Key="LRP_InvoiceReceiveable" Caption="应收发票">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Key="No" Caption="单号" DataType="Varchar" Length="200" SortType="Desc"/>
+            <Column Key="CompanyCode" Caption="公司" DataType="Long"/>
+            <Column Key="SettlementId" Caption="结算方" DataType="Long"/>
+            <Column Key="ContractId" Caption="合同方" DataType="Long"/>
+            <Column Caption="实体票号" DataType="Varchar" Key="OriginNo" Length="100"/>
+            <Column Caption="发票类型" DataType="Integer" Key="InvoiceType"/>
+            <Column Caption="开票日期" DataType="DateTime" Key="BillDate"/>
+            <Column Caption="收入名称" DataType="Long" Key="IncomeId"/>
+            <Column Key="EmployeeID" Caption="业务员" DataType="Long"/>
+            <Column Caption="联系人" DataType="Varchar" Key="Contactor" Length="100"/>
+            <Column Caption="联系电话" DataType="Varchar" Key="TeleNo" Length="100"/>
+            <Column Caption="联系地址" DataType="Varchar" Key="Address" Length="200"/>
+            <Column Caption="合计金额" DataType="Numeric" Key="SumMoney" Precision="18" Scale="6"/>
+            <Column Caption="计税方式" DataType="Integer" Key="TaxType"/>
+            <Column Caption="税率" DataType="Numeric" Key="TaxRate" Precision="18" Scale="6"/>
+            <Column Caption="不含税金额" DataType="Numeric" Key="Money" Precision="18" Scale="6"/>
+            <Column Caption="税额" DataType="Numeric" Key="TaxMoney" Precision="18" Scale="6"/>
+            <Column Caption="汇率" DataType="Numeric" Key="Rate" Precision="18" Scale="6"/>
+            <Column Caption="本币合计金额" DataType="Numeric" Key="NativeSumMoney" Precision="18" Scale="6"/>
+            <Column Key="CurrencyID" Caption="交易货币" DataType="Long"/>
+            <Column Key="FinicialPeriod" Caption="会计期" DataType="Long"/>
+            <Column Caption="核销状态" DataType="Integer" Key="HookStatus"/>
+            <Column Key="HookMoney" Caption="核销金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="UnSettleMoney" Caption="未核金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Caption="备注" DataType="Varchar" Key="Remarks" Length="200"/>
+        </Table>
+        <Table Key="LRP_IncomeStatement_L_Show" Caption="对账单信息" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="StatementNo" Caption="对账单号" DataType="Varchar"/>
+            <Column Key="StatementDate" Caption="对账单日期" DataType="DateTime"/>
+            <Column Key="StatementIncomeId" Caption="收入名称" DataType="Long"/>
+            <Column Key="StatementMoney" Caption="对账单金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="StatementHookMoney" Caption="已收金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="StatementUnSettleMoney" Caption="未收金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Caption="映射对象" DataType="Varchar" Key="MapKey"/>
+            <Column Caption="SrcOID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="SrcSOID" DataType="Long" Key="SrcSOID"/>
+        </Table>
+    </TableCollection>
+    <PreSaveProcess>
+        <Process Description="反填对账单核销金额">
+            <![CDATA[LRP_PostInvoiceReceiveableSave();]]>
+        </Process>
+    </PreSaveProcess>
+</DataObject>

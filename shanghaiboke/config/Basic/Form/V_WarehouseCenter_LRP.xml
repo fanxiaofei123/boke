@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="仓储中心" FormType="Dict" Key="V_WarehouseCenter_LRP">
+    <DataSource RefObjectKey="LRP_WarehouseCenter"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0" Height="pref">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <TextEditor Caption="代码" Enable="!ReadOnly()" Key="Code" Tip="「代码」不可为空" X="1" XSpan="5" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="LRP_WarehouseCenter" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="名称" Key="L_Name" X="7" Y="0"/>
+                        <TextEditor Caption="名称" Enable="!ReadOnly()" Key="Name" Tip="「名称」不可为空" X="8" XSpan="5" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="LRP_WarehouseCenter" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="公司" Key="L_CompanyCodeId" X="0" Y="1"/>
+                        <Dict Caption="公司" Enable="!ReadOnly()" Key="CompanyCodeId" ItemKey="CompanyCode" X="1" XSpan="5" Y="1">
+                            <DataBinding ColumnKey="CompanyCodeId" TableKey="LRP_WarehouseCenter"/>
+                        </Dict>
+                        <Label Caption="成本中心" Key="L_CostCenterId" X="7" Y="1"/>
+                        <Dict Caption="成本中心" Enable="!ReadOnly()" Key="CostCenterId" ItemKey="CostCenter" X="8" XSpan="5" Y="1">
+                            <DataBinding ColumnKey="CostCenterId" TableKey="LRP_WarehouseCenter"/>
+                        </Dict>
+                        <Label Caption="国家" Key="L_CountryId" X="0" Y="2"/>
+                        <Dict Caption="国家" Enable="!ReadOnly()" Key="CountryId" ItemKey="Country" X="1" XSpan="5" Y="2">
+                            <DataBinding ColumnKey="CountryId" TableKey="LRP_WarehouseCenter">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('ProvinceId',-1);SetValue('CityId',-1);SetValue('DistrictId',-1);]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Caption="联系人" Key="L_Contacts" X="7" Y="2"/>
+                        <TextEditor Caption="联系人" Enable="!ReadOnly()" Key="Contacts" X="8" Y="2" XSpan="2">
+                            <DataBinding ColumnKey="Contacts" TableKey="LRP_WarehouseCenter"/>
+                        </TextEditor>
+                        <Label Caption="联系电话" Key="L_Tel" X="10" Y="2"/>
+                        <TextEditor Caption="联系电话" Enable="!ReadOnly()" Key="Tel" X="11" Y="2" XSpan="2">
+                            <DataBinding ColumnKey="Tel" TableKey="LRP_WarehouseCenter"/>
+                        </TextEditor>
+                        <Label Caption="省" Key="L_ProvinceId" X="0" Y="3"/>
+                        <Dict Caption="省" Enable="!ReadOnly()" Key="ProvinceId" ItemKey="LRP_Province" X="1" Y="3">
+                            <DataBinding ColumnKey="ProvinceId" TableKey="LRP_WarehouseCenter">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('CityId',-1);SetValue('DistrictId',-1);]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Caption="市" Key="L_CityId" X="2" Y="3"/>
+                        <Dict Caption="市" Enable="!ReadOnly()" Key="CityId" ItemKey="LRP_City" X="3" Y="3">
+                            <DataBinding ColumnKey="CityId" TableKey="LRP_WarehouseCenter">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('DistrictId',-1);]]>
+                                </ValueChanged>
+                            </DataBinding>
+                            <ItemFilter>
+                                <Filter Query="select oid from lrp_city where ProvinceId=?" Type="DataSet">
+                                    <FilterValue Type="Field" ParaValue="ProvinceId" FieldKey="OID" RefValue="ProvinceId"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Caption="区县" Key="L_DistrictId" X="4" Y="3"/>
+                        <Dict Caption="区县" Enable="!ReadOnly()" Key="DistrictId" ItemKey="LRP_District" X="5" Y="3">
+                            <DataBinding ColumnKey="DistrictId" TableKey="LRP_WarehouseCenter"/>
+                            <ItemFilter>
+                                <Filter Query="select oid from lrp_district where soid=?" Type="DataSet">
+                                    <FilterValue Type="Field" ParaValue="CityId"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Caption="地址" Key="L_Address" X="7" Y="3"/>
+                        <TextEditor Caption="地址" Enable="!ReadOnly()" Key="Address" X="8" XSpan="5" Y="3">
+                            <DataBinding ColumnKey="Address" TableKey="LRP_WarehouseCenter"/>
+                        </TextEditor>
+                        <Label Caption="默认物料状态" Key="L_DefaultMaterialStatusId" X="0" Y="4"/>
+                        <Dict Caption="默认物料状态" Enable="!ReadOnly()" Key="DefaultMaterialStatusId" ItemKey="LRP_MaterialStatus" X="1" XSpan="5" Y="4">
+                            <DataBinding ColumnKey="DefaultMaterialStatusId" TableKey="LRP_WarehouseCenter"/>
+                        </Dict>
+                        <Label Caption="默认调度组织" Key="L_DefaultDispatchOrgId" X="7" Y="4"/>
+                        <Dict Caption="默认调度组织" Enable="!ReadOnly()" Key="DefaultDispatchOrgId" ItemKey="LRP_DispatchOrg" X="8" XSpan="5" Y="4">
+                            <DataBinding ColumnKey="DefaultDispatchOrgId" DefaultFormulaValue="getCurDispatchOrgID()" TableKey="LRP_WarehouseCenter"/>
+                        </Dict>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="12">
+                            <ColumnDef Width="88px"/>
+                            <ColumnDef Width="17%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="17%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="16%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="88px"/>
+                            <ColumnDef Width="17%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="17%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_WarehouseCenter"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_WarehouseCenter"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_WarehouseCenter"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_WarehouseCenter"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

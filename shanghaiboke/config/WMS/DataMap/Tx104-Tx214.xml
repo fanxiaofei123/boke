@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="越库发货" Key="Tx104-Tx214" SrcDataObjectKey="LRP_WMTx" TgtDataObjectKey="LRP_WMTx">
+    <SourceTableCollection Height="1140" Width="260" X="30" Y="30">
+        <SourceTable Key="LRP_WMTx_H" TableKey="LRP_WMTx_H" TargetTableKey="LRP_WMTx_H">
+            <SourceField Definition="OwnerId" TargetFieldKey="OwnerId"/>
+            <SourceField Definition="OwnerNo" TargetFieldKey="OwnerNo"/>
+			<SourceField Definition="NoticeNo" TargetFieldKey="RefNo"/>
+            <SourceField Definition="WarehouseCenterId" TargetFieldKey="WarehouseCenterId"/>
+			<SourceField Definition="NoticeNo" TargetFieldKey="SrcRefOrderNo" TargetTableKey="LRP_WMTx_L"/>
+        </SourceTable>
+        <SourceTable Key="LRP_WMTx_L" IsPrimary="true" TableKey="LRP_WMTx_L" TargetTableKey="LRP_WMTx_L">
+            <SourceField Definition="MaterialId" TargetFieldKey="MaterialId" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="Qty" TargetFieldKey="Qty" EdgeType="Focus" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="MaterialUnit" TargetFieldKey="MaterialUnit"/>
+            <SourceField Definition="DestBatchNo" TargetFieldKey="SrcBatchNo"/>
+            <SourceField Definition="DestManufDate" TargetFieldKey="SrcManufDate"/>
+            <SourceField Definition="DestExpireDate" TargetFieldKey="SrcExpireDate"/>
+            <SourceField Definition="DestProjectId" TargetFieldKey="SrcProjectId"/>
+            <SourceField Definition="DestRecvDate" TargetFieldKey="SrcRecvDate"/>
+            <SourceField Definition="DestStrUserDef1" TargetFieldKey="SrcStrUserDef1"/>
+            <SourceField Definition="DestStrUserDef2" TargetFieldKey="SrcStrUserDef2"/>
+            <SourceField Definition="DestStrUserDef3" TargetFieldKey="SrcStrUserDef3"/>
+            <SourceField Definition="DestStrUserDef4" TargetFieldKey="SrcStrUserDef4"/>
+            <SourceField Definition="DestStrUserDef5" TargetFieldKey="SrcStrUserDef5"/>
+            <SourceField Definition="DestDictUserDef1" TargetFieldKey="SrcDictUserDef1"/>
+            <SourceField Definition="DestDictUserDef2" TargetFieldKey="SrcDictUserDef2"/>
+            <SourceField Definition="DestDictUserDef3" TargetFieldKey="SrcDictUserDef3"/>
+            <SourceField Definition="DestDictUserDef4" TargetFieldKey="SrcDictUserDef4"/>
+            <SourceField Definition="DestDictUserDef5" TargetFieldKey="SrcDictUserDef5"/>
+            <SourceField Definition="DestDateUserDef1" TargetFieldKey="SrcDateUserDef1"/>
+            <SourceField Definition="DestDateUserDef2" TargetFieldKey="SrcDateUserDef2"/>
+            <SourceField Definition="DestNumUserDef1" TargetFieldKey="SrcNumUserDef1"/>
+            <SourceField Definition="DestNumUserDef2" TargetFieldKey="SrcNumUserDef2"/>
+            <SourceField Definition="DestNumUserDef3" TargetFieldKey="SrcNumUserDef3"/>
+            <SourceField Definition="DestStoreroomId" TargetFieldKey="SrcStoreroomId"/>
+            <SourceField Definition="DestStoreareaId" TargetFieldKey="SrcStoreareaId"/>
+            <SourceField Definition="DestLocationId" TargetFieldKey="SrcLocationId"/>
+            <SourceField Definition="DestMaterialStatusId" TargetFieldKey="SrcMaterialStatusId"/>
+			<SourceField Definition="SrcRefSOID" TargetFieldKey="SrcRefSOID"/>
+			<SourceField Definition="SrcRefLineOID" TargetFieldKey="SrcRefLineOID"/>
+			<SourceField Definition="DestHandingUnitNo" TargetFieldKey="SrcHandingUnitNo"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="1140" Width="260" X="338" Y="30">
+        <TargetTable Key="LRP_WMTx_H" TableKey="LRP_WMTx_H">
+            <TargetField Definition="OwnerId"/>
+            <TargetField Definition="OwnerNo"/>
+			<TargetField Definition="RefNo"/>
+            <TargetField Definition="WarehouseCenterId"/>
+        </TargetTable>
+        <TargetTable Key="LRP_WMTx_L" IsPrimary="true">
+		    <TargetField Definition="SrcRefOrderNo"/>
+            <TargetField Definition="MaterialId"/>
+            <TargetField Definition="Qty">
+                <Feedback DataObjectKey="LRP_CrossDocking" FieldKey="ShipQty" TableKey="LRP_CrossDocking_L"/>
+            </TargetField>
+            <TargetField Definition="MaterialUnit"/>
+            <TargetField Definition="SrcBatchNo"/>
+            <TargetField Definition="SrcManufDate"/>
+            <TargetField Definition="SrcExpireDate"/>
+            <TargetField Definition="SrcProjectId"/>
+            <TargetField Definition="SrcRecvDate"/>
+            <TargetField Definition="SrcStrUserDef1"/>
+            <TargetField Definition="SrcStrUserDef2"/>
+            <TargetField Definition="SrcStrUserDef3"/>
+            <TargetField Definition="SrcStrUserDef4"/>
+            <TargetField Definition="SrcStrUserDef5"/>
+            <TargetField Definition="SrcDictUserDef1"/>
+            <TargetField Definition="SrcDictUserDef2"/>
+            <TargetField Definition="SrcDictUserDef3"/>
+            <TargetField Definition="SrcDictUserDef4"/>
+            <TargetField Definition="SrcDictUserDef5"/>
+            <TargetField Definition="SrcDateUserDef1"/>
+            <TargetField Definition="SrcDateUserDef2"/>
+            <TargetField Definition="SrcNumUserDef1"/>
+            <TargetField Definition="SrcNumUserDef2"/>
+            <TargetField Definition="SrcNumUserDef3"/>
+            <TargetField Definition="SrcStoreroomId"/>
+            <TargetField Definition="SrcStoreareaId"/>
+            <TargetField Definition="SrcLocationId"/>
+            <TargetField Definition="SrcMaterialStatusId"/>
+			 <TargetField Definition="SrcRefSOID"/>
+			<TargetField Definition="SrcRefLineOID"/>
+			<TargetField Definition="SrcHandingUnitNo"/>
+        </TargetTable>
+    </TargetTableCollection>
+    <FeedbackCollection>
+        <FeedbackObject Height="150" ObjectKey="LRP_CrossDocking" Width="283" X="700" Y="340">
+            <FeedbackTable TableKey="LRP_CrossDocking_L">
+                <FeedbackField FieldKey="ShipQty"/>
+            </FeedbackTable>
+        </FeedbackObject>
+    </FeedbackCollection>
+</Map>

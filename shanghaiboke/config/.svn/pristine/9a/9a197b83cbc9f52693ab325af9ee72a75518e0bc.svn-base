@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_VendorInfo_SupplementView" Caption="供应商信息补充视图" FormType="View" AbbrCaption="供应商信息补充视图">
+    <DataSource>
+        <DataObject Key="CHCS_VendorInfo_Supplement" Caption="供应商信息补充视图" PrimaryTableKey="CHCS_VendorInfo_Supplement">
+            <TableCollection>
+                <Table Key="CHCS_VendorInfo_Supplement" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="100"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+                    <Column Key="Abbreviation" Caption="简称" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('CHCS_VendorInfo_Supplement')]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                            <Label Key="L_Code_H" Caption="代码" X="0" Y="0"/>
+                            <TextEditor Key="Code_H" Caption="代码" BuddyKey="L_Code_H" X="1" Y="0" XSpan="3">
+                                <Condition ColumnKey="Code" TableKey="CHCS_VendorInfo_Supplement" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_Name_H" Caption="名称" X="5" Y="0"/>
+                            <TextEditor Key="Name_H" Caption="名称" BuddyKey="L_Name_H" X="6" Y="0">
+                                <Condition ColumnKey="Name" TableKey="CHCS_VendorInfo_Supplement" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_Abbreviation" Caption="简称" X="8" Y="0"/>
+                            <TextEditor Key="Abbreviation" Caption="简称" BuddyKey="L_Abbreviation" X="9" Y="0">
+                                <Condition ColumnKey="Abbreviation" TableKey="CHCS_VendorInfo_Supplement" CondSign="like"/>
+                            </TextEditor>
+                            <Button Key="Query" Caption="查询" X="11" Y="0" Enable="true" XSpan="2">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="11" Y="1" Enable="true" XSpan="2">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowHeight="25" RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="16%"/>
+                                <ColumnDef Width="15px"/>
+                                <ColumnDef Width="16%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="32%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="32%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="4%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="list" PageLoadType="DB" TableKey="CHCS_VendorInfo_Supplement">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="CHCS_VendorInfo_Supplement" Visible="false" Width="30px"/>
+                            <ListViewColumn Key="Code_H_LV" Caption="代码" ColumnType="TextEditor" DataColumnKey="Code" Width="120px"/>
+                            <ListViewColumn Key="Name_H_LV" Caption="名称" ColumnType="TextEditor" DataColumnKey="Name" Width="120px"/>
+                            <ListViewColumn Key="Abbreviation_LV" Caption="简称" ColumnType="TextEditor" DataColumnKey="Abbreviation" Width="120px"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('CHCS_VendorInfo_Supplement', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="35%"/>
+                    <SplitSize Size="65%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

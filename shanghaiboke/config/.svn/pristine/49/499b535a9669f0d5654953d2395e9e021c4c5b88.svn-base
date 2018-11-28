@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="储位类型" Key="LRP_LocType" PrimaryTableKey="LRP_LocType" PrimaryType="Entity"  SecondaryType="Dict">
+	<TableCollection>
+                <Table Caption="LRP_LocType" DBTableName="LRP_LocType" Key="LRP_LocType">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID" Length="11"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID" Length="11"/>
+                    <Column Caption="节点类型" DataType="Integer" Key="NodeType" Length="11"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status" Length="11"/>
+                    <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+                    <Column Caption="父节点" DataType="Long" Key="ParentID"/>
+                    <Column Caption="TLeft" DataType="Integer" Key="TLeft" Length="11"/>
+                    <Column Caption="TRight" DataType="Integer" Key="TRight" Length="11"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+		    <Column Caption="体积上限" DataType="Numeric" Key="CubageLimit" DefaultValue="0" Precision="18" Scale="3"/>
+		    <Column Caption="体积上限单位" DataType="Long" Key="CubageLimitUnit" />
+		     <Column Caption="承重上限" DataType="Numeric" Key="WeightLimit" DefaultValue="0" Precision="18" Scale="3"/>
+		     <Column Caption="承重上限单位" DataType="Long" Key="WeightLimitUnit" />
+		     <Column Caption="允许放托盘" DataType="Integer" Key="AllowPallet" Length="1" DefaultValue="1"/>
+		      <Column Caption="默认托盘类型" DataType="Long" Key="DefaultPalletTypeId" />
+		      <Column Caption="托盘数上限" DataType="Integer" Key="PalletQtyLimit" Length="3" DefaultValue="0"/>
+                </Table>
+	</TableCollection>
+</DataObject>

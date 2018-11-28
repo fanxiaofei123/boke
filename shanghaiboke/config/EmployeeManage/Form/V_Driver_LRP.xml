@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="司机" FormType="Dict" Key="V_Driver_LRP">
+    <DataSource RefObjectKey="LRP_Driver"/>
+    <UICheckRuleCollection>
+        <UICheckRule Description="调度组织不能重复" ErrorInfo="调度组织不能重复"><![CDATA[
+					
+							!CheckDuplicate("DispatchOrgId"); 
+						
+		]]></UICheckRule>
+		<UICheckRule Description="调度组织不能为空" ErrorInfo="调度组织不能为空"><![CDATA[
+					
+							GetRowCount('Grid0',false)>0
+						
+		]]></UICheckRule>
+    </UICheckRuleCollection>
+	<QueryCollection>
+        <Query Description="读取缺省操作员ID" Key="GetDefaultOperatorID">
+            <Statement>
+                <![CDATA[
+				
+				select OID from sys_operator where code='Admin'
+				
+			]]>
+            </Statement>            
+        </Query>        
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                            <TextEditor BuddyKey="L_Code" Caption="代码" Enable="!ReadOnly()" Key="Code" Tip="「代码」不可为空" X="1" XSpan="3" Y="0">
+								<DataBinding ColumnKey="Code" TableKey="LRP_Driver" Required="true"/>
+							</TextEditor>
+							<TextEditor BuddyKey="L_Name" Caption="姓名" Enable="!ReadOnly()" Key="Name" Tip="「姓名」不可为空" X="6" XSpan="3" Y="0">
+								<DataBinding ColumnKey="Name" TableKey="LRP_Driver" Required="true"/>
+							</TextEditor>
+							<Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+							<Label Caption="姓名" Key="L_Name" X="5" Y="0"/>
+							<TextEditor BuddyKey="L_Mobile" Caption="手机" Enable="!ReadOnly()" Key="Mobile" Tip="「手机」不可为空" X="1" XSpan="3" Y="1">
+								<DataBinding ColumnKey="Mobile" TableKey="LRP_Driver" Required="true"/>
+							</TextEditor>
+							<TextEditor BuddyKey="L_IDCardNo" Caption="身份证" Enable="!ReadOnly()" Key="IDCardNo" Tip="「身份证」不可为空" X="6" XSpan="3" Y="1">
+								<DataBinding ColumnKey="IDCardNo" TableKey="LRP_Driver" Required="true"/>
+							</TextEditor>
+							<Label Caption="手机" Key="L_Mobile" X="0" Y="1"/>
+							<Label Caption="身份证" Key="L_IDCardNo" X="5" Y="1"/>
+							
+							<TextEditor BuddyKey="L_ContactAddress" Caption="联系地址" Enable="!ReadOnly()" Key="ContactAddress" X="1" XSpan="3" Y="2">
+								<DataBinding ColumnKey="ContactAddress" TableKey="LRP_Driver"/>
+							</TextEditor>							
+							<Label Caption="联系地址" Key="L_ContactAddress" X="0" Y="2"/>
+							<TextEditor BuddyKey="L_LicenseNo" Caption="驾照号" Enable="!ReadOnly()" Key="LicenseNo" X="6" XSpan="3" Y="2">
+								<DataBinding ColumnKey="LicenseNo" TableKey="LRP_Driver"/>
+							</TextEditor>							
+							<Label Caption="驾照号" Key="L_LicenseNo" X="5" Y="2"/>
+							
+							<TextEditor BuddyKey="L_DriverType" Caption="司机类型" Enable="!ReadOnly()" Key="DriverType" X="1" XSpan="3" Y="3">
+								<DataBinding ColumnKey="DriverType" TableKey="LRP_Driver"/>
+							</TextEditor>							
+							<Label Caption="司机类型" Key="L_DriverType" X="0" Y="3"/>
+							<ComboBox BuddyKey="L_AppStatus" Caption="App使用状态" Enable="!ReadOnly()" Key="AppStatus" X="1" XSpan="3" Y="4">
+								<DataBinding ColumnKey="AppStatus" TableKey="LRP_Driver"/>
+								<Item Key="0" Caption="离线" Value="0"/>
+								<Item Key="1" Caption="在线" Value="1"/>
+							</ComboBox>
+							<Label Caption="App使用状态" Key="L_AppStatus" X="0" Y="4"/>
+							<Button Caption="修改密码" Enable="!ReadOnly()" Key="ChangePassword" X="0" XSpan="3" Y="5">
+								<OnClick>
+									<![CDATA[
+									var id = OID;
+									if(IsNew()){ id = -1; }
+									SetValue('OIDPara',id);
+									ShowModal('V_ChangePassWord',{OID_para:{OIDPara}});
+									]]>
+								</OnClick>
+							</Button>
+							<Image Key="AvatarUrl" Caption="头像" BuddyKey="Lab_AvatarUrl" X="6" Y="3" ImageScaleType="Fit_Center" MaxSize="2048" Stretch="true" XSpan="3" YSpan="2">
+								<DataBinding ColumnKey="AvatarUrl" TableKey="LRP_Driver"/>
+							</Image>
+							<Label Key="Lab_AvatarUrl" Caption="头像" X="5" Y="3"/>
+							
+							<TextEditor BuddyKey="Lab_OID" Caption="OID" Enable="false" Key="OID" Visible="false" X="1" Y="6">
+                                <DataBinding ColumnKey="OID" TableKey="LRP_Driver"/>
+                            </TextEditor>
+                            <Label Caption="OID" Key="Lab_OID" X="0" Y="6"/>
+							<TextEditor BuddyKey="Lab_OIDPara" Caption="OIDPara" Enable="false" Key="OIDPara" Visible="false" X="1" Y="6"/>                                
+                            <Label Caption="OIDPara" Key="Lab_OIDPara" X="0" Y="6"/>
+							<TextEditor BuddyKey="Lab_Password" Caption="Password" Enable="false" Key="Password" Visible="false" X="6" Y="6">
+                                <DataBinding ColumnKey="Password" TableKey="LRP_Driver" DefaultValue = "40bd001563085fc35165329ea1ff5c5ecbdbbeef"/>
+                            </TextEditor>
+                            <Label Caption="Password" Key="Lab_Password" X="5" Y="6"/>
+							
+							<TextEditor BuddyKey="Lab_OperatorID" Caption="OperatorID" Enable="false" Key="OperatorID" Visible="false" X="6" Y="6">
+                                <DataBinding ColumnKey="OperatorID" TableKey="LRP_Driver" DefaultFormulaValue = "GetOperatorID()"/>
+                            </TextEditor>
+                            <Label Caption="OperatorID" Key="Lab_OperatorID" X="5" Y="6"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                            <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_Driver"/>
+                            </Dict>
+                            <DatePicker Caption="创建时间" Format="yyyy-MM-dd HH:mm:ss" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Driver"/>
+                            </DatePicker>
+                            <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_Driver"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Format="yyyy-MM-dd HH:mm:ss" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Driver"/>
+                            </DatePicker>
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="关联调度组织明细" Key="TabPanel1">
+                        <Grid Caption="关联调度组织明细" Key="Grid0">
+                            <GridColumnCollection>
+                                <GridColumn Caption="调度组织" Key="column-0"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow RowType="Detail" TableKey="LRP_Driver_Org">
+                                    <GridCell Caption="调度组织" CellType="Dict" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId">
+                                        <DataBinding ColumnKey="DispatchOrgId" TableKey="LRP_Driver_Org"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="50%"/>
+                    <SplitSize Size="50%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+	<MacroCollection>
+        <Macro Key="GetOperatorID">
+		<![CDATA[
+			var rst = DBNamedQuery('GetDefaultOperatorID');
+			rst.beforefirst();
+			rst.next();
+			return rst.OID;
+		]]>
+        </Macro>
+    </MacroCollection>
+</Form>

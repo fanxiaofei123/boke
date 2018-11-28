@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="PutawayByKittingDetail" Authenticate="false">
+    <DataSource>
+        <DataObject Key="PutawayByKittingDetail" PrimaryTableKey="LRP_PutawayByKitting">
+            <TableCollection>
+                <Table Key="LRP_PutawayByKitting" Caption="上架历史明细" TableMode="Detail" SourceType="Query">
+                    <Column Key="MtlName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MtlCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Column Key="LocCode" Caption="存储区储位代码" DataType="Varchar"/>
+                    <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="10"/>
+                    <Column Key="BatchNo" Caption="批号" DataType="Varchar" Length="200"/>
+                    <Column Caption="数量" DataType="Numeric" Key="Qty" Precision="18" Scale="6"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Varchar" Formula="GetPara('No')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[ 
+SELECT MaterialUnit,
+  MtlName,
+  MtlCode,
+  LocCode,
+  BatchNo,
+  Qty
+FROM
+  (SELECT l.Qty,
+    l.SrcBatchNo AS BatchNo,
+    l.MaterialUnit,
+    m.Name AS MtlName,
+    m.Code AS MtlCode,
+    s.code AS LocCode
+  FROM LRP_WMTx_H h
+  LEFT JOIN LRP_WMTx_L l
+  ON h.OID = l.SOID
+  LEFT JOIN LRP_LOCATION s
+  ON l.DestLocationId = s.oid
+  LEFT JOIN LRP_Material m
+  ON l.MaterialId = m.oid
+  WHERE h.NO      = ?
+  )a
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[
+				LoadData();
+			 ]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#e6e6e6"/>
+                <TableView Key="PutawayDetail" X="0" Y="0" Caption="上架历史明细" Padding="5px">
+                    <TableRowCollection>
+                        <TableRow Key="list2" SeparatorStyle="solid none solid none" RowType="Detail" SeparatorColor="#dde0e7" TableKey="LRP_PutawayByKitting" SelectColor="#dddddd">
+                            <GridLayoutPanel Key="GridLayoutPanel4" Caption="GridLayoutPanel4">
+                                <Label Key="Materialcode2" LeftPadding="5px" X="1" Y="0" Caption="无物料代码" XSpan="2">
+                                    <DataBinding ColumnKey="MtlCode"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="MaterialName2" LeftPadding="5px" X="3" Y="0" Caption="无物料名称" XSpan="2">
+                                    <DataBinding ColumnKey="MtlName"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="MaterialUnit2" LeftPadding="5px" X="4" Y="1" Height="pref">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <TextEditor Key="BatchNo2" Caption="无批号" Enable="false" LeftPadding="5px" X="6" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="BatchNo"/>
+                                    <Format HAlign="Center">
+                                        <Font Size="13"/>
+                                    </Format>
+                                </TextEditor>
+                                <Label Key="Qty_lbl2" Caption="数量：" LeftPadding="5px" X="1" Y="1">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="Qty2" Precision="18" Scale="3" X="2" Y="1" Caption="上架量" Enable="false" Height="pref" XSpan="2">
+                                    <DataBinding ColumnKey="Qty"/>
+                                    <Format HAlign="Center">
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="Location_lbl2" Caption="储位：" LeftPadding="5px" X="6" Y="1">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <TextEditor Key="LocCode2" Caption="储位：" X="7" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="LocCode"/>
+                                    <Format HAlign="Center">
+                                        <Font Size="13"/>
+                                    </Format>
+                                </TextEditor>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="35px"/>
+                                    <RowDef Height="35px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="1">
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="33%"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="33%"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="33%"/>
+                                    <ColumnDef Width="5px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection RowGap="5">
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection ColumnGap="5">
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="上架历史明细" Location="Center">
+            <Label Key="TitleCenter" Caption="上架历史明细" Width="pref">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

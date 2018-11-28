@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Entry>
+        <Basic_Basic>Basic</Basic_Basic>
+		<Basic_Basic_V_WarehouseTxType_LRP>WarehouseTxType</Basic_Basic_V_WarehouseTxType_LRP>
+        <Basic_Basic_V_FinicialPeriod_LRP>FinicialPeriod</Basic_Basic_V_FinicialPeriod_LRP>
+        <Basic_Basic_V_MaterialStatus_LRP>MaterialStatus</Basic_Basic_V_MaterialStatus_LRP>
+        <Basic_Basic_V_TruckType_LRP>TruckType</Basic_Basic_V_TruckType_LRP>
+        <Basic_Basic_V_PackingMaterialCategory_LRP>PackingMaterialCategory</Basic_Basic_V_PackingMaterialCategory_LRP>
+        <Basic_Basic_V_PackingStrategy_LRP>PackingStrategy</Basic_Basic_V_PackingStrategy_LRP>
+        <Basic_Basic_V_Material_LRP>Material</Basic_Basic_V_Material_LRP>
+        <Basic_Basic_V_LogisticsService_LRP>LogisticsService</Basic_Basic_V_LogisticsService_LRP>
+        <Basic_Basic_V_Lookup_LRP>Lookup</Basic_Basic_V_Lookup_LRP>
+        <Basic_Basic_V_HandlingUnit_LRP>HandlingUnit</Basic_Basic_V_HandlingUnit_LRP>
+        <Basic_Basic_V_Bank_LRP>Bank</Basic_Basic_V_Bank_LRP>
+        <Basic_Basic_V_Platform_LRP>Platform</Basic_Basic_V_Platform_LRP>
+        <Basic_Basic_V_Trailer_LRP>Trailer</Basic_Basic_V_Trailer_LRP>
+        <Basic_Basic_V_Fleet_LRP>Fleet</Basic_Basic_V_Fleet_LRP>
+        <Basic_Basic_V_WarehouseCenter_LRP>WarehouseCenter</Basic_Basic_V_WarehouseCenter_LRP>
+        <Basic_Basic_V_HandlingUnitType_LRP>HandlingUnitType</Basic_Basic_V_HandlingUnitType_LRP>
+        <Basic_Basic_V_DispatchOrg_LRP>DispatchOrg</Basic_Basic_V_DispatchOrg_LRP>
+        <Basic_Basic_V_Location_LRP>Location</Basic_Basic_V_Location_LRP>
+        <Basic_Basic_V_Storearea_LRP>Storearea</Basic_Basic_V_Storearea_LRP>
+        <Basic_Basic_V_Carrier_LRP>Carrier</Basic_Basic_V_Carrier_LRP>
+        <Basic_Basic_V_PackingMaterial_LRP>PackingMaterial</Basic_Basic_V_PackingMaterial_LRP>
+        <Basic_Basic_V_Truck_LRP>Truck</Basic_Basic_V_Truck_LRP>
+        <Basic_Basic_V_City_LRP>City</Basic_Basic_V_City_LRP>
+        <Basic_Basic_V_Owner_LRP>Owner</Basic_Basic_V_Owner_LRP>
+        <Basic_Basic_V_PackingType_LRP>PackingType</Basic_Basic_V_PackingType_LRP>
+        <Basic_Basic_V_LocType_LRP>LocType</Basic_Basic_V_LocType_LRP>
+        <Basic_Basic_V_Storeroom_LRP>Storeroom</Basic_Basic_V_Storeroom_LRP>
+        <Basic_Basic_V_Province_LRP>Province</Basic_Basic_V_Province_LRP>
+        <Basic_Basic_V_PayMethod_LRP>PayMethod</Basic_Basic_V_PayMethod_LRP>
+        <Basic_Basic_V_City_Route>City_Route</Basic_Basic_V_City_Route>
+        <Basic_Basic_V_BankAccount_LRP>BankAccount</Basic_Basic_V_BankAccount_LRP>
+		<Basic_Basic_V_WarehouseKeeper_LRP>WarehouseKeeper</Basic_Basic_V_WarehouseKeeper_LRP>
+		<Basic_Basic_BinLocationList>BinLocationList</Basic_Basic_BinLocationList>
+		<Basic_Basic_Expresscompany>Expresscompany</Basic_Basic_Expresscompany>
+		<Basic_Basic_MaterialListing>MaterialListing</Basic_Basic_MaterialListing>
+		
+		
+    </Entry>
+	<DataObj_Column>
+	<Name>Name</Name>
+	<Code>Code</Code>
+	</DataObj_Column>
+	
+</StringTable>

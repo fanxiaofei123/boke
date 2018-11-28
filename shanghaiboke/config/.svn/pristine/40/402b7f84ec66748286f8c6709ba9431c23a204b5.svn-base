@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Confirm-R>ConfirmR</Confirm-R>
+        <Cancel>Cancel</Cancel>
+        <Confirm>Confirm</Confirm>
+        <Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>FinishR</Finish-R>
+        <Ship>Ship</Ship>
+        <Finish>Finish</Finish>
+        <CopyDetail>CopyDetail</CopyDetail>
+    </Opt>
+    <UI>
+	<V_Tx205>PickingOrdersByBackFactory</V_Tx205>
+        <L_OwnerId>Shipper</L_OwnerId>
+        <Lab_TxTypeId>Tx Type</Lab_TxTypeId>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <SystemInfo>System Info</SystemInfo>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <Description>Description</Description>
+        <detail_content2>Serial Number Details</detail_content2>
+        <L_RefNo>RefNo</L_RefNo>
+        <L_TxDateTime>TxDateTime</L_TxDateTime>
+        <L_CREATETIME>CREATET IME</L_CREATETIME>
+        <L_MODIFYTIME>MODIFY TIME</L_MODIFYTIME>
+        <DetailTab>Material Details</DetailTab>
+        <L_No>Number</L_No>
+        <L_Status>Status</L_Status>
+        <BasicTab>Basic Info</BasicTab>
+        <L_OwnerNo>Shipper No</L_OwnerNo>
+        <Lab_Remark>Remark(s)</Lab_Remark>
+        <Lab_WarehouseCenterId>Storage Center</Lab_WarehouseCenterId>
+        <L_FinishDateTime>Deadline</L_FinishDateTime>
+    </UI>
+    <GridColumn>
+        <ExpireDate>ExpireDate</ExpireDate>
+        <DestBatchNo>DestBatchNo</DestBatchNo>
+        <BatchNo>BatchNo</BatchNo>
+        <SrcRefLineOID>SrcRefLineOID</SrcRefLineOID>
+        <DestStrUserDef5>DestStrUserDef5</DestStrUserDef5>
+        <SrcStoreroomId>SrcStoreroomId</SrcStoreroomId>
+        <DestStrUserDef4>DestStrUserDef4</DestStrUserDef4>
+        <DestStrUserDef3>DestStrUserDef3</DestStrUserDef3>
+        <Qty>Qty</Qty>
+        <SrcDictUserDef1>SrcDictUserDef1</SrcDictUserDef1>
+        <SrcDictUserDef3>SrcDictUserDef3</SrcDictUserDef3>
+        <SrcDictUserDef2>SrcDictUserDef2</SrcDictUserDef2>
+        <SrcDictUserDef5>SrcDictUserDef5</SrcDictUserDef5>
+        <DestStrUserDef2>DestStrUserDef2</DestStrUserDef2>
+        <SrcDictUserDef4>SrcDictUserDef4</SrcDictUserDef4>
+        <DestStrUserDef1>DestStrUserDef1</DestStrUserDef1>
+        <ManufDate>ManuDate</ManufDate>
+        <SerialNo>SerialNo</SerialNo>
+        <MaterialId>MaterialId</MaterialId>
+        <DestHandingUnitNo>DestHandingUnitNo</DestHandingUnitNo>
+        <DestMaterialStatusId>DestMaterialStatusId</DestMaterialStatusId>
+        <Status_1>Status1</Status_1>
+        <BasicQty>BasicQty</BasicQty>
+        <DestManufDate>DestManuDate</DestManufDate>
+        <DestDateUserDef2>DestDateUserDef2</DestDateUserDef2>
+        <DestDateUserDef1>DestDateUserDef1</DestDateUserDef1>
+        <SrcNumUserDef3>SrcNumUserDef3</SrcNumUserDef3>
+        <SrcNumUserDef2>SrcNumUserDef2</SrcNumUserDef2>
+        <SrcNumUserDef1>SrcNumUserDef1</SrcNumUserDef1>
+        <SrcDateUserDef2>SrcDateUserDef2</SrcDateUserDef2>
+        <DestDictUserDef1>DestDictUserDef1</DestDictUserDef1>
+        <DestNumUserDef2>DestNumUserDef2</DestNumUserDef2>
+        <SrcDateUserDef1>SrcDateUserDef1</SrcDateUserDef1>
+        <DestNumUserDef3>DestNumUserDef3</DestNumUserDef3>
+        <DestNumUserDef1>DestNumUserDef1</DestNumUserDef1>
+        <RecvDate>RecvDate</RecvDate>
+        <DestStoreareaId>DestStoreareaId</DestStoreareaId>
+        <DestLocationId>DestLocationId</DestLocationId>
+        <SrcLocationId>SrcLocationId</SrcLocationId>
+        <DestDictUserDef5>DestDictUserDef5</DestDictUserDef5>
+        <DestDictUserDef4>DestDictUserDef4</DestDictUserDef4>
+        <DestDictUserDef3>DestDictUserDef3</DestDictUserDef3>
+        <SrcHandingUnitNo>SrcHandingUnitNo</SrcHandingUnitNo>
+        <DestDictUserDef2>DestDictUserDef2</DestDictUserDef2>
+        <MaterialUnit>MaterialUnit</MaterialUnit>
+        <DestExpireDate>DestExpireDate</DestExpireDate>
+        <SrcStoreareaId>SrcStoreareaId</SrcStoreareaId>
+        <SrcStrUserDef5>SrcStrUserDef5</SrcStrUserDef5>
+        <Qty_1>Qty1</Qty_1>
+        <DestStoreroomId>DestStoreroomId</DestStoreroomId>
+        <ProjectId>ProjectId</ProjectId>
+        <Change>Change</Change>
+        <SrcStrUserDef4>SrcStrUserDef4</SrcStrUserDef4>
+        <SrcStrUserDef3>SrcStrUserDef3</SrcStrUserDef3>
+        <SrcStrUserDef2>SrcStrUserDef2</SrcStrUserDef2>
+        <SrcStrUserDef1>SrcStrUserDef1</SrcStrUserDef1>
+        <SrcMaterialStatusId>SrcMaterialStatusId</SrcMaterialStatusId>
+        <DestProjectId>DestProjectId</DestProjectId>
+        <Select>Select</Select>
+        <DestRecvDate>DestRecvDate</DestRecvDate>
+    </GridColumn>
+    <Cell>
+        <SrcStoreareaId>SrcStoreareaIdIsNotNull</SrcStoreareaId>
+        <SrcStoreroomId>SrcStoreroomIdIsNotNull</SrcStoreroomId>
+        <DestStoreareaId>DestStoreareaIdIsNotNull</DestStoreareaId>
+        <DestLocationId>DestLocationIdIsNotNull</DestLocationId>
+        <SrcLocationId>SrcLocationIdIsNotNull</SrcLocationId>
+        <DestStoreroomId>DestStoreroomIdIsNotNull</DestStoreroomId>
+        <Qty>Qty>0</Qty>
+    </Cell>
+</StringTable>

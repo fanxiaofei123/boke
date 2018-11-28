@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Verdor_Contract_Supplemen" Caption="合同信息补充" FormType="Entity">
+    <DataSource RefObjectKey="CHCS_Verdor_Contract_Supplement"/>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData(); UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[New('CHCS_Verdor_Contract_Supplemen', 'self');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[DeleteData();UpdateView();Close();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Key="Basic_Info" Height="pref" Padding="5px" Caption="基本信息">
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="34%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="Sys_Info" Height="pref" Padding="5px" Caption="系统信息">
+                            <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" ItemKey="Operator">
+                                <DataBinding ColumnKey="CREATOR" TableKey="CHCS_Verdor_Contract_Supplement"/>
+                            </Dict>
+                            <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0">
+                                <DataBinding ColumnKey="CREATETIME" TableKey="CHCS_Verdor_Contract_Supplement"/>
+                            </DatePicker>
+                            <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                            <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" ItemKey="Operator">
+                                <DataBinding ColumnKey="MODIFIER" TableKey="CHCS_Verdor_Contract_Supplement"/>
+                            </Dict>
+                            <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" TableKey="CHCS_Verdor_Contract_Supplement"/>
+                            </DatePicker>
+                            <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="2" Y="1"/>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <Grid Key="Grid1" Caption="Grid1">
+                        <GridColumnCollection>
+                            <GridColumn Key="column1" Caption="选择" Width="80px"/>
+                            <GridColumn Key="Product" Caption="餐种" Width="80px" Enable="false"/>
+                            <GridColumn Key="Origin_Unit_Price" Caption="原合同单价" Width="80px" Enable="false"/>
+                            <GridColumn Key="Origin_Valid_Time_Start" Caption="原有效期起" Width="80px" Enable="false"/>
+                            <GridColumn Key="Origin_Valid_Time_End" Caption="原有效期止" Width="80px" Enable="false"/>
+                            <GridColumn Key="Unit_Price" Caption="单价" Width="80px"/>
+                            <GridColumn Key="Valid_Time_Start" Caption="有效期起" Width="80px"/>
+                            <GridColumn Key="Valid_Time_End" Caption="有效期止" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="36" TableKey="CHCS_Contract_Price_Maintain">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                <GridCell Key="Product" Caption="餐种" CellType="Dict" ItemKey="CHCS_Product">
+                                    <DataBinding ColumnKey="Product"/>
+                                </GridCell>
+                                <GridCell Key="Origin_Unit_Price" Caption="原合同单价" CellType="NumberEditor" Format="">
+                                    <DataBinding ColumnKey="Origin_Unit_Price"/>
+                                </GridCell>
+                                <GridCell Key="Origin_Valid_Time_Start" Caption="原有效期起" CellType="DatePicker" OnlyDate="true">
+                                    <DataBinding ColumnKey="Origin_Valid_Time_Start"/>
+                                </GridCell>
+                                <GridCell Key="Origin_Valid_Time_End" Caption="原有效期止" CellType="DatePicker" OnlyDate="true">
+                                    <DataBinding ColumnKey="Origin_Valid_Time_End"/>
+                                </GridCell>
+                                <GridCell Key="Unit_Price" Caption="单价" CellType="NumberEditor" Format="">
+                                    <DataBinding ColumnKey="Unit_Price"/>
+                                </GridCell>
+                                <GridCell Key="Valid_Time_Start" Caption="有效期起" CellType="DatePicker" OnlyDate="true">
+                                    <DataBinding ColumnKey="Valid_Time_Start"/>
+                                </GridCell>
+                                <GridCell Key="Valid_Time_End" Caption="有效期止" CellType="DatePicker" OnlyDate="true">
+                                    <DataBinding ColumnKey="Valid_Time_End"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="100px"/>
+                    <SplitSize Size="100px"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

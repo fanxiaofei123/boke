@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="TakeStock" HasNavigationBar="false">
+    <DataSource RefObjectKey="LRP_TakeStock"/>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#f1f3f8"/>
+                <LinearLayoutPanel Caption="Title3" Key="Title" Orientation="Horizontal" X="0" Y="0">
+                    <Format BackColor="#f14c52"/>
+                    <Button Key="Cancel" Caption="取消" Enable="True" Height="auto" Width="60px">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Left">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									ShowConfirm('是否放弃本次盘点？', 'YES_NO', 
+										{
+											YES: {
+													Close();
+												}, 
+											NO: {} 
+										}
+												)
+								]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="TitleCenter" Caption="盘点" Height="auto" Weight="1.0">
+                        <Format ForeColor="#ffffff" HAlign="Center">
+                            <Font Size="20"/>
+                        </Format>
+                    </Label>
+                    <Button Key="Comfirm" Caption="完成" Enable="True" Height="auto" Width="60px">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Right">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+								SetValue('Status',900);
+								SetValue('CheckDatetime',ServerDate());
+								SaveData();Close();
+									]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <TableView Key="locationquery_table" X="0" Y="1">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="r1" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="20px" BottomMargin="20px">
+                            <LinearLayoutPanel Key="service_center_panel" Height="50px" Orientation="Horizontal">
+                                <TextEditor Key="Location_code" Caption="扫描储位" PromptText="扫描储位" Weight="1.0" Width="auto" BorderRadius="4" BorderColor="#dde0e7" HasBorder="true" Enable="True" Height="auto">
+                                    <KeyEnter>
+                                        <![CDATA[
+										if(Location_code==''){
+											return true;
+										}
+										var count=GetRowCount('list');
+										var i=0;
+										var flag=false;
+										while(i<count){
+											if(GetCellValue('list',i,'LocationCode')==Location_code){
+												SetFocusRow('list',i);
+												SetRowIndex('list',i);
+												ScrollTo('list',i);
+												flag=true;
+												break;
+											}
+											i=i+1;
+										}
+										if(flag==false){
+											ShowToast("盘点明细中找不到该储位代码。");
+										}
+										SetFocus('Location_code');
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Button Key="query_btn1" Icon="12.png" OnlyIcon="True" Enable="true" Width="40px" BorderStyle="none" Height="auto">
+                                    <Format HAlign="Left"/>
+                                    <OnClick>
+                                        <![CDATA[
+										if(Location_code==''){
+											return true;
+										}
+										var count=GetRowCount('list');
+										var i=0;
+										var flag=false;
+										while(i<count){
+											if(GetCellValue('list',i,'LocationCode')==Location_code){
+												SetFocusRow('list',i);
+												SetRowIndex('list',i);
+												ScrollTo('list',i);
+												flag=true;
+												break;
+											}
+											i=i+1;
+										}
+										if(flag==false){
+											ShowToast("盘点明细中找不到该储位代码。");
+										}
+									]]>
+                                    </OnClick>
+                                </Button>
+                                <Label Key="TakeStockQty_Null_lbl" Caption="差异量" Width="50px" Height="auto"/>
+                                <NumberEditor Key="TakeStockQty_Null_code" Caption="差异量" Precision="18" Scale="0" Width="70px" Height="auto">
+                                    <DataBinding DefaultFormulaValue="ToInt(Sum('CheckQty'))-ToInt(Sum('Qty'))"/>
+                                </NumberEditor>
+                                <ComboBox Caption="状态" Enable="false" Key="Status" SourceType="Status" Visible="false">
+                                    <DataBinding ColumnKey="Status" TableKey="LRP_TakeStock_H"/>
+                                </ComboBox>
+                                <DatePicker Key="CheckDatetime" Caption="盘点日期时间" Visible="false" Format="yyyy-MM-dd">
+                                    <DataBinding ColumnKey="CheckDatetime" TableKey="LRP_TakeStock_H"/>
+                                </DatePicker>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r2" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" BottomMargin="20px">
+                            <LinearLayoutPanel Key="Material_panel" Height="50px" Orientation="Horizontal">
+                                <TextEditor Key="Material_code" Caption="扫描物料条码" PromptText="扫描物料条码" Enable="true" Weight="1.0" Width="auto" BorderRadius="4" BorderColor="#dde0e7" HasBorder="true" Height="auto">
+                                    <KeyEnter>
+                                        <![CDATA[
+										var count=GetRowCount('list');
+										var i=0;
+										var flag=false;
+										if(Location_code==''){
+											ShowToast("请先扫描储位条码。");
+											return true;
+										}
+										if(Material_code==''){
+											return true;
+										}
+										while(i<count){
+											if(GetCellValue('list',i,'LocationCode')==Location_code && GetCellValue('list',i,'Materialcode')==Material_code  && ToInt(GetCellValue('list', i,'CheckQty'))<ToInt(GetCellValue('list', i,'Qty'))){
+												SetFocusRow('list',i);
+												SetRowIndex('list',i);
+												ScrollTo('list',i);
+												SetCellValue('list',i,'CheckQty',ToInt(GetCellValue('list', i,'CheckQty'))+ToInt(AddQty_code));
+												flag=true;
+												break;
+											}
+											i=i+1;
+										}
+										if(flag==false){
+											ShowToast("盘点明细中找不到该储位上的物料。");
+										}
+										SetFocus('Material_code');
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Button Key="query_btn2" Icon="12.png" OnlyIcon="True" Enable="true" Width="40px" BorderStyle="none" Height="auto">
+                                    <Format HAlign="Left"/>
+                                    <OnClick>
+                                        <![CDATA[
+											var count=GetRowCount('list');
+											var i=0;
+											var flag=false;
+											if(Location_code==''){
+												ShowToast("请先扫描储位条码。");
+												return true;
+											}
+											if(Material_code==''){
+												return true;
+											}
+											while(i<count){
+												if(GetCellValue('list',i,'LocationCode')==Location_code && GetCellValue('list',i,'Materialcode')==Material_code  && ToInt(GetCellValue('list', i,'CheckQty'))<ToInt(GetCellValue('list', i,'Qty'))){
+													SetFocusRow('list',i);
+													SetRowIndex('list',i);
+													ScrollTo('list',i);
+													SetCellValue('list',i,'CheckQty',ToInt(GetCellValue('list', i,'CheckQty'))+ToInt(AddQty_code));
+													flag=true;
+													break;
+												}
+												i=i+1;
+											}
+											if(flag==false){
+												ShowToast("盘点明细中找不到该储位上的物料。");
+											}
+										]]>
+                                    </OnClick>
+                                </Button>
+                                <Label Key="AddQty_lbl" Caption="增加量" Width="50px" Height="auto"/>
+                                <NumberEditor Key="AddQty_code" Caption="增加量" Enable="true" Precision="18" Scale="0" Width="70px" Height="auto">
+                                    <DataBinding DefaultValue="1"/>
+                                </NumberEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <TableView Key="locationdetail_table" X="0" Y="2">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="list" SeparatorStyle="solid none solid none" RowType="Detail" SeparatorColor="#dde0e7" TableKey="LRP_TakeStock_L" SelectColor="#dddddd">
+                            <GridLayoutPanel Key="GridLayoutPanel" Caption="GridLayoutPanel">
+                                <Dict Key="MaterialId" X="0" Y="0" Visible="false" ItemKey="LRP_Material">
+                                    <DataBinding ColumnKey="MaterialId"/>
+                                </Dict>
+                                <Dict Key="LocationId" X="0" Y="0" Visible="false" ItemKey="LRP_Location">
+                                    <DataBinding ColumnKey="LocationId"/>
+                                </Dict>
+                                <Label Key="LocationCode" LeftPadding="5px" X="0" Y="0" XSpan="6">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Location',LocationId,'LRP_Location.Code')"/>
+                                </Label>
+                                <Label Key="Materialcode" LeftPadding="5px" X="6" Y="0" XSpan="4">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'LRP_Material.Code')"/>
+                                </Label>
+                                <Label Key="MaterialName" LeftPadding="5px" X="10" Y="0" XSpan="4">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'LRP_Material.Name')"/>
+                                </Label>
+                                <Label Key="Qty_lbl" Caption="账面量" LeftPadding="5px" X="0" Y="1" XSpan="2"/>
+                                <NumberEditor Key="Qty" Precision="18" Scale="0" X="2" Y="1" XSpan="2">
+                                    <DataBinding ColumnKey="Qty"/>
+                                </NumberEditor>
+                                <Label Key="BasicUnit" LeftPadding="5px" X="4" Y="1" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'LRP_Material.BasicUnit')"/>
+                                </Label>
+                                <Label Key="CheckQty_lbl" Caption="实盘量" LeftPadding="5px" X="6" Y="1" XSpan="2"/>
+                                <NumberEditor Key="CheckQty" Caption="实盘量" Enable="True" Precision="18" Scale="0" X="8" Y="1" XSpan="2">
+                                    <DataBinding ColumnKey="CheckQty" CheckRule="CheckQty&gt;=0" ErrorInfo="实盘必须大于等于0">
+                                        <ValueChanged>
+                                            <![CDATA[SetValue('TakeStockQty_Null_code',ToInt(Sum('CheckQty'))-ToInt(Sum('Qty')))]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                </NumberEditor>
+                                <Label Key="BatchNo_lbl" Caption="批号" LeftPadding="5px" X="10" Y="1" XSpan="2"/>
+                                <Label Key="BatchNo" X="12" Y="1" XSpan="2">
+                                    <DataBinding ColumnKey="BatchNo"/>
+                                </Label>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="1">
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="15%"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="15%"/>
+                                    <ColumnDef Width="20px"/>
+                                    <ColumnDef Width="14%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="14%"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="14%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="14%"/>
+                                    <ColumnDef Width="60px"/>
+                                    <ColumnDef Width="14%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="150px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			ReplaceTable('LRP_TakeStock_L',InvokeService("LRP_TakeStockOderByLocation", false, false,Para('OID')));
+			RefreshControl('list');
+		]]>
+    </OnLoad>
+</Form>

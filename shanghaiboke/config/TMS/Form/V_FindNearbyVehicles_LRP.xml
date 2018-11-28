@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_FindNearbyVehicles_LRP" Caption="查找附近车辆" FormType="Report">
+    <DataSource RefObjectKey="LRP_VehicleTrack"/>
+	<QueryCollection>
+	   <Query Key="SelectProvince" Description="查找省名称">
+            <Statement>
+                <![CDATA[select name from LRP_Province where oid = ?]]>
+            </Statement>
+			<ParameterCollection>
+				<Parameter DataType="Long"/>
+			</ParameterCollection>
+        </Query>
+		 <Query Key="SelectCity" Description="查找市名称">
+            <Statement>
+                <![CDATA[select name from LRP_City where oid = ?]]>
+            </Statement>
+			<ParameterCollection>
+				<Parameter DataType="Long"/>
+			</ParameterCollection>
+        </Query>
+		 <Query Key="SelectDistrict" Description="查找区名称">
+            <Statement>
+                <![CDATA[select name from LRP_District where oid = ?]]>
+            </Statement>
+			<ParameterCollection>
+				<Parameter DataType="Long"/>
+			</ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <SplitPanel Key="SplitPanel1" Height="100%" Caption="SplitPanel1" Width="100%">
+                    <SplitPanel Key="SplitPanel2" Orientation="Vertical" Height="100%" Caption="SplitPanel2" Width="100%" BottomMargin="4px" LeftMargin="4px" Margin="4px" RightMargin="4px" TopMargin="4px">
+                        <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1" BottomMargin="4px" LeftMargin="4px" RightMargin="4px" TopMargin="4px">
+						   <Dict BuddyKey="Lab_ProvinceId" Caption="省" ItemKey="LRP_Province" Key="ProvinceId" X="1" Y="0">
+                                    <DataBinding />
+                                </Dict>
+                                <Label Caption="省" Key="Lab_ProvinceId" X="0" Y="0"/>
+                                <Dict BuddyKey="Lab_CityId" Caption="市" ItemKey="LRP_City" Key="CityId" X="1" Y="1">
+                                    <DataBinding />
+                                    <ItemFilter ItemKey="LRP_City">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="ProvinceId" RefValue="ProvinceId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="市" Key="Lab_CityId" X="0" Y="1"/>
+                                <Dict BuddyKey="Lab_DistrictId" Caption="区" ItemKey="LRP_District" Key="DistrictId" X="1" Y="2">
+                                    <DataBinding />
+                                    <ItemFilter ItemKey="LRP_District">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue FieldKey="SOID" RefValue="CityId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </Dict>
+                                <Label Caption="区" Key="Lab_DistrictId" X="0" Y="2"/>
+								<TextEditor Key="Address_C" Caption="地址" BuddyKey="Lab_Address_C" X="1" Y="3">
+                                <!-- <Condition ColumnKey="Address" TableKey="LRP_VehicleTrack" CondSign="="/> -->
+                                </TextEditor>
+                               <Label Key="Lab_Address_C" Caption="地址" X="0" Y="3"/>
+                            <Button Key="Query" Caption="查询" X="3" Y="0">
+                                <OnClick>
+                                    <![CDATA[
+
+DealCondition();LoadData();ShowData();]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="Reset" Caption="重置" X="3" Y="1">
+                                <OnClick>
+                                    <![CDATA[ResetCondition();]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="ShowTrack" Caption="显示车辆" X="3" Y="2">
+                                <OnClick>
+                                    <![CDATA[//显示附近车辆
+	if(IsControlNull('Address_C')){
+       Confirm("请先输入地址。", "OK","OK:{}");
+       return true;
+    }								
+									
+   var platAndPlong = InvokeService("LRP_FindNearbyVehicles", true, false);
+   
+   
+    var plat = platAndPlong.latitude;
+    var plong = platAndPlong.longitude;
+    var plicenseNo = platAndPlong.licenseNo;
+
+var provinceId = GetValue('ProvinceId');
+var provinceName = DBNamedQueryValue('SelectProvince',provinceId);
+var cityId = GetValue('CityId');
+var cityName = DBNamedQueryValue('SelectCity',cityId);
+var districtId = GetValue('DistrictId');
+var districtName = DBNamedQueryValue('SelectDistrict',districtId);
+var addressName = GetValue('Address_C');
+var name = provinceName + cityName + districtName + addressName + "";
+var latAndLong = InvokeService("LRP_getLatAndLngByAddress", True, false,name);
+
+
+var pdlat = "dlat=" + latAndLong.latitude;
+var pdlong = "dlong=" + latAndLong.longitude;
+
+var url = "LRP_Nearby/getmap.html?" & plat & "&" & plong & "&" & pdlat & "&" & pdlong & "&" & plicenseNo;
+SetValue('WebBrowser', url);
+
+
+
+]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+								<RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="100%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="8px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" TableKey="LRP_VehicleTrack" Height="100%" Width="100%" PageRowCount="70">
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="RecordTime" Caption="时间" ColumnType="DatePicker" DataColumnKey="RecordTime" Enable="false" Width="150px"/>
+                                <ListViewColumn Key="Longitude" Caption="经度" ColumnType="NumberEditor" DataColumnKey="Longitude" Enable="false" Width="100px" Precision="10" Scale="6"/>
+                                <ListViewColumn Key="Latitude" Caption="纬度" ColumnType="NumberEditor" DataColumnKey="Latitude" Enable="false" Width="100px" Precision="10" Scale="6"/>
+                                <ListViewColumn Key="CoordinateType" Caption="坐标类型" ColumnType="TextEditor" DataColumnKey="CoordinateType" Visible="false" Enable="false"/>
+                            </ListViewColumnCollection>
+                        </ListView>
+                        <SplitSize Size="150px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <WebBrowser Caption="WebBrowser" Key="WebBrowser" Height="100%" Width="100%"/>
+                    <SplitSize Size="400px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

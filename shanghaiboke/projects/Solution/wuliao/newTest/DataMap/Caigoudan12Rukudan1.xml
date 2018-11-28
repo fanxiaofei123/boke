@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="采购单1映射入库单1" Key="Caigoudan12Rukudan1" SrcDataObjectKey="Caigoudan1" TgtDataObjectKey="Rukudan1" AllowSurplus="true" MaxPushValue="Caigoudan1Detail.Amount*1.2">
+    <SourceTableCollection Height="180" Width="237" X="30" Y="30">
+        <SourceTable IsPrimary="true" Key="Caigoudan1Detail" TargetTableKey="Rukudan1Detail">
+            <SourceField Definition="Material" TargetFieldKey="Material"/>
+            <SourceField Definition="Amount" EdgeType="Focus" TargetFieldKey="Amount"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="180" Width="224" X="335" Y="30">
+        <TargetTable IsPrimary="true" Key="Rukudan1Detail">
+            <TargetField Definition="Material"/>
+            <TargetField Definition="Amount">
+                <Feedback DataObjectKey="Caigoudan1" FieldKey="StockInAmount" TableKey="Caigoudan1Detail" OpSign="AddDelta"/>
+            </TargetField>
+        </TargetTable>
+    </TargetTableCollection>
+    <FeedbackCollection>
+        <FeedbackObject Height="150" ObjectKey="Caigoudan1" Width="237" X="659" Y="30">
+            <FeedbackTable TableKey="Caigoudan1Detail">
+                <FeedbackField FieldKey="StockInAmount"/>
+            </FeedbackTable>
+        </FeedbackObject>
+    </FeedbackCollection>
+</Map>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_T_ExpenseTerm_LRP" FormType="Entity" Caption="承运商费用条款" ViewKey="V_T_ExpenseTerm_LRPView">
+    <DataSource RefObjectKey="LRP_T_ExpenseTerm"/>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[New('V_T_ExpenseTerm_LRP', 'self');]]>
+            </Action>
+        </Operation>
+        <Operation Key="CopyNew" Caption="复制新增" RefKey="CopyNew" ShortCuts="Ctrl+E"/>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[
+				if(GetRowCount('Grid0', false)==0){ 
+					 Confirm(LocaleString('CHshow','chkey1'), 'OK','OK:{}');
+					 return true;
+				}	 
+				SaveData();
+				UpdateView();
+				
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()" RefKey="Cancel"/>
+        <Operation Key="Confirm" Caption="确认" Visible="ReadOnly()" RefKey="Confirm"/>
+        <Operation Key="Confirm-R" Caption="撤销确认" Visible="ReadOnly();" RefKey="Confirm-R"/>
+        <Operation Key="ToCancel" Caption="作废" Visible="ReadOnly()" RefKey="ToCancel"/>
+        <Operation Key="ToCancel-R" Caption="撤销作废" Visible="ReadOnly()" RefKey="ToCancel-R"/>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()" RefKey="Delete"/>
+        <Operation Key="Close" Caption="关闭界面" Visible="ReadOnly()" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Caption="SplitPanel1">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                    <TabPanel Caption="TabPanel2" Height="pref" Key="TabPanel2">
+                        <GridLayoutPanel Key="first_head" Padding="10px" Height="pref" Caption="基本信息">
+                            <TextEditor Key="No" Caption="条款号" BuddyKey="Lab_No" X="1" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_T_ExpenseTerm_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="条款号" X="0" Y="0"/>
+                            <TextEditor Key="Name" Caption="条款名称" BuddyKey="Lab_Name" X="4" Y="0" Enable="Status==100" AsQuery="true">
+                                <DataBinding ColumnKey="Name" TableKey="LRP_T_ExpenseTerm_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name" Caption="条款名称" X="3" Y="0"/>
+                            <Dict Key="ExpenseId" Caption="费用名称" BuddyKey="Lab_ExpenseId" X="7" Y="0" Enable="Status==100" ItemKey="LRP_Expense" AsQuery="true">
+                                <DataBinding ColumnKey="ExpenseId" TableKey="LRP_T_ExpenseTerm_H" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_ExpenseId" Caption="费用名称" X="6" Y="0"/>
+                            <TextEditor Key="Remark" Caption="备注" BuddyKey="Lab_Remark" X="1" Y="1" Enable="Status==100" XSpan="4" MaxLength="1000">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_T_ExpenseTerm_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remark" Caption="备注" X="0" Y="1"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="1" SourceType="Status" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_T_ExpenseTerm_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="6" Y="1"/>
+                            <TextArea Key="FilterCondition" Caption="过滤条件" BuddyKey="Lab_FilterCondition" X="1" Y="2" Enable="Status==100" XSpan="7">
+                                <DataBinding ColumnKey="FilterCondition" TableKey="LRP_T_ExpenseTerm_H"/>
+                            </TextArea>
+                            <Label Key="Lab_FilterCondition" Caption="过滤条件" X="0" Y="2"/>
+                            <RowDefCollection RowGap="8" RowHeight="30">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SystemInfo" Padding="10px" Caption="系统信息">
+                            <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_T_ExpenseTerm_H"/>
+                            </Dict>
+                            <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="4" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_T_ExpenseTerm_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_CREATETIME" Caption="创建时间" X="3" Y="0"/>
+                            <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_T_ExpenseTerm_H"/>
+                            </Dict>
+                            <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="4" Y="1" Enable="false">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_T_ExpenseTerm_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="3" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                </FlexFlowLayoutPanel>
+                <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                    <Grid Key="Grid0" Caption="条款明细">
+                        <GridColumnCollection>
+                            <GridColumn Key="column1" Caption="选择" Width="80px" Sortable="true"/>
+                            <GridColumn Key="Name_LV" Caption="名称" Width="80px" Sortable="true"/>
+                            <GridColumn Key="SendProvinceId" Caption="发出省份" Width="80px" Sortable="true"/>
+                            <GridColumn Key="SendCityId" Caption="发出城市" Width="80px" Sortable="true"/>
+                            <GridColumn Key="SendDistrictId" Caption="发出区域" Width="80px" Sortable="true"/>
+                            <GridColumn Key="DestProvinceId" Caption="到达省份" Width="80px" Sortable="true"/>
+                            <GridColumn Key="DestCityId" Caption="到达城市" Width="80px" Sortable="true"/>
+                            <GridColumn Key="DestDistrictId" Caption="到达区域" Width="80px" Sortable="true"/>
+                            <GridColumn Key="Mileage" Caption="里程数" Width="80px" Sortable="true"/>
+                            <GridColumn Key="RequireTruckTypeId" Caption="车型" Width="80px" Sortable="true"/>
+                            <GridColumn Key="RouteId" Caption="运输路线" Width="80px" Sortable="true"/>
+                            <GridColumn Key="SumDivideType" Caption="汇总和分摊方式" Width="104px" Sortable="true"/>
+                            <GridColumn Key="ChargeBase" Caption="计费基础" Width="80px" Sortable="true"/>
+                            <GridColumn Key="FieldName" Caption="字段名" Width="80px" Sortable="true"/>
+                            <GridColumn Key="WeightCubageRatio" Caption="重泡比" Width="80px" Sortable="true"/>
+                            <GridColumn Key="ChargeDescribe" Caption="计费描述" Width="80px" Sortable="true"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_T_ExpenseTerm_L">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                <GridCell Key="Name_LV" Caption="名称" CellType="TextEditor" Enable="Status==100">
+                                    <DataBinding ColumnKey="Name" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="SendProvinceId" Caption="发出省份" CellType="Dict" Enable="Status==100" ItemKey="LRP_Province">
+                                    <DataBinding ColumnKey="SendProvinceId"/>
+                                </GridCell>
+                                <GridCell Key="SendCityId" Caption="发出城市" CellType="Dict" Enable="Status==100" ItemKey="LRP_City">
+                                    <DataBinding ColumnKey="SendCityId"/>
+                                    <ItemFilter ItemKey="LRP_City">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue DataType="Long" FieldKey="ProvinceId" RefValue="SendProvinceId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </GridCell>
+                                <GridCell Key="SendDistrictId" Caption="发出区域" CellType="Dict" Enable="Status==100" ItemKey="LRP_District">
+                                    <DataBinding ColumnKey="SendDistrictId"/>
+                                    <ItemFilter ItemKey="LRP_District">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue DataType="Long" FieldKey="SOID" RefValue="SendCityId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </GridCell>
+                                <GridCell Key="DestProvinceId" Caption="到达省份" CellType="Dict" Enable="Status==100" ItemKey="LRP_Province">
+                                    <DataBinding ColumnKey="DestProvinceId"/>
+                                </GridCell>
+                                <GridCell Key="DestCityId" Caption="到达城市" CellType="Dict" ItemKey="LRP_City">
+                                    <DataBinding ColumnKey="DestCityId"/>
+                                    <ItemFilter ItemKey="LRP_City">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue DataType="Long" FieldKey="ProvinceId" RefValue="DestProvinceId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </GridCell>
+                                <GridCell Key="DestDistrictId" Caption="到达区域" CellType="Dict" Enable="Status==100" ItemKey="LRP_District">
+                                    <DataBinding ColumnKey="DestDistrictId"/>
+                                    <ItemFilter ItemKey="LRP_District">
+                                        <Filter Type="FieldValue">
+                                            <FilterValue DataType="Long" FieldKey="SOID" RefValue="DestCityId" Type="Field"/>
+                                        </Filter>
+                                    </ItemFilter>
+                                </GridCell>
+                                <GridCell Key="Mileage" Caption="里程数" CellType="NumberEditor" Enable="Status==100" Scale="3" Precision="15">
+                                    <DataBinding ColumnKey="Mileage" CheckRule="IIF(ChargeBase=='tonkile', Mileage&gt;0, true)" ErrorInfo="明细计费基础是吨公里，里程数必须大于0"/>
+                                </GridCell>
+                                <GridCell Key="RequireTruckTypeId" Caption="车型" CellType="Dict" Enable="Status==100" ItemKey="LRP_TruckType">
+                                    <DataBinding ColumnKey="RequireTruckTypeId"/>
+                                </GridCell>
+                                <GridCell Key="RouteId" Caption="运输路线" CellType="Dict" Enable="Status==100" ItemKey="LRP_Route">
+                                    <DataBinding ColumnKey="RouteId"/>
+                                </GridCell>
+                                <GridCell Key="SumDivideType" Caption="汇总和分摊方式" CellType="ComboBox" Enable="Status==100">
+                                    <DataBinding ColumnKey="SumDivideType" Required="true"/>
+                                    <Item Caption="按单头汇总" Key="head" Value="head"/>
+                                    <Item Caption="明细分别计算并汇总到单头" Key="line" Value="line"/>
+                                </GridCell>
+                                <GridCell Key="ChargeBase" Caption="计费基础" CellType="ComboBox" Enable="Status==100">
+                                    <DataBinding ColumnKey="ChargeBase" Required="true"/>
+                                    <Item Caption="数量" Key="qty" Value="qty"/>
+                                    <Item Caption="体积" Key="cubage" Value="cubage"/>
+                                    <Item Caption="重量" Key="weight" Value="weight"/>
+                                    <Item Caption="计费吨" Key="chargeton" Value="chargeton"/>
+                                    <Item Caption="吨公里" Key="tonkile" Value="tonkile"/>
+                                    <Item Caption="卸货点数 " Key="dockcount" Value="dockcount"/>
+                                    <Item Caption="固定值1" Key="fixed" Value="fixed"/>
+                                    <Item Caption="调度单头字段" Key="headerfield" Value="headerfield"/>
+                                </GridCell>
+                                <GridCell Key="FieldName" Caption="字段名" CellType="ComboBox" SourceType="Formula" ItemsDependency="ChargeBase">
+                                    <DataBinding ColumnKey="FieldName" CheckRule="IIF(ChargeBase=='headerfield', FieldName&lt;&gt;'', true)" ErrorInfo="明细计费基础是订单头字段，字段名不可为空"/>
+                                    <FormulaItems>
+                                        <![CDATA[InvokeService("LRP_GetTableFieldKey", false, false,"LRP_TransportDispatch","Numberic",0);]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="WeightCubageRatio" Caption="重泡比" CellType="NumberEditor" Enable="Status==100" Precision="15" Scale="3">
+                                    <DataBinding ColumnKey="WeightCubageRatio" CheckRule="IIF(ChargeBase=='chargeton', WeightCubageRatio&gt;0, true)" ErrorInfo="明细计费基础是计费吨，重泡比必须大于0"/>
+                                </GridCell>
+                                <GridCell Key="ChargeDescribe" Caption="计费描述" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ChargeDescribe"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+                <SubDetail BindingGridKey="Grid0" Caption="SubDetail1" Key="SubDetail1">
+                    <TabPanel Caption="TabPanel3" Key="TabPanel3">
+                        <Grid Key="Grid1" Caption="计费明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="select2" Caption="选择" Width="80px" Sortable="true"/>
+                                <GridColumn Key="LowerNumber" Caption="下限" Width="80px" Sortable="true"/>
+                                <GridColumn Key="UpperNumber" Caption="上限" Width="80px" Sortable="true"/>
+                                <GridColumn Key="PriceType" Caption="单价/总价" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Price" Caption="价格" Width="80px" Sortable="true"/>
+                                <GridColumn Key="AddPrice" Caption="附加金额" Width="80px" Sortable="true"/>
+                                <GridColumn Key="MinPrice" Caption="最低金额" Width="80px" Sortable="true"/>
+                                <GridColumn Key="MaxPrice" Caption="最高金额" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_TET_Charge_L">
+                                    <GridCell Key="select2" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                    <GridCell Key="LowerNumber" Caption="下限" CellType="NumberEditor" Enable="Status==100" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="LowerNumber" DefaultValue="0">
+                                            <ValueChanged>
+                                                <![CDATA[
+													var i = GetFocusRow('Grid1');
+													if(GetRowIndex('Grid1')==i){
+														if (i <= 0) {
+															//第一行不做考虑
+															return 1;
+														} else {
+															var qty = GetCellValue('Grid1', -1, 'LowerNumber');
+															SetCellValue('Grid1', i - 1, 'UpperNumber', qty);
+														}
+													}
+											]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                    <GridCell Key="UpperNumber" Caption="上限" CellType="NumberEditor" Enable="Status==100" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="UpperNumber" CheckRule="UpperNumber&gt;=LowerNumber" DefaultValue="9999" ErrorInfo="上限大于等于下限">
+                                            <ValueChanged>
+                                                <![CDATA[
+														//修改上限后更新下一行的上限
+														var i = GetFocusRow('Grid1');
+														var count = GetRowCount('Grid1', false);
+														
+														if(GetRowIndex('Grid1')==i){
+															if (i < count - 1) {    
+																var qty = GetCellValue('Grid1', -1, 'UpperNumber');  
+																SetCellValue('Grid1', i + 1, 'LowerNumber', qty);
+															}
+															if(i>0){
+																if(GetCellValue('Grid1', -1, 'LowerNumber')<>GetCellValue('Grid1', i-1, 'UpperNumber')){
+																	SetCellValue('Grid1', -1, 'LowerNumber', GetCellValue('Grid1', i-1, 'UpperNumber'));
+																}
+															}
+														}
+														
+												]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                    <GridCell Key="PriceType" Caption="单价/总价" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="PriceType" DefaultValue="1"/>
+                                        <Item Caption="单价" Key="unitprice" Value="1"/>
+                                        <Item Caption="总价" Key="total" Value="2"/>
+                                        <Item Caption="单价（扣减下限）" Key="unitpricelow" Value="3"/>
+                                    </GridCell>
+                                    <GridCell Key="Price" Caption="价格" CellType="NumberEditor" Enable="Status==100" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="Price"/>
+                                    </GridCell>
+                                    <GridCell Key="AddPrice" Caption="附加金额" CellType="NumberEditor" Enable="Status==100" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="AddPrice"/>
+                                    </GridCell>
+                                    <GridCell Key="MinPrice" Caption="最低金额" CellType="NumberEditor" Enable="Status==100" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="MinPrice"/>
+                                    </GridCell>
+                                    <GridCell Key="MaxPrice" Caption="最高金额" CellType="NumberEditor" Enable="Status==100" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="MaxPrice"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                </SubDetail>
+                <SplitSize Size="40px"/>
+                <SplitSize Size="160px"/>
+                <SplitSize Size="50%"/>
+                <SplitSize Size="50%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_UserPoints" Caption="用户积分" NoPrefix="UP" PrimaryTableKey="LRP_UserPoints" SecondaryType="Migration" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_UserPoints" Caption="用户积分">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Key="UserId" Caption="货主用户id" DataType="Long" GroupType="Discrete"/>
+            <Column Key="TotalPoints" Caption="总积分" DataType="Numeric" Precision="18" Scale="0"/>
+            <Column Key="AvailablePoints" Caption="可用积分" DataType="Numeric" Precision="18" Scale="0"/>
+        </Table>
+    </TableCollection>
+    <MigrationCheckRuleCollection>
+        <MigrationCheckScript Description="积分不能小于0" RunType="Server">
+            <![CDATA[TotalPoints >=0 && AvailablePoints >= 0]]>
+        </MigrationCheckScript>
+    </MigrationCheckRuleCollection>
+</DataObject>

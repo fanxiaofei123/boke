@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Comfirm>Confirm</Comfirm>
+        <Cancel>Cancel</Cancel>
+        <OrderTitle3>AddReceiveDetail</OrderTitle3>
+		<Lab_Unit>Lab_Unit</Lab_Unit>
+		<NoticeQty_lbl>NoticeQty_lbl</NoticeQty_lbl>
+		<RecvQty_Null_lbl>RecvQty_Null_lbl</RecvQty_Null_lbl>
+		<NoticeQty_lbl2>AddQty</NoticeQty_lbl2>
+		<Recv_Null_lbl2>Recv_Null_lbl2</Recv_Null_lbl2>
+		<NewDetail>NewDetail</NewDetail>
+		<lab_BatchNo>lab_BatchNo</lab_BatchNo>
+		<lab_Qty>lab_Qty</lab_Qty>
+		<lab_Storearea>lab_Storearea</lab_Storearea>
+		<spec_sel35>Delete</spec_sel35>
+    </UI>
+    <Tip>
+        <Comfirm>Confirm</Comfirm>
+        <Cancel>Cancel</Cancel>
+        <OrderTitle3>OrderTitle</OrderTitle3>
+        <RouteName_table>RouteName_Table</RouteName_table>
+    </Tip>
+	<Prompt>
+        <Material_code>GetmaterialCode</Material_code>
+    </Prompt>
+	ShowToast（LocaleString（‘xxxx’，‘xx’））
+</StringTable>

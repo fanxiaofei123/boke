@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DriverLogin" Authenticate="False">
+	<NavigationBar BackColor="#f14c52">
+		<BarItem Key="TitleCenter_bar" Caption="登录" Location="Center">
+			<Label Key="TitleCenter" Caption="登录" Width="60px">
+				<Format HAlign="Center" ForeColor="#ffffff">
+					<Font Size="20"/>
+				</Format>
+			</Label>
+		</BarItem>
+	</NavigationBar>
+	<Body> 
+		<Block>
+			<TableView Key="root">
+				<Format BackColor="#f0f2f7">
+				</Format>
+				<TableRowCollection>
+					<TableRow Key="r1" RowType="Fix">
+						<GridLayoutPanel Key="header" Height="200px">
+							<Format BackColor="#f1f3f8">
+							</Format>
+							<RowDefCollection>
+								<RowDef Height="50px"/>
+								<RowDef Height="120px"/>
+								<RowDef Height="30px"/>
+							</RowDefCollection>
+							<ColumnDefCollection>
+								<ColumnDef Width="50%"/>
+								<ColumnDef Width="120px"/>
+								<ColumnDef Width="50%"/>
+							</ColumnDefCollection>
+							<Image Key="mylogo" Caption="我的头像" Stretch="True" ImageScaleType="Fit_XY" PromptImage="5.png" X="1" Y="1" BorderStyle="none">
+								<Format BackColor="#f1f3f8"/>
+							</Image>
+						</GridLayoutPanel>
+					</TableRow>
+					<TableRow Key="r2" RowType="Fix">
+						<LinearLayoutPanel Key="user_panel" Orientation="Horizontal" Height="50px">
+							<Label Key="lbl_1" Width="20px" Weight="0" Height="auto">
+								<Format BackColor="#f1f3f8">
+								</Format>
+							</Label>
+							<Label Key="lbl_user" Caption="帐号" Width="60px" LeftPadding="10px" Weight="0" Height="auto" BorderStyle="solid none solid solid" BorderColor="#dde0e7" HasBorder="true">
+								<Format BackColor="#ffffff" ForeColor="#969696">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<TextEditor Key="user" Caption="帐号" PromptText="手机号/用户名" BorderStyle="solid solid solid none" BorderColor="#dde0e7" HasBorder="true" Width="0px" Weight="1" Height="auto">
+								<DataBinding DefaultFormulaValue="LoadLocalData('user')"/>
+								<Format BackColor="#ffffff">
+									<Font Size="16"/>
+								</Format>
+							</TextEditor>
+							<Label Key="lbl_2" Width="20px" Weight="0" Height="auto">
+								<Format BackColor="#f1f3f8">
+								</Format>
+							</Label>
+						</LinearLayoutPanel>
+					</TableRow>
+					<TableRow Key="r3" RowType="Fix">
+						<LinearLayoutPanel Key="password_panel" Orientation="Horizontal" Height="50px">
+							<Label Key="lbl_3" Width="20px" Weight="0" Height="auto">
+								<Format BackColor="#f1f3f8">
+								</Format>
+							</Label>
+							<Label Key="lbl_password" Caption="密码" Width="60px" LeftPadding="10px" BorderStyle="none none solid solid" BorderColor="#dde0e7" HasBorder="true" Weight="0" Height="auto">
+								<Format BackColor="#ffffff" ForeColor="#969696">
+									<Font Size="16"/>
+								</Format>
+							</Label>
+							<PasswordEditor Key="password" Caption="密码" BorderStyle="none solid solid none" BorderColor="#dde0e7" HasBorder="true" PromptText="请输入密码" Width="0px" Weight="1" Height="auto">
+								<Format BackColor="#ffffff">
+									<Font Size="16"/>
+								</Format>
+							</PasswordEditor>
+							<Label Key="lbl_4" Width="20px" Weight="0" Height="auto">
+								<Format BackColor="#f1f3f8">
+								</Format>
+							</Label>
+						</LinearLayoutPanel>
+					</TableRow>
+					<TableRow Key="r4" RowType="Fix" TopMargin="30px">
+						<GridLayoutPanel Key="r4_layout" Height="50px">
+							<Format BackColor="#f1f3f8">
+							</Format>
+							<RowDefCollection>
+								<RowDef Height="45px"/>
+							</RowDefCollection>
+							<ColumnDefCollection>
+								<ColumnDef Width="20px"/>
+								<ColumnDef Width="100%"/>
+								<ColumnDef Width="20px"/>
+							</ColumnDefCollection>
+							<Button Key="login" Caption="登录" Width="0px" Height="auto" X="1" Y="0">
+								<Format BackColor="#f14c52" ForeColor="#ffffff">
+									<Font Size="20"/>
+								</Format>
+								<OnClick>
+									<![CDATA[
+										SaveLocalData('user',user);
+										GuestLogin(user,password,-1,-1,'',{LoginRole:{"Driver"}});SendSignal('SessionChanged');Close();
+									]]>	
+								</OnClick>
+							</Button>
+						</GridLayoutPanel>
+					</TableRow>
+				</TableRowCollection>
+			</TableView>
+		</Block>
+	</Body>
+</Form>

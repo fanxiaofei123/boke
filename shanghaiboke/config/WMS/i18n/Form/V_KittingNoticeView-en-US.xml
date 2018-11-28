@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <BatchConfirm>
+Confirm
+        </BatchConfirm>
+        <New>
+New
+        </New>
+        <BatchDelete>
+Delete
+        </BatchDelete>
+        <BatchCancel>
+ToCancel
+        </BatchCancel>
+        <BatchConfirm-R>
+Confirm-R
+        </BatchConfirm-R>
+        <BatchCancel-R>
+ToCancel-R
+        </BatchCancel-R>
+        <Close>
+Close
+        </Close>
+    </Opt>
+    <UI>
+	<V_KittingNoticeView-Abbr>KittingNoticeView</V_KittingNoticeView-Abbr>
+        <L_OwnerId>
+OwnerId
+        </L_OwnerId>
+        <cancel>
+Reset
+        </cancel>
+        <L_CREATETIME_FROM>
+CREATETIME_From
+        </L_CREATETIME_FROM>
+        <L_CREATETIME_TO>
+CREATETIME_To
+        </L_CREATETIME_TO>
+        <Lab_NoticeNo>
+NoticeNo
+        </Lab_NoticeNo>
+        <Query>
+Query
+        </Query>
+        <Lab_Status>
+Status
+        </Lab_Status>
+        <L_OwnerNo>
+OwnerNo
+        </L_OwnerNo>
+        <Lab_WarehouseCenterId>
+WarehouseCenterId
+        </Lab_WarehouseCenterId>
+        <Lab_DataObjectKey>
+DataObjectKey
+        </Lab_DataObjectKey>
+    </UI>
+    <Items-Status_H>
+        <Item-picked>
+picked
+        </Item-picked>
+        <Item-cancelled>
+cancelled
+        </Item-cancelled>
+        <Item-handled>
+handled
+        </Item-handled>
+        <Item-finished>
+finished
+        </Item-finished>
+        <Item-prepared>
+prepared
+        </Item-prepared>
+        <Item-confirmed>
+confirmed
+        </Item-confirmed>
+    </Items-Status_H>
+    <ListViewColumn>
+        <Status>
+Status
+        </Status>
+        <Remark_LV>
+Remark
+        </Remark_LV>
+        <OwnerNo_LV>
+OwnerNo
+        </OwnerNo_LV>
+        <ExpectDateTimeFrom_LV>
+ExpectDateFrom
+        </ExpectDateTimeFrom_LV>
+        <NoticeNo_LV>
+NoticeNo
+        </NoticeNo_LV>
+        <OwnerId_LV>
+OwnerId
+        </OwnerId_LV>
+        <Select>
+Select 
+        </Select>
+        <OID>
+Oid
+        </OID>
+        <ExpectDateTimeTo_LV>
+ExpectDateTo
+        </ExpectDateTimeTo_LV>
+        <MakerTime_LV>
+CREATETIME
+        </MakerTime_LV>
+    </ListViewColumn>
+    <Items-Status_C>
+        <Item-picked>
+picked
+        </Item-picked>
+        <Item-cancelled>
+cancelled
+        </Item-cancelled>
+        <Item-handled>
+handled
+        </Item-handled>
+        <Item-finished>
+finished
+        </Item-finished>
+        <Item-prepared>
+prepared
+        </Item-prepared>
+        <Item-confirmed>
+confirmed
+        </Item-confirmed>
+    </Items-Status_C>
+</StringTable>

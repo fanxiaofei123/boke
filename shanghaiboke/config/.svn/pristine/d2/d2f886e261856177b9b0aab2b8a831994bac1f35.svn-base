@@ -1,0 +1,835 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Status>
+        <parked>parked</parked>
+        <rejected>rejected</rejected>
+        <prepared>prepared</prepared>
+        <reconciliated>reconciliated</reconciliated>
+        <signed>signed</signed>
+        <bided>bided</bided>
+        <finished>finished</finished>
+        <confirmed>confirmed</confirmed>
+        <returnbill>returnbill</returnbill>
+        <prepared_L>prepared</prepared_L>
+        <loaded>loaded</loaded>
+        <waved>waved</waved>
+		<Admission>Admission</Admission>
+        <arranged>arranged</arranged>
+        <picked>picked</picked>
+        <finished_L>finished</finished_L>
+        <ontheway>ontheway</ontheway>
+        <handled>handled</handled>
+        <cancelled>cancelled</cancelled>
+        <handled_L>handled</handled_L>
+    </Status>
+    <Opt>
+        <Delete>Delete</Delete>
+        <BatchTransportDispatchDepart>BatchTransportDispatchDepart</BatchTransportDispatchDepart>
+        <Cancel>Cancel</Cancel>
+        <CopyNew>CopyNew</CopyNew>
+        <BatchLoad-R>BatchLoad-R</BatchLoad-R>
+        <Confirm>Confirm</Confirm>
+        <BatchTransportDispatchDepart-R>BatchTransportDispatchDepart-R</BatchTransportDispatchDepart-R>
+        <Edit>Edit</Edit>
+        <Finish-R>Finish-R</Finish-R>
+        <BatchTransportDispatchFinish-R>BatchTransportDispatchFinish-R</BatchTransportDispatchFinish-R>
+        <BatchFinish-R>BatchFinish-R</BatchFinish-R>
+        <BatchFinishConfirm>BatchFinishConfirm</BatchFinishConfirm>
+        <FinishTrans>FinishTrans</FinishTrans>
+        <BatchConfirm>BatchConfirm</BatchConfirm>
+        <FinishTrans-R>FinishTrans-R</FinishTrans-R>
+        <BatchFinishTrans-R>BatchFinishTrans-R</BatchFinishTrans-R>
+        <BatchDelete>BatchDelete</BatchDelete>
+        <BatchDelete_Tx>BatchDelete_Tx</BatchDelete_Tx>
+        <BatchConfirm-R>BatchConfirm-R</BatchConfirm-R>
+        <BatchCancel-R>BatchCancel-R</BatchCancel-R>
+        <DeleteTx>DeleteTx</DeleteTx>
+        <BatchFinish>BatchFinish</BatchFinish>
+        <Finish>Finish</Finish>
+        <ToCancel>ToCancel</ToCancel>
+        <Confirm-R>Confirm-R</Confirm-R>
+        <Load>Load</Load>
+        <BatchFinishTrans>BatchFinishTrans</BatchFinishTrans>
+        <Load-R>Load-R</Load-R>
+        <ToCancel-R>ToCancel-R</ToCancel-R>
+        <BatchCancel>BatchCancel</BatchCancel>
+        <BatchFinishConfirm-R>BatchFinishConfirm-R</BatchFinishConfirm-R>
+        <BatchLoad>BatchLoad</BatchLoad>
+        <Save>Save</Save>
+        <Close>Close</Close>
+        <BatchTransportDispatchFinish>BatchTransportDispatchFinish</BatchTransportDispatchFinish>
+		<Railway>PlatformReservation</Railway>
+    </Opt>
+    <Solution>
+        <trunk_lrp_v3>LRP_System</trunk_lrp_v3>
+    </Solution>
+	<ErrorMessage>
+		<Error0001>Did not find the contract under this condition, please confirm!</Error0001>
+		<Error0002>Calculation failed: can not find the specified dispetch order, order number:</Error0002>
+		<Error0003>Calculation failed: can not find the specified transport order, order number:</Error0003>
+		<Error0004>Quantity:</Error0004>
+		<Error0005>Range:</Error0005>
+		<Error0006>Documents status is not unpaid, please confirm!</Error0006>
+		<Error0007>This roll cannot be exchanged many times! Exchanges: </Error0007>
+		<Error0008>times!</Error0008>
+		<Error0009>The detail line storage code is not in the storage area! . Details: </Error0009>
+		<Error0010>line of storage code is not in the storage area!</Error0010>
+		<Error0011>Mismatch between successful payment record and refund success record, please </Error0011>
+		<Error0012>The details of adjustment of section can not be less then 3 section, please confirm!</Error0012>
+		<Error0013>The delivery station of the first detail of section detail is delivery side.</Error0013>
+		<Error0014>The arrival station of the last detail of section detail should be receive side.</Error0014>
+		<Error0015>The departure station of the detailed line in the section detail cannot be consistent with the arrival station.
+
+					Details:
+		</Error0015>
+		<Error0016>detail of section detail can not be the same with the arrival station.</Error0016>
+		<Error0017>The outstation of the detail line in the detail line shall not be empty.
+
+					Details:
+		</Error0017>
+		<Error0018>detail of section detail can not be empty.</Error0018>
+		<Error0019>The arrival of the rows in the section detail cannot be empty.
+					Details:
+		</Error0019>
+		<Error0020>detail of section detail can not be empty.</Error0020>
+		<Error0021>The arrival station of the line in the section detail is inconsistent with the next detail.
+
+					Details:
+		</Error0021>
+		<Error0022>detail of section detail is inconsistent with the delivery station of next detail.</Error0022>
+		<Error0023>Save failed, the following serial numbers entered have duplicates:：</Error0023>
+		<Error0024>The material is controled by serial number, serial number details can not be empty, please check!</Error0024>
+		<Error0025>Storage failed. The basic unit quantity of material in the detail line is inconsistent with the input serial number. Details:</Error0025>
+		<Error0026>details is inconsistent with the amount of serial number.</Error0026>
+		<Error0027>Save failed, the following serial number entered already exists in the inventory serial number table.</Error0027>
+		<Error0028>The corresponding material serial number does not exist in the inventory. Serial number:</Error0028>
+		<Error0029>' does not exist in stock.</Error0029>
+		<Error0030>not found Documents: </Error0030>
+		<Error0031>not found! </Error0031>
+		<Error0032>The status is not paid unconfirmed ，Documents：</Error0032>
+		<Error0033>When calculating carrier fees, acquired parameters are not enough.</Error0033>
+		<Error0034>Calculation failure: business date field does not exist in scheduling header. Date field:</Error0034>
+		<Error0035>' does not exist in the dispatch order header.</Error0035>
+		<Error0036>Did not get the date of the order which number is :Odd Numbers</Error0036>
+		<Error0037>!</Error0037>
+		<Error0038>Did not find the contract under this condition, please confirm!</Error0038>
+		<Error0039>When calculating revenue, please pass parameters by document number or time period.</Error0039>
+		<Error0040>When calculating other costs, acquired parameters are not enough.</Error0040>
+		<Error0041>When calculating other income, acquired parameters are not enough.</Error0041>
+		<Error0042>When calculating carrier fees, acquired parameters are not enough.</Error0042>
+		<Error0043>Calculation failed: The business date field '</Error0043>
+		<Error0044>' does not exist in the dispatch order header.</Error0044>
+		<Error0045>When calculating transportation revenue, acquired parameters are not enough.</Error0045>
+		<Error0046>Calculation failed: The business date field '</Error0046>
+		<Error0047>' does not exist in the transportation order header.</Error0047>
+		<Error0048>When calculating storage revenue, acquired parameters are not enough.</Error0048>
+		<Error0049>Parameter is incorrect, please check.</Error0049>
+		<Error0050>The error occurred when the document was generating activity credits, failing to find the integral rule with ID. Order no.:</Error0050>
+		<Error0051>,ID</Error0051>
+		<Error0052>!</Error0052>
+		<Error0053>The old password entered is incorrect.</Error0053>
+		<Error0054>Delete document </Error0054>
+		<Error0055>failed, the status of the following reference of operation order to delete is not been loaded.</Error0055>
+		<Error0056>Delete document </Error0056>
+		<Error0057>failed,The update of the status of the referenced document failed and may have been modified. Document no.：</Error0057>
+		<Error0058>failed, possibly the document has been modified.</Error0058>
+		<Error0059>The status of the outbound order reference to be deleted below is not an established wave.</Error0059>
+		<Error0060>The update of the status of the referenced document failed and may have been modified.Order no.：</Error0060>
+		<Error0061>failed, possibly the document has been modified.</Error0061>
+		<Error0062>Parameter error, please confirm!</Error0062>
+		<Error0063>There is no confirmed packing scheme matching list in current database, please create the document.</Error0063>
+		<Error0064>For the material type details, the package plan matching list for the specified material type cannot be found. Please check if the package plan is correct. Details:</Error0064>
+		<Error0065>item type detail, failed to find a packing scheme matching list for specified material type, please check whether the packaging scheme is correct.</Error0065>
+		<Error0066>For the material type details, the package plan matching the temperature of the starting destination can not be found. Please check if the package plan is correct. Details:</Error0066>
+		<Error0067> item type detail, Failed to find a packaging scheme that matches the current destination temperature entered, please check whether the packaging scheme is correct.</Error0067>
+		<Error0068>The generated serial number is already in stock. Please check the start and quantity of barcode. Serial number:</Error0068>
+		<Error0069>already exists in stock. Please check the start and quantity of the material barcode.</Error0069>
+		<Error0070>Document is not in unpaid state, please confirm!</Error0070>
+		<Error0071>Insufficient balance, please confirm!</Error0071>
+		<Error0072>Wrong payment, order no.:</Error0072>
+		<Error0073>is paid incorrectly.</Error0073>
+		<Error0074>not found，Payment documents No.</Error0074>
+		<Error0075>not found!</Error0075>
+		<Error0076>The documents have been paid.</Error0076>
+		<Error0077>Your available points are not enough!</Error0077>
+		<Error0078>No activity to be found,ID:</Error0078>
+		<Error0079>!</Error0079>
+		<Error0080>Activity </Error0080>
+		<Error0081>state is wrong,activity:</Error0081>
+		<Error0082>Activity has not valid,activity:</Error0082>
+		<Error0083>Activity has expired,activity:</Error0083>
+		<Error0084>Share event</Error0084>
+		<Error0085>not specify the person to be shared,activity:</Error0085>
+		<Error0086>Activity</Error0086>
+		<Error0087>Activity has exceeded the number of sharing limit,activity:</Error0087>
+		<Error0088>Activity has exceeded the number of receive limit,activity:</Error0088>
+		<Error0089>Order has expired!</Error0089>
+		<Error0090>Grab order succed.</Error0090>
+		<Error0091>Grab order failed.</Error0091>
+		<Error0092>Area name can not be empty! </Error0092>
+		<Error0093>Not a polygon, please confirm!</Error0093>
+		<Error0094>Transport order is not confirmed state, can not cancel the confirmation!</Error0094>
+		<Error0095>The presence of worksheet is not a confirmed state and cannot be revoked for confirmation!
+					Order no.：
+		</Error0095>
+		<Error0096>is not confirmed state, can not cancel the confirmation!</Error0096>
+		<Error0097>Only the state is a confirmed transport order are allowed to merge.</Error0097>
+		<Error0098>Operation order query error, execute sql as follows:</Error0098>
+		<Error0099>and</Error0099>
+		<Error0100>The passwords entered twice are not the same.</Error0100>
+		<Error0101>No operation found</Error0101>
+		<Error0102>Payment records</Error0102>
+		<Error0103>,Amount</Error0103>
+		<Error0104>Refund failed</Error0104>
+		<Error0105>Failed to find the payment record for the shipping order.
+
+					Order no.：
+		</Error0105>
+		<Error0106>!</Error0106>
+		<Error0107>The document corresponding to id could not be found! Id:</Error0107>
+		<Error0108>!</Error0108>
+		<Error0109>Phone number is registered, please reconfirm!</Error0109>
+		<Error0110>Verification code expired or entered incorrectly!</Error0110>
+		<Error0111>The transport order with the corresponding id could not be found. Id:</Error0111>
+		<Error0112>!</Error0112>
+		<Error0113>Failed to find the billing rules for shipping orders that meet the order number.
+
+					Order no.：
+		</Error0113>
+		<Error0114>!</Error0114>
+		<Error0115>Dispatch organization can not be empty, please reconfirm!</Error0115>
+		<Error0116>User name can not be empty!</Error0116>
+		<Error0117>User name can not contain Chinese!</Error0117>
+		<Error0118>Invite code input error, please reconfirm!</Error0118>
+		<Error0119>Username already exists, please reenter!</Error0119>
+		<Error0120>User name can not be only number!</Error0120>
+		<Error0121>Phone number can not be empty, please reconfirm!</Error0121>
+		<Error0122>Phone number is registered, please reconfirm!</Error0122>
+		<Error0123>No operator admin!</Error0123>
+		<Error0124>Can not obtain the latitude and longitude of depart adress entered, can not calculate the mileage, please modify!</Error0124>
+		<Error0125>Can not obtain the latitude and longitude of destination adress entered, can not calculate the mileage, please modify!</Error0125>
+		<Error0126>Failed to find LTL and trunk freight quotes record correspond to the current transport order requirement.</Error0126>
+		<Error0127>Phone number is not registered!</Error0127>
+		<Error0128>Parameter error</Error0128>
+		<Error0129>The number of detail lines must be greater than 0! Details:</Error0129>
+		<Error0130>line must be greater than 0!</Error0130>
+		<Error0131> The detail line storage code cannot be empty! Details:</Error0131>
+		<Error0132>The type of notice</Error0132>
+		<Error0133>can not be so on.</Error0133>
+		<Error0134>All details of picking quantity is 0, can not complete the picking.</Error0134>
+		<Error0135>The type of picking order</Error0135>
+		<Error0136>can not be so on.</Error0136>
+		<Error0137>All the details of the delivery quantity is 0, unable to complete the delivery.</Error0137>
+		<Error0138>Prepayment information details can not be empty.</Error0138>
+		<Error0139>No associated invoice for the No.</Error0139>
+		<Error0140>Advance payment has no associated invoice. Details:</Error0140>
+		<Error0141>The invoice quoted in the invoice information details has been written off or partially written off, please re-quote! Details:</Error0141>
+		<Error0142>details cited invoices have been written off or partially written off, please requote!</Error0142>
+		<Error0143>Details of advance payment information can not be empty.</Error0143>
+		<Error0144>There is no associated invoice. Details:</Error0144>
+		<Error0145>advance payment do not have associated invoice.</Error0145>
+		<Error0146>Save failed, the cost details of the quote in the detail line are repeated。detail line:</Error0146>
+		<Error0147>detail is duplicated.</Error0147>
+		<Error0148>Save failed, the following cost details have been cited by other statements:</Error0148>
+		<Error0149>Save failed, the revenue details are repeated. The detail line:</Error0149>
+		<Error0150>detail is duplicated.</Error0150>
+		<Error0151>Save failed, the following revenue details have been cited by other statements:</Error0151>
+		<Error0152>Save failed, transport dispatch number can not be empty.</Error0152>
+		<Error0153>Save failed, there is no transport dispatch number in the system:</Error0153>
+		<Error0154>Save failed, transport order number can not be empty.</Error0154>
+		<Error0155>Save failed, there is no transport order number in the system:</Error0155>
+		<Error0156>Save failed, when the summary of allocation is checked, allocation method can not be empty.</Error0156>
+		<Error0157>Save failed, storage center field and dispatch organization field can not be empty at the same time.</Error0157>
+		<Error0158>Save failed, owner field and billing party field can not be empty at the same time.</Error0158>
+		<Error0159>Unknown data table type.</Error0159>
+		<Error0160>Save failed, the conditional SQL statement error. \ r \ n</Error0160>
+		<Error0161>Save failed, the list of conditions detail can not be empty.</Error0161>
+		<Error0162>Save failed, the billing details list can not be empty.</Error0162>
+		<Error0163>Save failed, when the summary of allocation is checked, allocation method can not be empty.</Error0163>
+		<Error0164>Save failed, billing details line,The lower limit is not allowed to be greater than the upper limit。detail line:</Error0164>
+		<Error0165>billing detail, the lower limit is not allowed to exceed the upper limit.</Error0165>
+		<Error0166>Save failed, filter condition spelling transport order sql statement error.</Error0166>
+		<Error0167>Save failed, the item list can not be empty.</Error0167>
+		<Error0168>Save failed, the itemized billing basis is the order header field, the field name cannot be empty. Details:</Error0168>
+		<Error0169>billing detail base on the order header field, the field name can not be empty.</Error0169>
+		<Error0170>Save failed,The detail The</Error0170>
+		<Error0171>The field name does not exist in the schedule header. The field name:</Error0171>
+		<Error0172>” does not exist in the dispatch order header</Error0172>
+		<Error0173>Save failed,The detail The</Error0173>
+		<Error0174>A field name is not a numeric field and cannot be used. The field name:</Error0174>
+		<Error0175>” is not a numeric field, it can not be used.</Error0175>
+		<Error0176>Save failed, the detail line did not set the corresponding billing details. Details:</Error0176>
+		<Error0177>details did not set the corresponding billing details.</Error0177>
+		<Error0178>Save failed,The detail The</Error0178>
+		<Error0179>The field name does not exist in the shipping order header. The field name:</Error0179>
+		<Error0180>” does not exist in the transport order header.</Error0180>
+		<Error0181>Save failed, No.</Error0181>
+		<Error0182>The itemized field name is not a numeric field and cannot be used to calculate business volumes. The field name:</Error0182>
+		<Error0183>” is not a numeric field, can not be used for calculating business volume.</Error0183>
+		<Error0184>Save failed, No.</Error0184>
+		<Error0185>The item field name does not exist in the transport order material details. The field name:</Error0185>
+		<Error0186>” does not exist in the transport order material details.</Error0186>
+		<Error0187>Save failed, the billing details list can not be empty.</Error0187>
+		<Error0188>Save failed, billing details line,The lower limit is not allowed to be greater than the upper limit.detail line:</Error0188>
+		<Error0189>billing detail, the lower limit is not allowed to exceed the upper limit.</Error0189>
+		<Error0190>Failed to find the transfer storage order corresponding to invoice.</Error0190>
+		<Error0191>The logistics order has a confirmed warehouse or transport document number and is not allowed to be revoked.Order no.:</Error0191>
+		<Error0192>confirmed storage order or transport order, does not allow to cancel the confirmation.</Error0192>
+		<Error0193>Save failed, the following serial number entered is duplicated:</Error0193>
+		<Error0194>The material is controled by serial number, serial number details can not be empty, please check!</Error0194>
+		<Error0195>Save failed, specify material is not controlled by serial number input serial number. Details:</Error0195>
+		<Error0196>details the material not be controled by the serial number input serial number.</Error0196>
+		<Error0197>Save failed, The basic unit quantity of material in the detail line is inconsistent with the input serial number. Details:</Error0197>
+		<Error0198>details, the number of basic units of material does not match the number of serial numbers entered.</Error0198>
+		<Error0199>The material serial number: is already in stock.serial number：</Error0199>
+		<Error0200>is already in stock.</Error0200>
+		<Error0201>Material serial number, does not exist in stock. Serial number:</Error0201>
+		<Error0202>does not exist in stock.</Error0202>
+		<Error0203>You can not use more than 9 stock reservation fields.</Error0203>
+		<Error0204>Failed to create index based on new inventory reservation field setting:</Error0204>
+		<Error0205>Save failed, the job list referenced by the detail line repeats. Details:</Error0205>
+		<Error0206>is duplicated.</Error0206>
+		<Error0207>The state of the following operation order reference to be added is not confirmed</Error0207>
+		<Error0208>The state of the following operation order reference to be delate is not loaded.</Error0208>
+		<Error0209>The operation order reference in the dispatch order to change state does not match the reference in the database, the document may have been modified.</Error0209>
+		<Error0210>The dispatch order failed to operate the departure, the following operation order reference state is not delivered or loaded.</Error0210>
+		<Error0211>The dispatch order failed to canceled the depature order, the following operation order reference state is already completed.</Error0211>
+		<Error0212>The dispatch completion operation is failed, the following operation order reference state is not completed.</Error0212>
+		<Error0213>Save failed, the outbound order referenced by the detail line repeats. Details:</Error0213>
+		<Error0214>detail has duplicated.</Error0214>
+		<Error0215>The status of the outbound order reference to be added below is not confirmed</Error0215>
+		<Error0216>The status of the outbound order reference below to delete is not built wave.</Error0216>
+		<Error0217>Updating the status of reference document</Error0217>
+		<Error0218>failed, possibly the document has been modified.</Error0218>
+		<Error0219>No audit order information was obtained</Error0219>
+		<Error0220>The packing scheme do not have detail line!</Error0220>
+		<Error0221>When the operation type is direct delivery, the section detail can only be the delivery site to the destination. Please confirm!</Error0221>
+		<Error0222>When the operation type is multi-stage transportation, the detail of the section can not be less than 2 sections, please confirm!</Error0222>
+		<Error0223>In the section details, the arrival station of first detail and the depart station of second detail must be consistent with the field value of the header depart station.</Error0223>
+		<Error0224>In the section details, the depart station of the last detail and the arrival station of the last second detail must be consistent with the field value of the header arrival station.</Error0224>
+		<Error0225>In the order</Error0225>
+		<Error0226>Error in matching sql for the method matching check of material detail</Error0226>
+		<Error0227>,</Error0227>
+		<Error0228>error message.</Error0228>
+		<Error0229>The entered username or password is incorrect</Error0229>
+		<Error0230>Record the quotation of spare parts and trunk line freight of the corresponding order number. For the material detail line of the current transport order, the billing details of the volume and weight that meet the upper and lower limits could not be found.
+
+					Order no.： 
+		</Error0230>
+		<Error0231>Detail line:</Error0231>
+		<Error0232>, failed to find a billing detail corresponding to the upper and lower limits of the volume and weight.</Error0232>
+		<Error0233>Record the quotation of spare parts and trunk freight according to the order number. For the material details of the current transport order, the delivery fee billing details that meet the upper and lower limit of volume or weight can not be found.
+
+					Order no.： 	
+		</Error0233>
+		<Error0234>material detail, the LTL and trunk freight quotes record of order No.</Error0234>
+		<Error0235>, failed to find a delivery billing detail corresponding to the upper and lower limits of the volume and weight.</Error0235>
+		<Error0236>Record the quotation of spare parts and trunk line freight of the corresponding order number. According to the material details of the current transport order, the forwarding freight billing details that meet the upper and lower limit of volume or weight can not be found.
+
+					Order no.： 
+		</Error0236>
+		<Error0237>material detail, the LTL and trunk freight quotes record of order No.</Error0237>
+		<Error0238>, failed to find a transport billing detail corresponding to the upper and lower limits of the volume and weight.</Error0238>
+		<Error0239>The order corresponding to the picking order could not be found</Error0239>
+		
+		<Error0240>,Material</Error0240>
+		<Error0241>,Short supply:</Error0241>
+		<Error0242>Order assigned storage</Error0242>
+		<Error0243>Push failure: there is a shortage when the material details in the order use the default policy. Order number:</Error0243>
+		<Error0244>Order assigned storage</Error0244>
+		<Error0245>Push failure: the material details in the order were checked for the matching of the policy, and the matching SQL was executed. 
+					The order number was:
+		</Error0245>
+		<Error0246>Strategy</Error0246>
+		<Error0247>error message</Error0247>
+		<Error0248>Pushdown failure: the material details in the order are executed according to the matching strategy to obtain the shipping area SQL error, 
+					order number:
+		</Error0248>
+		<Error0249>The material details in the order failed to obtain the corresponding shipping area storage position according to the matching strategy. 
+					Order number:
+		</Error0249>
+		<Error0250>Push failure: the material details in the order are separated according to the matching zero and integer policy.
+					Order no. :
+		</Error0250>
+		<Error0251>Pushdown failure: the material details in the order are separated according to the matching zero integer strategy to execute and obtain the scattered inventory SQL error.
+
+					The order no. :
+		</Error0251>
+		<Error0252>Failed to find order number for logistics, order number:</Error0252>
+		<Error0253>Pushdown failure: the material details in the order are separated according to the matching zero and integer policy.
+
+					The order no. :
+		</Error0253>
+		<Error0254>Push down failure: there is a shortage of the whole detail of the material details in the order using the zero cent separation strategy.
+
+					The order no. :
+		</Error0254>
+		<Error0255>The zero percent split strategy</Error0255>
+		<Error0256>Push down failure:there is a shortage of the scattered details of the material details used in the order.
+					The order no. :
+		</Error0256>
+		<Error0257>	Push down failure: there is a shortage of the material details of the use policy of the order.
+					The order no. :
+		</Error0257>
+		<Error0258>	Push down failure: there is a shortage of the material details of the use policy of the order.
+					The order no. :
+		</Error0258>
+		<Error0259>	All policies don't match.</Error0259>
+		<Error0260>	Push down failure: all push down details are out of stock.</Error0260>
+		<Error0261>	The matching SQL error was executed when the material details in the order were checked for matching policies.
+					The order no. :
+		</Error0261>
+		<Error0262>	Push down failure: there is a shortage of the whole details of the material details in the order of wave.
+
+					Order no.：
+		</Error0262>
+		<Error0263>	Push down failure: there is a shortage of the scattered details of the material details in the order of wave.
+
+					Order no.：
+		</Error0263>
+		<Error0264>	Push down failure: the material details in the Po do not match with all the sorting strategies attached to the material and are out of stock.
+
+					Order no.：
+		</Error0264>
+		<Error0265>	Push down failure:the material details in the wave order are out of stock when the order is used to specify storage space.
+
+					Order no.：
+		</Error0265>
+		<Error0266>If the material details in the wave order use the default policy, the delivery area storage position cannot be found.
+
+					Order no.：
+		</Error0266>
+		<Error0267>Push down failure: the material details in the order of wave are out of stock when using the default policy.
+
+					Order no.
+		</Error0267>
+		<Error0268>Failed to find the warehouse center of ID:</Error0268>
+		<Error0269>Push down failure: there was an error in executing the matching SQL when the matching of the policy for the material details in the wave order was checked.
+
+					Order no.：
+		</Error0269>
+		<Error0270>Push down failure: there was an error in obtaining the shipping area SQL for the material details in the wave order according to the matching strategy.
+
+					Order no.：
+		</Error0270>
+		<Error0271>There is no package match for the confirmed status in the current database. Please create the document first</Error0271>
+		<Error0272>Push down failure: there was an error in obtaining the shipping area SQL for the material details in the wave order according to the matching strategy.
+
+					Order no.：
+		</Error0272>
+		<Error0273>Detail line [starting high temperature lower limit] shall not be greater than [starting high temperature upper limit]! Details:</Error0273>
+		<Error0274>Push down failure: the material details in the wave order are separated according to the matching zero and integer strategy.
+
+					Order no.：
+		</Error0274>
+		<Error0275>Push down failure: the material details in the wave order are separated according to the matching zero integer strategy.
+
+					Order no.：
+		</Error0275>
+		<Error0276>Push down failure: the material details in the wave order get the stock SQL error according to the matching execution.
+
+					Order no.：
+		</Error0276>
+		<Error0277>Detail line [starting low temperature limit] shall not be greater than [starting low temperature limit]! Details:</Error0277>
+		<Error0278>Match list detail lines are not allowed to be empty!</Error0278>
+		<Error0279>Detail line [destination high temperature lower limit] shall not be greater than [destination high temperature upper limit]! Details:</Error0279>
+		<Error0280>The lower limit of destination low temperature shall not be greater than the upper limit of destination low temperature. Details:</Error0280>
+		<Error0281>Detail line [starting low temperature upper limit] shall not be greater than [starting high temperature lower limit]! Details:</Error0281>
+		<Error0282>The upper limit of destination low temperature shall not be greater than the lower limit of destination high temperature. Details:</Error0282>
+		<Error0283>Failed to find the package plan matching list for the specified material type. Please check if the package plan is correct</Error0283>
+		<Error0284>Failed to push down. There is a shortage of goods when the material details in the order are used to specify the storage location. 
+					Order number:
+		</Error0284>
+		<Error0285>Business volume field, unit price or amount field should be in the same table, please confirm</Error0285>
+		<Error0286>There is no specific line for the package plan!</Error0286>
+		<Error0287>Line destination temperature range and</Error0287>
+		<Error0288>Line destination temperature range overlap!</Error0288>
+		<Error0289>starting temperature range and The</Error0289>
+		<Error0290>Line starting temperature range overlap!</Error0290>
+		<Error0291>Custom class not found, please confirm. Custom class:</Error0291>
+		<Error0292>Unimplemented method: getChargePrice(),please confirmed</Error0292>
+		<Error0293>Custom value error, please confirm</Error0293>
+		<Error0294> update reference the status of the document Failed ！document ：</Error0294>
+	</ErrorMessage>
+	<Login>
+		<ParaTitle>Organization</ParaTitle>
+	</Login>
+	<StatusInfo>
+		<Statu1>LEPCenter:</Statu1>
+	</StatusInfo>
+	<Toast>
+    		<Key1>The number in the detail should be greater than 0, and the receiving area cannot be empty.</Key1>
+    </Toast>
+	<Toast1>
+    		<Key2>There is no receiving area under the current user's storage center.</Key2>
+    </Toast1>
+	<Toast2>
+    		<Key3>deleted</Key3>
+    </Toast2>
+	<CommonDef>
+<key1>Details cannot be empty</key1>
+<key2>Is sure to delete the current document? </key2>
+<key3>Are you sure you want to complete the current record? </key3>
+<key4>Are you sure you want to undo the current record? </key4>
+<key5>No records selected. Please select to complete. </key5>
+<key6> Only the transport job ticket with the status Loaded can complete the operation. </key6>
+<key7>Are you sure you want to complete the selected record? </key7>
+<key8>No records were selected. Please select and cancel. </key8>
+<key9>Only the shipping job ticket with the status Completed can be undoed. </key9>
+<key10>Are you sure you want to undo the selected record? </key10>
+<key11>No records selected. Please select to reload. </key11>
+<key12> Shipment operations can only be performed on a transport work order with a status of Loaded. </key12>
+<key13>Are you sure you want to load the selected record? </key13>
+<key14>No records were selected. Please select and reload. </key14>
+<key15> Only the transport job ticket with the status Loaded can be used to cancel the loading operation. </key15>
+<key16>Are you sure to cancel the selected record? </key16>
+<key17>No records selected. Please select and confirm. </key17>
+<key18>Only the document whose status is already entered can be confirmed. </key18>
+<key19>Are you sure to confirm the selected record? </key19>
+<key20> No records were selected. Please select and revoke confirmation. </key20>
+<key21> Only the document whose status is confirmed can be revoked. </key21>
+<key22>Are you sure to revoke the selected record? </key22>
+<key23>No records were selected. Please select and cancel. </key23>
+<key24> Only the document whose status is already entered can be invalidated. </key24>
+<key25>Are you sure you want to invalidate the selected record? </key25>
+<key26> No records were selected. Please select and undo it again. </key26>
+<key27> Only documents whose status is void can be cancelled. </key27>
+<key28>Are you sure you want to cancel the selected record? </key28>
+<key29>No records were selected. Please select to complete. </key29>
+<key30> Only documents whose status is already entered or processed can be completed. </key30>
+<key31>Are you sure you want to complete the selected record? </key31>
+<key32> No records have been selected. Please select and undo the completion. </key32>
+<key33>Only the document whose status is completed can be revoked. </key33>
+<key34>Are you sure you want to undo the selected record? </key34>
+<key35>No records selected. Please select and delete. </key35>
+<key36>Only the document whose status is already entered can be deleted. </key36>
+<key37>Are you sure you want to delete the selected record? </key37>
+<key38>No records were selected. Please select and then cancel the departure. </key38>
+<key39>Only the document whose status is on the way can cancel the start of the vehicle. </key39>
+<key40>Are you sure you want to cancel the selected record? </key40>
+<key41>No records selected, please select to start again. </key41>
+<key42> Only the status of the entered document can start. </key42>
+<key43>Are you sure you want to start the selected record? </key43>
+<key44>The {i}th item details do not allow existence of material status:</key44>
+<key45>The {1}th item details do not allow existence of material status:</key45>
+<key46>Receipt by notice The {1}th item details do not allow existence of material status:</key46>
+<key47>AdjustmentReductionList The {1}th item details do not allow existence of material status:</key47>
+<key48>Please select the inventory details that need to be introduced</key48>
+<key49>AdjustmentLncrementSheet The {1}th item details do not allow existence of material status:</key49>
+<key50>TransferOfGoods The {1}th item details do not allow existence of material status:</key50>
+<key51>Return receipt The {1}th item details do not allow existence of material status:</key51>
+<key52>Cross docking receipt receipts The {1}th item details do not allow existence of material status:</key52>
+<key53>Put on the notice list The {1}th item details do not allow existence of material status:</key53>
+<key54>Rack up The {1}th item details do not allow existence of material status:</key54>
+<key57>Stock up according to receiving area The {1}th item details do not allow existence of material status:</key57>
+<key55>ProcessCompletionSheet The {1}th item details do not allow existence of material status:</key55>
+<key56>RapidProcessingList The {1}th item details do not allow existence of material status:</key56>
+<key57>Stock up according to receiving area The {1}th item details do not allow existence of material status:</key57>
+<key58>Shelves according to the processing area The {1}th item details do not allow existence of material status:</key58>
+<key59>Only when the transportation order has been confirmed in the selected state can the operation be carried out.</key59>
+<key60>No records are checked, please select them before signing.</key60>
+<key61>Are you sure you want to sign off on the selected record?</key61>
+<key62>Only when the delivery order is in transit or rejected, can the operation be signed.</key62>
+<key63>No record has been selected. Please select it before revoking it.</key63>
+<key64>Are you sure you want to revoke the selected record?</key64>
+<key65>The only option is to take a signed shipping order to cancel the signing.</key65>
+</CommonDef>
+	<OwnerNull>
+		<keyo>Owner can not be Empty !</keyo>
+		<keym>Material Detail can not be empty !</keym>
+		<keys>Step detail can not be empty !</keys>
+		<keyd>Date cannot be empty !</keyd>
+		<keyb>the{1}step detail store center can not be empty ！</keyb>
+		<key1>the{1}step detail store type can not be empty !</key1>
+		<key2>the{1}step detail Dispatch organization can not be empty !</key2>
+		<key3>the{1}step detail Transport business type can not be empty !</key3>
+		<key4>the{1}step detail Departure station can not be empty !</key4>
+		<key5>the{1}step detail Terminal station can not be empty !</key5>
+		<key6>the{1}step detail material detail can not be empty !</key6>
+		<key7>the{1}step detail material detail unit can not be empty !</key7>
+		<key100>No records chosen, please choose and then delete.</key100>
+		<key101>Only the documents whose status is already entered can be deleted.</key101>
+		<key102>Are you sure to delete the chosen record? </key102>
+		<key103>Detail list cannot be empty.</key103>
+		<key104>Are you sure to delete the current document?</key104>
+		<key105>After changing the owner, the shipper and item details will be cleared. Continue?</key105>
+		<key106>Please choose transaction ticket !</key106>
+		<key107>Only one warehouse manager can be chosen !</key107>
+		<key108>No record chosen, please choose and push down pick list</key108>
+		<key109>Push down successfully</key109>
+		<key110>The order that has been confirmed and processed can be chosen and then pushed down.</key110>
+		<key111>Warehouse center, Owner, Start Date, End Date cannot be empty.</key111>
+		<key112>The start date cannot be greater than the end date.</key112>
+		<key113>Material list is not empty.</key113>
+		<key114>The end product list cannot be empty.</key114>
+		<key115>Please choose the inventory details that need to be replaced.</key115>
+		<key116>The number of replaced inventory detail lines cannot exceed one.</key116>
+		<key117>The replacement quantity must be less than the quantity in the library.</key117>
+		<key118>The replacement quantity must be greater than 0.</key118>
+		<key119>Please choose the recipient !</key119>
+		<key120>Please choose a record</key120>
+		<key121>The corresponding outbound order number does not exist under this owner. Please check it out</key121>
+		<key122>The electricity supplier receives the return status</key122>
+		<key123>Generate inventory details will clear the current details, continue?</key123>
+		<key124>The document has confirmed that the system generated details cannot be deleted</key124>
+		<key125>Please choose the detail line to be deleted first</key125>
+		<key126>The status of the material is not allowed on the {index} line of this document:</key126>
+		<key127>Are you sure you want to complete the current record?</key127>
+		<key128>Are you sure you want to undo the current record?</key128>
+		<key129>No records chosen, please choose and ship again.</key129>
+		<key130>Only the documents whose status is completed can be shipped.</key130>
+		<key131>No records have been chosen. Please choose and cancel. </key131>
+		<key132>Only the documents whose status is completed can be revoked.</key132>
+		<key133>Are you sure to undo the chosen record?</key133>
+		<key134>Are you sure to confirm the current record?</key134>
+		<key135>Are you sure to undo the current record?</key135>
+		<key136>Please choose the owner and enter the associated notice number to match the receiving area stock.</key136>
+		<key137>Please choose the owner and enter the processing notice number to match the processing area inventory.</key137>
+		<key138>Transaction date and time cannot be null.</key138>
+		<key139>Please choose a box type larger than the basic volume.</key139>
+		<key140>Please choose the owner and enter the associated order number to match the delivery area stock.</key140>
+		<key141>the{i}pick detail can not be empty!</key141>
+		<key142>The current storage location already has materials,continue to putaway?</key142>
+		<key143>the order can be shipped, please reopen this order</key143>
+		<key144>It's not ready for shipment yet.</key144>
+		<key145>After changing the cargo owner, the receiver and material details will be emptied. Shall we continue?</key145>
+		<key146>Please choose the owner first</key146>
+		<key147>After changing the cargo owner, the material details will be emptied. Will it continue?</key147>
+		<key148>The raw material details and finished product details shall not be blank</key148>
+		<key149>Only the documents whose status is confirm can be finished.</key149>
+		<key150>Diurnal knot to Date cannot be empty.</key150>
+		<key151>Please select the shipper and enter the associated order number to screen the delivery area inventory</key151>
+	</OwnerNull>
+	
+	<OUTshow>
+		<outkey1>Only when the status is confirmed and processed, can the next order be picked up.</outkey1>
+		<outkey2>Only select the status is confirmed wave order to push down the picking list.</outkey2>
+		<outkey3>Only when the status of the factory is confirmed and processed, can the next push picking list be carried out.</outkey3>
+		<outkey4>The success of the delivery list.</outkey4>	
+	</OUTshow>
+	
+	<PRshow>
+		<prkey1>The appointment time can not be more than or equal to the closing time of appointment.</prkey1>
+		<prkey2>Please fill in the whole point or half of the appointment start time.</prkey2>
+		<prkey3>Please fill in the whole point or half of the appointment end time.</prkey3>
+		<prkey4>This platform has been occupied by other reservation lists at this time. Please amend the time period.</prkey4>
+		<prkey5>Please enter the ID number or the license plate number.</prkey5>
+		<prkey6>Admission can only be made if the status is entered.</prkey6>
+		<prkey7>The time limit of the booking is not in line with the current time. Is admission allowed?</prkey7>
+		<prkey8>The vehicle will arrive at the {1} platform.</prkey8>
+		<prkey9>There is no platform appointment in the list.</prkey9>
+		<prkey10>No platform reservation record can be found.</prkey10>
+		<prkey11>The vehicle has been entered.</prkey11>
+		<prkey12>The reservation time range is not in line with the current time.</prkey12>
+		<prkey13>The vehicle has gone away.</prkey13>
+		<prkey14>There is no platform reservation that needs to be left out of the list.</prkey14>
+	</PRshow>
+	
+	<PAshow>
+		<pakey1>Please clean the material first.</pakey1>
+		<pakey2>Please sweep the reservoir first.</pakey2>
+		<pakey3>Unable to find packaging material for {1}</pakey3>
+		<pakey4>Unable to find a store of {1} code</pakey4>
+		<pakey5>The scanned material bar code is the same as that in article {1}</pakey5>
+		<pakey6>The material bar code has been stored in the inventory record.</pakey6>
+		<pakey7>The material has already been packed and cannot be revoked.</pakey7>
+		<pakey8>Existing materials have already existed and cannot be revoked.</pakey8>
+		<pakey9>Are you sure you want to give up the current unswept materials and change the status of the documents to unconfirmed ones?</pakey9>
+		<pakey10>The packaging material {1} that needs cold release is less than the required quantity of packaging.</pakey10>
+		<pakey11>There is no material that needs to be out of storage</pakey11>
+		<pakey12>The existence of {1} material material release time is not enough, can not perform the release operation.</pakey12>
+		<pakey13>No material need to complete the release of the material</pakey13>
+		<pakey14>There is {1} material, fine and fine release cooling overtime!</pakey14>
+		<pakey15>Part of the scan code has been executed in the package, and the operation can not be performed.</pakey15>
+		<pakey16>The current number of finished packages is less than the quantity required. Is it necessary to complete the current documents?</pakey16>
+		<pakey17>Please enter the lowest temperature of the first place first</pakey17>		
+		<pakey18>Please enter the highest temperature of the first place first</pakey18>
+		<pakey19>Please enter the lowest temperature of the destination first</pakey19>
+		<pakey20>Please enter the highest temperature of the destination first</pakey20>
+		<pakey21>Please input the quantity of goods first</pakey21>
+		<pakey22>Failed to find a packaging solution that matches the current destination temperature.</pakey22>
+		<pakey23>The barcode of the material that is swept does not exist in the inventory record</pakey23>
+		<pakey24>The pre cooling time of {1} is not enough, and the permitted outgoing time is {2}.</pakey24>
+		<pakey25>{1} is not the material required in the packaging plan.</pakey25>
+		<pakey26>The details of the barcode corresponding to the scanned materials have not yet been completed.</pakey26>
+		<pakey27>The material bar code is needed to release cold materials. Please get out of the library process.</pakey27>
+		<pakey28>The material corresponding to the bar code is not in line with the current packing sequence. The material currently needed to be swept is {1}.</pakey28>
+		<pakey29>The details of the barcode corresponding to the scanned materials have not yet been released.</pakey29>
+		<pakey29>The details of the barcode corresponding to the barcode are released.</pakey29>
+		<pakey30>The material that has been out of the library can't be deleted</pakey30>
+		<pakey31>The number of packages recorded in article {1} must be more than 0</pakey31>
+		<pakey32>Is it necessary to complete the current documents and generate the corresponding packing list?</pakey32>
+		<pakey33>The current {1} out-of-stock packaging material is less than the specified packaging material summary. Are you sure you want to complete the current document and generate the corresponding packaging document?</pakey33>
+	</PAshow>
+	
+	<APshow>
+		<apkey1>no more msg !</apkey1>
+		<apkey2>Inspection complete ！</apkey2>
+		<apkey3>delete complete ！</apkey3>
+		<apkey4>Failed to locate the code in the test details !</apkey4>
+		<apkey5>pick complete ！</apkey5>
+		<apkey6>Non-existent material or picking completed ！</apkey6>
+		<apkey7>Article {1} details of the actual picking cannot exceed the quantity to be picked !</apkey7>
+		<apkey8>ignore this receive ?</apkey8>
+		<apkey9>The number in the detail should be greater than 0, and the receiving area cannot be empty !</apkey9>
+		<apkey11>sure delete ?</apkey11>
+		<apkey12>The quantity of goods received this time cannot exceed the receivable quantity.</apkey12>
+		<apkey13>There is no data in this receipt detail and it cannot be completed.</apkey13>
+		<apkey14>Receipt completed!</apkey14>
+		<apkey15>The bar code item could not be found in the notification details.</apkey15>
+		<apkey16>Is there an unsorted list of items that continue to complete?</apkey16>
+		<apkey17>Do you give up this shift?</apkey17>
+		<apkey18>Do you give up this pick?</apkey18>
+		<apkey19>No bar code item found in picking details</apkey19>
+		<apkey20>The detail of the actual picking cannot exceed the quantity to be picked</apkey20>
+		<apkey21>Finished</apkey21>
+		<apkey24>No storage location in storage</apkey24>
+		<apkey23>Reserve can not be empty</apkey23>
+		<apkey22>There are no data on the details of the shelves and they cannot be completed</apkey22>
+		<apkey25>The amount of shelves is greater than 0</apkey25>
+		<apkey26>deleted</apkey26>
+		<apkey27>Confirm the deletion of the details</apkey27>
+		<apkey28>No bar code material can be found in the shelves details.</apkey28>
+		<apkey29>Do you give up this test?</apkey29>
+		<apkey30>The bar code item could not be found in the inspection details.</apkey30>
+		<apkey31>The shift is complete.</apkey31>
+		<apkey32>The source location for this code could not be found in the shift details.</apkey32>
+		<apkey33>Sample storage completed</apkey33>
+		<apkey34>Target storage does not exist, please check</apkey34>
+		<apkey35>The storage code does not exist in the pick list</apkey35>
+		<apkey36>Shipment {name} could not find this barcode item.</apkey36>
+		<apkey37>Please enter the owner and contract number first.</apkey37>
+		<apkey38>Whether to abandon this online</apkey38>
+		<apkey39>The details of the shelves have reached 5</apkey39>
+		<apkey40>Whether to remove the line details?</apkey40>
+		<apkey41>Is the amount of hair on the list assigned to the actual amount?</apkey41>
+		<apkey43>Delivery completed</apkey43>
+		<apkey44>Whether to abandon this shipment</apkey44>
+		<apkey45>The actual amount of detail cannot exceed the amount</apkey45>
+		<apkey46>The barcode item could not be found in the shipping details</apkey46>
+		<apkey47>No real details greater than 0 were found and could not be completed</apkey47>
+		<apkey48>Do you give up this inventory?</apkey48>
+		<apkey49>Cannot find this location code in the inventory details</apkey49>
+		<apkey50>Please scan the storage bar code first</apkey50>
+		<apkey51>Cannot find the material on the storage location in the inventory details</apkey51>
+		<apkey52>No bar code item found in item details</apkey52>
+		<apkey53>The barcode item could not be found in the shift details.</apkey53>
+		<apkey54>Cannot find the target location for this code in shift details.</apkey54>
+		<apkey55>Received success.</apkey55>
+		<apkey56>Reserve code can not be empty</apkey56>
+		<apkey57>The storage location code does not exist in the storage area.</apkey57>
+		<apkey58>Target storage position can not be empty</apkey58>
+		<apkey59>Delete this detail?</apkey59>
+		<apkey60>Whether to abandon this replenishment</apkey60>
+		<apkey62>The bar code item could not be found in the replenishment details.</apkey62>
+		<apkey63>The source location for this code could not be found in the replenishment detail.</apkey63>
+		<apkey64>No target location for this code was found in the replenishment detail.</apkey64>
+		<apkey65>Do you give up this exception handling?</apkey65>
+		<apkey666>The quantity must be greater than 0</apkey666>
+		<apkey67>The bar code item could not be found in the shipment area stock</apkey67>
+		<apkey68>Has logged off the current login</apkey68>
+		<apkey69>Password reset complete</apkey69>
+		<apkey70>Storage location does not exist</apkey70>
+		<apkey71>No one detail finished picking！</apkey71>
+		<apkey72>Please choose a detail ！</apkey72>
+		<apkey73>Failed to find a storage position record corresponding to the storage code</apkey73>
+		<apkey74>The scavenging code is the same as the original storage position</apkey74>
+		<apkey75>Failed to find material inventory records corresponding to scanned storage locations. </apkey75>	
+		<apkey142>The current storage location already has materials, continue to putaway?</apkey142>
+	</APshow>
+	
+	<CHshow><!--Charge-->
+		<chkey1>Details of clauses should not be empty.</chkey1>
+		<chkey2>The effective date should not exceed the expiration date.</chkey2>
+		<chkey3>Date field can not be empty.</chkey3>
+		<chkey4>If no transport order number is specified, the scope of the dispatching organization, the owner and the date shall not be blank.</chkey4>
+		<chkey5>Successful completion of calculation</chkey5>
+		<chkey6>Only the state is input details can be confirmed.</chkey6>
+		<chkey7>Please choose the details you need to confirm.</chkey7>
+		<chkey8>Only if the status is confirmed, can the revocation be confirmed.</chkey8>
+		<chkey9>Please choose the details that need to be revoked.</chkey9>
+		<chkey10>The state is larger than the input details, and it is not allowed to delete.</chkey10>
+		<chkey11>Please choose the details you need to delete.</chkey11>
+		<chkey12>The basis of detailed accounting is tonne kilometers, and the mileage must be greater than 0.</chkey12>
+		<chkey13>The effective date should not exceed the deadline.</chkey13>
+		<chkey14>If no dispatching number is specified, the scope of the dispatching organization, carrier and date shall not be blank.</chkey14>
+		<chkey15>Only confirm the carrier's expense details that the state has been entered.</chkey15>
+		<chkey16>It is only possible to reconfirm the status of the carrier's expense details that have been confirmed.</chkey16>
+		<chkey17>Only delete the status is the input carrier cost details.</chkey17>
+		<chkey18>Changing data objects will clear the details. Do you want to continue?</chkey18>
+		<chkey19>Storage center, cargo owner, date range can not be empty.</chkey19>
+		<chkey20>You can only confirm the status of the warehouse income details that have been entered.</chkey20>
+		<chkey21>We can only do the revocation confirmation operation when the status is confirmed.</chkey21>
+		<chkey22>Only delete the state is the input details of the warehouse revenue.</chkey22>
+		<chkey23>When calculating the unit price, the unit price field or the custom price can not be empty.</chkey23>
+		<chkey24>When calculating the price pattern, the amount field or custom amount can not be empty.</chkey24>
+		<chkey25>The logical operator for the last row must be empty.</chkey25>
+		<chkey26>The logical operators that are not the last row must not be empty.</chkey26>
+		<chkey27>Storage centers and scheduling organizations must not be empty.</chkey27>
+		<chkey28>Shippers and clearing parties must not be empty.</chkey28>
+		<chkey29>The list of terms must not be empty.</chkey29>
+		<chkey30>The effective date should not exceed the deadline.</chkey30>
+		<chkey31>The date range can not be empty.</chkey31>
+		<chkey32>The carrier and the clearing party must not be completely empty.</chkey32>
+		<chkey33>The bill has been quoted by the bill of payment and cannot be revoked.</chkey33>
+		<chkey34>The carrier or the clearing party must first be selected.</chkey34>
+		<chkey35>After changing the carrier, will the details be cleared?</chkey35>
+		<chkey36>After changing the clearing party, the carrier and details will be emptied. Shall we continue?</chkey36>
+		<chkey37>The bill has been quoted by the payroll and cannot be revoked.</chkey37>
+		<chkey38>The owner or settlement party must first be selected.</chkey38>
+		<chkey39>After changing the cargo owner, the details will be cleared. Will it continue?</chkey39>
+		<chkey40>After changing the settlement party, the owner and details will be emptied. Shall we continue?</chkey40>
+		<chkey41>You can only confirm the status of other cost details that have been entered.</chkey41>
+		<chkey42>Please choose the details you need to confirm.</chkey42>
+		<chkey43>Revocation confirmation operations can only be performed on the status of other cost details that have been identified.</chkey43>
+		<chkey44>Only delete the state is the other expense details that have been entered.</chkey44>
+		<chkey45>You can only confirm the status of other income details that have been entered.</chkey45>
+		<chkey46>It is only possible to revoke validation operations for other income details that have been identified.</chkey46>
+		<chkey47>Only delete the status is the other income details that have been entered.</chkey47>
+	</CHshow>
+	<STshow><!--Strategy-->
+		<stkey1>The order picking strategy {1} has been referenced by the material and cannot be revoked.</stkey1>
+		<stkey2>If the policy type is FIFO, then the first row of inventory ordering must be ascending according to the date of storage.</stkey2>
+		<stkey3>If the policy type is last in first out, then the first row of inventory ordering must be in descending order according to the date of storage.</stkey3>
+		<stkey4>If the policy type is batch number, the first row of inventory order must be ascending according to batch number.</stkey4>
+		<stkey5>If the policy type is near first out, then the first row of inventory sorting must be in descending order according to the expiration date.</stkey5>
+		<stkey6>The order picking strategy has been referenced by the material and cannot be revoked.</stkey6>
+		<stkey7>When the policy type is not divided into whole parts, it is necessary to clear the inventory matching details and the inventory ordering details. Do you want to continue?</stkey7>
+		<stkey8>Error checking condition matching validity. Please check matching condition check SQL and match condition SQL.</stkey8>
+		<stkey9>The upload strategy {1} has been referenced by the material and cannot be revoked.</stkey9>
+		<stkey10>The upload strategy has been referenced by materials and cannot be revoked.</stkey10>
+		<stkey11>When the policy type is specified manually, you need to clear out the non-mixing details, the storage matching details, and the storage sorting details. Do you want to continue?</stkey11>
+		<stkey12>There was an error in checking the validity of the storage location. Please check the storage check SQL and the storage matching condition SQL.</stkey12>
+		<stkey13>The replenishment policy {1} has been referenced by the material and cannot be revoked.</stkey13>
+		<stkey14>The wave picking strategy has been referenced by materials and cannot be revoked.</stkey14>
+	</STshow>
+	
+	<ReceivableAnd>
+	    <key1>the {1} line invoice has been written off or part of the written off, can not be revoked for confirmation！</key1>
+        <key2>the {1} line invoice has been referenced by the receipt, Please check the！</key2>
+        <key3>Please select the company and the clearing party first.</key3>
+        <key4>The invoice has been written off or partially written off, cannot be revoked for confirmation！</key4>
+        <key5>The invoice has been referenced by the receipt, Please check the!</key5>
+        <key6>the invoice has been referenced by the payment order,Please check the!</key6>
+        <key7>you amount of your receivables shall not be greater than the total amount of the unverified invoice.</key7>
+        <key8>Receivables amount you input {1} is inconsistent with the total amount {2} of the unverified invoice in the detail line. is it preserved?</key8>
+        <key9>amount of your payment shall not be greater than the total amount of the unverified invoice.</key9>
+        <key10>you payment amount  input {1} is inconsistent with the total amount of unverified invoice {2} of the detail line, Is it saved?</key10>
+        <key11>Receivables amount you input{1} is inconsistent with the total amount  statement {2} of the details.</key11>
+        <key12>you payment amount  input {1} is inconsistent with the total amount  statement {2} of the details.</key12>
+        <key13>the {1} line invoice the Advances received has been referenced, you cannot revoke！</key13>
+	    <key14>the invoice has been  Receivables referenced, you can't cancel!</key14>
+		<key15>the {1} Line invoice Advance payment has been  by  reference , you cannot revoke！</key15>
+		<key16>You have not introduced the Receivables bill details.</key16>
+		<key17>You have not reference the advance payment details.</key17>
+		<key18>Please select Need the invoice to be introduced.</key18>
+		<key19>Please select Need the introduction Advance payment single.</key19>
+		<key20>Please select the advance receipt that you want to introduce.</key20>
+		<key21>Please select the statement you want to introduce.</key21>
+	</ReceivableAnd>
+	
+	<StatusInfoGroup>
+	  <WH>WarehouseCenter:</WH>
+	  <DSP>DispatchOrganization:</DSP>
+	</StatusInfoGroup>
+</StringTable>

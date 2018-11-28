@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_ReplenishStrategy" Caption="补货策略" FormType="Entity">
+    <DataSource RefObjectKey="LRP_ReprenishStrategy"/>
+    <OperationCollection>
+        <Operation Caption="编辑" Key="Edit" RefKey="Edit" ShortCuts="Ctrl+E" Visible="ReadOnly()&amp;&amp;Status==100"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[
+					//四个明细中的sql正确赋值到表头的时候保存
+					if(ReplenishStrategy_QM_Save()&&ReplenishStrategy_QS_Save()&&ReplenishStrategy_PM_Save()&&ReplenishStrategy_PS_Save()){
+						SaveData(); UpdateView();
+					}
+                ]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel" Visible="!ReadOnly()&amp;&amp;Status==100"/>
+        <Operation Key="Confirm" Caption="确认" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')" RefKey="Confirm"/>
+        <Operation Key="Confirm-R" Caption="撤销确认" Visible="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[
+				//查询选中的补货策略是否被物料引用，若已经被引用，则弹出报错提示：
+				//补货策略XXX已经被物料所引用，无法撤销确认。
+				var count=DBNamedQueryValue("SMaStrategy",OID);
+				if(count==0){
+					Status=StatusValue('prepared');SaveData();UpdateView();
+				}else{
+					Confirm(LocaleString('STshow','stkey14'),'OK','OK{}');
+				}
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="作废" Key="ToCancel" RefKey="ToCancel"/>
+        <Operation Caption="撤销作废" Key="ToCancel-R" RefKey="ToCancel-R"/>
+        <Operation Caption="删除" Key="Delete" RefKey="Delete" ShortCuts="Ctrl+D" Visible="ReadOnly()&amp;&amp;Status==100"/>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="SMaStrategy" Description="查找物料-仓储策略中策略是本策略的个数">
+            <Statement>
+                <![CDATA[select count(*) as count from LRP_MaterialStrategy where StrategyId= ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="10px" Caption="基本信息">
+                            <TextEditor Key="No" Caption="补货策略号" BuddyKey="Lab_No" X="1" Y="0" Enable="false">
+                                <DataBinding ColumnKey="No" TableKey="LRP_ReprenishStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="补货策略号" X="0" Y="0"/>
+                            <TextEditor Key="Name" Caption="策略名称" BuddyKey="Lab_Name" X="4" Y="0" Enable="Status==100">
+                                <DataBinding ColumnKey="Name" TableKey="LRP_ReprenishStrategy_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name" Caption="策略名称" X="3" Y="0"/>
+                            <ComboBox Key="StrategyType" Caption="策略类型" BuddyKey="Lab_StrategyType" X="7" Y="0" Enable="Status==100">
+                                <DataBinding ColumnKey="StrategyType" TableKey="LRP_ReprenishStrategy_H"/>
+                                <Item Caption="补至空储位" Key="StrategyType0" Value="0"/>
+                                <Item Caption="补至固定储位" Key="StrategyType1" Value="1"/>
+                                <Item Caption="补至现有库存" Key="StrategyType2" Value="2"/>
+                            </ComboBox>
+                            <Label Key="Lab_StrategyType" Caption="策略类型" X="6" Y="0"/>
+                            <CheckBox Caption="允许紧急补货" Key="CanUseInstant" X="1" Y="1" Enable="Status==100" Visible="false">
+                                <DataBinding ColumnKey="CanUseInstant" TableKey="LRP_ReprenishStrategy_H"/>
+                            </CheckBox>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="1" SourceType="Status" Enable="false">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_ReprenishStrategy_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="6" Y="1"/>
+                            <TextEditor Key="Remarks" Caption="备注" BuddyKey="Lab_Remarks" X="1" Y="2" Enable="Status==100" XSpan="7">
+                                <DataBinding ColumnKey="Remarks" TableKey="LRP_ReprenishStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remarks" Caption="备注" X="0" Y="2"/>
+                            <Dict Key="WarehouseCenterId" Caption="仓储中心" BuddyKey="Lab_WarehouseCenterId" X="1" Y="3" Visible="false" ItemKey="LRP_WarehouseCenter">
+                                <DataBinding ColumnKey="WarehouseCenterId" DefaultFormulaValue="getCurOrgID()" TableKey="LRP_ReprenishStrategy_H"/>
+                            </Dict>
+                            <Label Key="Lab_WarehouseCenterId" Caption="仓储中心" Visible="false" X="0" Y="3"/>
+                            <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" X="4" Y="3" Visible="false">
+                                <DataBinding ColumnKey="OID" TableKey="LRP_ReprenishStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_OID" Caption="OID" X="3" Y="3" Visible="false"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="99px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="GridLayoutPanel1" Padding="10px" Caption="检查SQL">
+                            <TextEditor Key="QuantCheckSql" Caption="库存检查SQL" BuddyKey="Lab_QuantCheckSql" X="1" Y="0" Enable="false" XSpan="7">
+                                <DataBinding ColumnKey="QuantCheckSql" TableKey="LRP_ReprenishStrategy_H" DefaultValue="select Q.OID from LRP_Quant Q join LRP_Location L on Q.LocationId = L.OID join LRP_Storearea A on L.StoreareaId = A.OID join LRP_Storeroom R on L.StoreroomId = R.OID join LRP_LocType T on L.LocTypeId = T.OID "/>
+                            </TextEditor>
+                            <Label Key="Lab_QuantCheckSql" Caption="库存检查SQL" X="0" Y="0"/>
+                            <TextEditor Key="QuantWhereSql" Caption="库存匹配SQL" BuddyKey="Lab_QuantWhereSql" X="1" Y="1" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="QuantWhereSql" TableKey="LRP_ReprenishStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_QuantWhereSql" Caption="库存匹配SQL" X="0" Y="1"/>
+                            <TextEditor Key="QuantSortSql" Caption="排序SQL" BuddyKey="Lab_QuantSortSql" X="7" Y="1" Enable="false">
+                                <DataBinding ColumnKey="QuantSortSql" TableKey="LRP_ReprenishStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_QuantSortSql" Caption="排序SQL" X="6" Y="1"/>
+                            <TextEditor Key="PickLocCheckSql" Caption="拣货位检查SQL" BuddyKey="Lab_PickLocCheckSql" X="1" Y="2" Enable="false" XSpan="7">
+                                <DataBinding ColumnKey="PickLocCheckSql" TableKey="LRP_ReprenishStrategy_H" DefaultValue="select L.OID from LRP_Location L join LRP_Storearea A on L.StoreareaId = A.OID join LRP_Storeroom R on L.StoreroomId = R.OID join LRP_LocType T on L.LocTypeId = T.OID "/>
+                            </TextEditor>
+                            <Label Key="Lab_PickLocCheckSql" Caption="拣货位检查SQL" X="0" Y="2"/>
+                            <TextEditor Key="PickLocWhereSql" Caption="拣货位匹配SQL" BuddyKey="Lab_PickLocWhereSql" X="1" Y="3" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="PickLocWhereSql" TableKey="LRP_ReprenishStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_PickLocWhereSql" Caption="拣货位匹配SQL" X="0" Y="3"/>
+                            <TextEditor Key="PickLocSortSql" Caption="排序SQL" BuddyKey="Lab_PickLocSortSql" X="7" Y="3" Enable="false">
+                                <DataBinding ColumnKey="PickLocSortSql" TableKey="LRP_ReprenishStrategy_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_PickLocSortSql" Caption="排序SQL" X="6" Y="3"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="99px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="88px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SystemInfo" Padding="10px" Caption="系统信息">
+                            <Dict BuddyKey="Lab_CREATOR" Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_ReprenishStrategy_H"/>
+                            </Dict>
+                            <Label Caption="创建人" Key="Lab_CREATOR" X="0" Y="0"/>
+                            <DatePicker BuddyKey="Lab_CREATETIME" Caption="创建时间" Key="CREATETIME" X="4" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_ReprenishStrategy_H"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="Lab_CREATETIME" X="3" Y="0"/>
+                            <Dict BuddyKey="Lab_MODIFIER" Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="1" Enable="false">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_ReprenishStrategy_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="Lab_MODIFIER" X="0" Y="1"/>
+                            <DatePicker BuddyKey="Lab_MODIFYTIME" Caption="修改时间" Key="MODIFYTIME" X="4" Y="1" Enable="false">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_ReprenishStrategy_H"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="Lab_MODIFYTIME" X="3" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Height="100%" Key="DetailTab">
+                        <Grid Key="Grid1" Caption="库存匹配明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="l_LeftBrackets" Caption="左括号" Width="80px"/>
+                                <GridColumn Key="l_ObjectAttrib" Caption="属性" Width="80px"/>
+                                <GridColumn Key="l_Operator" Caption="操作符" Width="80px"/>
+                                <GridColumn Key="l_Value" Caption="值" Width="80px"/>
+                                <GridColumn Key="l_RightBrackets" Caption="右括号" Width="80px"/>
+                                <GridColumn Key="l_LogicalOperator" Caption="逻辑运算符" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_ReplenishStrategy_QM_L">
+                                    <GridCell Key="LeftBrackets" Caption="左括号" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="LeftBrackets"/>
+                                        <Item Caption="(" Key="ParenthesesLeft1" Value="("/>
+                                        <Item Caption="((" Key="ParenthesesLeft2" Value="(("/>
+                                        <Item Caption="(((" Key="ParenthesesLeft3" Value="((("/>
+                                    </GridCell>
+                                    <GridCell Key="ObjectAttrib" Caption="属性" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="ObjectAttrib" Required="true"/>
+                                        <Item Caption="仓间代码" Key="R_Code" Value="R.Code"/>
+                                        <Item Caption="库区代码" Key="A_Code" Value="A.Code"/>
+                                        <Item Caption="储位代码" Key="L_Code" Value="L.Code"/>
+                                        <Item Caption="储位类型" Key="L_LocTypeId" Value="L.LocTypeId"/>
+                                        <Item Caption="储位ABC分类" Key="L_ABCType" Value="L.ABCType"/>
+                                    </GridCell>
+                                    <GridCell Key="Operator" Caption="操作符" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="Operator" Required="true"/>
+                                        <Item Caption="等于" Key="Option1" Value="="/>
+                                        <Item Caption="不等于" Key="Option2" Value="&lt;&gt;"/>
+                                        <Item Caption="大于" Key="Option3" Value="&gt;"/>
+                                        <Item Caption="大于等于" Key="Option4" Value="&gt;="/>
+                                        <Item Caption="小于" Key="Option5" Value="&lt;"/>
+                                        <Item Caption="小于等于" Key="Option6" Value="&lt;="/>
+                                        <Item Caption="包含" Key="Option7" Value="like"/>
+                                    </GridCell>
+                                    <GridCell Key="Value" Caption="值" CellType="Dynamic" TypeFormula="GetCellValue('Grid1',-1,'ObjectAttrib')" TypeDependency="ObjectAttrib" Enable="Status==100">
+                                        <DataBinding ColumnKey="Value" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="RightBrackets" Caption="右括号" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="RightBrackets"/>
+                                        <Item Caption=")" Key="ParenthesesRight1" Value=")"/>
+                                        <Item Caption="))" Key="ParenthesesRight2" Value="))"/>
+                                        <Item Caption=")))" Key="ParenthesesRight3" Value=")))"/>
+                                    </GridCell>
+                                    <GridCell Key="LogicalOperator" Caption="逻辑运算符" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="LogicalOperator"/>
+                                        <Item Caption="并且" Key="And" Value="and"/>
+                                        <Item Caption="或者" Key="Or" Value="or"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid2" Caption="库存排序明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="ObjectAttrib_02" Caption="属性" Width="80px"/>
+                                <GridColumn Key="AscDesc_02" Caption="排序方向" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_ReplenishStrategy_QS_L">
+                                    <GridCell Key="ObjectAttrib_02" Caption="属性" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="ObjectAttrib" Required="true"/>
+                                        <Item Caption="储位代码" Key="L_Code_02" Value="L.Code"/>
+                                        <Item Caption="储位ABC分类" Key="L_ABCType_02" Value="L.ABCType"/>
+                                        <Item Caption="储位排序" Key="L_SortOrder_02" Value="L.SortOrder"/>
+                                        <Item Caption="入库日期" Key="Q_RecvDate_02" Value="Q.RecvDate"/>
+                                        <Item Caption="批号" Key="Q_BatchNo_02" Value="Q.BatchNo"/>
+                                        <Item Caption="失效日期" Key="Q_ExpireDate_02" Value="Q.ExpireDate"/>
+                                    </GridCell>
+                                    <GridCell Key="AscDesc_02" Caption="排序方向" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="AscDesc" Required="true"/>
+                                        <Item Caption="升序" Key="ASC" Value="ASC"/>
+                                        <Item Caption="降序" Key="DESC" Value="DESC"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid3" Caption="拣货位匹配明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="LeftBrackets_03" Caption="左括号" Width="80px"/>
+                                <GridColumn Key="ObjectAttrib_03" Caption="属性" Width="80px"/>
+                                <GridColumn Key="Operator_03" Caption="操作符" Width="80px"/>
+                                <GridColumn Key="Value_03" Caption="值" Width="80px"/>
+                                <GridColumn Key="RightBrackets_03" Caption="右括号" Width="80px"/>
+                                <GridColumn Key="LogicalOperator_03" Caption="逻辑运算符" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_ReplenishStrategy_PM_L">
+                                    <GridCell Key="LeftBrackets_03" Caption="左括号" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="LeftBrackets"/>
+                                        <Item Caption="(" Key="ParenthesesLeft1_03" Value="("/>
+                                        <Item Caption="((" Key="ParenthesesLeft2_03" Value="(("/>
+                                        <Item Caption="(((" Key="ParenthesesLeft3_03" Value="((("/>
+                                    </GridCell>
+                                    <GridCell Key="ObjectAttrib_03" Caption="属性" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="ObjectAttrib" Required="true"/>
+                                        <Item Caption="库区代码" Key="A_Code_03" Value="A.Code"/>
+                                        <Item Caption="储位代码" Key="L_Code_03" Value="L.Code"/>
+                                        <Item Caption="储位类型" Key="L_LocTypeId_03" Value="L.LocTypeId"/>
+                                    </GridCell>
+                                    <GridCell Key="Operator_03" Caption="操作符" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="Operator" Required="true"/>
+                                        <Item Caption="等于" Key="Option1" Value="="/>
+                                        <Item Caption="不等于" Key="Option2" Value="&lt;&gt;"/>
+                                        <Item Caption="大于" Key="Option3" Value="&gt;"/>
+                                        <Item Caption="大于等于" Key="Option4" Value="&gt;="/>
+                                        <Item Caption="小于" Key="Option5" Value="&lt;"/>
+                                        <Item Caption="小于等于" Key="Option6" Value="&lt;="/>
+                                        <Item Caption="包含" Key="Option7" Value="like"/>
+                                    </GridCell>
+                                    <GridCell Key="Value_03" Caption="值" CellType="Dynamic" TypeFormula="GetCellValue('Grid3',-1,'ObjectAttrib_03')" TypeDependency="ObjectAttrib_03" Enable="Status==100">
+                                        <DataBinding ColumnKey="Value" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="RightBrackets_03" Caption="右括号" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="RightBrackets"/>
+                                        <Item Caption=")" Key="ParenthesesRight1" Value=")"/>
+                                        <Item Caption="))" Key="ParenthesesRight2" Value="))"/>
+                                        <Item Caption=")))" Key="ParenthesesRight3" Value=")))"/>
+                                    </GridCell>
+                                    <GridCell Key="LogicalOperator_03" Caption="逻辑运算符" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="LogicalOperator"/>
+                                        <Item Caption="并且" Key="And" Value="and"/>
+                                        <Item Caption="或者" Key="Or" Value="or"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid4" Caption="拣货位排序明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="ObjectAttrib_04" Caption="属性" Width="80px"/>
+                                <GridColumn Key="AscDesc_04" Caption="升序降序" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_ReplenishStrategy_PS_L">
+                                    <GridCell Key="ObjectAttrib_04" Caption="属性" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="ObjectAttrib" Required="true"/>
+                                        <Item Caption="储位代码" Key="L_Code_04" Value="L.Code"/>
+                                        <Item Caption="排序" Key="L_SortOrder_04" Value="L.SortOrder"/>
+                                    </GridCell>
+                                    <GridCell Key="AscDesc_04" Caption="升序降序" CellType="ComboBox" Enable="Status==100">
+                                        <DataBinding ColumnKey="AscDesc" Required="true"/>
+                                        <Item Caption="升序" Key="ASC" Value="ASC"/>
+                                        <Item Caption="降序" Key="DESC" Value="DESC"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="200px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="ReplenishStrategy_QM_Save">
+            <![CDATA[//库存匹配明细
+					var sql=' ';
+					var i=0;
+					var count = GetRowCount('Grid1',false);
+                   //遍历grid1
+                   if(count>0){
+						while ( i < count ) {
+							//库存匹配明细保存时将明细的内容拼成Where子句放到头挡库存匹配SQL字段中
+							if(GetCellValue('Grid1', i, 'LeftBrackets')!=''){
+								sql=sql & GetCellValue('Grid1', i, 'LeftBrackets') & ' ';
+							}
+							if(GetCellValue('Grid1', i, 'ObjectAttrib')!=''){
+								sql=sql & GetCellValue('Grid1', i, 'ObjectAttrib') & ' ';
+							}
+							if(GetCellValue('Grid1', i, 'Operator')!=''){
+								sql=sql & GetCellValue('Grid1', i, 'Operator') & ' ';
+							}
+							if(GetCellValue('Grid1', i, 'Value')!=''){
+								if(GetCellValue('Grid1', i, 'ObjectAttrib')=='L.LocTypeId'){
+									sql=sql & GetCellValue('Grid1', i, 'Value') & " ";
+								}else{
+									sql=sql & "'" & GetCellValue('Grid1', i, 'Value') & "'" & " ";
+								}
+							}
+							if(GetCellValue('Grid1', i, 'RightBrackets')!=''){
+								sql=sql & GetCellValue('Grid1', i, 'RightBrackets') & ' ';
+							}
+							if(GetCellValue('Grid1', i, 'LogicalOperator')!=''){
+								sql=sql & GetCellValue('Grid1', i, 'LogicalOperator') & ' ';
+							}
+							//库存匹配明细保存若不是最后一行，则逻辑运算符不可为空
+						   if(i==count-1){
+								if(GetCellValue('Grid1', i, 'LogicalOperator')!=''){
+									Confirm(LocaleString('CHshow','chkey25'),'OK','OK:{}'); 
+									break;
+								}else{
+									SetValue('QuantWhereSql', sql);
+									return true;
+								}
+							}else{
+								if(GetCellValue('Grid1', i, 'LogicalOperator')==''){
+									Confirm(LocaleString('CHshow','chkey26'),'OK','OK:{}'); 
+									break;
+								}
+							}
+						   i=i+1;
+						}
+                    }else{
+						SetValue('QuantWhereSql', "");
+						return true;
+					}
+					]]>
+        </Macro>
+        <Macro Key="ReplenishStrategy_QS_Save">
+            <![CDATA[//库存排序明细保存时将明细的内容拼成排序子句放到头挡库存排序SQL字段中
+					var count2 = GetRowCount('Grid2',false);
+					var j=0;
+					var orderStr1=' ';
+					if(count2>0){
+						while(j<count2){
+							if(j==count2-1){
+								orderStr1=orderStr1 & GetCellValue('Grid2', j, 'ObjectAttrib_02') & ' ' & GetCellValue('Grid2', j, 'AscDesc_02');
+								SetValue('QuantSortSql', orderStr1);
+								InvokeService("LRP_StategySqlCheck", true, true,QuantCheckSql,QuantWhereSql,QuantSortSql,"验证库存匹配有效性时出错，请检查库存检查SQL、库存匹配SQL和库存排序SQL。");	
+								return true;
+							}else{
+								orderStr1=orderStr1 & GetCellValue('Grid2', j, 'ObjectAttrib_02') & ' ' & GetCellValue('Grid2', j, 'AscDesc_02') & ',';
+							}
+							
+							j=j+1;
+						}
+					}else{
+						SetValue('QuantSortSql', "");
+						return true;
+					}
+					
+					]]>
+        </Macro>
+        <Macro Key="ReplenishStrategy_PM_Save">
+            <![CDATA[//拣货位匹配明细
+					var sql2=' ';
+					var m=0;
+					var count3 = GetRowCount('Grid3',false);
+                                        //遍历grid1
+                    if(count3>0){
+						while ( m < count3 ) {
+							//库存匹配明细保存时将明细的内容拼成Where子句放到头挡库存匹配SQL字段中
+							if(GetCellValue('Grid3', m, 'LeftBrackets_03')!=''){
+								sql2=sql2 & GetCellValue('Grid3', m, 'LeftBrackets_03') & ' ';
+							}
+							if(GetCellValue('Grid3', m, 'ObjectAttrib_03')!=''){
+								sql2=sql2 & GetCellValue('Grid3', m, 'ObjectAttrib_03') & ' ';
+							}
+							if(GetCellValue('Grid3', m, 'Operator_03')!=''){
+								sql2=sql2 & GetCellValue('Grid3', m, 'Operator_03') & ' ';
+							}
+							if(GetCellValue('Grid3', m, 'Value_03')!=''){
+								if(GetCellValue('Grid3', m, 'ObjectAttrib_03')=='L.LocTypeId'){
+									sql2=sql2 & GetCellValue('Grid3', m, 'Value_03') & " ";
+								}else{
+									sql2=sql2 & "'" & GetCellValue('Grid3', m, 'Value_03') & "'" & " ";
+								}
+							}
+							if(GetCellValue('Grid3', m, 'RightBrackets_03')!=''){
+								sql2=sql2 & GetCellValue('Grid3', m, 'RightBrackets_03') & ' ';
+							}
+							if(GetCellValue('Grid3', m, 'LogicalOperator_03')!=''){
+								sql2=sql2 & GetCellValue('Grid3', m, 'LogicalOperator_03') & ' ';
+							}
+							//库存匹配明细保存若不是最后一行，则逻辑运算符不可为空
+						   if(m==count3-1){
+								if(GetCellValue('Grid3', m, 'LogicalOperator_03')!=''){
+									Confirm(LocaleString('CHshow','chkey25'),'OK','OK:{}'); 
+									break;
+								}else{
+									SetValue('PickLocWhereSql', sql2);
+									return true;
+								}
+							}else{
+								if(GetCellValue('Grid3', m, 'LogicalOperator_03')==''){
+									Confirm(LocaleString('CHshow','chkey26'),'OK','OK:{}'); 
+									break;
+								}
+							}
+						   m=m+1;
+						}
+                    }else{
+						SetValue('PickLocWhereSql', "");
+						return true;
+					}
+					
+					]]>
+        </Macro>
+        <Macro Key="ReplenishStrategy_PS_Save">
+            <![CDATA[//库存排序明细保存时将明细的内容拼成排序子句放到头挡库存排序SQL字段中
+					var count4 = GetRowCount('Grid4',false);
+					var n=0;
+					var orderStr2=' ';
+					if(count4>0){
+					while(n<count4){
+						if(n==count4-1){
+							orderStr2=orderStr2 & GetCellValue('Grid4', n, 'ObjectAttrib_04') & ' ' & GetCellValue('Grid4', n, 'AscDesc_04');
+							SetValue('PickLocSortSql', orderStr2);
+							InvokeService("LRP_StategySqlCheck", true, true,PickLocCheckSql,PickLocWhereSql,PickLocSortSql,"验证拣货位条件匹配有效性时出错，请检查拣货位匹配SQL和拣货位排序SQL。");	
+							return true;
+						}else{
+							orderStr2=orderStr2 & GetCellValue('Grid4', n, 'ObjectAttrib_04') & ' ' & GetCellValue('Grid4', n, 'AscDesc_04')  &  ',';
+						}
+						n=n+1;
+					}
+					}else{
+						SetValue('PickLocSortSql', "");
+						return true;
+					}
+]]>
+        </Macro>
+    </MacroCollection>
+</Form>

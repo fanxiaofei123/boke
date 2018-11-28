@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="科目表" Key="AccountChart" PrimaryTableKey="BK_AccountChart" PrimaryType="Entity"  SecondaryType="Dict">
+	<TableCollection>
+                <Table Caption="科目表" DBTableName="BK_AccountChart" Key="BK_AccountChart">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+                    <Column Caption="父节点" DataType="Long" Key="ParentID"/>
+                    <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+                    <Column Caption="代码长度1" DataType="Integer" Key="AccountLength1"/>
+		    <Column Caption="代码长度2" DataType="Integer" Key="AccountLength2"/>
+		    <Column Caption="代码长度3" DataType="Integer" Key="AccountLength3"/>
+		    <Column Caption="代码长度4" DataType="Integer" Key="AccountLength4"/>
+		    <Column Caption="代码长度5" DataType="Integer" Key="AccountLength5"/>
+		    <Column Caption="代码长度6" DataType="Integer" Key="AccountLength6"/>
+		    <Column Caption="代码长度7" DataType="Integer" Key="AccountLength7"/>
+		    <Column Caption="代码长度8" DataType="Integer" Key="AccountLength8"/>
+		    <Column Caption="代码长度9" DataType="Integer" Key="AccountLength9"/>
+		    <Column Caption="代码长度10" DataType="Integer" Key="AccountLength10"/>
+		    <Column Caption="管理会计集成" DataType="Integer" Key="ControllingIntegration"/>
+		    <Column Caption="集团科目表" DataType="Long" Key="GroupAccountChartID"/>
+                </Table>
+	</TableCollection>
+</DataObject>

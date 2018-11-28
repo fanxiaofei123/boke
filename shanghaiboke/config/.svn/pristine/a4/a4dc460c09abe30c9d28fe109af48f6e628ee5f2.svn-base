@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Enhance>
+  <ExtService>
+	<Service Name="CreateMealsPlan" Description="生成配餐计划"
+      Impl="com.bokesoft.prj21611.chcs.service.MealsProvidePlan"/>
+	<Service Name="LRP_BillStatusChange" Description="将某张单据变更成指定状态"
+      Impl="com.bokesoft.lrp_v3.mid.common.LRP_BillStatusChange"/>
+	<Service Name="LRP_TransportDispatchDelete" Description="运输调度单删除操作"
+      Impl="com.bokesoft.lrp_v3.mid.common.LRP_TransportDispatchDelete"/>
+	<Service Name="LRP_BatchMap" Description="批量下推公式"
+      Impl="com.bokesoft.lrp_v3.mid.common.LRP_BatchMap"/>
+	<Service Name="LRP_WaveDelete" Description="波次单删除操作"
+      Impl="com.bokesoft.lrp_v3.mid.common.LRP_WaveDelete"/>
+	<Service Name="LRP_GetLogisticsOrderTracks" Description="查询物流订单并且获取对应的追踪信息"
+      Impl="com.bokesoft.lrp_v3.mid.common.LRP_GetLogisticsOrderTracks"/>
+	<Service Name="LRP_ExpenseStatementDelete" Description="费用对账单删除操作"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_ExpenseStatementDelete"/>
+	<Service Name="LRP_IncomeStatementDelete" Description="收入对账单删除操作"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_IncomeStatementDelete"/>
+    <Service Name="LRP_T_CalculateIncome" Description="运输收入计算"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_T_CalculateIncome"/>
+    <Service Name="LRP_T_CalculateExpense" Description="承运商费用计算"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_T_CalculateExpense"/>
+    <Service Name="LRP_W_CalculateIncome" Description="仓储收入计算"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_W_CalculateIncome"/>
+    <Service Name="LRP_O_CalculateIncome" Description="其它收入计算"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_O_CalculateIncome"/>
+    <Service Name="LRP_O_CalculateExpense" Description="其它费用计算"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_O_CalculateExpense"/>
+    <Service Name="LRP_BuildCountDetail" Description="生成盘点单明细"
+      Impl="com.bokesoft.lrp_v3.mid.wms.LRP_BuildCountDetail"/>
+    <Service Name="LRP_GetDataObjectKey" Description="其他仓储收入中获取数据对象"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_GetDataObjectKey"/>
+    <Service Name="LRP_GetFieldKey" Description="其他仓储收入中获取列"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_GetFieldKey"/>
+    <Service Name="LRP_GetTableFieldKey" Description="获取表中的某类型的所有列"
+      Impl="com.bokesoft.lrp_v3.mid.charge.LRP_GetTableFieldKey"/>
+    <Service Name="LRP_UpdateOrderType" Description="运输订单修改订单类型"
+      Impl="com.bokesoft.lrp_v3.mid.tms.LRP_UpdateOrderType"/>
+	  <Service Name="LRP_TransportJobDivide" Description="分量保存"
+      Impl="com.bokesoft.lrp_v3.mid.tms.LRP_TransportJobDivide"/>
+    <Service Name="LRP_AppRegister" Description="移动端用户注册"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_AppRegister"/>
+    <Service Name="LRP_ModifyPassword" Description="移动端修改密码"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_ModifyPassword"/>
+    <Service Name="LRP_MapMatching" Description="根据关键字匹配地点"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_MapMatching"/>
+    <Service Name="LRP_GenerateOrder" Description="下单后生成新的整车订单"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GenerateOrder"/>
+    <Service Name="LRP_DriverReceiveOrder" Description="司机接单"
+      Impl="com.bokesoft.lrp_v3.mid.tmsdriverapp.LRP_DriverReceiveOrder"/>
+    <Service Name="LRP_IsNaN" Description="判断一个字符串是否都为数字"
+      Impl="com.bokesoft.lrp_v3.mid.common.LRP_IsNaN"/>
+    <Service Name="LRP_DriverOrderProcess" Description="司机订单处理"
+      Impl="com.bokesoft.lrp_v3.mid.tmsdriverapp.LRP_DriverOrderProcess"/>
+    <Service Name="LRP_DriverModifyPassWord" Description="移动端司机修改密码"
+      Impl="com.bokesoft.lrp_v3.mid.tmsdriverapp.LRP_DriverModifyPassWord"/>
+    <Service Name="LRP_TruckChargeByTransportOrder" Description="根据指定的订单的信息和新的里程计算费用"
+      Impl="com.bokesoft.lrp_v3.mid.tmsdriverapp.LRP_TruckChargeByTransportOrder"/>
+    <Service Name="LRP_DriverSaveOrderChange" Description="保存对订单的修改并且修改对应的作业单"
+      Impl="com.bokesoft.lrp_v3.mid.tmsdriverapp.LRP_DriverSaveOrderChange"/>
+	<Service Name="LRP_GetTruckGPSPos" Description="获取车辆GPS位置"
+      Impl="com.bokesoft.lrp_v3.mid.truckgpspos.LRP_GetTruckGPSPos"/>
+    <Service Name="LRP_Generate_LTL" Description="下单后生成新的零担订单"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_Generate_LTL"/>
+    <Service Name="LRP_Distance" Description="取得起始地距离"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_Distance"/>
+    <Service Name="LRP_delzero" Description="去除无效0"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_DelZero"/>
+    <Service Name="LRP_Serv" Description="" Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_Serv"/>
+    <Service Name="LRP_GetDispatchOrg" Description=""
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetDispatchOrg"/>
+    <Service Name="LRP_GetCurrentDispatchOrgId" Description="取到当前位置的调度组织"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetCurrentDispatchOrgId"/>
+    <Service Name="LRP_QuickOrder" Description="快速下单保存下单信息"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_QuickOrder"/>
+    <Service Name="LRP_SpecialCarCharge" Description="专车费用计算"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_SpecialCarCharge"/>
+    <Service Name="LRP_LTLQuoteByTransportOrder" Description="零担和干线运费报价计算"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_LTLQuoteByTransportOrder"/>
+    <Service Name="LRP_GetRegion" Description=""
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetRegion"/>
+    <Service Name="LRP_GetNameByGPS" Description="根据经纬度取到地址名称"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetNameByGPS"/>
+    <Service Name="LRP_getLatAndLngByAddress" Description="根据地址名称取到经纬度"
+      Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetLatAndLngByAddress"/>
+	<Service Name="LRP_genCouponRecord" Description="生成优惠券记录" Impl="com.bokesoft.lrp_v3.mid.coupon.LRP_GenCouponRecord"/>
+    <Service Name="PaymentService" Destription="支付服务" Impl="com.bokesoft.yes.yespay.PaymentService"/>
+    <Service Name="LRP_useCouponCalc" Destription="使用优惠券后金额" Impl="com.bokesoft.lrp_v3.mid.coupon.LRP_UseCouponCalc"/>
+    <Service Name="LRP_getUniqueBillNo" Destription="使用优惠券后金额" Impl="com.bokesoft.lrp_v3.mid.pay.LRP_GetUniqueBillNo"/>
+	<Service Name="LRP_ConfirmOrder" Destription="确认订单改状态后生成作业单" Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_ConfirmOrder"/>
+	<Service Name="LRP_GenDPAdjustRecord" Description="司机积分调整" Impl="com.bokesoft.lrp_v3.mid.common.LRP_GenDPAdjustRecord"/>
+	<Service Name="LRP_GenPromotionsRecord" Description="在优惠活动日志中加入活动记录并生成对应的卷记录" Impl="com.bokesoft.lrp_v3.mid.promotions.LRP_GenPromotionsRecord"/>
+	<Service Name="LRP_PassWordSHAEncode" Description="司机修改密码" Impl="com.bokesoft.lrp_v3.mid.common.LRP_PassWordSHAEncode"/>
+	<Service Name="LRP_DriverRefund" Description=" 司机将某个订单已支付的金额退款" Impl="com.bokesoft.lrp_v3.mid.tmsdriverapp.LRP_DriverRefund"/>
+	<Service Name="LRP_DriverSetPayStatus" Description=" 司机将某个订单的支付状态改成已支付" Impl="com.bokesoft.lrp_v3.mid.tmsdriverapp.LRP_DriverSetPayStatus"/>
+	<Service Name="LRP_PayByBalance" Destription="余额支付" Impl="com.bokesoft.lrp_v3.mid.pay.LRP_PayByBalance"/>
+    <Service Name="LRP_updateCouponRecord" Destription="优惠券使用后更新" Impl="com.bokesoft.lrp_v3.mid.coupon.LRP_UpdateCouponRecord"/>
+	<Service Name="LRP_VerificationCodeSave" Destription="手机验证码发送和保存" Impl="com.bokesoft.lrp_v3.mid.sendmessage.LRP_VerificationCodeSave"/>
+    <Service Name="LRP_GetUserDispatchOrg" Destription="取当前用户的调度组织" Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetUserDispatchOrg"/> 
+    <Service Name="LRP_ReapplyPassword" Destription="忘记密码修改密码" Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_ReapplyPassword"/>
+    <Service Name="LRP_BatchUpdateField" Destription="批量更新字段值" Impl="com.bokesoft.lrp_v3.mid.common.LRP_BatchUpdateField"/>
+    <Service Name="LRP_TransOrderSegChange" Destription="分段调整" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_TransOrderSegChange"/>
+   	<Service Name="LRP_ExchangeConfirmR" Destription="退货生成出库订单后，撤销完成时，删除生成的出库订单" Impl="com.bokesoft.lrp_v3.mid.wms.LRP_ExchangeConfirmR"/>
+	<Service Name="LRP_TransportJobUnit" Destription="合并作业单" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_TransportJobUnit"/>
+	<Service Name="LRP_StategySqlCheck" Destription="策略保存时验证sql执行正确性" Impl="com.bokesoft.lrp_v3.mid.wms.LRP_StategySqlCheck"/>
+	<Service Name="LRP_DispatchApportion" Destription="调度单成本分摊" Impl="com.bokesoft.lrp_v3.mid.costapportion.LRP_DispatchApportion"/>
+	<Service Name="LRP_PayByCash" Destription="现金支付" Impl="com.bokesoft.lrp_v3.mid.pay.LRP_PayByCash"/>
+	<Service Name="LRP_TransOrderConfirmR" Destription="运输订单撤销确认" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_TransOrderConfirmR"/>
+	<Service Name="LRP_GetCityByGPS" Destription="根据经纬度取到城市名称" Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetCityByGPS"/>
+	<Service Name="LRP_GetHistoricalRecords" Destription="获取历史记录" Impl="com.bokesoft.lrp_v3.mid.tmsuserapp.LRP_GetHistoricalRecords"/>
+	<Service Name="LRP_WarehouseKeeperModifyPassWord" Destription="修改仓管员密码" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_WarehouseKeeperModifyPassWord"/>
+	<Service Name="LRP_SavePick" Destription="完成app拣货操作" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_SavePick"/>
+	<Service Name="LRP_ReceiveByNotice" Destription="完成app收货" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_ReceiveByNotice"/>
+	<Service Name="LRP_CopyAndInsertRow" Destription="复制新增行" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_CopyAndInsertRow"/>
+	<Service Name="LRP_InspectCopyAndInsertRow" Destription="快速检验单复制新增行" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_InspectCopyAndInsertRow"/>
+	<Service Name="LRP_TakeStockOderByLocation" Destription="盘点数据按储位代码排序" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_TakeStockOderByLocation"/>
+	<Service Name="LRP_ShipByPick" Destription="完成app拣货单发货操作" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_ShipByPick"/>
+	<Service Name="LRP_AppShip" Destription="完成app发货单发货操作" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_AppShip"/>
+	<Service Name="LRP_AppShipByLocation" Destription="完成app发货区发货操作" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_AppShipByLocation"/>
+    <Service Name="LRP_AllocateWMSTask" Destription="仓储任务分配" Impl="com.bokesoft.lrp_v3.mid.wms.LRP_AllocateWMSTask"/>
+	<Service Name="LRP_AddMoveFinish" Destription="移动端即时移位中新增移位单并保存确认完成" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_AddMoveFinish"/>
+	<Service Name="LRP_PreSave_PackingStrategyMatch" Destription="包装方案匹配单保存前检查" Impl="com.bokesoft.lrp_v3.mid.packing.LRP_PreSave_PackingStrategyMatch"/>
+	<Service Name="LRP_GetPackingStrategy" Destription="根据界面输入的始发地和目的地温度信息,从当前数据库的匹配表单中获取符合条件的包装方案并返回到客户端" Impl="com.bokesoft.lrp_v3.mid.packing.LRP_GetPackingStrategy"/>
+	<Service Name="LRP_GetPackingBatchSerials" Destription="批量生成结果序列号数据集" Impl="com.bokesoft.lrp_v3.mid.packing.LRP_GetPackingBatchSerials"/>
+	<Service Name="LRP_BatchMatchPackingStrategy" Destription="从当前数据库的匹配表单中获取符合条件的包装方案，并计算汇总物料明细数据" Impl="com.bokesoft.lrp_v3.mid.packing.LRP_BatchMatchPackingStrategy"/>
+	<Service Name="LRP_NoInformReceive" Destription="app端无通知收货单完成操作" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_NoInformReceive"/>
+	<Service Name="LRP_PutawayByReceive" Destription="app端按收货单上架" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_PutawayByReceive"/>
+	<Service Name="LRP_PutawayMap" Destription="app端上架" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_PutawayMap"/>
+	<Service Name="LRP_Tx309ByShippingQuant" Destription="发货区库存下推异常单" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_Tx309ByShippingQuant"/>
+	<Service Name="LRP_PutawayByStock" Destription="按收货区库存下推上架单" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_PutawayByStock"/>
+	<Service Name="LRP_PutawayFinish" Destription="上架单完成" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_PutawayFinish"/>
+	<Service Name="LRP_PutwayByKittingSave" Destription="发货区库存下推异常单" Impl="com.bokesoft.lrp_v3.mid.wmsapp.LRP_PutwayByKittingSave"/>
+	<Service Name="LRP_GrabOrder" Description="抢单数据保存" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_GrabOrder"/>
+	<Service Name="LRP_Bidding" Description="竞价数据保存" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_Bidding"/>
+	<Service Name="LRP_FindNearbyVehicles" Description="获取车辆经纬度" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_FindNearbyVehicles"/>
+	<Service Name="LRP_C_CalculateExpense" Description="按单号费用计算" Impl="com.bokesoft.lrp_v3.mid.charge.LRP_C_CalculateExpense"/>
+	<Service Name="LRP_C_CalculateIncome" Description="按单号收入计算" Impl="com.bokesoft.lrp_v3.mid.charge.LRP_C_CalculateIncome"/>
+	<Service Name="LRP_O_C_CalculateExpense" Description="按单号其他费用计算" Impl="com.bokesoft.lrp_v3.mid.charge.LRP_O_C_CalculateExpense"/>
+	<Service Name="LRP_UpadtePayStatus" Destription="支付成功后立即更新支付状态" Impl="com.bokesoft.lrp_v3.mid.pay.LRP_UpadtePayStatus"/>
+	<Service Name="LRP_PointsExchange" Destription="积分兑换" Impl="com.bokesoft.lrp_v3.mid.points.LRP_PointsExchange"/>
+	<Service Name="LRP_ChangeAddRecordsStatus" Destription="积分增加记录状态变化" Impl="com.bokesoft.lrp_v3.mid.points.LRP_ChangeAddRecordsStatus"/>
+	<Service Name="LRP_SavePolygonPoints" Destription="保存地图画区域的点集" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_SavePolygonPoints"/>		
+	<Service Name="LRP_GetPolygonPointsInfo" Destription="获取地图画区域的点集" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_GetPolygonPointsInfo"/>
+	<Service Name="LRP_DeletePolygon" Destription="删除区域" Impl="com.bokesoft.lrp_v3.mid.tms.LRP_DeletePolygon"/>
+	<Service Name="LRP_PlatformReservationDelete" Destription="删除月台预约单" Impl="com.bokesoft.lrp_v3.mid.wms.LRP_PlatformReservationDelete"/>
+	<Service Name="LRP_GetWarehouseCenter" Destription="获取所有仓储中心" Impl="com.bokesoft.lrp_v3.mid.common.LRP_GetWarehouseCenter"/>
+	<Service Name="LRP_GetPlatformReservation" Destription="获取对应仓储中心月台预约信息" Impl="com.bokesoft.lrp_v3.mid.common.LRP_GetPlatformReservation"/>
+	
+ </ExtService>
+  <ExtMidFunction>
+    <MidFunction Description="SCM中间层扩展公式"
+      Provider="com.bokesoft.lrp_v3.mid.common.MidFunctionProvider"/>
+  </ExtMidFunction>
+  <ExtUIFunction>
+    <UIFunction Description="SCM客户端扩展公式" Provider="com.bokesoft.lrp_v3.ui.common.UIFunctionProvider"
+    />
+  </ExtUIFunction>
+  <ExtStartListener>
+    <StartListener Description="初始数据" Impl="com.bokesoft.lrp_v3.mid.common.LRP_InitData"/>
+  </ExtStartListener>
+</Enhance>

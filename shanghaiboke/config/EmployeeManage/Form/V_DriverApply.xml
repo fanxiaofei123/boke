@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_DriverApply" Caption="加盟司机申请审核" FormType="Entity" ViewKey="V_DriverApplyView">
+    <DataSource RefObjectKey="LRP_DriverApply"/>
+    <OperationCollection>
+        <Operation Key="optAudit" Caption="审核" Visible="ReadOnly()&amp;&amp;Status==1010" Enable="ReadOnly()&amp;&amp;Status==1010">
+            <Action>
+                <![CDATA[SetValue('Status', 1020);
+				SaveData();
+				UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;Status==1020" ShortCuts="Ctrl+E">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="通过" Key="Save" ShortCuts="Ctrl+S" Visible="!ReadOnly()&amp;&amp;Status==1020">
+            <Action>
+                <![CDATA[
+                if(GetValue('ApprovalOpinion')==''){
+				Confirm('审批意见不能为空', 'OK','OK:{}');
+				return true;
+				}
+                if(GetRowCount('Grid2', false)<=0){ 
+				Confirm('允许调度组织明细列表不可为空', 'OK','OK:{}');
+				return true;
+				}
+                SetValue('Status', 1050);
+               SetValue('ApprovalDateTime', ServerDate());
+				SaveData();
+				UpdateView();
+			]]>
+            </Action>
+        </Operation>
+        <Operation Key="optrefuse" Caption="拒绝" Visible="!ReadOnly()&amp;&amp;Status==1020">
+            <Action>
+                <![CDATA[
+                if(GetValue('ApprovalOpinion')==''){
+				Confirm('审批意见不能为空', 'OK','OK:{}');
+				return true;
+				}
+                SetValue('Status', 1090);
+               SetValue('ApprovalDateTime', ServerDate());
+				SaveData();
+				UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="optReAudit" Caption="重新审核" Visible="ReadOnly()&amp;&amp;(Status==1050 ||Status==1090)">
+            <Action>
+                <![CDATA[SetValue('Status', 1020);
+                SetValue('ApprovalDateTime', '');
+				SaveData();
+				UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close">
+            <Action>
+                <![CDATA[Close();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                            <TextEditor Caption="申请号" Enable="false" Key="No" X="1" XSpan="2" Y="0" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Caption="申请号" Key="L_No" X="0" Y="0"/>
+                            <Dict Caption="司机" ItemKey="LRP_Driver" Key="DriverId" X="5" XSpan="2" Y="5" Enable="false" BuddyKey="L_DriverId" Visible="false" AsQuery="true">
+                                <DataBinding ColumnKey="DriverId" TableKey="LRP_DriverApply_H"/>
+                            </Dict>
+                            <Label Caption="司机" Key="L_DriverId" X="4" Y="5"/>
+                            <Dict Key="TruckTypeId" Caption="车辆类型" BuddyKey="Lab_TruckTypeId" X="9" Y="2" Enable="false" ItemKey="LRP_TruckType" XSpan="4" AsQuery="true">
+                                <DataBinding ColumnKey="TruckTypeId" TableKey="LRP_DriverApply_H"/>
+                                <ItemFilter ItemKey="LRP_TruckType">
+                                    <Filter FilterDependency="DriverId" Query="select distinct tt.OID  from LRP_TruckType tt join LRP_Truck t on tt.oid=t.TruckTypeId join LRP_TruckDispatchOrg tdo on t.oid=tdo.soid where tdo.DispatchOrgId in (select DispatchOrgId from LRP_Driver_Org where soid=?)" Type="DataSet">
+                                        <FilterValue DataType="Long" ParaValue="DriverId" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_TruckTypeId" Caption="车辆类型" X="8" Y="2"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="9" Y="5" SourceType="Formula" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_DriverApply_H" DefaultValue="100"/>
+                                <FormulaItems>
+                                    <![CDATA[GetStatusItems()]]>
+                                </FormulaItems>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="8" Y="5"/>
+                            <TextEditor Key="Mobile" Caption="手机" BuddyKey="Lab_Mobile" X="9" Y="0" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="Mobile" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Mobile" Caption="手机" X="8" Y="0"/>
+                            <TextEditor Key="IDCardNo" Caption="身份证" BuddyKey="Lab_IDCardNo" X="1" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="IDCardNo" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_IDCardNo" Caption="身份证" X="0" Y="1"/>
+                            <TextEditor Key="ContactAddress" Caption="联系地址" BuddyKey="Lab_ContactAddress" X="5" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="ContactAddress" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_ContactAddress" Caption="联系地址" X="4" Y="1"/>
+                            <TextEditor Key="LicenseNo" Caption="驾照号" BuddyKey="Lab_LicenseNo" X="9" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="LicenseNo" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_LicenseNo" Caption="驾照号" X="8" Y="1"/>
+                            <ComboBox Key="DrivingLicenseType" Caption="驾照类型" BuddyKey="Lab_DrivingLicenseType" X="12" Y="1" Enable="false">
+                                <DataBinding ColumnKey="DrivingLicenseType" TableKey="LRP_DriverApply_H"/>
+                                <Item Caption="A1" Key="A1" Value="A1"/>
+                                <Item Caption="A2" Key="A2" Value="A2"/>
+                                <Item Caption="A3" Key="A3" Value="A3"/>
+                                <Item Caption="B1" Key="B1" Value="B1"/>
+                                <Item Caption="B2" Key="B2" Value="B2"/>
+                            </ComboBox>
+                            <Label Key="Lab_DrivingLicenseType" Caption="驾照类型" X="11" Y="1"/>
+                            <CheckBox Caption="自有车" Key="IsSelfCar" X="0" XSpan="3" Y="2" Enable="false">
+                                <DataBinding ColumnKey="IsSelfCar" TableKey="LRP_DriverApply_H"/>
+                            </CheckBox>
+                            <TextEditor Key="BrandModel" Caption="品牌型号" BuddyKey="Lab_BrandModel" X="1" Y="3" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="BrandModel" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_BrandModel" Caption="品牌型号" X="0" Y="3"/>
+                            <TextEditor Key="EngineNo" Caption="发动机号" BuddyKey="Lab_EngineNo" X="5" Y="3" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="EngineNo" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_EngineNo" Caption="发动机号" X="4" Y="3"/>
+                            <TextEditor Key="ChassisNo" Caption="底盘号" BuddyKey="Lab_ChassisNo" X="9" Y="3" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="ChassisNo" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_ChassisNo" Caption="底盘号" X="8" Y="3"/>
+                            <TextEditor Key="VINNo" Caption="车架号" BuddyKey="Lab_VINNo" X="1" Y="4" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="VINNo" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_VINNo" Caption="车架号" X="0" Y="4"/>
+                            <NumberEditor Key="LoadWeight" Caption="载重" BuddyKey="Lab_LoadWeight" X="5" Y="4" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="LoadWeight" TableKey="LRP_DriverApply_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_LoadWeight" Caption="载重" X="4" Y="4"/>
+                            <NumberEditor Key="LoadCubage" Caption="容积" BuddyKey="Lab_LoadCubage" X="9" Y="4" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="LoadCubage" TableKey="LRP_DriverApply_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_LoadCubage" Caption="容积" X="8" Y="4"/>
+                            <DatePicker Key="ApplyDateTime" Caption="申请日期时间" BuddyKey="Lab_ApplyDateTime" X="1" Y="5" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="ApplyDateTime" TableKey="LRP_DriverApply_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_ApplyDateTime" Caption="申请日期时间" X="0" Y="5"/>
+                            <TextEditor Key="SelfIntroduction" Caption="自我介绍" BuddyKey="Lab_SelfIntroduction" X="1" Y="6" Enable="false" XSpan="12">
+                                <DataBinding ColumnKey="SelfIntroduction" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SelfIntroduction" Caption="自我介绍" X="0" Y="6"/>
+                            <TextEditor Key="ApprovalOpinion" Caption="审批意见" BuddyKey="Lab_ApprovalOpinion" X="1" Y="7" Enable="!ReadOnly()&amp;&amp;Status==1020" XSpan="12">
+                                <DataBinding ColumnKey="ApprovalOpinion" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_ApprovalOpinion" Caption="审批意见" X="0" Y="7"/>
+                            <TextEditor Key="TruckLicenseNo" Caption="车牌号" BuddyKey="Lab_TruckLicenseNo" X="5" Y="2" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="TruckLicenseNo" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_TruckLicenseNo" Caption="车牌号" X="4" Y="2"/>
+                            <TextEditor Key="DriverName" Caption="司机姓名" BuddyKey="Lab_DriverName" X="5" Y="0" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="DriverName" TableKey="LRP_DriverApply_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_DriverName" Caption="司机姓名" X="4" Y="0"/>
+                            <DatePicker Key="ApprovalDateTime" Caption="审批日期时间" BuddyKey="Lab_ApprovalDateTime" X="1" Y="8" Enable="false" Visible="false">
+                                <DataBinding ColumnKey="ApprovalDateTime" TableKey="LRP_DriverApply_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_ApprovalDateTime" Caption="审批日期时间" X="0" Y="8"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="85px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="33%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="17%" MinWidth="50px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="16%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_DriverApply_H"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_DriverApply_H"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_DriverApply_H"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_DriverApply_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="4" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <Grid Key="Grid1" Caption="附件明细" Enable="false" NewEmptyRow="false" ShowRowHead="false" CanDelete="false" CanInsert="false" CanShift="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="SEQUENCE" Caption="序号" Width="80px"/>
+                                <GridColumn Key="Url" Caption="附件" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_DriverApply_Att_L">
+                                    <GridCell Key="SEQUENCE" Caption="序号">
+                                        <DataBinding ColumnKey="SEQUENCE"/>
+                                    </GridCell>
+                                    <GridCell Key="Url" Caption="附件" CellType="Image">
+                                        <DataBinding ColumnKey="Url"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid2" Caption="允许调度组织明细" Enable="!ReadOnly()&amp;&amp;Status==1020" ShowRowHead="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="SEQUENCE1" Caption="序号" Width="80px"/>
+                                <GridColumn Key="DispatchOrg" Caption="可用调度组织" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_DriverApply_DspOrg">
+                                    <GridCell Key="SEQUENCE1" Caption="序号">
+                                        <DataBinding ColumnKey="SEQUENCE"/>
+                                    </GridCell>
+                                    <GridCell Key="DispatchOrg" Caption="可用调度组织" CellType="Dict" ItemKey="LRP_DispatchOrg">
+                                        <DataBinding ColumnKey="DispatchOrg"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="360px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

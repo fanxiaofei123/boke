@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CellTypeTable>
+	<CellTypeGroup FormKey="V_ReplenishStrategy">
+	<CellTypeDef Key="" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="R.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="A.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.LocTypeId" CellType="Dict" ItemKey="LRP_LocType">
+	</CellTypeDef>
+	<CellTypeDef Key="L.ABCType" CellType="TextEditor">
+	</CellTypeDef>
+	</CellTypeGroup>
+	<CellTypeGroup FormKey="V_PutawayStrategy">
+	<CellTypeDef Key="" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="H.WarehouseCenterId" CellType="Dict" ItemKey="LRP_WarehouseCenter">
+	</CellTypeDef>
+	<CellTypeDef Key="H.OwnerId" CellType="Dict" ItemKey="LRP_Owner">
+	</CellTypeDef>
+	<CellTypeDef Key="H.NoticeNo" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.DestMaterialStatusId" CellType="Dict" ItemKey="LRP_MaterialStatus">
+	</CellTypeDef>	
+	<CellTypeDef Key="R.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="A.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.IsPick" CellType="NumberEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.LocTypeId" CellType="Dict" ItemKey="LRP_LocType">
+	</CellTypeDef>
+	<CellTypeDef Key="L.ABCType" CellType="TextEditor">
+	</CellTypeDef>
+	</CellTypeGroup>
+	<CellTypeGroup FormKey="V_NoticePickStategy">
+	<CellTypeDef Key="" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="H.WarehouseCenterId" CellType="Dict" ItemKey="LRP_WarehouseCenter">
+	</CellTypeDef>
+	<CellTypeDef Key="H.OwnerId" CellType="Dict" ItemKey="LRP_Owner">
+	</CellTypeDef>
+	<CellTypeDef Key="H.RecvPartyName" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="H.ProvinceId" CellType="Dict" ItemKey="LRP_Province">
+	</CellTypeDef>
+	<CellTypeDef Key="H.CityId" CellType="Dict" ItemKey="LRP_City">
+	</CellTypeDef>
+	<CellTypeDef Key="H.CarrierId" CellType="Dict" ItemKey="LRP_Carrier">
+	</CellTypeDef>	
+	<CellTypeDef Key="R.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="A.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.LocTypeId" CellType="Dict" ItemKey="LRP_LocType">
+	</CellTypeDef>
+	<CellTypeDef Key="L.ABCType" CellType="TextEditor">
+	</CellTypeDef>
+	</CellTypeGroup>
+	<CellTypeGroup FormKey="V_WavePickStrategy">
+	<CellTypeDef Key="" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="H.WarehouseCenterId" CellType="Dict" ItemKey="LRP_WarehouseCenter">
+	</CellTypeDef>
+	<CellTypeDef Key="H.OwnerId" CellType="Dict" ItemKey="LRP_Owner">
+	</CellTypeDef>
+	<CellTypeDef Key="R.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="A.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.Code" CellType="TextEditor">
+	</CellTypeDef>
+	<CellTypeDef Key="L.LocTypeId" CellType="Dict" ItemKey="LRP_LocType">
+	</CellTypeDef>
+	<CellTypeDef Key="L.ABCType" CellType="TextEditor">
+	</CellTypeDef>
+	</CellTypeGroup>
+</CellTypeTable>

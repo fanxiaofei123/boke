@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_TruckRepairView" Caption="车辆维修序事薄" FormType="View" AbbrCaption="车辆维修序事薄">
+    <DataSource>
+        <DataObject Key="V_TruckRepairView" Caption="车辆维修序事薄" PrimaryTableKey="LRP_TruckRepair_H">
+            <TableCollection>
+                <Table Key="LRP_TruckRepair_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="No" Caption="维修单号" DataType="Varchar"/>
+                    <Column Key="FleetId" Caption="车队" DataType="Long"/>
+                    <Column Key="TruckId" Caption="车辆id" DataType="Long"/>
+                    <Column Key="LicenseNo" Caption="牌照号" DataType="Varchar"/>
+                    <Column Key="RepairDate" Caption="维修日期" DataType="Date"/>
+                    <Column Key="RepairShop" Caption="修理厂" DataType="Varchar"/>
+                    <Column Key="Remark" Caption="备注" DataType="Varchar"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('V_TruckRepair')]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchConfirm" Caption="确认" RefKey="BatchConfirm"/>
+        <Operation Key="BatchConfirmR" Caption="撤销确认" RefKey="BatchConfirm-R"/>
+        <Operation Key="BatchFinish" Caption="完成">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再完成。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',200,500,')){
+					Confirm('只有状态是已确认或处理中的单据才能进行完成。','OK','OK:{}');
+					return true;
+				}
+				Confirm('确定要将选中的记录进行完成吗？','YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,900,90);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchFinishR" Caption="撤销完成" RefKey="BatchFinish-R"/>
+        <Operation Key="BatchCancel" Caption="作废" RefKey="BatchCancel"/>
+        <Operation Key="BatchCancelR" Caption="撤销作废" RefKey="BatchCancel-R"/>
+        <Operation Key="BatchDelete" Caption="删除">
+            <Action>
+                <![CDATA[
+
+
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再删除。','OK','OK:{}');
+					return true;
+				}
+			   if(!CheckListSelectStatus(',100,')){	
+			        Confirm('只有状态是已输入的单据才能进行删除。','OK','OK:{}');
+					return true;
+			   }
+			  Confirm('确定要将选中的记录进行删除吗？','YES_NO',{YES:{BatchDeleteData('LRP_TruckRepair', 'LRP_TruckRepair_H');
+			            LoadData();ShowData();
+					  },NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭页面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                            <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="10" Y="2">
+                                <DataBinding DefaultValue="LRP_TruckRepair"/>
+                            </TextEditor>
+                            <Label Key="L_RuleNo" Caption="维修单号" X="0" Y="0"/>
+                            <TextEditor Key="RuleNo" Caption="维修单号" BuddyKey="L_RuleNo" X="1" Y="0" XSpan="3">
+                                <Condition ColumnKey="No" TableKey="LRP_TruckRepair_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_FleetId" Caption="车队" X="5" Y="0"/>
+                            <Dict Key="FleetId" Caption="车队" BuddyKey="L_FleetId" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_Fleet" XSpan="3">
+                                <Condition ColumnKey="FleetId" TableKey="LRP_TruckRepair_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="L_LicenseNo" Caption="牌照号" X="0" Y="1"/>
+                            <TextEditor Key="LicenseNo" Caption="牌照号" BuddyKey="L_LicenseNo" X="1" Y="1" XSpan="3">
+                                <Condition ColumnKey="LicenseNo" TableKey="LRP_TruckRepair_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_RepairDate" Caption="维修日期" X="0" Y="2"/>
+                            <DatePicker Key="RepairDate" Caption="维修日期" BuddyKey="L_RepairDate" X="1" Y="2" XSpan="3">
+                                <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                                <Format/>
+                                <Condition ColumnKey="RepairDate" TableKey="LRP_TruckRepair_H" CondSign="between" Group="RepairDate" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="L_RepairDate_Comp2" Caption="到" X="5" Y="2"/>
+                            <DatePicker Key="RepairDate_Comp2" Caption="到" BuddyKey="L_RepairDate_Comp2" X="6" Y="2" XSpan="3">
+                                <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                                <Format/>
+                                <Condition ColumnKey="RepairDate" TableKey="LRP_TruckRepair_H" CondSign="between" Group="RepairDate" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="L_RepairShop" Caption="修理厂" X="5" Y="1"/>
+                            <TextEditor Key="RepairShop" Caption="修理厂" BuddyKey="L_RepairShop" X="6" Y="1" XSpan="3">
+                                <Condition ColumnKey="RepairShop" TableKey="LRP_TruckRepair_H" CondSign="like"/>
+                            </TextEditor>
+                            <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="10" Y="1" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <CheckListBox BuddyKey="Lab_StatusV" Caption="状态" Key="StatusV" X="1" Y="3" XSpan="3">
+                                <Condition ColumnKey="Status" TableKey="LRP_TruckRepair_H" CondSign="in"/>
+                                <Item Caption="已输入" Key="prepared" Value="100"/>
+                                <Item Caption="已确认" Key="confirmed" Value="200"/>
+                                <Item Caption="处理中" Key="handled" Value="500"/>
+                                <Item Caption="已完成" Key="finished" Value="900"/>
+                            </CheckListBox>
+                            <Label Key="Lab_StatusV" Caption="状态" X="0" Y="3"/>
+                            <RowDefCollection RowHeight="30" RowGap="8">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Height="pref" Key="ListView0" PageLoadType="DB" TableKey="LRP_TruckRepair_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="LRP_TruckRepair_H" Visible="false" Width="93px"/>
+                            <ListViewColumn Key="Select" Caption="选择" ColumnType="CheckBox" IsSelect="true"/>
+                            <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                            <ListViewColumn Key="RuleNo_LV" Caption="维修单号" ColumnType="HyperLink" DataColumnKey="No" Width="140px">
+                                <OnClick>
+                                    <![CDATA[Open("V_TruckRepair", OID)]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="FleetId_LV" Caption="车队" ColumnType="Dict" DataColumnKey="FleetId" Width="85px" ItemKey="LRP_Fleet"/>
+                            <ListViewColumn Key="TruckId_LV" Caption="车辆" ColumnType="Dict" DataColumnKey="TruckId" Width="130px" ItemKey="LRP_Truck"/>
+                            <ListViewColumn Key="LicenseNo_LV" Caption="牌照号" ColumnType="TextEditor" DataColumnKey="LicenseNo"/>
+                            <ListViewColumn Key="RepairDate_LV" Caption="维修日期" ColumnType="DatePicker" DataColumnKey="RepairDate" Width="130px"/>
+                            <ListViewColumn Key="RepairShop_LV" Caption="修理厂" ColumnType="TextEditor" DataColumnKey="RepairShop"/>
+                            <ListViewColumn Key="Lab_Remark_LV" Caption="备注" ColumnType="TextEditor" DataColumnKey="Remark"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_TruckRepair', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="155px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

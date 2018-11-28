@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="仓储事务类型" Key="LRP_WarehouseTxType" PrimaryTableKey="LRP_WarehouseTxType" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="仓储事务类型" DBTableName="LRP_WarehouseTxType" Key="LRP_WarehouseTxType">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="版本号" DataType="Integer" Key="VERID"/>
+            <Column Caption="明细版本号" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="启用状态" DataType="Integer" Key="Enable"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="字典父亲OID" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+            <Column Caption="创建人员" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人员" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="说明" DataType="Varchar" Key="remark" Length="200"/>
+        </Table>
+        <Table Caption="仓储事务类型允许物料状态" DBTableName="LRP_WhTxType_MS" Key="LRP_WhTxType_MS" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="版本号" DataType="Integer" Key="VERID"/>
+            <Column Caption="明细版本号" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="启用状态" DataType="Integer" Key="Enable"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="字典父亲OID" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+            <Column Caption="创建人员" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人员" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="物料状态" DataType="Long" Key="MaterialStatusId"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

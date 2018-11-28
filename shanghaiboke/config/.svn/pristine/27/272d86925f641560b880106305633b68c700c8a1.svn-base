@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_Promotions>Promotions</V_Promotions>
+	 
+        <L_No>No</L_No>
+		<L_Name>Name</L_Name>
+        <L_ActivityType>ActivityType</L_ActivityType>
+        <Lab_LimitsPerUser>LimitsPerUser</Lab_LimitsPerUser>
+        <IsLimitOrg>IsLimitOrg</IsLimitOrg>
+        <L_LimitOrgIds>LimitOrgIds</L_LimitOrgIds>
+        <L_EffectiveDateTime>EffectiveDateTime</L_EffectiveDateTime>
+        <L_ExpireDateTime>ExpireDateTime</L_ExpireDateTime>
+		<Lab_SortOrder>SortOrder</Lab_SortOrder>
+		<Lab_ImageUrl>ImageUrl</Lab_ImageUrl>
+		<Lab_InfoUrl>InfoUrl</Lab_InfoUrl>
+		<Lab_Remark>Remark</Lab_Remark>
+        <L_Status>Status</L_Status>
+		
+		<Grid0>Coupon detail</Grid0>
+    </UI>
+	<GridColumn>
+        <column-s>Select</column-s>
+        <CouponId>CouponId</CouponId>
+        <CouponName>CouponName</CouponName>
+        <Qty>Qty</Qty>
+        <CouponTypeId>CouponTypeId</CouponTypeId>
+        <CalculationMethod>CalculationMethod</CalculationMethod>
+        <CouponEffectiveDateTime>CouponEffectiveDateTime</CouponEffectiveDateTime>
+        <CouponExpireDateTime>CouponExpireDateTime</CouponExpireDateTime>
+        <FaceValue>FaceValue</FaceValue>
+        <Description>Description</Description>
+        <EnoughMoney>EnoughMoney</EnoughMoney>
+        <Discount>Discount</Discount>
+        <MinusChangeType>MinusChangeType</MinusChangeType>
+        <UseBusiness>UseBusiness</UseBusiness>
+        <UseDispatchOrgName>UseDispatchOrgName</UseDispatchOrgName>
+	</GridColumn>
+</StringTable>

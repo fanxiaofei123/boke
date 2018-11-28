@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_PlatformReservation" Caption="月台预约单" FormType="Entity" ViewKey="V_PlatformReservationView">
+    <DataSource RefObjectKey="LRP_PlatformReservation"/>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[UICheck();
+var n_startTime = ToDecimal(Format(GetValue("StartTime"), "yyyyMMddHHmmss"));
+var n_EndTime = ToDecimal(Format(GetValue("EndTime"), "yyyyMMddHHmmss"));
+if(n_startTime >= n_EndTime){
+    Confirm(LocaleString('PRshow','prkey1'));
+    return true;
+}
+
+var startTime = Format(GetValue("StartTime"), "yyyy-MM-dd HH:mm:ss");
+var getstartTimeToString = Mid(startTime,14,5);
+if(getstartTimeToString != '00:00' && getstartTimeToString!= '30:00'){
+    Confirm(LocaleString('PRshow','prkey2'));
+  return true; 
+}
+var endTime = Format(GetValue("EndTime"), "yyyy-MM-dd HH:mm:ss");
+var getEndTimeToString = Mid(endTime,14,5);
+if(getEndTimeToString != '00:00' && getEndTimeToString != '30:00'){
+    Confirm(LocaleString('PRshow','prkey3'));
+  return true; 
+}
+
+var rs = DBNamedQuery('QueryTime', StartTime,StartTime,EndTime,EndTime,PlatformId,oid);
+if(rs.size()>0){
+  Confirm(LocaleString('PRshow','prkey4'));
+  return true;  
+}
+SaveData(); UpdateView();
+var nType = ReservationType;
+if(nType<>99){
+    var sqlName = IIFS(
+        nType==1,'updateKey1',
+        nType==2,'updateKey2',
+        nType==3,'updateKey3',
+        nType==4,'updateKey4',
+        nType==5,'updateKey5',
+        nType==6,'updateKey6'
+    );
+    DBNamedUpdate(sqlName,1,RefOID);
+}
+
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[New('V_PlatformReservation', 'self');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[var nType = ReservationType;
+if(nType<>99){
+    var sqlName = IIFS(
+        nType==1,'updateKey1',
+        nType==2,'updateKey2',
+        nType==3,'updateKey3',
+        nType==4,'updateKey4',
+        nType==5,'updateKey5',
+        nType==6,'updateKey6'
+    );
+    DBNamedUpdate(sqlName,0,RefOID);
+}
+DeleteData();UpdateView();Close();
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()" RefKey="Edit">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="QueryTime" Description="查询该事件段内时候有预约">
+            <Statement DBType="MySql">
+                <![CDATA[SELECT * FROM LRP_PlatformReservation WHERE ((? >=  StartTime AND ? < EndTime) OR ( ? > StartTime AND ? <= EndTime) )AND PlatformId = ? and oid !=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="DateTime"/>
+                <Parameter DataType="DateTime"/>
+                <Parameter DataType="DateTime"/>
+                <Parameter DataType="DateTime"/>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="updateKey1" Description="修改入库通知单月台已预约字段">
+            <Statement DBType="MySql">
+                <![CDATA[update LRP_InboundNotice_H set PlatformHas = ? where OID = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Integer"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="updateKey2" Description="修改退货通知单月台已预约字段">
+            <Statement DBType="MySql">
+                <![CDATA[update LRP_ReturnNotice_H set PlatformHas = ? where OID = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Integer"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="updateKey3" Description="修改出库订单月台已预约字段">
+            <Statement DBType="MySql">
+                <![CDATA[update LRP_OutboundNotice_H set PlatformHas = ? where OID = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Integer"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="updateKey4" Description="修改退厂订单月台已预约字段">
+            <Statement DBType="MySql">
+                <![CDATA[update LRP_BackNotice_H set PlatformHas = ? where OID = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Integer"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="updateKey5" Description="修改调度单发货月台已预约字段">
+            <Statement DBType="MySql">
+                <![CDATA[update LRP_TransportDJ_L set SendPlatformHas = ? where TJId = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Integer"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="updateKey6" Description="修改调度单到货月台已预约字段">
+            <Statement DBType="MySql">
+                <![CDATA[update LRP_TransportDJ_L set DestPlatformHas = ? where TJId = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Integer"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Caption="根面板" Key="root">
+                <ToolBar Caption="ToolBar1" Height="pref" Key="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Caption="基本信息" Key="first_head" Padding="5px">
+                            <TextEditor Key="PlatformNo" Caption="预约单号" BuddyKey="Lab_PlatformNo" X="1" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_PlatformReservation"/>
+                            </TextEditor>
+                            <Label Key="Lab_PlatformNo" Caption="预约单号" X="0" Y="0"/>
+                            <TextEditor Key="RefNo" Caption="相关单据号" BuddyKey="Lab_RefNo" X="7" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="RefNo" TableKey="LRP_PlatformReservation"/>
+                            </TextEditor>
+                            <Label Key="Lab_RefNo" Caption="相关单据号" X="6" Y="0"/>
+                            <ComboBox AsQuery="true" BuddyKey="Lab_Status" Caption="状态" Enable="false" Key="Status" SourceType="Status" X="7" Y="4">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_PlatformReservation" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Caption="状态" Key="Lab_Status" X="6" Y="4"/>
+                            <DatePicker Key="ExitTime" Caption="离场时间" BuddyKey="Lab_ExitTime" X="4" Y="4" Enable="false">
+                                <DataBinding ColumnKey="ExitTime" TableKey="LRP_PlatformReservation"/>
+                            </DatePicker>
+                            <Label Key="Lab_ExitTime" Caption="离场时间" X="3" Y="4"/>
+                            <Dict BuddyKey="Lab_CarrierId" Caption="承运商" ItemKey="LRP_Carrier" Enable="!ReadOnly()" Key="CarrierId" X="4" Y="1">
+                                <DataBinding ColumnKey="CarrierId" TableKey="LRP_PlatformReservation"/>
+                            </Dict>
+                            <Label Caption="承运商" Key="Lab_CarrierId" X="3" Y="1"/>
+                            <Dict BuddyKey="Lab_PlatformId" Caption="月台" Enable="!ReadOnly()" Key="PlatformId" X="1" Y="1" ItemKey="LRP_Platform">
+                                <DataBinding ColumnKey="PlatformId" TableKey="LRP_PlatformReservation" Required="true"/>
+                                <ItemFilter ItemKey="LRP_Platform">
+                                    <Filter Query="SELECT  OID FROM LRP_Platform WHERE WarehouseCenterId =?" Type="DataSet">
+                                        <FilterValue ParaValue="getCurOrgID()"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Caption="月台" Key="Lab_PlatformId" X="0" Y="1"/>
+                            <TextEditor Key="DriverMobile" Caption="手机号" BuddyKey="Lab_DriverMobile" X="4" Y="2" Enable="!ReadOnly()">
+                                <DataBinding ColumnKey="DriverMobile" TableKey="LRP_PlatformReservation"/>
+                            </TextEditor>
+                            <Label Key="Lab_DriverMobile" Caption="手机号" X="3" Y="2"/>
+                            <ComboBox Key="ReservationType" Caption="预约类型" BuddyKey="Lab_ReservationType" X="4" Y="0" Enable="false">
+                                <DataBinding ColumnKey="ReservationType" TableKey="LRP_PlatformReservation" DefaultValue="99"/>
+                                <Item Caption="入库收货" Key="1" Value="1"/>
+                                <Item Caption="退货收货" Key="2" Value="2"/>
+                                <Item Caption="出库发货" Key="3" Value="3"/>
+                                <Item Caption="退厂发货" Key="4" Value="4"/>
+                                <Item Caption="运输发货" Key="5" Value="5"/>
+                                <Item Caption="运输到货" Key="6" Value="6"/>
+                                <Item Caption="其它" Key="99" Value="99"/>
+                            </ComboBox>
+                            <Label Key="Lab_ReservationType" Caption="预约类型" X="3" Y="0"/>
+                            <TextEditor Key="Driver" Caption="司机" BuddyKey="Lab_Driver" X="7" Y="1">
+                                <DataBinding ColumnKey="Driver" TableKey="LRP_PlatformReservation" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Driver" Caption="司机" X="6" Y="1"/>
+                            <TextEditor Key="CertificateNo" Caption="证件号" BuddyKey="Lab_CertificateNo" X="1" Y="2">
+                                <DataBinding ColumnKey="CertificateNo" TableKey="LRP_PlatformReservation"/>
+                            </TextEditor>
+                            <Label Key="Lab_CertificateNo" Caption="证件号" X="0" Y="2"/>
+                            <TextEditor Key="TruckLicenseNo" Caption="车牌号" BuddyKey="Lab_TruckLicenseNo" X="7" Y="2">
+                                <DataBinding ColumnKey="TruckLicenseNo" TableKey="LRP_PlatformReservation" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_TruckLicenseNo" Caption="车牌号" X="6" Y="2"/>
+                            <DatePicker Key="ReservationDate" Caption="预约日期" BuddyKey="Lab_ReservationDate" X="1" Y="3" Enable="false" OnlyDate="true">
+                                <DataBinding ColumnKey="ReservationDate" TableKey="LRP_PlatformReservation" Required="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_ReservationDate" Caption="预约日期" X="0" Y="3"/>
+                            <DatePicker Key="StartTime" Caption="预约开始时间" BuddyKey="Lab_StartTime" X="4" Y="3">
+                                <DataBinding ColumnKey="StartTime" TableKey="LRP_PlatformReservation" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[
+	CommitValue('StartTime');
+	ReservationDate = Format(StartTime, 'yyyy-MM-dd');
+													
+	
+										]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </DatePicker>
+                            <Label Key="Lab_StartTime" Caption="预约开始时间" X="3" Y="3"/>
+                            <DatePicker Key="EnterTime" Caption="入场时间" BuddyKey="Lab_EnterTime" X="1" Y="4" Enable="false">
+                                <DataBinding ColumnKey="EnterTime" TableKey="LRP_PlatformReservation"/>
+                            </DatePicker>
+                            <Label Key="Lab_EnterTime" Caption="入场时间" X="0" Y="4"/>
+                            <DatePicker Key="EndTime" Caption="预约结束时间" X="7" Y="3" BuddyKey="Lab_EndTime">
+                                <DataBinding ColumnKey="EndTime" TableKey="LRP_PlatformReservation" Required="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_EndTime" Caption="预约结束时间" X="6" Y="3"/>
+                            <Dict Key="WarehouseCenterId" Caption="仓储中心" BuddyKey="Lab_WarehouseCenterId" X="8" Y="4" Visible="false" ItemKey="LRP_WarehouseCenter">
+                                <DataBinding ColumnKey="WarehouseCenterId" DefaultFormulaValue="getCurOrgID()" TableKey="LRP_PlatformReservation"/>
+                            </Dict>
+                            <Label Key="Lab_WarehouseCenterId" Caption="仓储中心" X="7" Y="4"/>
+                            <TextEditor Key="RefOID" Caption="RefOID " BuddyKey="Lab_RefOID" X="8" Y="0" Visible="false">
+                                <DataBinding ColumnKey="RefOID" TableKey="LRP_PlatformReservation"/>
+                            </TextEditor>
+                            <Label Key="Lab_RefOID" Caption="RefOID " X="7" Y="0"/>
+                            <NumberEditor Key="oid" Caption="oid" X="8" Y="1" Visible="false">
+                                <DataBinding ColumnKey="OID" TableKey="LRP_PlatformReservation" DefaultValue="0"/>
+                            </NumberEditor>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="99px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_PlatformReservation"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_PlatformReservation"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_PlatformReservation"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_PlatformReservation"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="4" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="50%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[if(!IsNull(GetPara('ReservationType'))){
+    SetValue('ReservationType',GetPara('ReservationType'));
+}
+if(!IsNull(GetPara('WarehouseCenterId'))){
+    SetValue('WarehouseCenterId',GetPara('WarehouseCenterId'));
+}
+if(!IsNull(GetPara('RefOID'))){
+    SetValue('RefOID',GetPara('RefOID'));
+}
+if(!IsNull(GetPara('RefNo'))){
+    SetValue('RefNo',GetPara('RefNo'));
+}
+if(!IsNull(GetPara('StartTime'))){
+    SetValue('StartTime',GetPara('StartTime'));
+    SetValue('ReservationDate',GetPara('StartTime'));
+}
+if(!IsNull(GetPara('EndTime'))){
+    SetValue('EndTime',GetPara('EndTime'));
+}
+if(!IsNull(GetPara('CarrierId'))){
+    SetValue('CarrierId',GetPara('CarrierId'));
+}
+if(!IsNull(GetPara('PlatformId'))){
+    SetValue('PlatformId',GetPara('PlatformId'));
+}
+if(!IsNull(GetPara('TruckLicenseNo'))){
+    SetValue('TruckLicenseNo',GetPara('TruckLicenseNo'));
+}
+if(!IsNull(GetPara('Driver'))){
+    SetValue('Driver',GetPara('Driver'));
+}
+if(!IsNull(GetPara('DriverMobile'))){
+    SetValue('DriverMobile',GetPara('DriverMobile'));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]>
+    </OnPostShow>
+</Form>

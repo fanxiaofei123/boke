@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="AttachmentUpload" Caption="上传附件" FormType="Template">
+    <DataSource>
+        <DataObject Key="AttachmentUpload" Caption="上传附件" NoPrefix="ATT" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="AttachmentUpload" Caption="上传附件" DBTableName="AttachmentUpload" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="UploadTime" Caption="上传时间" DataType="DateTime"/>
+                    <Column Key="Path" Caption="路径" DataType="Varchar"/>
+                    <Column Key="UploadOperator" Caption="上传人" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Note" Caption="备注" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="AttachmentUploadPanel" Caption="附件上传" OverflowX="Hidden" OverflowY="Hidden" Height="100%">
+                <Grid Key="Grid1" Caption="Grid1" Height="100%" PageRowCount="4" CanDelete="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="FileOID" Caption="文件标识" Width="80px" Visible="false" Sortable="true"/>
+                        <GridColumn Key="UploadTime" Caption="上传时间" Width="130px" Sortable="true"/>
+                        <GridColumn Key="Path" Caption="上传路径" Width="350px" Sortable="true"/>
+                        <GridColumn Key="UploadOperator" Caption="上传人" Width="108px" Sortable="true"/>
+                        <GridColumn Key="Upload" Caption="上传" Width="60px" Sortable="true"/>
+                        <GridColumn Key="Download" Caption="下载" Width="60px" Sortable="true"/>
+                        <GridColumn Key="Delete" Caption="删除" Width="60px" Sortable="true"/>
+                        <GridColumn Key="Note_U" Caption="备注" Width="188px" Sortable="true"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="AttachmentUpload">
+                            <GridCell Key="FileOID" Caption="文件标识" CellType="TextEditor">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="UploadTime" Caption="上传时间" CellType="DatePicker" Enable="false">
+                                <DataBinding ColumnKey="UploadTime"/>
+                            </GridCell>
+                            <GridCell Key="Path" Caption="上传路径" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="Path"/>
+                            </GridCell>
+                            <GridCell Key="UploadOperator" Caption="上传人" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="UploadOperator"/>
+                            </GridCell>
+                            <GridCell Key="Upload" Caption="上传" CellType="Button">
+                                <OnClick>
+                                    <![CDATA[UploadAttachment(FileOID,"AttachmentUpload",-1,"",true,true,"","",'OSS');
+
+]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="Download" Caption="下载" CellType="Button" Enable="true">
+                                <OnClick>
+                                    <![CDATA[DownloadAttachment(FileOID, "AttachmentUpload","","OSS")]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="Delete" Caption="删除" CellType="Button">
+                                <OnClick>
+                                    <![CDATA[DeleteAttachment(FileOID, "AttachmentUpload")]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="Note_U" Caption="备注" CellType="TextEditor">
+                                <DataBinding ColumnKey="Note"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

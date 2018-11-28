@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="配餐管理" Key="FoodDistributionManagement">
+        <EntryItem Caption="配餐计划单列表" FormKey="CHCS_Meals_Provide_PView" Key="CHCS_Meals_Provide_PView" Type="Form"/>
+        <EntryItem Caption="航班计划" FormKey="CHCS_Flight_Plan" Key="CHCS_Flight_Plan" Type="Form"/>
+        <EntryItem Caption="配餐规则设置" FormKey="CHCS_Meals_Provide_Rule_SetView" Key="CHCS_Meals_Provide_Rule_SetView" Type="Form"/>
+        <EntryItem Caption="VIP替换餐种设置" FormKey="CHCS_Meal_Replace_Rule_SetView" Key="CHCS_Meal_Replace_Rule_SetView" Type="Form"/>
+    </Entry>
+</Entry>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="盘点管理" Key="TablewareManagement">
+        <EntryItem Caption="盘点单" FormKey="CHCS_Count_HView" Key="CHCS_Count_HView" Type="Form"/>
+        <EntryItem Caption="调拨单" FormKey="CHCS_Transfer_HView" Key="CHCS_Transfer_HView" Type="Form"/>
+    </Entry>
+</Entry>

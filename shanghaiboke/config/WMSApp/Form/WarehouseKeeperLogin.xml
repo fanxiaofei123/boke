@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="WarehouseKeeperLogin" Authenticate="false">
+    <QueryCollection>
+        <Query Key="WarehouseCenterId">
+            <Statement>
+                <![CDATA[select WarehouseCenterId from LRP_WarehouseKeeper where code=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <TableView Key="root">
+                <Format BackColor="#f0f2f7"/>
+                <TableRowCollection>
+                    <TableRow Key="r1">
+                        <GridLayoutPanel Key="header" Height="200px">
+                            <Format BackColor="#f1f3f8"/>
+                            <Image Key="mylogo" Caption="我的头像" Stretch="true" ImageScaleType="Fit_XY" PromptImage="5.png" X="1" Y="1" BorderStyle="none">
+                                <Format BackColor="#f1f3f8"/>
+                            </Image>
+                            <RowDefCollection>
+                                <RowDef Height="50px"/>
+                                <RowDef Height="120px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="120px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r2">
+                        <LinearLayoutPanel Key="user_panel" Orientation="Horizontal" Height="50px">
+                            <Label Key="lbl_1" Width="20px" Height="auto">
+                                <Format BackColor="#f1f3f8"/>
+                            </Label>
+                            <Label Key="lbl_user" Caption="帐号" Width="60px" LeftPadding="10px" Height="auto" BorderStyle="solid none solid solid" BorderColor="#dde0e7" HasBorder="true">
+                                <Format ForeColor="#969696" BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <TextEditor Key="user" Caption="帐号" PromptText="手机号/用户名" BorderStyle="solid solid solid none" BorderColor="#dde0e7" HasBorder="true" Width="0px" Weight="1.0" Height="auto">
+                                <DataBinding DefaultFormulaValue="LoadLocalData('user')"/>
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </TextEditor>
+                            <Label Key="lbl_2" Width="20px" Height="auto">
+                                <Format BackColor="#f1f3f8"/>
+                            </Label>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r3">
+                        <LinearLayoutPanel Key="password_panel" Orientation="Horizontal" Height="50px">
+                            <Label Key="lbl_3" Width="20px" Height="auto">
+                                <Format BackColor="#f1f3f8"/>
+                            </Label>
+                            <Label Key="lbl_password" Caption="密码" Width="60px" LeftPadding="10px" BorderStyle="none none solid solid" BorderColor="#dde0e7" HasBorder="true" Height="auto">
+                                <Format ForeColor="#969696" BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <PasswordEditor Key="password" Caption="密码" BorderStyle="none solid solid none" BorderColor="#dde0e7" HasBorder="true" PromptText="请输入密码" Width="0px" Weight="1.0" Height="auto">
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </PasswordEditor>
+                            <Label Key="lbl_4" Width="20px" Height="auto">
+                                <Format BackColor="#f1f3f8"/>
+                            </Label>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r4" TopMargin="30px">
+                        <GridLayoutPanel Key="r4_layout" Height="50px">
+                            <Format BackColor="#f1f3f8"/>
+                            <Button Key="login" Caption="登录" Width="0px" Height="auto" X="1" Y="0">
+                                <Format ForeColor="#ffffff" BackColor="#f14c52">
+                                    <Font Size="20"/>
+                                </Format>
+                                <OnClick>
+                                    <![CDATA[
+										SaveLocalData('user',user);
+										GuestLogin(user,password,-1,-1,'',{LoginRole:{"WarehouseKeeper"}});
+										SendSignal('SessionChanged');
+										root.SetPara('WarehouseCenterId',DBNamedQueryValue('WarehouseCenterId',user));
+										Close();
+									]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection>
+                                <RowDef Height="45px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="100%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+    </Body>
+    <NavigationBar BackColor="#f14c52" Style="Custom" HasLeftButton="false">
+        <BarItem Key="TitleCenter_bar" Caption="登录" Location="Center">
+            <Label Key="TitleCenter" Caption="登录" Width="60px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

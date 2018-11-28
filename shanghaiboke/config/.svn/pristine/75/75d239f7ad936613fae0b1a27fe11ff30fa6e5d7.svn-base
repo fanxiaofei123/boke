@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<Error>
+		<FieldName>The basis of detailed accounting is the order header field or order detail field, and the field name can not be empty.</FieldName>
+		<WeightCubageRatio>The basis of detailed accounting is the charge ton, and the heavy bubble ratio must be greater than 0.</WeightCubageRatio>
+		<UpperNumber>The upper limit is greater than or equal to the lower limit.</UpperNumber>
+		<Mileage>The basis of detailed accounting is tonne kilometers, and the mileage must be greater than 0.</Mileage>
+		<WeightCubageRatio>The basis of detailed accounting is the charge ton, and the heavy bubble ratio must be greater than 0.</WeightCubageRatio>
+		<WarehouseCenterId>Storage centers and scheduling organizations must not be empty.</WarehouseCenterId>
+		<OwnerId>Shippers and clearing parties must not be empty.</OwnerId>
+		<CarrierId>Carriers and clearing parties must not be completely empty.</CarrierId>
+	</Error>
+	
+	<UI>
+		<L_Code>Code</L_Code>
+		<L_Name>Name</L_Name>
+		<first_head>BasicInfo</first_head>
+		<BasicTab>BasicInfo</BasicTab>
+		<SystemInfo>SystemInfo</SystemInfo>
+		<SystemTab>SystemInfo</SystemTab>
+		<L_CREATOR>CREATOR</L_CREATOR>
+		<L_CREATETIME>CREATETIME</L_CREATETIME>
+		<L_MODIFIER>MODIFIER</L_MODIFIER>
+		<L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+		
+        <Lab_CREATOR>CREATOR</Lab_CREATOR>
+		<Lab_CREATETIME>CREATETIME</Lab_CREATETIME>
+		<Lab_MODIFIER>MODIFIER</Lab_MODIFIER>
+		<Lab_MODIFYTIME>MODIFYTIME</Lab_MODIFYTIME>
+		
+		<Lab_IncomeTypeId>IncomeType</Lab_IncomeTypeId>
+		<Lab_ExpenseTypeId>ExpenseType</Lab_ExpenseTypeId>
+		
+		<Query>Query</Query>
+		<cancel>Reset</cancel>
+		<Reset>Reset</Reset>
+		<Calculate>Calculate</Calculate>
+	</UI>
+	
+    <Items-Status_C>
+		<Item-prepared>prepared</Item-prepared>
+		<Item-confirmed>confirmed</Item-confirmed>
+		<Item-cancelled>cancelled</Item-cancelled>
+    </Items-Status_C>
+	
+    <Items-Status>
+		<Item-prepared>prepared</Item-prepared>
+		<Item-confirmed>confirmed</Item-confirmed>
+		<Item-cancelled>cancelled</Item-cancelled>
+    </Items-Status>
+	
+    <Entry>
+        <Charge_Charge>Charge</Charge_Charge>
+        <Charge_Charge_V_IncomeType_LRP>IncomeType</Charge_Charge_V_IncomeType_LRP>        
+		<Charge_Charge_V_Income_LRP>IncomeName</Charge_Charge_V_Income_LRP>
+        <Charge_Charge_V_ExpenseType_LRP>ExpenseType</Charge_Charge_V_ExpenseType_LRP>
+        <Charge_Charge_V_Expense_LRP>ExpenseName</Charge_Charge_V_Expense_LRP>
+        <Charge_Charge_V_T_IncomeTerm_LRPView>T_IncomeTerm</Charge_Charge_V_T_IncomeTerm_LRPView>						 
+		<Charge_Charge_V_T_IncomeContract_LRPView>T_IncomeContract</Charge_Charge_V_T_IncomeContract_LRPView>
+        <Charge_Charge_V_T_CalculateIncome_LRP>T_CalculateIncome</Charge_Charge_V_T_CalculateIncome_LRP>
+        <Charge_Charge_V_T_IncomeLine_LRP>T_IncomeLine</Charge_Charge_V_T_IncomeLine_LRP>
+        <Charge_Charge_V_T_ExpenseTerm_LRPView>T_ExpenseTerm</Charge_Charge_V_T_ExpenseTerm_LRPView>
+		<Charge_Charge_V_T_ExpenseContract_LRPView>T_ExpenseContract</Charge_Charge_V_T_ExpenseContract_LRPView>        
+		<Charge_Charge_V_T_CalculateExpense_LRP>T_CalculateExpense</Charge_Charge_V_T_CalculateExpense_LRP>
+        <Charge_Charge_V_T_ExpenseLine_LRP>T_ExpenseLine</Charge_Charge_V_T_ExpenseLine_LRP>
+        <Charge_Charge_V_W_IncomeTerm_LRPView>W_IncomeTerm</Charge_Charge_V_W_IncomeTerm_LRPView>
+        <Charge_Charge_V_W_IncomeContract_LRPView>W_IncomeContract</Charge_Charge_V_W_IncomeContract_LRPView>
+        <Charge_Charge_V_W_CalculateIncome_LRP>W_CalculateIncome</Charge_Charge_V_W_CalculateIncome_LRP>        
+		<Charge_Charge_V_W_IncomeLine_LRP>W_IncomeLine</Charge_Charge_V_W_IncomeLine_LRP>
+        <Charge_Charge_V_O_IncomeTerm_LRPView>O_IncomeTerm</Charge_Charge_V_O_IncomeTerm_LRPView>
+        <Charge_Charge_V_O_IncomeContract_LRPView>O_IncomeContract</Charge_Charge_V_O_IncomeContract_LRPView>
+        <Charge_Charge_V_O_CalculateIncome_LRP>O_CalculateIncome</Charge_Charge_V_O_CalculateIncome_LRP>        
+		<Charge_Charge_V_O_IncomeLine_LRP>O_IncomeLine</Charge_Charge_V_O_IncomeLine_LRP>     
+		<Charge_Charge_V_O_ExpenseTerm_LRPView>O_ExpenseTerm</Charge_Charge_V_O_ExpenseTerm_LRPView>
+        <Charge_Charge_V_O_ExpenseContract_LRPView>O_ExpenseContract</Charge_Charge_V_O_ExpenseContract_LRPView>
+        <Charge_Charge_V_O_CalculateExpense_LRP>O_CalculateExpense</Charge_Charge_V_O_CalculateExpense_LRP>
+        <Charge_Charge_V_O_ExpenseLine_LRP>O_ExpenseLine</Charge_Charge_V_O_ExpenseLine_LRP>
+		
+        <Charge_Charge_Statement>Reconciliation</Charge_Charge_Statement>        
+		<Charge_Charge_Statement_V_ExpenseStatementView>CostReconciliation</Charge_Charge_Statement_V_ExpenseStatementView>
+		<Charge_Charge_Statement_V_IncomeStatementView>IncomeReconciliation</Charge_Charge_Statement_V_IncomeStatementView>
+		
+        <Charge_Charge_CostApportion>CostApportion</Charge_Charge_CostApportion>        
+		<Charge_Charge_CostApportion_V_DispatchApportion_LRP>DispatchCostAllocation</Charge_Charge_CostApportion_V_DispatchApportion_LRP>
+		<Charge_Charge_CostApportion_V_CostApportionLineView>CostApportionmentQuery</Charge_Charge_CostApportion_V_CostApportionLineView>
+		
+    </Entry>
+</StringTable>

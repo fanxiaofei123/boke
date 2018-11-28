@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="收入名称" FormType="Dict" Key="V_Income_LRP">
+    <DataSource RefObjectKey="LRP_Income"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0" Height="pref">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <TextEditor Caption="代码" Enable="!ReadOnly()" Key="Code" X="1" XSpan="3" Y="0" Tip="「代码」不可为空" TabOrder="10">
+                            <DataBinding ColumnKey="Code" TableKey="LRP_Income" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+                        <TextEditor Caption="名称" Enable="!ReadOnly()" Key="Name" X="6" XSpan="3" Y="0" Tip="「名称」不可为空" TabOrder="20">
+                            <DataBinding ColumnKey="Name" TableKey="LRP_Income" Required="true"/>
+                        </TextEditor>
+                        <Dict Key="IncomeTypeId" Caption="收入类型" BuddyKey="Lab_IncomeTypeId" X="1" Y="1" ItemKey="LRP_IncomeType" XSpan="3" TabOrder="30">
+                            <DataBinding ColumnKey="IncomeTypeId" TableKey="LRP_Income"/>
+                        </Dict>
+                        <Label Key="Lab_IncomeTypeId" Caption="收入类型" X="0" Y="1"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="10">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0" TabOrder="100">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_Income"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="1" TabOrder="110">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Income"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2" TabOrder="120">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_Income"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3" TabOrder="130">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Income"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

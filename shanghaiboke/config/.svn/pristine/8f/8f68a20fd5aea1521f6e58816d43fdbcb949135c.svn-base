@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="应付引入对账单" Key="LRP_QuoteStatementPay" PrimaryTableKey="LRP_QuoteStatementPay">
+    <TableCollection>
+        <Table Caption="应付引入对账单" Key="LRP_QuoteStatementPay" SourceType="Query" TableMode="Detail">
+            <Column Caption="对账单OID" DataType="Long" Key="OID"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Caption="对账单明细OID" DataType="Long" Key="DtlOID"/>
+            <Column Key="ExpenseLineId" Caption="费用明细id" DataType="Long"/>
+            <Column Key="No" Caption="对账单号" DataType="Varchar" Length="100" SortType="Desc"/>
+            <Column Key="CompanyCodeId" Caption="公司" DataType="Long"/>
+            <Column Key="SettlementId" Caption="结算方id" DataType="Long"/>
+            <Column Key="OrderDate" Caption="账单日期" DataType="DateTime"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+            <Column Key="WarehouseCenterId" Caption="仓储中心" DataType="Long"/>
+            <Column Key="ExpenseId" Caption="收入名称" DataType="Long"/>
+            <Column Key="CalculationAmount" Caption="计算金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="AdjustAmount" Caption="调整后金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+            <Statement>
+                <![CDATA[SELECT *
+FROM
+  (SELECT h.No,
+    h.status,
+    h.OrderDate,
+    h.CompanyCodeId,
+    l.OID,
+    l.SOID,
+    l.ExpenseLineId,
+    o.SettlementId,
+    o.DispatchOrgId,
+    o.WarehouseCenterId,
+    o.ExpenseId,
+    o.CalculationAmount,
+    o.AdjustAmount
+  FROM LRP_ExpenseStatement_H h
+  LEFT JOIN LRP_ExpenseStatement_L l
+  ON h.OID = l.SOID
+  LEFT JOIN LRP_ExpenseLine o
+  ON o.oid = l.ExpenseLineId
+  LEFT JOIN LRP_ExpenseStm_L_Show s
+  ON S.SRCOID    = l.OID
+  WHERE o.STATUS = 960 
+  AND h.STATUS = 900
+  AND s.MapKey  IS NULL
+  )a ]]>
+            </Statement>
+        </Table>
+    </TableCollection>
+</DataObject>

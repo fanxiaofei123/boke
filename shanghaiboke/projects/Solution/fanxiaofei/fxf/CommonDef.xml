@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CommonDef>
+    <StatusCollection>
+        <Status Caption="初始" Key="statusKey1" Value="0"/>
+        <Status Caption="审批中" Key="statusKey2" Value="1"/>
+        <Status Caption="审批通过" Key="statusKey3" Value="2"/>
+        <Status Caption="驳回" Key="statusKey4"/>
+    </StatusCollection>
+</CommonDef>

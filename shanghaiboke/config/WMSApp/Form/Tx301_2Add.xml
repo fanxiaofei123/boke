@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Tx301_2Add" HasNavigationBar="false">
+    <DataSource>
+        <DataObject Key="Tx301_2Add" PrimaryTableKey="Tx301_2Add">
+            <TableCollection>
+                <Table Caption="新增移位" Key="Tx301_2Add" SourceType="Query" TableMode="Detail" Persist="false">
+                    <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+                    <Column Caption="批号" DataType="Varchar" Key="BatchNo"/>
+                    <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="在库量" DataType="Numeric" Key="OnhandQty" Precision="18" Scale="6"/>
+                    <Column Caption="仓储中心" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="储位" DataType="Long" Key="LocationId"/>
+                    <Column Caption="生产日期" DataType="Date" Key="ManufDate" DBColumnName="ManufDate"/>
+                    <Column Caption="失效日期" DataType="Date" Key="ExpireDate" DBColumnName="ExpireDate"/>
+                    <Column Caption="项目" DataType="Long" Key="ProjectId" DBColumnName="ProjectId"/>
+                    <Column Caption="入库日期" DataType="Date" Key="RecvDate" DBColumnName="RecvDate"/>
+                    <Column Caption="字符型1" DataType="Varchar" Key="StrUserDef1" Length="100" DBColumnName="StrUserDef1"/>
+                    <Column Caption="字符型2" DataType="Varchar" Key="StrUserDef2" Length="100" DBColumnName="StrUserDef2"/>
+                    <Column Caption="字符型3" DataType="Varchar" Key="StrUserDef3" Length="100" DBColumnName="StrUserDef3"/>
+                    <Column Caption="字符型4" DataType="Varchar" Key="StrUserDef4" Length="100" DBColumnName="StrUserDef4"/>
+                    <Column Caption="字符型5" DataType="Varchar" Key="StrUserDef5" Length="100" DBColumnName="StrUserDef5"/>
+                    <Column Caption="字典型1" DataType="Long" Key="DictUserDef1" DBColumnName="DictUserDef1"/>
+                    <Column Caption="字典型2" DataType="Long" Key="DictUserDef2" DBColumnName="DictUserDef2"/>
+                    <Column Caption="字典型3" DataType="Long" Key="DictUserDef3" DBColumnName="DictUserDef3"/>
+                    <Column Caption="字典型4" DataType="Long" Key="DictUserDef4" DBColumnName="DictUserDef4"/>
+                    <Column Caption="字典型5" DataType="Long" Key="DictUserDef5" DBColumnName="DictUserDef5"/>
+                    <Column Caption="日期型1" DataType="Date" Key="DateUserDef1" DBColumnName="DateUserDef1"/>
+                    <Column Caption="日期型2" DataType="Date" Key="DateUserDef2" DBColumnName="DateUserDef2"/>
+                    <Column Caption="数值型1" DataType="Numeric" Key="NumUserDef1" Precision="18" Scale="6" DBColumnName="NumUserDef1"/>
+                    <Column Caption="数值型2" DataType="Numeric" Key="NumUserDef2" Precision="18" Scale="6" DBColumnName="NumUserDef2"/>
+                    <Column Caption="数值型3" DataType="Numeric" Key="NumUserDef3" Precision="18" Scale="6" DBColumnName="NumUserDef3"/>
+                    <Column Caption="物料状态" DataType="Long" Key="MaterialStatusId" DBColumnName="MaterialStatusId"/>
+                    <Column Caption="相关单据id" DataType="Long" Key="RefSOID" DBColumnName="RefSOID"/>
+                    <Column Caption="相关单据明细id" DataType="Long" Key="RefLineOID" DBColumnName="RefLineOID"/>
+                    <Column Caption="相关单号" DataType="Varchar" Key="RefOrderNo" Length="100" DBColumnName="RefOrderNo"/>
+                    <Column Caption="容器号" DataType="Varchar" Key="HandingUnitNo" Length="100" DBColumnName="HandingUnitNo"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Varchar" Formula="Para('LocationCode')"/>
+                        <Parameter DataType="Varchar" Formula="Para('MaterialCode')"/>
+                        <Parameter DataType="Long" Formula="GetUserOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[
+						select q.MaterialId,q.BatchNo,q.OwnerId,q.OnhandQty-q.ExpectOutQty as OnhandQty,q.WarehouseCenterId,q.LocationId,q.ManufDate,q.ExpireDate,q.ProjectId,q.RecvDate,q.StrUserDef1,q.StrUserDef2,q.StrUserDef3,q.StrUserDef4,q.StrUserDef5,q.DictUserDef1,q.DictUserDef2,q.DictUserDef3,q.DictUserDef4,q.DictUserDef5,q.DateUserDef1,q.DateUserDef2,q.NumUserDef1,q.NumUserDef2,q.NumUserDef3,q.MaterialStatusId,q.RefSOID,q.RefLineOID,q.RefOrderNo,q.HandingUnitNo  from LRP_Quant q 
+						join LRP_WarehouseKeeper w on q.WarehouseCenterId=w.WarehouseCenterId 
+						join Lrp_Location loc on q.LocationId=loc.OID 
+						join Lrp_Material mat on q.MaterialId=mat.OID
+						join LRP_WhTxType_MS ms on q.MaterialStatusId=ms.MaterialStatusId
+						join LRP_WarehouseTxType wt on wt.oid=ms.soid
+						where q.OnhandQty>0 and loc.Code=? and mat.Code=? and w.oid=? and wt.code='301'
+						]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Key="Query" Description="sql查询">
+            <Statement>
+                <![CDATA[select q.* from LRP_Quant q join LRP_WarehouseKeeper w on q.WarehouseCenterId=w.WarehouseCenterId join Lrp_Location loc on q.LocationId=loc.OID join Lrp_Material mat on q.MaterialId=mat.OIDjoin LRP_WhTxType_MS ms on q.MaterialStatusId=ms.MaterialStatusIdjoin LRP_WarehouseTxType wt on wt.oid=ms.soidwhere q.OnhandQty>0 and loc.Code=? and w.oid=? and wt.code='301']]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="Querylocationid" Description="sql查询">
+            <Statement>
+                <![CDATA[select oid from lrp_location where code=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="Querylocation" Description="查找储位是否是存储区储位">
+            <Statement>
+                <![CDATA[select loc.oid from lrp_location loc join LRP_Storearea store on loc.StoreareaId=store.oid where store.IsRecvArea=0 and IsShipArea=0 and IsSampleTestArea=0 and IsKittingArea=0 and loc.Code=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#f1f3f8"/>
+                <LinearLayoutPanel Caption="Title3" Key="Title" Orientation="Horizontal" X="0" Y="0">
+                    <Format BackColor="#f14c52"/>
+                    <Button Key="Cancel" Caption="取消" Height="auto" Width="60px">
+                        <Format HAlign="Left" ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									ShowConfirm('是否放弃本次移位？', 'YES_NO', 
+										{
+											YES: {
+													Back();
+												}, 
+											NO: {} 
+										}
+												)
+								]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="OrderTitle3" Caption="移位" Height="auto" Weight="1.0">
+                        <Format HAlign="Center" ForeColor="#ffffff">
+                            <Font Size="20"/>
+                        </Format>
+                    </Label>
+                    <Button Key="Comfirm" Caption="完成" Height="auto" Width="60px">
+                        <Format HAlign="Right" ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									var count = GetRowCount('list',false);
+									if(count <= 0){
+										return true;
+									}
+									var i=0;
+									while(i<count){
+										if(GetCellValue('list',i,'Locationcode')==''){
+											ShowToast('第'+(i+1)+'行目标储位不可为空');
+											return true;
+										}
+										i=i+1;
+									}
+									InvokeService("LRP_AddMoveFinish", true, true,Para('LocationCode'),GetUserOperator());
+									Back();
+									
+									
+									]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Key="service_center_panel" Height="50px" Orientation="Horizontal" X="0" Y="2">
+                    <TextEditor Key="Location_code" Caption="扫描目标储位" PromptText="扫描目标储位" Weight="1.0" Width="auto" Height="auto">
+                        <Format ForeColor="#999999" BackColor="#ffffff"/>
+                    </TextEditor>
+                    <Button Key="Enter" Caption="填入目标储位" Height="pref" Width="100px">
+                        <Format HAlign="Center" ForeColor="#ffffff" BackColor="#f14c52"/>
+                        <OnClick>
+                            <![CDATA[
+									var count=GetRowCount('list',false);
+									var i=0;
+									if(Location_code==''){
+										return true;
+									}
+									var loc=DBNamedQuery('Querylocation',Location_code);
+									loc.beforefirst();
+									if(!loc.next()){
+										ShowToast("找不到该代码的目标储位。");
+										return true;
+									}
+									while(i<count){
+										SetCellValue('list',i,'Locationcode',Location_code);
+										i=i+1;	
+									}
+								]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <TableView Key="locationdetail_table" X="0" Y="4">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="list" SeparatorStyle="solid none solid none" RowType="Detail" SeparatorColor="#dde0e7" TableKey="Tx301_2Add" SelectColor="#dddddd">
+                            <GridLayoutPanel Key="GridLayoutPanel" Caption="GridLayoutPanel">
+                                <DatePicker Key="ManufDate" Caption="生产日期" OnlyDate="true" Format="yyyy-MM-dd" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="ManufDate"/>
+                                </DatePicker>
+                                <DatePicker Caption="失效日期" Key="ExpireDate" OnlyDate="true" Format="yyyy-MM-dd" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="ExpireDate"/>
+                                </DatePicker>
+                                <Dict Caption="项目" Key="ProjectId" ItemKey="LRP_Project" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="ProjectId"/>
+                                </Dict>
+                                <DatePicker Caption="入库日期" Key="RecvDate" OnlyDate="true" Format="yyyy-MM-dd" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="RecvDate"/>
+                                </DatePicker>
+                                <TextEditor Caption="字符型1" Key="StrUserDef1" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="StrUserDef1"/>
+                                </TextEditor>
+                                <TextEditor Caption="字符型2" Key="StrUserDef2" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="StrUserDef2"/>
+                                </TextEditor>
+                                <TextEditor Caption="字符型3" Key="StrUserDef3" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="StrUserDef3"/>
+                                </TextEditor>
+                                <TextEditor Caption="字符型4" Key="StrUserDef4" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="StrUserDef4"/>
+                                </TextEditor>
+                                <TextEditor Caption="字符型5" Key="StrUserDef5" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="StrUserDef5"/>
+                                </TextEditor>
+                                <Label Caption="字典型1" Key="DictUserDef1" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="DictUserDef1"/>
+                                </Label>
+                                <Label Caption="字典型2" Key="DictUserDef2" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="DictUserDef2"/>
+                                </Label>
+                                <Label Caption="字典型3" Key="DictUserDef3" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="DictUserDef3"/>
+                                </Label>
+                                <Label Caption="字典型4" Key="DictUserDef4" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="DictUserDef4"/>
+                                </Label>
+                                <Label Caption="字典型5" Key="DictUserDef5" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="DictUserDef5"/>
+                                </Label>
+                                <DatePicker Caption="日期型1" Enable="false" Key="DateUserDef1" OnlyDate="true" Format="yyyy-MM-dd" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="DateUserDef1"/>
+                                </DatePicker>
+                                <DatePicker Caption="日期型2" Enable="false" Key="DateUserDef2" OnlyDate="true" Format="yyyy-MM-dd" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="DateUserDef2"/>
+                                </DatePicker>
+                                <NumberEditor Caption="数值型1" CellType="NumberEditor" Key="NumUserDef1" ShowZero="true" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="NumUserDef1"/>
+                                </NumberEditor>
+                                <NumberEditor Caption="数值型2" CellType="NumberEditor" Key="NumUserDef2" ShowZero="true" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="NumUserDef2"/>
+                                </NumberEditor>
+                                <NumberEditor Caption="数值型3" CellType="NumberEditor" Key="NumUserDef3" ShowZero="true" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="NumUserDef3"/>
+                                </NumberEditor>
+                                <Dict Caption="物料状态" Enable="false" ItemKey="LRP_MaterialStatus" Key="MaterialStatusId" Visible="false" X="0" Y="0">
+                                    <DataBinding ColumnKey="MaterialStatusId"/>
+                                </Dict>
+                                <Dict Key="MaterialId" X="0" Y="0" Visible="false" ItemKey="LRP_Material">
+                                    <DataBinding ColumnKey="MaterialId"/>
+                                </Dict>
+                                <Dict Key="WarehouseCenterId" X="0" Y="0" Visible="false" ItemKey="LRP_WarehouseCenter">
+                                    <DataBinding ColumnKey="WarehouseCenterId"/>
+                                </Dict>
+                                <Label Key="Materialcode" LeftPadding="5px" X="0" Y="0" XSpan="4">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'LRP_Material.Code')"/>
+                                </Label>
+                                <Label Key="MaterialName" LeftPadding="5px" X="4" Y="0" XSpan="4">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'LRP_Material.Name')"/>
+                                </Label>
+                                <Label Key="BatchNo_lbl" Caption="批号" LeftPadding="5px" X="8" Y="0" XSpan="2"/>
+                                <Label Key="BatchNo" X="10" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="BatchNo"/>
+                                </Label>
+                                <Label Key="Locationcode_lbl" Caption="目标" LeftPadding="5px" X="0" Y="1" XSpan="2"/>
+                                <Dict Key="LocationId" X="0" Y="0" Visible="false" ItemKey="LRP_Location">
+                                    <DataBinding ColumnKey="LocationId"/>
+                                </Dict>
+                                <TextEditor Key="Locationcode" Caption="目标储位" X="2" Y="1" XSpan="2">
+                                    <DataBinding>
+                                        <ValueChanged>
+                                            <![CDATA[
+											SetCellValue('list',-1,'LocationId',DBNamedQueryValue('Querylocationid',Locationcode))
+											]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                </TextEditor>
+                                <Label Key="Qty_lbl" Caption="移位量" LeftPadding="5px" X="4" Y="1" XSpan="2"/>
+                                <NumberEditor Key="Qty" Precision="18" Scale="0" X="6" Y="1" XSpan="2">
+                                    <DataBinding ColumnKey="OnhandQty"/>
+                                </NumberEditor>
+                                <Label Key="BasicUnit_lbl" Caption="单位" LeftPadding="5px" X="8" Y="1" XSpan="2"/>
+                                <Label Key="BasicUnit" LeftPadding="5px" X="10" Y="1" XSpan="2">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'LRP_Material.BasicUnit')"/>
+                                </Label>
+                                <Dict Key="OwnerId" ItemKey="LRP_Owner" Visible="false" X="0" Y="2" XSpan="4">
+                                    <DataBinding ColumnKey="OwnerId"/>
+                                </Dict>
+                                <Label Key="OwnerCode" LeftPadding="5px" X="0" Y="2" XSpan="4">
+                                    <DataBinding DefaultFormulaValue="GetDictValue('LRP_Owner',OwnerId,'LRP_Owner.Code')"/>
+                                </Label>
+                                <Button Key="Delete" Caption="删除" Height="pref" Width="60px" X="8" Y="2" XSpan="4">
+                                    <Format HAlign="Center" ForeColor="#ffffff" BackColor="#f14c52"/>
+                                    <OnClick>
+                                        <![CDATA[
+												ShowConfirm('是否删除此明细？', 'YES_NO', 
+										{
+											YES: {
+													DeleteRow('list', GetRowIndex('list'));
+													ShowToast('已删除');
+												}, 
+											NO: {} 
+										}
+												)
+											]]>
+                                    </OnClick>
+                                </Button>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="1">
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="17%"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="17%"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="17%"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="17%"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="16%"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="16%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="6px"/>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="6px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+		if(Para('MaterialCode')==''){
+			ReplaceTable('Tx301_2Add',DBNamedQuery('Query',Para('LocationCode'),GetUserOperator()));
+		}else{
+			LoadData();
+		}
+		]]>
+    </OnLoad>
+</Form>

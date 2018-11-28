@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_ExchangeItemView-Abbr>ExchangeItemView</V_ExchangeItemView-Abbr>
+		
+        <Lab_ItemNo>ItemNo</Lab_ItemNo>
+		<Lab_name>Name</Lab_name>
+        <L_Status_C>Status</L_Status_C>
+        <Lab_EffectDateTimeFrom>EffectDateTime</Lab_EffectDateTimeFrom>
+        <Lab_EffectDateTimeTo>To</Lab_EffectDateTimeTo>
+        <Lab_ExpireDateTimeFrom>ExpireDateTime</Lab_ExpireDateTimeFrom>
+        <Lab_ExpireDateTimeTo>To</Lab_ExpireDateTimeTo>
+    </UI>
+	<ListViewColumn>
+        <OID>OID</OID>
+        <Select>Select</Select>
+        <Status>Status</Status>
+        <ItemNo_LV>ItemNo</ItemNo_LV>
+        <name_LV>Name</name_LV>
+        <point_lv>Point</point_lv>
+        <LimitsPerUser_LV>LimitsPerUser</LimitsPerUser_LV>
+        <SortOrder_LV>SortOrder</SortOrder_LV>
+        <EffectiveDate_LV>EffectiveDate</EffectiveDate_LV>
+        <ExpireDate_LV>ExpireDate</ExpireDate_LV>
+	</ListViewColumn>
+	<Items-Status_C>
+		<Item-prepared>prepared</Item-prepared>
+		<Item-confirmed>confirmed</Item-confirmed>
+		<Item-handled>handled</Item-handled>
+		<Item-finished>finished</Item-finished>
+		<Item-cancelled>cancelled</Item-cancelled>
+	</Items-Status_C>
+</StringTable>

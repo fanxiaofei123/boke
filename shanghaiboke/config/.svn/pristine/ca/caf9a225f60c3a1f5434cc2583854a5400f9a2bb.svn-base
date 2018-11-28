@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Lab_No_C>No</Lab_No_C>
+        <Search>Search</Search>
+        <Label1>The query result is empty!</Label1>
+        <Lab_OwnerNo_C>OwnerNo</Lab_OwnerNo_C>
+        <Label2>There is no bill of goods at present!</Label2>
+        <OrderTitle>ShipByLocationManage</OrderTitle>
+        <Lab_OwnerId_C>Owner</Lab_OwnerId_C>
+        <seachList>seachList</seachList>
+        <history>history</history>
+    </UI>
+</StringTable>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringTable>
+	<Test>
+		<Info>测试文本{1}</Info>
+	</Test>
+	<Login>
+		<ParaTitle>组织机构</ParaTitle>
+	</Login>
+</StringTable>

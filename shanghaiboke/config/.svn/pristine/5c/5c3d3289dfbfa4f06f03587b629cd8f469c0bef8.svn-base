@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Employee" Caption="人员信息" FormType="Dict">
+    <DataSource RefObjectKey="CHCS_Employee"/>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                    <GridLayoutPanel Key="BasicInfo" Padding="10px" Caption="基础信息">
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="L_Code" X="1" Y="0">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Code" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Name" Caption="姓名" BuddyKey="L_Name" X="3" Y="0">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Name" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Name" Caption="姓名" X="2" Y="0"/>
+                        <ComboBox Key="Gender_Flag" Caption="性别" BuddyKey="Lab_Gender_Flag" X="1" Y="1">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Gender_Flag"/>
+                            <Item Caption="男" Key="0" Value="0"/>
+                            <Item Caption="女" Key="1" Value="1"/>
+                            <Item Caption="其它" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Key="Lab_Gender_Flag" Caption="性别" X="0" Y="1"/>
+                        <TextEditor Key="Native_Place" Caption="籍贯" BuddyKey="Lab_Native_Place" X="3" Y="1">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Native_Place"/>
+                        </TextEditor>
+                        <Label Key="Lab_Native_Place" Caption="籍贯" X="2" Y="1"/>
+                        <TextEditor Key="Mobile_Phone_Number" Caption="手机号" BuddyKey="Lab_Mobile_Phone_Number" X="1" Y="2">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Mobile_Phone_Number"/>
+                        </TextEditor>
+                        <Label Key="Lab_Mobile_Phone_Number" Caption="手机号" X="0" Y="2"/>
+                        <TextEditor Key="Identity_Number" Caption="身份证号" BuddyKey="Lab_Identity_Number" X="3" Y="2">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Identity_Number"/>
+                        </TextEditor>
+                        <Label Key="Lab_Identity_Number" Caption="身份证号" X="2" Y="2"/>
+                        <Dict Key="Department" Caption="所属部门" BuddyKey="Lab_Department" X="1" Y="3" ItemKey="CHCS_Department">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Department"/>
+                        </Dict>
+                        <Label Key="Lab_Department" Caption="所属部门" X="0" Y="3"/>
+                        <ComboBox Key="Delete_Code" Caption="是否在职" BuddyKey="Lab_Delete_Code" X="1" Y="4">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Delete_Code"/>
+                            <Item Caption="是" Key="0" Value="0"/>
+                            <Item Caption="否" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Key="Lab_Delete_Code" Caption="是否在职" X="0" Y="4"/>
+                        <TextEditor Key="Location" Caption="属地化" BuddyKey="Lab_Location" X="3" Y="4">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Location"/>
+                        </TextEditor>
+                        <Label Key="Lab_Location" Caption="属地化" X="2" Y="4"/>
+                        <Dict Key="Company" Caption="所属公司" BuddyKey="Lab_Company" X="1" Y="5" ItemKey="CompanyCode">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Company"/>
+                        </Dict>
+                        <Label Key="Lab_Company" Caption="所属公司" X="0" Y="5"/>
+                        <TextEditor Key="Remark" Caption="备注" BuddyKey="Lab_Remark" X="3" Y="5">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="Remark"/>
+                        </TextEditor>
+                        <Label Key="Lab_Remark" Caption="备注" X="2" Y="5"/>
+                        <RowDefCollection RowGap="6" RowHeight="30">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysInfo" Padding="10px" Caption="系统信息">
+                        <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="CREATOR"/>
+                        </Dict>
+                        <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                        <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0" Enable="false">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="CREATETIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                        <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="MODIFIER"/>
+                        </Dict>
+                        <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1" Enable="false">
+                            <DataBinding TableKey="CHCS_Employee" ColumnKey="MODIFYTIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="2" Y="1"/>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

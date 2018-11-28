@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="采购单映射入库单" Key="Caigoudan2Rukudan3" SrcDataObjectKey="Caigoudan" TgtDataObjectKey="Rukudan3" MapCondition="CaigoudanHead.Status==1">
+    <SourceTableCollection Height="240" Width="228" X="30" Y="30">
+        <SourceTable IsPrimary="true" Key="CaigoudanDetail" TargetTableKey="Rukudan3Detail">
+            <SourceField Definition="Warehouse" TargetFieldKey="Warehouse"/>
+            <SourceField Definition="Material" TargetFieldKey="Material"/>
+            <SourceField Definition="Amount" TargetFieldKey="Amount" EdgeType="Focus"/>
+            <SourceField Definition="Unit" TargetFieldKey="Unit"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="240" Width="224" X="318" Y="30">
+        <TargetTable IsPrimary="true" Key="Rukudan3Detail">
+            <TargetField Definition="Warehouse"/>
+            <TargetField Definition="Material"/>
+            <TargetField Definition="Amount">
+                <Feedback DataObjectKey="Caigoudan" FieldKey="RukuAmount" TableKey="CaigoudanDetail" OpSign="AddDelta"/>
+            </TargetField>
+            <TargetField Definition="Unit"/>
+        </TargetTable>
+    </TargetTableCollection>
+    <FeedbackCollection>
+        <FeedbackObject Height="150" ObjectKey="Caigoudan" Width="228" X="611" Y="30">
+            <FeedbackTable TableKey="CaigoudanDetail">
+                <FeedbackField FieldKey="RukuAmount"/>
+            </FeedbackTable>
+        </FeedbackObject>
+    </FeedbackCollection>
+</Map>

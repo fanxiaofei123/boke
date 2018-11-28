@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+		<V_O_IncomeTerm_LRPView-Abbr>IncomeTerm</V_O_IncomeTerm_LRPView-Abbr>
+
+        <Lab_No_C>No</Lab_No_C>
+        <Lab_Name_C>Name</Lab_Name_C>
+        <Lab_IncomeId_C>IncomeId</Lab_IncomeId_C>
+        <Lab_Status_C>Status</Lab_Status_C>
+        <Lab_DataObjectKey_C>DataObjectKey</Lab_DataObjectKey_C>
+    </UI>
+	
+    <ListViewColumn>
+        <Select>Select</Select>
+        <Status>Status</Status>
+        <No>No</No>
+        <Name>Name</Name>
+        <IncomeId>IncomeId</IncomeId>
+        <DataObjectKey_L>DataObjectKey</DataObjectKey_L>
+        <WarehouseIdField>WarehouseIdField</WarehouseIdField>
+        <OwnerIdField>OwnerIdField</OwnerIdField>
+        <OrderDateField>OrderDateField</OrderDateField>
+		<NeedSummaryApportion>NeedSummaryApportion</NeedSummaryApportion>
+		<ApportionType>ApportionType</ApportionType>
+        <Remark>Remark</Remark>
+    </ListViewColumn>
+	
+	 <Items-ApportionType>
+		<Item-qty>BusinessNum</Item-qty>
+		<Item-count>BillNum</Item-count>
+    </Items-ApportionType>
+    <Items-Status_H>
+		<Item-prepared>prepared</Item-prepared>
+		<Item-confirmed>confirmed</Item-confirmed>
+		<Item-cancelled>cancelled</Item-cancelled>
+    </Items-Status_H>
+	
+</StringTable>

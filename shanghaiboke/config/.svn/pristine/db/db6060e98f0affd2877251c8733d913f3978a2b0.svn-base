@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_DriverPointsRuleView-Abbr>DriverPointsRuleView</V_DriverPointsRuleView-Abbr>
+		
+        <L_No>No</L_No>
+        <L_Name>Name</L_Name>
+        <L_OpType>OpType</L_OpType>
+    </UI>
+	<ListViewColumn>
+		<OID>OID</OID>
+		<Status>Status</Status>
+		<No>No</No>
+		<Name>Name</Name>
+		<OpType>OpType</OpType>
+		<AddOrReduce>AddOrReduce</AddOrReduce>
+		<PointsType>PointsType</PointsType>
+		<FixedValue>FixedValue</FixedValue>
+		<CV>CV</CV>
+		<Expire>Expire</Expire>
+		<ExpireUnit>ExpireUnit</ExpireUnit>
+	</ListViewColumn>
+</StringTable>

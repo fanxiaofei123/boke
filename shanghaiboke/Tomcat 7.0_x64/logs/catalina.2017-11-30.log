@@ -1,0 +1,160 @@
+十一月 30, 2017 9:50:17 上午 org.apache.catalina.core.AprLifecycleListener init
+信息: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\jre1.8.0_60_x64\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\apache-ant-1.10.0/bin;G:\cxf-3.0.3\bin;D:\oraclee\product\11.2.0\dbhome_1\bin;G:\Java JDK1.8\Java1.8\jdk1.8.0_73\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Lenovo\Bluetooth Software\;C:\Program Files\Lenovo\Bluetooth Software\syswow64;C:\Program Files\TortoiseSVN\bin;D:\PROGRA~1\GROOVY~1.0\bin;.
+十一月 30, 2017 9:50:17 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-bio-8089"]
+十一月 30, 2017 9:50:17 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-bio-8009"]
+十一月 30, 2017 9:50:17 上午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 631 ms
+十一月 30, 2017 9:50:17 上午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+十一月 30, 2017 9:50:17 上午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+十一月 30, 2017 9:50:17 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\docs
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.util.SessionIdGenerator createSecureRandom
+信息: Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [907] milliseconds.
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\examples
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\host-manager
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\manager
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\ROOT
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\javax.servlet-api-3.0.1.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\jsp-api-2.1.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+十一月 30, 2017 9:50:19 上午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Error listenerStart
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.core.StandardContext startInternal
+严重: Context [/yigo] startup failed due to previous errors
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesJdbc
+严重: The web application [/yigo] registered the JDBC driver [oracle.jdbc.OracleDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [yesCache] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [mobile%0043ache.data] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [Statistics Thread-yesCache-1] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [%0052ole.data] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [%0057arehouse.data] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [%004fperator.data] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [session%0043ache.data] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [temp%0043ache.data] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [oracle.jdbc.driver.BlockSource.ThreadedCachingBlockSource.BlockReleaser] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [YigoQuartzScheduler_Worker-1] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [YigoQuartzScheduler_Worker-2] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [YigoQuartzScheduler_Worker-3] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [YigoQuartzScheduler_Worker-4] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+严重: The web application [/yigo] appears to have started a thread named [YigoQuartzScheduler_Worker-5] but has failed to stop it. This is very likely to create a memory leak.
+十一月 30, 2017 9:52:04 上午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-bio-8089"]
+十一月 30, 2017 9:52:04 上午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-bio-8009"]
+十一月 30, 2017 9:52:04 上午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 106923 ms
+十一月 30, 2017 9:52:45 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load net.sf.ehcache.store.disk.DiskStore$KeySet.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at net.sf.ehcache.store.disk.DiskStore.keySet(DiskStore.java:610)
+	at net.sf.ehcache.store.disk.DiskStorageFactory$DiskExpiryTask.run(DiskStorageFactory.java:817)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+十一月 30, 2017 9:55:45 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load java.lang.OutOfMemoryError.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at net.sf.ehcache.util.concurrent.ConcurrentHashMap.values(ConcurrentHashMap.java:2718)
+	at net.sf.ehcache.util.concurrent.ConcurrentHashMap.values(ConcurrentHashMap.java:220)
+	at net.sf.ehcache.statistics.extended.ExtendedStatisticsImpl$1.run(ExtendedStatisticsImpl.java:104)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+十一月 30, 2017 9:55:45 上午 org.apache.catalina.loader.WebappClassLoader loadClass
+信息: Illegal access: this web application instance has been stopped already.  Could not load net.sf.ehcache.util.concurrent.ConcurrentHashMap$ValueIterator.  The eventual following stack trace is caused by an error thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access, and has no functional impact.
+java.lang.IllegalStateException
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1600)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1559)
+	at net.sf.ehcache.util.concurrent.ConcurrentHashMap$ValuesView.iterator(ConcurrentHashMap.java:3248)
+	at net.sf.ehcache.statistics.extended.ExtendedStatisticsImpl$1.run(ExtendedStatisticsImpl.java:104)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+十一月 30, 2017 7:43:36 下午 org.apache.catalina.core.AprLifecycleListener init
+信息: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\jre1.8.0_60_x64\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\apache-ant-1.10.0/bin;G:\cxf-3.0.3\bin;D:\oraclee\product\11.2.0\dbhome_1\bin;G:\Java JDK1.8\Java1.8\jdk1.8.0_73\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Lenovo\Bluetooth Software\;C:\Program Files\Lenovo\Bluetooth Software\syswow64;C:\Program Files\TortoiseSVN\bin;D:\PROGRA~1\GROOVY~1.0\bin;.
+十一月 30, 2017 7:43:45 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-bio-8089"]
+十一月 30, 2017 7:43:45 下午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-bio-8009"]
+十一月 30, 2017 7:43:45 下午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 13299 ms
+十一月 30, 2017 7:43:46 下午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+十一月 30, 2017 7:43:46 下午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.42
+十一月 30, 2017 7:43:46 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\docs
+十一月 30, 2017 7:43:50 下午 org.apache.catalina.util.SessionIdGenerator createSecureRandom
+信息: Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [842] milliseconds.
+十一月 30, 2017 7:43:50 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\examples
+十一月 30, 2017 7:43:53 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\host-manager
+十一月 30, 2017 7:43:53 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\manager
+十一月 30, 2017 7:43:54 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\ROOT
+十一月 30, 2017 7:43:54 下午 org.apache.catalina.startup.HostConfig deployDirectory
+信息: Deploying web application directory F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo
+十一月 30, 2017 7:43:58 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\el-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+十一月 30, 2017 7:43:59 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\javax.servlet-api-3.0.1.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+十一月 30, 2017 7:44:00 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\jsp-api-2.1.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/el/Expression.class
+十一月 30, 2017 7:44:01 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile
+信息: validateJarFile(F:\Yigo_Demo\Env2017_03_02_r3\Tomcat 7.0_x64\webapps\yigo\WEB-INF\lib\servlet-api-6.0.44.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class
+十一月 30, 2017 7:44:48 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-bio-8089"]
+十一月 30, 2017 7:44:48 下午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-bio-8009"]
+十一月 30, 2017 7:44:48 下午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 62594 ms

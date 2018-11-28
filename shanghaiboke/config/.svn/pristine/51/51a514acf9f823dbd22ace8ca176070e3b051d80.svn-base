@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="入库通知单" Key="LRP_InboundNotice" NoPrefix="IN" PrimaryTableKey="LRP_InboundNotice_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="入库通知单头" Key="LRP_InboundNotice_H">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="通知单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+            <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+            <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+            <Column Caption="预计到达日期时间起" DataType="DateTime" Key="ExpectDateTimeFrom"/>
+            <Column Caption="预计到达日期时间至" DataType="DateTime" Key="ExpectDateTimeTo"/>
+            <Column Caption="发货方" DataType="Long" Key="SendPartyId"/>
+            <Column Caption="承运方" DataType="Long" Key="CarrierId"/>
+            <Column Caption="月台" DataType="Long" Key="PlatformId"/>
+            <Column Caption="备注" DataType="Varchar" Key="Remark" Length="1000"/>
+            <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+            <Column Caption="物流订单号" DataType="Varchar" Key="LogisticsOrderNo" Length="40"/>
+            <Column Caption="物流订单步骤明细OID" DataType="Long" Key="LogisticsOrderStepOID"/>
+            <Column Key="PlatformHas" Caption="月台已预约" DataType="Integer"/>
+            <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+        </Table>
+        <Table Caption="入库通知单明细" Key="LRP_InboundNotic_L" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="序号" Key="SEQUENCE" DataType="Integer"/>
+            <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+            <Column Caption="数量" DataType="Numeric" DefaultValue="0" Key="Qty" Precision="18" Scale="6"/>
+            <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="10"/>
+            <Column Caption="基本单位量" DataType="Numeric" DefaultValue="0" Key="BasicQty" Precision="18" Scale="6"/>
+            <Column Caption="收货量" DataType="Numeric" DefaultValue="0" Key="RecvQty" Precision="18" Scale="6"/>
+            <Column Caption="批号" DataType="Varchar" DefaultValue="*" Key="BatchNo" Length="100"/>
+            <Column Caption="生产日期" DataType="Date" DefaultValue="1980-01-01" Key="ManufDate"/>
+            <Column Caption="失效日期" DataType="Date" DefaultValue="1980-01-01" Key="ExpireDate"/>
+            <Column Caption="项目" DataType="Long" Key="ProjectId"/>
+            <Column Caption="入库日期" DataType="Date" Key="RecvDate" DefaultValue="1980-01-01"/>
+            <Column Caption="字符型1" DataType="Varchar" DefaultValue="*" Key="StrUserDef1" Length="100"/>
+            <Column Caption="字符型2" DataType="Varchar" DefaultValue="*" Key="StrUserDef2" Length="100"/>
+            <Column Caption="字符型3" DataType="Varchar" DefaultValue="*" Key="StrUserDef3" Length="100"/>
+            <Column Caption="字符型4" DataType="Varchar" DefaultValue="*" Key="StrUserDef4" Length="100"/>
+            <Column Caption="字符型5" DataType="Varchar" DefaultValue="*" Key="StrUserDef5" Length="100"/>
+            <Column Caption="字典型1" DataType="Long" Key="DictUserDef1"/>
+            <Column Caption="字典型2" DataType="Long" Key="DictUserDef2"/>
+            <Column Caption="字典型3" DataType="Long" Key="DictUserDef3"/>
+            <Column Caption="字典型4" DataType="Long" Key="DictUserDef4"/>
+            <Column Caption="字典型5" DataType="Long" Key="DictUserDef5"/>
+            <Column Caption="日期型1" DataType="Date" DefaultValue="1980-01-01" Key="DateUserDef1"/>
+            <Column Caption="日期型2" DataType="Date" DefaultValue="1980-01-01" Key="DateUserDef2"/>
+            <Column Caption="数值型1" DataType="Numeric" DefaultValue="0" Key="NumUserDef1" Precision="18" Scale="6"/>
+            <Column Caption="数值型2" DataType="Numeric" DefaultValue="0" Key="NumUserDef2" Precision="18" Scale="6"/>
+            <Column Caption="数值型3" DataType="Numeric" DefaultValue="0" Key="NumUserDef3" Precision="18" Scale="6"/>
+            <Column Caption="仓间" DataType="Long" Key="StoreroomId"/>
+            <Column Caption="库区" DataType="Long" Key="StoreareaId"/>
+            <Column Caption="储位" DataType="Long" Key="LocationId"/>
+            <Column Caption="物料状态" DataType="Long" Key="MaterialStatusId"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

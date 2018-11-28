@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="盘点单下推补货申请单" Key="CHCS_Count_H2CHCS_Replenishment_H" SrcDataObjectKey="CHCS_Count_H" TgtDataObjectKey="CHCS_Replenishment_H">
+    <SourceTableCollection Height="360" Width="241" X="30" Y="30">
+        <SourceTable Key="CHCS_Count_H" TargetTableKey="CHCS_Replenishment_H" IsPrimary="true">
+            <SourceField Definition="NO" TargetFieldKey="NO"/>
+            <SourceField Definition="Vendor" TargetFieldKey="Vendor"/>
+        </SourceTable>
+        <SourceTable Key="CHCS_Count_L" TargetTableKey="CHCS_Replenishment_L">
+            <SourceField Definition="Tableware_Name" TargetFieldKey="Tableware_Name"/>
+            <SourceField Definition="Standard_Stock" TargetFieldKey="Standard_Stock"/>
+            <SourceField Definition="Extant_Number" TargetFieldKey="Extant_Number"/>
+            <SourceField Definition="Unit" TargetFieldKey="Unit"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="360" Width="332" X="314" Y="30">
+        <TargetTable Key="CHCS_Replenishment_H" IsPrimary="true">
+            <TargetField Definition="NO"/>
+            <TargetField Definition="Vendor"/>
+        </TargetTable>
+        <TargetTable Key="CHCS_Replenishment_L">
+            <TargetField Definition="Tableware_Name"/>
+            <TargetField Definition="Standard_Stock"/>
+            <TargetField Definition="Extant_Number"/>
+            <TargetField Definition="Unit"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

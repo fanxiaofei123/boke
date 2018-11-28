@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Budget_Monitoring" Caption="费用预算监控" FormType="View">
+    <DataSource>
+        <DataObject Key="Budget_Monitoring" Caption="费用预算监控" PrimaryTableKey="Budget_Monitoring">
+            <TableCollection>
+                <Table Key="Budget_Monitoring" Caption="费用预算监控" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="Budgetary_Name" Caption="预算名称" DataType="Varchar"/>
+                    <Column Key="Budget_Department" Caption="预算部门" DataType="Long"/>
+                    <Column Key="Budget_Items" Caption="预算项目" DataType="Long"/>
+                    <Column Key="Route_Type_Code" Caption="航线分类" DataType="Varchar"/>
+                    <Column Key="Route" Caption="航线" DataType="Varchar"/>
+                    <Column Key="Cost_Budget_Taxes" Caption="费用预算（含税）" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="Cost_Budget" Caption="费用预算（无税）" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="Per_Capita_Cost_Budget_Taxes" Caption="人均费用预算（含税）" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Statement>
+                        <![CDATA[SELECT
+	NO,
+
+	Budgetary_Name,
+	Budget_Department,
+	Budget_Items,
+	Route_Type_Code,
+	Route,
+	Cost_Budget_Taxes,
+	Cost_Budget,
+	Per_Capita_Cost_Budget_Taxes
+FROM
+	Annual_Budget join Annual_Budget_L on Annual_Budget.oid = Annual_Budget_L.soid]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板" Height="100%">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <FlowLayoutPanel Caption="FlowLayoutPanel1" Height="100%" Key="FlowLayoutPanel1">
+                        <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                            <TextEditor Key="NO" Caption="单据编号" BuddyKey="Lab_NO" X="1" Y="0">
+                                <Condition ColumnKey="NO" TableKey="Budget_Monitoring" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="单据编号" X="0" Y="0"/>
+                            <ComboBox Key="ComboBox1" Caption="预算分类" BuddyKey="Lab_ComboBox1" X="4" Y="0">
+                                <Item Caption="餐食" Key="1" Value="1"/>
+                                <Item Caption="机供品" Key="2" Value="2"/>
+                            </ComboBox>
+                            <Label Key="Lab_ComboBox1" Caption="预算分类" X="3" Y="0"/>
+                            <ComboBox Key="ComboBox2" Caption="预算状态" BuddyKey="Lab_ComboBox2" X="7" Y="0"/>
+                            <Label Key="Lab_ComboBox2" Caption="预算状态" X="6" Y="0"/>
+                            <DatePicker Key="DatePicker1" Caption="业务日期 从" BuddyKey="Lab_DatePicker1" X="1" Y="1"/>
+                            <Label Key="Lab_DatePicker1" Caption="业务日期 从" X="0" Y="1"/>
+                            <DatePicker Key="DatePicker2" Caption="业务日期 至" BuddyKey="Lab_DatePicker2" X="4" Y="1"/>
+                            <Label Key="Lab_DatePicker2" Caption="业务日期 至" X="3" Y="1"/>
+                            <Dict Key="Dict1" Caption="编制人员" BuddyKey="Lab_Dict1" X="7" Y="1" ItemKey="LRP_Lookup_L"/>
+                            <Label Key="Lab_Dict1" Caption="编制人员" X="6" Y="1"/>
+                            <Dict Key="Dict2" Caption="预算部门" BuddyKey="Lab_Dict2" X="1" Y="2" ItemKey="CHCS_Department">
+                                <Condition ColumnKey="Budget_Department" TableKey="Budget_Monitoring" CondSign="like"/>
+                            </Dict>
+                            <Label Key="Lab_Dict2" Caption="预算部门" X="0" Y="2"/>
+                            <Button Key="Button1" Caption="查询" X="9" Y="0">
+                                <OnClick>
+                                    <![CDATA[DealCondition();LoadData();ShowData();]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="Button2" Caption="重置" X="9" Y="1">
+                                <OnClick>
+                                    <![CDATA[ResetCondition();]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="115px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="115px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlowLayoutPanel>
+                    <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="Budget_Monitoring">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="NO_L" Caption="单据编号" ColumnType="TextEditor" DataColumnKey="NO" Width="233px"/>
+                            <ListViewColumn Key="column2" Caption="预算日期" ColumnType="DatePicker" Width="150px"/>
+                            <ListViewColumn Key="column3" Caption="预算名称" ColumnType="TextEditor" DataColumnKey="Budgetary_Name" Width="95px"/>
+                            <ListViewColumn Key="column4" Caption="预算部门" ColumnType="Dict" DataColumnKey="Budget_Department" Width="166px" ItemKey="CHCS_Department"/>
+                            <ListViewColumn Key="column5" Caption="预算项目" ColumnType="Dict" DataColumnKey="Budget_Items" Width="79px" ItemKey="CHCS_Budget_Items"/>
+                            <ListViewColumn Key="column6" Caption="航线分类" ColumnType="TextEditor" DataColumnKey="Route_Type_Code" Width="102px"/>
+                            <ListViewColumn Key="column7" Caption="航线" ColumnType="TextEditor" DataColumnKey="Route" Width="90px"/>
+                            <ListViewColumn Key="column12" Caption="费用预算（含税）" ColumnType="NumberEditor" DataColumnKey="Cost_Budget_Taxes" Width="126px"/>
+                            <ListViewColumn Key="column11" Caption="费用预算（无税）" ColumnType="NumberEditor" DataColumnKey="Cost_Budget" Width="134px"/>
+                            <ListViewColumn Key="column10" Caption="预提费用（含税）" ColumnType="NumberEditor" Width="136px"/>
+                            <ListViewColumn Key="column9" Caption="预提费用（无税）" ColumnType="NumberEditor" Width="126px"/>
+                            <ListViewColumn Key="column8" Caption="结算费用（含税）" ColumnType="NumberEditor" Width="130px"/>
+                            <ListViewColumn Key="column15" Caption="结算费用（不含税）" ColumnType="NumberEditor" Width="157px"/>
+                            <ListViewColumn Key="column14" Caption="剩余预算（含税）" ColumnType="NumberEditor" Width="137px"/>
+                            <ListViewColumn Key="column13" Caption="剩余预算（无税）" ColumnType="NumberEditor" Width="149px"/>
+                            <ListViewColumn Key="column18" Caption="人均费用预算（含税）" ColumnType="NumberEditor" DataColumnKey="Per_Capita_Cost_Budget_Taxes" Width="155px"/>
+                            <ListViewColumn Key="column17" Caption="人均费用预提（含税）" ColumnType="NumberEditor" Width="196px"/>
+                            <ListViewColumn Key="column16" Caption="人均费用结算（含税）" ColumnType="NumberEditor" Width="169px"/>
+                        </ListViewColumnCollection>
+                    </ListView>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

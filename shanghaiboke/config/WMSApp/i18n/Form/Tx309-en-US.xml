@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <search>search</search>
+        <history>history</history>
+        <TitleCenter>AbnormalHandlingOfTheDeliveryArea</TitleCenter>
+        <QueryButton>Query</QueryButton>
+        <No_lbl>No</No_lbl>
+        <Lab_OwnerId>Owner</Lab_OwnerId>
+        <Lab_ShipArea>ShipArea</Lab_ShipArea>
+        <Lab_OwnerNo>OwnerNo</Lab_OwnerNo>
+    </UI>
+	<ListViewColumn>
+        <RecvPartyName_lv>
+RecvName
+        </RecvPartyName_lv>
+        <RefNo_lv>
+RefNo
+        </RefNo_lv>
+        <RecvPartyName_lbl>
+RecvName
+        </RecvPartyName_lbl>
+        <RefNo_lbl>
+RefNo
+        </RefNo_lbl>
+    </ListViewColumn>
+    <Prompt>
+        <Location_code>Location</Location_code>
+        <Material_code>Material</Material_code>
+    </Prompt>
+</StringTable>

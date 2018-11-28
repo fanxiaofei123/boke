@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+	
+	<V_T_IncomeTerm_LRPView-Abbr>IncomeTermView</V_T_IncomeTerm_LRPView-Abbr>
+        <Lab_No_C>No</Lab_No_C>
+        <Lab_Name_C>Name</Lab_Name_C>
+        <Lab_IncomeId_C>IncomeName</Lab_IncomeId_C>
+        <Lab_Status_C>Status</Lab_Status_C>
+    </UI>
+	<ListViewColumn>
+        <Select>Select</Select>
+        <Status>Status</Status>
+		<No>No</No>
+		<Name>Name</Name>
+		<IncomeId>IncomeName</IncomeId>
+		<Remark>Remark</Remark>
+	</ListViewColumn>
+	
+</StringTable>

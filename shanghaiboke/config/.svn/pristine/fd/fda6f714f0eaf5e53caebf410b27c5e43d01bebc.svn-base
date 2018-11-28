@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="储位" FormType="Dict" Key="V_Location_LRP">
+    <DataSource RefObjectKey="LRP_Location"/>
+    <Body>
+        <Block>
+            <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0" XSpan="2"/>
+                        <Label Caption="名称" Key="L_Name" X="8" Y="0"/>
+                        <Label Caption="外部代码" Key="L_UserCode" X="0" Y="1"/>
+                        <Label Caption="仓间" Key="L_StoreroomId" X="8" Y="1"/>
+                        <Label Caption="库区" Key="L_StoreareaId" X="10" Y="1"/>
+                        <Label Caption="ABC分类" Key="L_ABC" X="0" Y="2"/>
+                        <Label Caption="储位类型" Key="L_LocTypeId" X="8" Y="2"/>
+                        <Label Caption="指定物料" Key="L_SpecifyMaterialId" X="0" Y="3"/>
+                        <Label Caption="指定物料类型" Key="L_SpecifyMaterialTypeId" X="8" Y="3"/>
+                        <Label Caption="排序" Key="L_SortOrder" X="8" Y="4"/>
+                        <TextEditor Caption="代码" Key="Code" Tip="「代码」不能为空" Enable="!ReadOnly()" X="2" XSpan="5" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="LRP_Location" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="名称" Key="Name" Tip="「名称」不能为空" Enable="!ReadOnly()" X="9" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="LRP_Location" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="外部代码" Key="UserCode" Enable="!ReadOnly()" X="2" XSpan="5" Y="1">
+                            <DataBinding ColumnKey="UserCode" TableKey="LRP_Location"/>
+                        </TextEditor>
+                        <Dict BuddyKey="Lab_WarehouseCenterId" Caption="仓储中心" Visible="false" ItemKey="LRP_WarehouseCenter" Key="WarehouseCenterId" X="9" XSpan="3" Y="5">
+                            <DataBinding ColumnKey="WarehouseCenterId" DefaultFormulaValue="getCurOrgID()" TableKey="LRP_Location"/>
+                        </Dict>
+                        <Label Caption="仓储中心" Key="Lab_WarehouseCenterId" X="8" Y="5"/>
+                        <Dict Caption="仓间" ItemKey="LRP_Storeroom" Key="StoreroomId" Enable="!ReadOnly()" X="9" Y="1">
+                            <DataBinding ColumnKey="StoreroomId" TableKey="LRP_Location" Required="true"/>
+                            <ItemFilter ItemKey="LRP_Storeroom">
+                                <Filter Type="FieldValue">
+                                    <FilterValue FieldKey="WarehouseCenterId" RefValue="WarehouseCenterId" Type="Field"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Dict Caption="库区" ItemKey="LRP_Storearea" Key="StoreareaId" Enable="!ReadOnly()" X="11" Y="1">
+                            <DataBinding ColumnKey="StoreareaId" TableKey="LRP_Location" Required="true"/>
+                            <ItemFilter ItemKey="LRP_Storearea">
+                                <Filter Type="FieldValue">
+                                    <FilterValue FieldKey="StoreroomId" RefValue="StoreroomId" Type="Field"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <ComboBox Caption="ABC分类" Key="ABCType" Enable="!ReadOnly()" X="2" XSpan="5" Y="2">
+                            <DataBinding ColumnKey="ABCType" TableKey="LRP_Location"/>
+                            <Item Key="A" Caption="A 快速" Value="A"/>
+                            <Item Key="B" Caption="B 普通" Value="B"/>
+                            <Item Key="C" Caption="C 慢速" Value="C"/>
+                        </ComboBox>
+                        <Dict Caption="储位类型" ItemKey="LRP_LocType" Key="LocTypeId" Enable="!ReadOnly()" X="9" XSpan="3" Y="2">
+                            <DataBinding ColumnKey="LocTypeId" TableKey="LRP_Location" Required="true"/>
+                        </Dict>
+                        <Dict Caption="指定物料" ItemKey="LRP_Material" Key="SpecifyMaterialId" Enable="!ReadOnly()" X="2" XSpan="5" Y="3">
+                            <DataBinding ColumnKey="SpecifyMaterialId" TableKey="LRP_Location"/>
+                        </Dict>
+                        <Dict Caption="指定物料类型" ItemKey="MaterialType" Key="SpecifyMaterialTypeId" Enable="!ReadOnly()" X="9" XSpan="3" Y="3">
+                            <DataBinding ColumnKey="SpecifyMaterialTypeId" TableKey="LRP_Location"/>
+                        </Dict>
+                        <NumberEditor Caption="排序" Key="SortOrder" Enable="!ReadOnly()" X="9" Y="4" IntegerValue="true">
+                            <DataBinding ColumnKey="SortOrder" TableKey="LRP_Location"/>
+                        </NumberEditor>
+                        <CheckBox Caption="拣货位" Key="IsPick" Enable="!ReadOnly()" X="10" Y="4">
+                            <DataBinding ColumnKey="IsPick" TableKey="LRP_Location"/>
+                        </CheckBox>
+                        <CheckBox Caption="锁定" Key="IsLocked" Enable="!ReadOnly()" X="11" Y="4">
+                            <DataBinding ColumnKey="IsLocked" TableKey="LRP_Location"/>
+                        </CheckBox>
+                        <TextEditor Key="LocRow" Caption="排" BuddyKey="Lab_LocRow" X="2" Y="4">
+                            <DataBinding ColumnKey="LocRow" TableKey="LRP_Location"/>
+                        </TextEditor>
+                        <Label Key="Lab_LocRow" Caption="排" X="1" Y="4"/>
+                        <TextEditor Key="LocBay" Caption="列" BuddyKey="Lab_LocBay" X="4" Y="4">
+                            <DataBinding ColumnKey="LocBay" TableKey="LRP_Location"/>
+                        </TextEditor>
+                        <Label Key="Lab_LocBay" Caption="列" X="3" Y="4"/>
+                        <TextEditor Key="LocLayer" Caption="层" BuddyKey="Lab_LocLayer" X="6" Y="4">
+                            <DataBinding ColumnKey="LocLayer" TableKey="LRP_Location"/>
+                        </TextEditor>
+                        <Label Key="Lab_LocLayer" Caption="层" X="5" Y="4"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="50%" MinWidth="40px"/>
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="50%" MinWidth="40px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_Location"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Location"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_Location"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Location"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="司机积分调整记录" Key="LRP_DPAdjustRecords" PrimaryTableKey="LRP_DPAdjustRecords" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="司机积分调整记录" Key="LRP_DPAdjustRecords">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+			
+			<Column Caption="司机id" DataType="Long" Key="DriverId"/>
+			<Column Caption="司机积分规则id" DataType="Long" Key="DPRuleId"/>
+            <Column Caption="增加/减少" DataType="Integer" Key="AddOrReduce"  DefaultValue="1"/>
+            <Column Caption="相关单号" DataType="Varchar" Key="RefNo" Length="40"/>
+			<Column Caption="积分" Key="Points" DataType="Numeric" Precision="18" Scale="0"/>
+			<Column Caption="已用积分" Key="UsedPoints" DataType="Numeric" Precision="18" Scale="0"/>
+			<Column Caption="失效日期" DataType="DateTime" Key="ExpireDate"/>
+        </Table>        
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

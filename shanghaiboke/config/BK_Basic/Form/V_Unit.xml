@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="计量单位" FormType="Dict" Key="V_Unit">
+    <DataSource RefObjectKey="Unit"/>
+    <Body>
+        <Block>
+            <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                <GridLayoutPanel Caption="Tab页选择" Key="TabSelect" Padding="10px">
+                    <CheckBox Caption="大猫" Key="DaMaoCheck" X="0" Y="0"/>
+                    <CheckBox Caption="物流" Key="WuliuCheck" X="1" Y="0"/>
+                    <CheckBox Caption="集团财务" Key="CaiWuCheck" X="2" Y="0"/>
+                    <CheckBox Caption="电商" Key="DianShangCheck" X="3" Y="0"/>
+                    <CheckBox Caption="HRP" Key="HRPCheck" X="4" Y="0"/>
+                    <CheckBox Caption="OA" Key="OACheck" X="5" Y="0"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="16%" MinWidth="55px"/>
+                        <ColumnDef Width="16%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <TextEditor Caption="代码" Key="Code" Tip="「代码」不能为空" X="1" XSpan="5" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="BK_Unit" Required="true"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="Lab_MassUnit" Caption="内部度量单位" Key="MassUnit" Tip="「内部度量单位」不能为空" X="1" XSpan="5" Y="1" MaxLength="3">
+                            <DataBinding ColumnKey="MassUnit" TableKey="BK_Unit" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="内部度量单位" Key="Lab_MassUnit" X="0" Y="1"/>
+                        <TextEditor BuddyKey="Lab_TechnicalName" Caption="技术名称" Key="TechnicalName" X="1" XSpan="5" Y="2">
+                            <DataBinding ColumnKey="TechnicalName" TableKey="BK_Unit"/>
+                        </TextEditor>
+                        <Label Caption="技术名称" Key="Lab_TechnicalName" X="0" Y="2"/>
+                        <Label Caption="名称" Key="L_Name" X="7" Y="0"/>
+                        <TextEditor Caption="名称" Key="Name" Tip="「名称」不能为空" X="8" XSpan="5" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="BK_Unit" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="技术代码" Key="Lab_Technical" X="7" Y="1"/>
+                        <TextEditor BuddyKey="Lab_Technical" Caption="技术代码" Key="Technical" Tip="「技术代码」不能为空" X="8" XSpan="5" Y="1" MaxLength="3">
+                            <DataBinding ColumnKey="Technical" TableKey="BK_Unit" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="小位数" Key="Lab_Decimalplaces" X="7" Y="2"/>
+                        <NumberEditor BuddyKey="Lab_Decimalplaces" Caption="小位数" Key="Decimalplaces" X="8" XSpan="2" Y="2">
+                            <DataBinding ColumnKey="Decimalplaces" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <NumberEditor BuddyKey="Lab_Numerator" Caption="分子" Key="Numerator" Scale="0" X="1" Y="3">
+                            <DataBinding ColumnKey="Numerator" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <Label Caption="分子" Key="Lab_Numerator" X="0" Y="3"/>
+                        <NumberEditor BuddyKey="Lab_Denominator" Caption="分母" Key="Denominator" Scale="0" X="3" Y="3">
+                            <DataBinding ColumnKey="Denominator" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <Label Caption="分母" Key="Lab_Denominator" X="2" Y="3"/>
+                        <NumberEditor BuddyKey="Lab_Exponent" Caption="指数" Key="Exponent" Scale="0" X="5" Y="3">
+                            <DataBinding ColumnKey="Exponent" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <Label Caption="指数" Key="Lab_Exponent" X="4" Y="3"/>
+                        <NumberEditor BuddyKey="Lab_AdditiveConstant" Caption="常数" Key="AdditiveConstant" Scale="0" X="8" XSpan="2" Y="3">
+                            <DataBinding ColumnKey="AdditiveConstant" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <Label Caption="常数" Key="Lab_AdditiveConstant" X="7" Y="3"/>
+                        <TextEditor BuddyKey="Lab_MeasFamily" Caption="单位系列" Key="MeasFamily" X="1" XSpan="5" Y="4" MaxLength="100">
+                            <DataBinding ColumnKey="MeasFamily" TableKey="BK_Unit"/>
+                        </TextEditor>
+                        <Label Caption="单位系列" Key="Lab_MeasFamily" X="0" Y="4"/>
+                        <TextEditor BuddyKey="Lab_ISOCode" Caption="ISO代码" Key="ISOCode" X="8" XSpan="5" Y="4" MaxLength="100">
+                            <DataBinding ColumnKey="ISOCode" TableKey="BK_Unit"/>
+                        </TextEditor>
+                        <Label Caption="ISO代码" Key="Lab_ISOCode" X="7" Y="4"/>
+                        <NumberEditor BuddyKey="Lab_TempValue" Caption="温度值" Key="TempValue" X="8" XSpan="2" Y="5">
+                            <DataBinding ColumnKey="TempValue" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <Label Caption="温度值" Key="Lab_TempValue" X="7" Y="5"/>
+                        <NumberEditor BuddyKey="Lab_PressureValue" Caption="压力值" Key="PressureValue" X="1" XSpan="2" Y="6">
+                            <DataBinding ColumnKey="PressureValue" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <Label Caption="压力值" Key="Lab_PressureValue" X="0" Y="6"/>
+                        <Dict BuddyKey="Lab_UnitSystemID" Caption="计量体系" ItemKey="UnitSystem" Key="UnitSystemID" X="8" XSpan="5" Y="6">
+                            <DataBinding ColumnKey="UnitSystemID" TableKey="BK_Unit"/>
+                        </Dict>
+                        <Label Caption="计量体系" Key="Lab_UnitSystemID" X="7" Y="6"/>
+                        <Label Caption="压力单位" Key="Lab_PressureUnit" X="3" Y="6"/>
+                        <Dict BuddyKey="Lab_PressureUnit" Caption="压力单位" ItemKey="Unit" Key="PressureUnit" X="4" XSpan="2" Y="6">
+                            <DataBinding ColumnKey="PressureUnit" TableKey="BK_Unit"/>
+                        </Dict>
+                        <Label Caption="温度单位" Key="Lab_TempUnit" X="10" Y="5"/>
+                        <Dict BuddyKey="Lab_TempUnit" Caption="温度单位" ItemKey="Unit" Key="TempUnit" X="11" XSpan="2" Y="5">
+                            <DataBinding ColumnKey="TempUnit" TableKey="BK_Unit"/>
+                        </Dict>
+                        <Label Caption="浮点指数" Key="Lab_FloatPoint" X="10" Y="2"/>
+                        <NumberEditor BuddyKey="Lab_FloatPoint" Caption="浮点指数" Key="FloatPoint" X="11" XSpan="2" Y="2">
+                            <DataBinding ColumnKey="FloatPoint" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <Label Caption="精度" Key="Lab_DecimalRounding" X="10" Y="3"/>
+                        <NumberEditor BuddyKey="Lab_DecimalRounding" Caption="精度" Key="DecimalRounding" Scale="0" X="11" XSpan="2" Y="3">
+                            <DataBinding ColumnKey="DecimalRounding" TableKey="BK_Unit"/>
+                        </NumberEditor>
+                        <CheckBox Caption="基于值的" Key="ValueBaseCommt" X="4" XSpan="2" Y="5">
+                            <DataBinding ColumnKey="ValueBaseCommt" TableKey="BK_Unit"/>
+                        </CheckBox>
+                        <CheckBox Caption="主要的" Key="primaryCode" X="2" XSpan="2" Y="5">
+                            <DataBinding ColumnKey="primaryCode" TableKey="BK_Unit"/>
+                        </CheckBox>
+                        <CheckBox Caption="商业度量单位" Key="CommercialMassUnit" X="0" XSpan="2" Y="5">
+                            <DataBinding ColumnKey="CommercialMassUnit" TableKey="BK_Unit"/>
+                        </CheckBox>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="20%"/>
+                            <ColumnDef Width="33px"/>
+                            <ColumnDef Width="20%"/>
+                            <ColumnDef Width="33px"/>
+                            <ColumnDef Width="20%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="20%"/>
+                            <ColumnDef Width="33px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="20%"/>
+                            <ColumnDef Width="33px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="大猫" Key="DaMaoTab" Visible="DaMaoCheck">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="物流" Key="WuliuTab" Visible="WuliuCheck">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="集团财务" Key="CaiWuTab" Visible="CaiWuCheck">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="电商" Key="DianShangTab" Visible="DianShangCheck">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="HRP" Key="HRPTab" Visible="HRPCheck">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="OA" Key="OATab" Visible="OACheck">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="BK_Unit"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="BK_Unit"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="BK_Unit"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="BK_Unit"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="55px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

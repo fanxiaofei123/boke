@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="整车报价" NoPrefix="FQ" ZeroPrefix="9" Key="LRP_FTLQuote" PrimaryTableKey="LRP_FTLQuote_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="整车报价单头" Key="LRP_FTLQuote_H">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+			
+            <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="调度组织" DataType="Long" Key="DispatchOrgId"/>
+            <Column Caption="车型" DataType="Long" Key="TruckTypeId"/>
+            <Column Caption="生效日期" DataType="DateTime" Key="EffectiveDate"/>
+            <Column Caption="截止日期" DataType="DateTime" Key="ExpireDate"/>
+			<Column Key="FirstMileage" Caption="首段里程" DataType="Numeric" Precision="18" Scale="4" DefaultValue="0"/>
+			<Column Key="FirstPrice" Caption="首段价格" DataType="Numeric" Precision="18" Scale="4" DefaultValue="0"/>
+			<Column Key="AdditionalMileagePrice" Caption="续段单价" DataType="Numeric" Precision="18" Scale="4"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

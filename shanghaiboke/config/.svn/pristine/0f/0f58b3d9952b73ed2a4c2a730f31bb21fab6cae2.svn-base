@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Evaluate" FormType="Entity" Authenticate="false">
+    <DataSource RefObjectKey="LRP_TransportOrder"/>
+    <QueryCollection>
+        <Query Key="UserRating" Description="更新评价信息">
+            <Statement>
+                <![CDATA[update LRP_TransportOrder_H set UserRating = ?,UserComment = ?,UserScore = ? where OID = ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#ffffff"/>
+                <TableView Key="main" X="0" Y="0">
+                    <TableRowCollection>
+                        <TableRow Key="r2">
+                            <GridLayoutPanel Key="LogisticsService" Height="pref" BorderColor="#cccccc" HasBorder="true" BorderRadius="4">
+                                <Format BackColor="#ffffff"/>
+                                <Label Key="level" X="6" Y="2"/>
+                                <Image Key="UserRating" X="1" Y="2" ImageScaleType="Fit_XY" PromptImage="33.png" Stretch="true" XSpan="5" Width="pref">
+                                    <DataBinding TableKey="LRP_TransportOrder_H" ColumnKey="UserRating"/>
+                                </Image>
+                                <Button Key="Button1" X="1" Y="2" Enable="true" GroupKey="star" IsGroupHead="true" OnlyIcon="True">
+                                    <DataBinding>
+                                        <ValueChanged>
+                                            <![CDATA[SetValue('Image1','33-1.png');]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                    <Format ForeColor="Transparent" BackColor="Transparent"/>
+                                    <OnClick>
+                                        <![CDATA[SetValue('UserRating','33-1.png');
+SetValue('UserScore',1);
+]]>
+                                    </OnClick>
+                                </Button>
+                                <Button Key="Button2" X="2" Y="2" GroupKey="star">
+                                    <DataBinding>
+                                        <ValueChanged>
+                                            <![CDATA[SetValue('Image1','33-2.png');]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                    <Format ForeColor="Transparent" BackColor="Transparent"/>
+                                    <OnClick>
+                                        <![CDATA[SetValue('UserRating','33-2.png');
+SetValue('UserScore',2);]]>
+                                    </OnClick>
+                                </Button>
+                                <TextEditor Key="UserRating1" Caption="用户评价" BuddyKey="Lab_UserRating1" X="2" Y="3" Visible="false" XSpan="3"/>
+                                <Label Key="Lab_UserRating1" Caption="用户评价" X="1" Y="3" Visible="false"/>
+                                <Button Key="Button3" X="3" Y="2">
+                                    <Format ForeColor="Transparent" BackColor="Transparent"/>
+                                    <OnClick>
+                                        <![CDATA[SetValue('UserRating','33-3.png');
+SetValue('UserScore',3);]]>
+                                    </OnClick>
+                                </Button>
+                                <Button Key="Button4" X="4" Y="2">
+                                    <Format ForeColor="Transparent" BackColor="Transparent"/>
+                                    <OnClick>
+                                        <![CDATA[SetValue('UserRating','33-4.png');
+SetValue('UserScore',4);]]>
+                                    </OnClick>
+                                </Button>
+                                <Button Key="Button5" X="5" Y="2">
+                                    <Format ForeColor="Transparent" BackColor="Transparent"/>
+                                    <OnClick>
+                                        <![CDATA[SetValue('UserRating','33-5.png');
+SetValue('UserScore',5);]]>
+                                    </OnClick>
+                                </Button>
+                                <Label Key="LogisticsService_title" Caption="亲，给好评哦!" X="1" Y="1" Width="auto" Height="50px" Padding="10px" XSpan="6">
+                                    <Format HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="20"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="UserScore" Caption="用户评分" BuddyKey="Lab_UserScore" X="6" Y="3" Visible="false" IntegerValue="true" XSpan="2">
+                                    <DataBinding TableKey="LRP_TransportOrder_H" ColumnKey="UserScore"/>
+                                </NumberEditor>
+                                <Label Key="Lab_UserScore" Caption="用户评分" X="5" Y="3" XSpan="2"/>
+                                <RowDefCollection>
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="50px"/>
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="40px"/>
+                                    <ColumnDef Width="78px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="80px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r3" SeparatorStyle="solid none none none" SeparatorColor="#cccccc">
+                            <GridLayoutPanel Key="LogisticsService22" Height="200px">
+                                <Format BackColor="#ffffff"/>
+                                <Label Key="LogisticsServiceName22" Caption="请输入评价" X="1" Y="3">
+                                    <Format ForeColor="#000000" HAlign="Left">
+                                        <Font Size="18"/>
+                                    </Format>
+                                </Label>
+                                <TextEditor Key="UserComment" X="1" Y="5" YSpan="3" HasBorder="true" BorderRadius="4" BorderColor="#b3b3b3">
+                                    <DataBinding TableKey="LRP_TransportOrder_H" ColumnKey="UserComment"/>
+                                    <Format VAlign="Top">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </TextEditor>
+                                <Label Key="Label1" X="0" Y="1" XSpan="3">
+                                    <Format BackColor="#e6e6e6"/>
+                                </Label>
+                                <RowDefCollection>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="25px"/>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="20px"/>
+                                    <RowDef Height="100%"/>
+                                    <RowDef Height="20px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="10px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <LinearLayoutPanel Key="LogisticsServiceTrue_panel" Orientation="Horizontal" Height="45px" LeftPadding="30px" RightPadding="30px" X="0" Y="1">
+                    <Button Key="LogisticsServiceTrue" Caption="确认" Width="pref" Weight="1.0" Height="auto" BorderStyle="none">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[if(UserRating == null || UserRating < 0){
+    ShowToast('您尚未打分！');
+    return 0;
+}
+var curOID = Para('OrderOID');
+DBNamedUpdate('UserRating', UserRating,UserComment,UserScore,curOID);
+Parent.LoadData();
+ShowToast('感谢您的评价,我们会继续努力的！');Close();
+							]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All"/>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="订单评价" Location="Center">
+            <Label Key="TitleCenter" Caption="订单评价" Width="pref">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_PackingStrategyMatch" Caption="包装方案匹配单" FormType="Entity" ViewKey="V_PackingStrategyMatchView">
+    <DataSource RefObjectKey="LRP_PackingStrategyMatch"/>
+    <OperationCollection>
+		<Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[
+New('V_PackingStrategyMatch');]]>
+            </Action>
+        </Operation>
+		<Operation Caption="复制新增" Key="CopyNew" RefKey="CopyNew" ShortCuts="Ctrl+E"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[InvokeService("LRP_PreSave_PackingStrategyMatch", true, false);
+SaveData(); UpdateView();
+						
+                                ]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Key="Confirm" Caption="确认" RefKey="Confirm"/>
+        <Operation Key="Confirm-R" Caption="撤销确认" Enable="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[
+Status=StatusValue('prepared');SaveData();UpdateView();
+
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete" ShortCuts="Ctrl+D"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="ToCancel" Caption="作废" RefKey="ToCancel"/>
+        <Operation Key="ToCancel-R" Caption="撤销作废" RefKey="ToCancel-R"/>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="SMaStrategy">
+            <Statement>
+                <![CDATA[select count(*) as count from LRP_MaterialStrategy where StrategyId= ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="10px" Caption="基本信息">
+                            <TextEditor Key="No" Caption="匹配单号" BuddyKey="Lab_No" X="2" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_PackingStrategyMatch_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="匹配单号" X="0" Y="0" XSpan="2"/>
+                            <TextEditor Key="Name" Caption="匹配名称" BuddyKey="Lab_Name" X="5" Y="0" Enable="!ReadOnly()" AsQuery="true">
+                                <DataBinding ColumnKey="Name" TableKey="LRP_PackingStrategyMatch_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name" Caption="匹配名称" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Status" IntegerValue="true" AsQuery="true">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_PackingStrategyMatch_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="7" Y="0"/>
+							
+							<Dict Key="MaterialTypeID" Caption="物料类型" ItemKey="MaterialType" BuddyKey="Lab_MaterialTypeID" X="2" Y="1" Enable="!ReadOnly()" AsQuery="true">
+                                <DataBinding ColumnKey="MaterialTypeID" TableKey="LRP_PackingStrategyMatch_H" DefaultValue="0"/>
+                            </Dict>
+                            <Label Key="Lab_MaterialTypeID" Caption="物料类型" X="0" Y="1" XSpan="2"/>
+							
+                            <TextEditor Key="Remarks" Caption="备注" BuddyKey="Lab_Remarks" X="5" Y="1" Enable="!ReadOnly()" XSpan="4" AsQuery="true">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_PackingStrategyMatch_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remarks" Caption="备注" X="4" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="15px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="second_head" Height="pref" Padding="10px" Caption="系统信息">
+                            <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" ItemKey="Operator">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator();" TableKey="LRP_PackingStrategyMatch_H"/>
+                            </Dict>
+                            <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_PackingStrategyMatch_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                            <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" ItemKey="Operator">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator();" TableKey="LRP_PackingStrategyMatch_H"/>
+                            </Dict>
+                            <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_PackingStrategyMatch_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_MODIFYTIME" Caption="修改日期" X="2" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Height="100%" Key="DetailTab">
+                        <Grid Key="Grid1" Caption="匹配明细" Enable="!ReadOnly()">
+                            <GridColumnCollection>
+                                <GridColumn Key="SrcMaxTempUpper" Caption="始发地高温上限" Width="100px"/>
+                                <GridColumn Key="SrcMaxTempLower" Caption="始发地高温下限" Width="100px"/>
+                                <GridColumn Key="SrcMinTempUpper" Caption="始发地低温上限" Width="100px"/>
+                                <GridColumn Key="SrcMinTempLower" Caption="始发地低温下限" Width="100px"/>
+                                <GridColumn Key="DestMaxTempUpper" Caption="目的地高温上限" Width="100px"/>
+                                <GridColumn Key="DestMaxTempLower" Caption="目的地高温下限" Width="100px"/>
+                                <GridColumn Key="DestMinTempUpper" Caption="目的地低温上限" Width="100px"/>
+                                <GridColumn Key="DestMinTempLower" Caption="目的地低温下限" Width="100px"/>
+                                <GridColumn Key="PackingStrategyID" Caption="包装方案" Width="100px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_PackingStrategyMatch_L">
+                                    <GridCell Key="SrcMaxTempUpper" Caption="始发地高温上限" CellType="NumberEditor" ForeColor="#cc3333" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="SrcMaxTempUpper" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="SrcMaxTempLower" Caption="始发地高温下限" CellType="NumberEditor" ForeColor="#cc3333" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="SrcMaxTempLower" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="SrcMinTempUpper" Caption="始发地低温上限" CellType="NumberEditor" ForeColor="#334db3" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="SrcMinTempUpper" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="SrcMinTempLower" Caption="始发地低温下限" CellType="NumberEditor" ForeColor="#334db3" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="SrcMinTempLower" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="DestMaxTempUpper" Caption="目的地高温上限" CellType="NumberEditor" ForeColor="#cc3333" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="DestMaxTempUpper" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="DestMaxTempLower" Caption="目的地高温下限" CellType="NumberEditor" ForeColor="#cc3333" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="DestMaxTempLower" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="DestMinTempUpper" Caption="目的地低温上限" CellType="NumberEditor" ForeColor="#334db3" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="DestMinTempUpper" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="DestMinTempLower" Caption="目的地低温下限" CellType="NumberEditor" ForeColor="#334db3" ShowZero="true" Scale="3">
+                                        <DataBinding ColumnKey="DestMinTempLower" DefaultValue="-9999"/>
+                                    </GridCell>
+                                    <GridCell Key="PackingStrategyID" Caption="包装方案" CellType="Dict" ItemKey="LRP_PackingStrategy">
+                                        <DataBinding ColumnKey="PackingStrategyID"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="120px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

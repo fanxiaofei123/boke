@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataMigration Caption="加工完成单完成-序列号库存减少" Key="SG_404Src_LRP" SrcDataObjectKey="LRP_Kitting" StatusFieldKey="Status" TgtDataObjectKey="LRP_SerialQuant" StatusValue="finished" HeadCondition="LRP_WMTx_H1.TxTypeCode == '404'" Condition="LRP_WMTx_L1.Status &gt;= 90">
+    <SourceTableCollection Height="540" Width="350" X="30" Y="30">
+        <SourceTable TableKey="LRP_WMTx_H1">
+            <SourceField Definition="WarehouseCenterId" TargetFieldKey="WarehouseCenterId" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+            <SourceField Definition="OwnerId" TargetFieldKey="OwnerId" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+        </SourceTable>
+        <SourceTable TableKey="LRP_WMTx_L1">
+            <SourceField Definition="MaterialId" TargetFieldKey="MaterialId" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+            <SourceField Definition="SrcStoreroomId" TargetFieldKey="StoreroomId" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+            <SourceField Definition="SrcStoreareaId" TargetFieldKey="StoreareaId" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+            <SourceField Definition="SrcLocationId" TargetFieldKey="LocationId" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+            <SourceField Definition="SrcMaterialStatusId" TargetFieldKey="MaterialStatusId" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+            <SourceField Definition="SrcHandingUnitNo" TargetFieldKey="HandlingUnitNo" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+        </SourceTable>
+        <SourceTable TableKey="LRP_WMTxSerial_L1" IsPrimary="true">
+            <SourceField Definition="SerialNo" TargetFieldKey="SerialNo" TargetTableKey="LRP_SerialQuant" OpSign="Assign"/>
+            <SourceField Definition="Qty" TargetFieldKey="Qty" TargetTableKey="LRP_SerialQuant"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="450" Width="236" X="502" Y="26">
+        <TargetTable TableKey="LRP_SerialQuant">
+            <TargetField FieldKey="WarehouseCenterId"/>
+            <TargetField FieldKey="OwnerId"/>
+            <TargetField FieldKey="MaterialId"/>
+            <TargetField FieldKey="StoreroomId"/>
+            <TargetField FieldKey="StoreareaId"/>
+            <TargetField FieldKey="LocationId"/>
+            <TargetField FieldKey="MaterialStatusId"/>
+            <TargetField FieldKey="HandlingUnitNo"/>
+            <TargetField FieldKey="SerialNo"/>
+            <TargetField FieldKey="Qty"/>
+        </TargetTable>
+    </TargetTableCollection>
+</DataMigration>

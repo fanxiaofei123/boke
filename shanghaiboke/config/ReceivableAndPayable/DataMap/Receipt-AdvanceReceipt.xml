@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="预收款核销引入收款单" Key="Receipt-AdvanceReceipt" SrcDataObjectKey="LRP_QuoteReceipt" TgtDataObjectKey="LRP_AdvanceReceipt">
+    <SourceTableCollection Height="210" Width="268" X="30" Y="30">
+        <SourceTable Key="LRP_QuoteReceipt" IsPrimary="true" TableKey="LRP_QuoteReceipt" TargetTableKey="LRP_Receipt_Show">
+            <SourceField Definition="No" TargetFieldKey="ReceiptNo" TargetTableKey="LRP_Receipt_Show"/>
+            <SourceField Definition="ReceiptDate" TargetFieldKey="ReceiptDate" TargetTableKey="LRP_Receipt_Show"/>
+            <SourceField Definition="ReceiptMoney" TargetFieldKey="ReceiptMoney" TargetTableKey="LRP_Receipt_Show"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="210" Width="281" X="350" Y="29">
+        <TargetTable Key="LRP_Receipt_Show" TableKey="LRP_Receipt_Show">
+            <TargetField Definition="ReceiptNo"/>
+            <TargetField Definition="ReceiptDate"/>
+            <TargetField Definition="ReceiptMoney"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

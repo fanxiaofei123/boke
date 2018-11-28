@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_DriverPointsView-Abbr>DriverPointsView</V_DriverPointsView-Abbr>
+		
+        <L_DriverId>DriverId</L_DriverId>
+    </UI>
+	<ListViewColumn>
+		<OID>OID</OID>
+		<DriverId>DriverId</DriverId>
+		<TotalPoints>TotalPoints</TotalPoints>
+		<AvailablePoints>AvailablePoints</AvailablePoints>
+	</ListViewColumn>
+</StringTable>

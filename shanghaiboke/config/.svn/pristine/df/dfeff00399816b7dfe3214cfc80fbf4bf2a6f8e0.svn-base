@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="凭证类型" FormType="Dict" Key="V_VoucherType">
+    <DataSource RefObjectKey="VoucherType"/>
+    <Body>
+        <Block>
+            <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                <GridLayoutPanel Caption="Tab页选择" Key="TabSelect" Padding="10px">
+                    <CheckBox Caption="大猫" Key="DaMaoCheck" X="0" Y="0"/>
+                    <CheckBox Caption="物流" Key="WuliuCheck" X="1" Y="0"/>
+                    <CheckBox Caption="集团财务" Key="CaiWuCheck" X="2" Y="0"/>
+                    <CheckBox Caption="电商" Key="DianShangCheck" X="3" Y="0"/>
+                    <CheckBox Caption="HRP" Key="HRPCheck" X="4" Y="0"/>
+                    <CheckBox Caption="OA" Key="OACheck" X="5" Y="0"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="16%" MinWidth="55px"/>
+                        <ColumnDef Width="16%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                        <ColumnDef Width="17%" MinWidth="55px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <TextEditor Caption="代码" Key="Code" Tip="「代码」不能为空" X="1" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="BK_VoucherType" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="名称" Key="Name" Tip="「名称」不能为空" X="6" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="BK_VoucherType" Required="true"/>
+                        </TextEditor>
+                        <Dict Caption="冲销凭证类型" ItemKey="VoucherType" Key="ReverseVoucherTypeID" X="1" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="ReverseVoucherTypeID" TableKey="BK_VoucherType"/>
+                        </Dict>
+                        <Dict Caption="默认汇率类型" ItemKey="ExchangeRateType" Key="DefaultExchRateTypeID" X="6" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="DefaultExchRateTypeID" TableKey="BK_VoucherType"/>
+                        </Dict>
+                        <TextEditor Caption="简称" Key="ShortName" X="1" XSpan="3" Y="2" MaxLength="100">
+                            <DataBinding ColumnKey="ShortName" TableKey="BK_VoucherType"/>
+                        </TextEditor>
+                        <CheckBox Caption="供应商或客户检查" Key="IsCustormerOrVenderCheck" X="6" Y="2">
+                            <DataBinding ColumnKey="IsCustormerOrVenderCheck" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许负数记账" Key="IsNegativePost" X="8" Y="2">
+                            <DataBinding ColumnKey="IsNegativePost" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="公司间凭证" Key="IsInterCompanyPosts" X="1" Y="3">
+                            <DataBinding ColumnKey="IsInterCompanyPosts" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="资产" Key="IsAllowAssets" X="3" Y="3">
+                            <DataBinding ColumnKey="IsAllowAssets" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="客户" Key="IsAllowCustomer" X="6" Y="3">
+                            <DataBinding ColumnKey="IsAllowCustomer" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="供应商" Key="IsAllowVendor" X="8" Y="3">
+                            <DataBinding ColumnKey="IsAllowVendor" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="物料" Key="IsAllowMaterial" X="1" Y="4">
+                            <DataBinding ColumnKey="IsAllowMaterial" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="总账科目" Key="IsAllowGLAccount" X="3" Y="4">
+                            <DataBinding ColumnKey="IsAllowGLAccount" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="净值凭证类型" Key="IsNetDocumentType" X="6" Y="4">
+                            <DataBinding ColumnKey="IsNetDocumentType" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <CheckBox Caption="输入贸易伙伴" Key="IsEnterTradingPartner" X="8" Y="4">
+                            <DataBinding ColumnKey="IsEnterTradingPartner" TableKey="BK_VoucherType"/>
+                        </CheckBox>
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+                        <Label Caption="冲销凭证类型" Key="L_ReverseVoucherTypeID" X="0" Y="1"/>
+                        <Label Caption="默认汇率类型" Key="L_DefaultExchRateTypeID" X="5" Y="1"/>
+                        <Label Caption="简称" Key="L_ShortName" X="0" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="110px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="大猫" Key="DaMaoTab" Visible="DaMaoCheck" Padding="10px">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="45px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="物流" Key="WuliuTab" Visible="WuliuCheck" Padding="10px">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="45px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="集团财务" Key="CaiWuTab" Visible="CaiWuCheck" Padding="10px">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="45px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="电商" Key="DianShangTab" Visible="DianShangCheck" Padding="10px">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="45px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="HRP" Key="HRPTab" Visible="HRPCheck" Padding="10px">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="45px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="OA" Key="OATab" Visible="OACheck" Padding="10px">
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="45px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="BK_VoucherType"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="BK_VoucherType"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="BK_VoucherType"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="BK_VoucherType"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="55px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

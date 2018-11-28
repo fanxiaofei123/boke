@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>New</New>
+        <BatchDelete_Tx>BatchDelete</BatchDelete_Tx>
+        <BatchFinish>BatchFinish</BatchFinish>
+        <Close>Close</Close>
+        <BatchFinish-R>BatchFinishR</BatchFinish-R>
+    </Opt>
+    <UI>
+	<V_Tx213View-Abbr>DeliveryByStockAreaView</V_Tx213View-Abbr>
+        <L_OwnerId>OwnerId</L_OwnerId>
+        <L_TxDateTime_1>TxDateTime1</L_TxDateTime_1>
+        <Query>Query</Query>
+        <L_No>No</L_No>
+        <L_Status>Status</L_Status>
+        <L_RefNo>RefNo</L_RefNo>
+        <L_OwnerNo>OwnerNo</L_OwnerNo>
+        <Reset>Reset</Reset>
+        <L_TxDateTime>TxDateTime</L_TxDateTime>
+    </UI>
+    <ListViewColumn>
+        <Status>Status</Status>
+        <No>No</No>
+        <OwnerId>OwnerId</OwnerId>
+        <Select>Select</Select>
+        <OID>OID</OID>
+        <TxDateTime>TxDateTime</TxDateTime>
+        <OwnerNo>OwnerNo</OwnerNo>
+        <NoticeNo>NoticeNo</NoticeNo>
+        <Remark>Remark</Remark>
+    </ListViewColumn>
+    <Items-Status_C>
+        <Item-prepared>prepared</Item-prepared>
+        <Item-confirmed>confirmed</Item-confirmed>
+        <Item-handled>handled</Item-handled>
+	<Item-finished>finished</Item-finished>
+    </Items-Status_C>
+</StringTable>

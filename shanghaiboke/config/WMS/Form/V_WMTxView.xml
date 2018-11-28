@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_WMTxView" Caption="库存事务单明细查询" FormType="View">
+    <DataSource>
+        <DataObject Key="LRP_WMTx" Caption="库存事务单明细查询" PrimaryTableKey="V_WMTxView">
+            <TableCollection>
+                <Table Key="LRP_WMTx" Caption="库存事务单" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Key="Status_H" Caption="单头状态" DataType="Integer"/>
+                    <Column Key="Status_L" Caption="明细状态" DataType="Integer"/>
+                    <Column Caption="事务单号" DataType="Varchar" Key="No" Length="0"/>
+                    <Column Caption="事务类型" DataType="Long" Key="TxTypeId"/>
+                    <Column Caption="事务代码" DataType="Varchar" Key="TxTypeCode" Length="0"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="0"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="NoticeNo" Length="0"/>
+                    <Column Caption="关联单号" DataType="Varchar" Key="RefNo" Length="0"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="事务日期时间" DataType="DateTime" Key="TxDateTime"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="0"/>
+                    <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+                    <Column Caption="数量" DataType="Numeric" Key="Qty" Precision="0" Scale="0"/>
+                    <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="0"/>
+                    <Column Caption="基本单位量" DataType="Numeric" Key="BasicQty" Precision="0" Scale="0"/>
+                    <Column Caption="源货主" DataType="Long" Key="SrcOwnerId"/>
+                    <Column Caption="源批号" DataType="Varchar" Key="SrcBatchNo" Length="0"/>
+                    <Column Caption="源生产日期" DataType="Date" Key="SrcManufDate"/>
+                    <Column Caption="源失效日期" DataType="Date" Key="SrcExpireDate"/>
+                    <Column Caption="源项目" DataType="Long" Key="SrcProjectId"/>
+                    <Column Caption="源入库日期" DataType="Date" Key="SrcRecvDate"/>
+                    <Column Caption="源字符型1" DataType="Varchar" Key="SrcStrUserDef1" Length="0"/>
+                    <Column Caption="源字符型2" DataType="Varchar" Key="SrcStrUserDef2" Length="0"/>
+                    <Column Caption="源字符型3" DataType="Varchar" Key="SrcStrUserDef3" Length="0"/>
+                    <Column Caption="源字符型4" DataType="Varchar" Key="SrcStrUserDef4" Length="0"/>
+                    <Column Caption="源字符型5" DataType="Varchar" Key="SrcStrUserDef5" Length="0"/>
+                    <Column Caption="源字典型1" DataType="Long" Key="SrcDictUserDef1"/>
+                    <Column Caption="源字典型2" DataType="Long" Key="SrcDictUserDef2"/>
+                    <Column Caption="源字典型3" DataType="Long" Key="SrcDictUserDef3"/>
+                    <Column Caption="源字典型4" DataType="Long" Key="SrcDictUserDef4"/>
+                    <Column Caption="源字典型5" DataType="Long" Key="SrcDictUserDef5"/>
+                    <Column Caption="源日期型1" DataType="Date" Key="SrcDateUserDef1"/>
+                    <Column Caption="源日期型2" DataType="Date" Key="SrcDateUserDef2"/>
+                    <Column Caption="源数值型1" DataType="Numeric" Key="SrcNumUserDef1" Precision="0" Scale="0"/>
+                    <Column Caption="源数值型2" DataType="Numeric" Key="SrcNumUserDef2" Precision="0" Scale="0"/>
+                    <Column Caption="源数值型3" DataType="Numeric" Key="SrcNumUserDef3" Precision="0" Scale="0"/>
+                    <Column Caption="源仓间" DataType="Long" Key="SrcStoreroomId"/>
+                    <Column Caption="源库区" DataType="Long" Key="SrcStoreareaId"/>
+                    <Column Key="SrcLocationcode" Caption="源储位" DataType="Varchar"/>
+                    <Column Caption="源物料状态" DataType="Long" Key="SrcMaterialStatusId"/>
+                    <Column Caption="源相关单据id" DataType="Long" Key="SrcRefSOID"/>
+                    <Column Caption="源相关单号" DataType="Varchar" Key="SrcRefOrderNo" Length="0"/>
+                    <Column Caption="目标货主" DataType="Long" Key="DestOwnerId"/>
+                    <Column Caption="目标批号" DataType="Varchar" Key="DestBatchNo" Length="0"/>
+                    <Column Caption="目标生产日期" DataType="Date" Key="DestManufDate"/>
+                    <Column Caption="目标失效日期" DataType="Date" Key="DestExpireDate"/>
+                    <Column Caption="目标项目" DataType="Long" Key="DestProjectId"/>
+                    <Column Caption="目标入库日期" DataType="Date" Key="DestRecvDate"/>
+                    <Column Caption="目标字符型1" DataType="Varchar" Key="DestStrUserDef1" Length="0"/>
+                    <Column Caption="目标字符型2" DataType="Varchar" Key="DestStrUserDef2" Length="0"/>
+                    <Column Caption="目标字符型3" DataType="Varchar" Key="DestStrUserDef3" Length="0"/>
+                    <Column Caption="目标字符型4" DataType="Varchar" Key="DestStrUserDef4" Length="0"/>
+                    <Column Caption="目标字符型5" DataType="Varchar" Key="DestStrUserDef5" Length="0"/>
+                    <Column Caption="目标字典型1" DataType="Long" Key="DestDictUserDef1"/>
+                    <Column Caption="目标字典型2" DataType="Long" Key="DestDictUserDef2"/>
+                    <Column Caption="目标字典型3" DataType="Long" Key="DestDictUserDef3"/>
+                    <Column Caption="目标字典型4" DataType="Long" Key="DestDictUserDef4"/>
+                    <Column Caption="目标字典型5" DataType="Long" Key="DestDictUserDef5"/>
+                    <Column Caption="目标日期型1" DataType="Date" Key="DestDateUserDef1"/>
+                    <Column Caption="目标日期型2" DataType="Date" Key="DestDateUserDef2"/>
+                    <Column Caption="目标数值型1" DataType="Numeric" Key="DestNumUserDef1" Precision="0" Scale="0"/>
+                    <Column Caption="目标数值型2" DataType="Numeric" Key="DestNumUserDef2" Precision="0" Scale="0"/>
+                    <Column Caption="目标数值型3" DataType="Numeric" Key="DestNumUserDef3" Precision="0" Scale="0"/>
+                    <Column Caption="目标仓间" DataType="Long" Key="DestStoreroomId"/>
+                    <Column Caption="目标库区" DataType="Long" Key="DestStoreareaId"/>
+                    <Column Key="DestLocationcode" Caption="目标储位" DataType="Varchar"/>
+                    <Column Caption="目标物料状态" DataType="Long" Key="DestMaterialStatusId"/>
+                    <Column Caption="目标相关单据id" DataType="Long" Key="DestRefSOID"/>
+                    <Column Caption="目标相关单号" DataType="Varchar" Key="DestRefOrderNo" Length="0"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetPara('StoreroomId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('StoreroomId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('StoreroomId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('StoreroomId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('StoreareaId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('StoreareaId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('StoreareaId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('StoreareaId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('LocationId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('LocationId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('LocationId')" DataType="Long"/>
+                        <Parameter Formula="GetPara('LocationId')" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from(
+select 
+    h.Status Status_H,
+    h.No,h.txtypeid,
+    h.TxTypeCode,
+    h.OwnerNo,
+    h.NoticeNo,
+    h.RefNo,
+    h.WarehouseCenterId,
+    h.OwnerId,
+    h.TxDateTime,
+    l.Status Status_L,
+    MaterialId,
+    Qty,
+    MaterialUnit,
+    BasicQty,
+    OpDatetime,
+    SrcOwnerId,
+    SrcBatchNo,
+    SrcManufDate,
+    SrcExpireDate,
+    SrcProjectId,
+    SrcRecvDate,
+    SrcStrUserDef1,
+    SrcStrUserDef2,
+    SrcStrUserDef3,
+    SrcStrUserDef4,
+    SrcStrUserDef5,
+    SrcDictUserDef1,
+    SrcDictUserDef2,
+    SrcDictUserDef3,
+    SrcDictUserDef4,
+    SrcDictUserDef5,
+    SrcDateUserDef1,
+    SrcDateUserDef2,
+    SrcNumUserDef1,
+    SrcNumUserDef2,
+    SrcNumUserDef3,
+    SrcStoreroomId,
+    SrcStoreareaId,
+    locsrc.code as SrcLocationcode,
+    SrcMaterialStatusId,
+    SrcRefSOID,
+    SrcRefOrderNo,
+    DestOwnerId,
+    DestBatchNo,
+    DestManufDate,
+    DestExpireDate,
+    DestProjectId,
+    DestRecvDate,
+    DestStrUserDef1,
+    DestStrUserDef2,
+    DestStrUserDef3,
+    DestStrUserDef4,
+    DestStrUserDef5,
+    DestDictUserDef1,
+    DestDictUserDef2,
+    DestDictUserDef3,
+    DestDictUserDef4,
+    DestDictUserDef5,
+    DestDateUserDef1,
+    DestDateUserDef2,
+    DestNumUserDef1,
+    DestNumUserDef2,
+    DestNumUserDef3,
+    DestStoreroomId,
+    DestStoreareaId,
+    locdest.code as DestLocationcode,
+    DestMaterialStatusId,
+    DestRefOrderNo
+from
+    lrp_wmtx_h h
+        left join
+    lrp_wmtx_l l ON h.SOID = l.SOID
+left join LRP_Location locsrc on locsrc.oid=l.SrcLocationId 
+left join LRP_Location locdest on locdest.oid=l.DestLocationId
+   where (
+	(SrcStoreroomId = (CASE WHEN (? > 0) THEN ? ELSE SrcStoreroomId END) or 
+	DestStoreroomId =( CASE WHEN (? > 0) THEN ? ELSE DestStoreroomId END))
+    and (SrcStoreareaId = (CASE WHEN (? > 0) THEN ? ELSE SrcStoreareaId END) or 
+	DestStoreareaId = (CASE WHEN (? > 0) THEN ? ELSE DestStoreareaId END))  
+	and (SrcLocationId = (CASE WHEN (? > 0) THEN ? ELSE SrcLocationId END) or 
+	DestLocationId =( CASE WHEN (? > 0) THEN ? ELSE DestLocationId END))))a]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body PopHeight="80%" PopWidth="80%">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <GridLayoutPanel Key="query" Height="pref" Padding="5px" Caption="查询字段">
+                        <Dict Key="MaterialId_H" Caption="物料" BuddyKey="Lab_MaterialId_H" X="6" Y="3" ItemKey="LRP_Material" XSpan="3">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                                <ValueChanging>
+                                    <![CDATA[]]>
+                                </ValueChanging>
+                            </DataBinding>
+                            <Condition ColumnKey="MaterialId" TableKey="LRP_WMTx" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_MaterialId_H" Caption="物料" X="5" Y="3"/>
+                        <Dict Key="StoreroomId_H" Caption="仓间" BuddyKey="Lab_StoreroomId_H" X="1" Y="5" ItemKey="LRP_Storeroom" XSpan="3" Clearable="false">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                                <ValueChanging>
+                                    <![CDATA[]]>
+                                </ValueChanging>
+                            </DataBinding>
+                            <ItemFilter ItemKey="LRP_Storeroom">
+                                <Filter Type="FieldValue">
+                                    <FilterValue FieldKey="WarehouseCenterId" RefValue="WarehouseCenterId_H" Type="Field" DataType="Long"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Key="Lab_StoreroomId_H" Caption="仓间" X="0" Y="5"/>
+                        <Dict Key="StoreareaId_H" Caption="库区" BuddyKey="Lab_StoreareaId_H" X="6" Y="5" ItemKey="LRP_Storearea" XSpan="3" Clearable="false">
+                            <ItemFilter ItemKey="LRP_Storearea">
+                                <Filter Type="FieldValue">
+                                    <FilterValue FieldKey="StoreroomId" RefValue="StoreroomId_H" Type="Field" DataType="Long"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Key="Lab_StoreareaId_H" Caption="库区" X="5" Y="5"/>
+                        <Dict Key="LocationId_H" Caption="储位" BuddyKey="Lab_LocationId_H" X="1" Y="6" ItemKey="LRP_Location" XSpan="3" Clearable="false">
+                            <ItemFilter ItemKey="LRP_Location">
+                                <Filter Type="FieldValue">
+                                    <FilterValue FieldKey="StoreareaId" RefValue="StoreareaId_H" Type="Field" DataType="Long"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Key="Lab_LocationId_H" Caption="储位" X="0" Y="6"/>
+                        <TextEditor Key="BatchNo_H" Caption="批号" BuddyKey="Lab_BatchNo_H" X="6" Y="6" Enable="false" XSpan="3" Clearable="false">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </TextEditor>
+                        <Label Key="Lab_BatchNo_H" Caption="批号" X="5" Y="6"/>
+                        <Dict Key="WarehouseCenterId_H" Caption="仓储中心" BuddyKey="Lab_WarehouseCenterId_H" X="1" Y="0" ItemKey="LRP_WarehouseCenter" XSpan="3">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                                <ValueChanging>
+                                    <![CDATA[]]>
+                                </ValueChanging>
+                            </DataBinding>
+                            <Condition ColumnKey="WarehouseCenterId" TableKey="LRP_WMTx" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_WarehouseCenterId_H" Caption="仓储中心" X="0" Y="0" Visible="false"/>
+                        <Dict Key="OwnerId_H" Caption="货主" BuddyKey="Lab_OwnerId_H" X="6" Y="0" ItemKey="LRP_Owner" XSpan="3" AllowMultiSelection="true">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                                <ValueChanging>
+                                    <![CDATA[]]>
+                                </ValueChanging>
+                            </DataBinding>
+                            <Condition ColumnKey="OwnerId" TableKey="LRP_WMTx" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_OwnerId_H" Caption="货主" X="5" Y="0"/>
+                        <TextEditor Key="NoticeNo_H" Caption="通知单号" BuddyKey="Lab_NoticeNo_H" X="1" Y="3" XSpan="3">
+                            <Condition ColumnKey="NoticeNo" TableKey="LRP_WMTx" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_NoticeNo_H" Caption="通知单号" X="0" Y="3" Visible="false"/>
+                        <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();
+]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="cancle" Caption="重置" X="10" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition();   						
+								]]>
+                            </OnClick>
+                        </Button>
+                        <ComboBox Key="Status_H" Caption="单头状态" BuddyKey="Lab_Status_H" X="1" Y="1" XSpan="3">
+                            <Condition ColumnKey="Status_H" TableKey="LRP_WMTx" CondSign="="/>
+                            <Item Caption="已作废" Key="cancelled" Value="20"/>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已确认" Key="confirmed" Value="200"/>
+                            <Item Caption="已收货" Key="received " Value="320"/>
+                            <Item Caption="已建波" Key="waved" Value="300"/>
+                            <Item Caption="处理中" Key="handled" Value="500"/>
+                            <Item Caption="已拣货" Key="picked" Value="600"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status_H" Caption="单头状态" X="0" Y="1"/>
+                        <ComboBox Key="Status_L" Caption="明细状态" BuddyKey="Lab_Status_L" X="6" Y="1" XSpan="3">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                                <ValueChanging>
+                                    <![CDATA[]]>
+                                </ValueChanging>
+                            </DataBinding>
+                            <Condition ColumnKey="Status_L" TableKey="LRP_WMTx" CondSign="="/>
+                            <Item Caption="已输入" Key="prepared_L" Value="10"/>
+                            <Item Caption="已完成" Key="finished_L" Value="90"/>
+                            <Item Caption="处理中" Key="handled_L" Value="50"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status_L" Caption="明细状态" X="5" Y="1"/>
+                        <TextEditor Key="TxTypeCode_H" Caption="事务代码" BuddyKey="Lab_TxTypeCode_H" X="1" Y="2" XSpan="3">
+                            <Condition ColumnKey="TxTypeCode" TableKey="LRP_WMTx" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_TxTypeCode_H" Caption="事务代码" X="0" Y="2"/>
+                        <TextEditor Key="No_H" Caption="事务单号" BuddyKey="Lab_No_H" X="6" Y="2" XSpan="3">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                            </DataBinding>
+                            <Condition ColumnKey="No" TableKey="LRP_WMTx" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_No_H" Caption="事务单号" X="5" Y="2"/>
+                        <DatePicker Key="TxDateTime1" Caption="事务日期时间" BuddyKey="Lab_TxDateTime1" X="1" Y="4" XSpan="3">
+                            <Condition ColumnKey="TxDateTime" TableKey="LRP_WMTx" CondSign="between" Group="TxDateTime" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_TxDateTime1" Caption="事务日期" X="0" Y="4"/>
+                        <DatePicker Key="TxDateTime2" Caption="至" BuddyKey="Lab_TxDateTime2" X="6" Y="4" XSpan="3">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[]]>
+                                </ValueChanged>
+                            </DataBinding>
+                            <Condition ColumnKey="TxDateTime" TableKey="LRP_WMTx" CondSign="in" Group="TxDateTime" GroupTail="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_TxDateTime2" Caption="至" X="5" Y="4"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Key="ListView0" TableKey="LRP_WMTx" PageLoadType="DB">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Key="OID" TableKey="LRP_WMTx" Visible="false" Width="86px"/>
+                            <ListViewColumn Caption="仓储中心" ColumnType="Dict" DataColumnKey="WarehouseCenterId" Key="WarehouseCenterId" ItemKey="LRP_WarehouseCenter"/>
+                            <ListViewColumn Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" Key="OwnerId" ItemKey="LRP_Owner"/>
+                            <ListViewColumn Caption="事务单号" ColumnType="TextEditor" DataColumnKey="No" Key="No" Width="160px"/>
+                            <ListViewColumn Key="txtype" Caption="事务代码" ColumnType="Dict" DataColumnKey="TxTypeId" Width="135px" ItemKey="LRP_WarehouseTxType"/>
+                            <ListViewColumn Caption="货主单号" ColumnType="TextEditor" DataColumnKey="OwnerNo" Key="OwnerNo" Width="125px"/>
+                            <ListViewColumn Caption="通知单号" ColumnType="TextEditor" DataColumnKey="NoticeNo" Key="NoticeNo" Width="125px"/>
+                            <ListViewColumn Caption="事务日期时间" ColumnType="DatePicker" DataColumnKey="TxDateTime" Key="TxDateTime" Width="125px"/>
+                            <ListViewColumn Caption="物料" ColumnType="Dict" DataColumnKey="MaterialId" Key="MaterialId" ItemKey="LRP_Material"/>
+                            <ListViewColumn Caption="数量" ColumnType="NumberEditor" DataColumnKey="Qty" Key="Qty"/>
+                            <ListViewColumn Caption="单位" ColumnType="TextEditor" DataColumnKey="MaterialUnit" Key="MaterialUnit"/>
+                            <ListViewColumn Caption="源批号" ColumnType="TextEditor" DataColumnKey="SrcBatchNo" Visible="ToBool(GetSessionPara('BatchNo_IsShow'))" Key="SrcBatchNo"/>
+                            <ListViewColumn Caption="源物料状态" ColumnType="Dict" DataColumnKey="SrcMaterialStatusId" Key="SrcMaterialStatusId" ItemKey="LRP_MaterialStatus"/>
+                            <ListViewColumn Caption="源储位" ColumnType="TextEditor" DataColumnKey="SrcLocationcode" Key="SrcLocationId"/>
+                            <ListViewColumn Caption="源关联单号" ColumnType="TextEditor" DataColumnKey="SrcRefOrderNo" Key="SrcRefOrderNo"/>
+                            <ListViewColumn Caption="目标批号" ColumnType="TextEditor" DataColumnKey="DestBatchNo" Visible="ToBool(GetSessionPara('BatchNo_IsShow'))" Key="DestBatchNo"/>
+                            <ListViewColumn Caption="目标物料状态" ColumnType="Dict" DataColumnKey="DestMaterialStatusId" Key="DestMaterialStatusId" Width="109px" ItemKey="LRP_MaterialStatus"/>
+                            <ListViewColumn Caption="目标储位" ColumnType="TextEditor" DataColumnKey="DestLocationcode" Key="DestLocationId"/>
+                        </ListViewColumnCollection>
+                    </ListView>
+                    <SplitSize Size="270px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[                
+		SetColumnCaption("ListView0","DestBatchNo","目标" + ToString(GetSessionPara('BatchNo_Name')));
+		SetColumnCaption("ListView0","DestManufDate","目标" + ToString(GetSessionPara('ManufDate_Name')));
+		SetColumnCaption("ListView0","DestExpireDate","目标" + ToString(GetSessionPara('ExpireDate_Name')));
+     	SetColumnCaption("ListView0","DestProjectId","目标" + ToString(GetSessionPara('ProjectId_Name')));
+	 	SetColumnCaption("ListView0","DestRecvDate","目标" + ToString(GetSessionPara('RecvDate_Name'))); 
+		SetColumnCaption("ListView0","DestStrUserDef1","目标" + ToString(GetSessionPara('StrUserDef1_Name')));
+		SetColumnCaption("ListView0","DestStrUserDef2","目标" + ToString(GetSessionPara('StrUserDef2_Name')));
+		SetColumnCaption("ListView0","DestStrUserDef3","目标" + ToString(GetSessionPara('StrUserDef3_Name')));
+		SetColumnCaption("ListView0","DestStrUserDef4","目标" + ToString(GetSessionPara('StrUserDef4_Name')));
+		SetColumnCaption("ListView0","DestStrUserDef5","目标" + ToString(GetSessionPara('StrUserDef5_Name')));
+		SetColumnCaption("ListView0","DestDictUserDef1","目标" + ToString(GetSessionPara('DictUserDef1_Name')));
+		SetColumnCaption("ListView0","DestDictUserDef2","目标" + ToString(GetSessionPara('DictUserDef2_Name')));
+		SetColumnCaption("ListView0","DestDictUserDef3","目标" + ToString(GetSessionPara('DictUserDef3_Name')));
+		SetColumnCaption("ListView0","DestDictUserDef4","目标" + ToString(GetSessionPara('DictUserDef4_Name')));
+		SetColumnCaption("ListView0","DestDictUserDef5","目标" + ToString(GetSessionPara('DictUserDef5_Name')));
+		SetColumnCaption("ListView0","DestDateUserDef1","目标" + ToString(GetSessionPara('DateUserDef1_Name')));
+		SetColumnCaption("ListView0","DestDateUserDef2","目标" + ToString(GetSessionPara('DateUserDef2_Name')));
+		SetColumnCaption("ListView0","DestNumUserDef1","目标" + ToString(GetSessionPara('NumUserDef1_Name')));
+		SetColumnCaption("ListView0","DestNumUserDef2","目标" + ToString(GetSessionPara('NumUserDef2_Name')));
+		SetColumnCaption("ListView0","DestNumUserDef3","目标" + ToString(GetSessionPara('NumUserDef3_Name')));
+		SetColumnCaption("ListView0","SrcBatchNo","源" + ToString(GetSessionPara('BatchNo_Name')));
+		SetColumnCaption("ListView0","SrcManufDate","源" + ToString(GetSessionPara('ManufDate_Name')));
+		SetColumnCaption("ListView0","SrcExpireDate","源" + ToString(GetSessionPara('ExpireDate_Name')));
+     	        SetColumnCaption("ListView0","SrcProjectId","源" + ToString(GetSessionPara('ProjectId_Name')));
+	 	SetColumnCaption("ListView0","SrcRecvDate","源" + ToString(GetSessionPara('RecvDate_Name'))); 
+		SetColumnCaption("ListView0","SrcStrUserDef1","源" + ToString(GetSessionPara('StrUserDef1_Name')));
+		SetColumnCaption("ListView0","SrcStrUserDef2","源" + ToString(GetSessionPara('StrUserDef2_Name')));
+		SetColumnCaption("ListView0","SrcStrUserDef3","源" + ToString(GetSessionPara('StrUserDef3_Name')));
+		SetColumnCaption("ListView0","SrcStrUserDef4","源" + ToString(GetSessionPara('StrUserDef4_Name')));
+		SetColumnCaption("ListView0","SrcStrUserDef5","源" + ToString(GetSessionPara('StrUserDef5_Name')));
+		SetColumnCaption("ListView0","SrcDictUserDef1","源" + ToString(GetSessionPara('DictUserDef1_Name')));
+		SetColumnCaption("ListView0","SrcDictUserDef2","源" + ToString(GetSessionPara('DictUserDef2_Name')));
+		SetColumnCaption("ListView0","SrcDictUserDef3","源" + ToString(GetSessionPara('DictUserDef3_Name')));
+		SetColumnCaption("ListView0","SrcDictUserDef4","源" + ToString(GetSessionPara('DictUserDef4_Name')));
+		SetColumnCaption("ListView0","SrcDictUserDef5","源" + ToString(GetSessionPara('DictUserDef5_Name')));
+		SetColumnCaption("ListView0","SrcDateUserDef1","源" + ToString(GetSessionPara('DateUserDef1_Name')));
+		SetColumnCaption("ListView0","SrcDateUserDef2","源" + ToString(GetSessionPara('DateUserDef2_Name')));
+		SetColumnCaption("ListView0","SrcNumUserDef1","源" + ToString(GetSessionPara('NumUserDef1_Name')));
+		SetColumnCaption("ListView0","SrcNumUserDef2","源" + ToString(GetSessionPara('NumUserDef2_Name')));
+		SetColumnCaption("ListView0","SrcNumUserDef3","源" + ToString(GetSessionPara('NumUserDef3_Name')));
+                ]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Long" Formula="GetValue('StoreroomId_H')" Key="StoreroomId" Type="Formula" Value="153874"/>
+        <FormPara DataType="Long" Formula="GetValue('StoreareaId_H')" Key="StoreareaId" Type="Formula"/>
+        <FormPara DataType="Long" Formula="GetValue('LocationId_H')" Key="LocationId" Type="Formula"/>
+    </FormParaCollection>
+</Form>

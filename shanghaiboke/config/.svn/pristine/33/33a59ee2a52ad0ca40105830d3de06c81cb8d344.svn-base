@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Exception_Handling" Caption="异常处理" FormType="View">
+    <DataSource>
+        <DataObject Key="CHCS_Exception_Handling" Caption="异常处理" PrimaryTableKey="CHCS_Exception_Handling">
+            <TableCollection>
+                <Table Key="CHCS_Exception_Handling" Caption="异常处理" SourceType="Query" TableMode="Detail" DBTableName="CHCS_Flight_Plan ">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="TextEditor1" Caption="TextEditor1" DataType="Varchar"/>
+                    <Column Key="FLIGHT_ID" Caption="FLIGHT_ID" DataType="Long"/>
+                    <Column Key="no" Caption="ss" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('key1');" Value="102451597"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select FLIGHT_ID,OID,NO no from CHCS_Meals_Provide_Plan_H where FLIGHT_ID=?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <TextEditor Key="TextEditor2" Caption="TextEditor2" BuddyKey="Lab_TextEditor2" X="0" Y="0" YSpan="2">
+                        <DataBinding DefaultFormulaValue="var a=parent.GetPara('key'); SetPara('key1',a); return a;"/>
+                    </TextEditor>
+                    <Label Key="Lab_TextEditor2" Caption="TextEditor2" X="1" Y="0"/>
+                    <Button Key="Button1" Caption="Button1" X="1" Y="1" YSpan="2">
+                        <OnClick>
+                            <![CDATA[LoadData();ShowData('ListView1');]]>
+                        </OnClick>
+                    </Button>
+                    <NumberEditor Key="NumberEditor1" Caption="NumberEditor1" X="0" Y="4" IntegerValue="true">
+                        <DataBinding DefaultFormulaValue="TextEditor2" ValueDependency="TextEditor2"/>
+                        <Condition ColumnKey="FLIGHT_ID" TableKey="CHCS_Exception_Handling" CondSign="like"/>
+                    </NumberEditor>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="CHCS_Exception_Handling">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="column1" Caption="column1" ColumnType="TextEditor" DataColumnKey="FLIGHT_ID"/>
+                        <ListViewColumn Key="column2" Caption="column2"/>
+                        <ListViewColumn Key="column3" Caption="column3"/>
+                    </ListViewColumnCollection>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();ShowData();]]>
+    </OnLoad>
+</Form>

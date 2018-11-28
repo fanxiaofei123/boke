@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_TOH_LTL_Bid" Caption="运输订单-零担竞价" FormType="Entity">
+    <DataSource RefObjectKey="LRP_TransportOrder"/>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[if(GetValue('BidingType')==0){
+Confirm('竞价模式不可为空', 'OK','OK:{}');
+return true;
+}
+				if(GetValue('BidingType')==2)
+				{ 
+				  if(GetValue('GrabPrice') <= 0){
+				  Confirm('抢单模式下，抢单价格必须大于0', 'OK','OK:{}');
+				  return true;
+				  }
+				}
+				if(GetRowCount('Grid1', false)<=0&&GetRowCount('Grid2', false)<=0)
+				{ 
+				Confirm('明细列表不可为空', 'OK','OK:{}');
+				return true;
+				}
+		        SaveData(); UpdateView();
+				
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				       New('V_TOH_LTL_Bid');
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Key="Bided" Caption="竞价" Enable="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[								
+				 Status=StatusValue('bided'); 
+                 SaveData();UpdateView();				
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('prepared');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="Bided-R" Caption="撤销竞价" Enable="ReadOnly()&amp;&amp;Status==StatusValue('bided')">
+            <Action>
+                <![CDATA[								
+				Confirm('是否确定将当前单据撤销竞价？','YES_NO',{
+				YES:{
+				
+				Status=StatusValue('prepared'); 
+				SetValue('CarrierId',0);
+				SetValue('BidingPrice',0);
+				var i = 0;
+				var rowCount = GetRowCount('Grid6');
+				 while(i < rowCount){
+				  SetCellValue('Grid6',i,'BidingStatus2',"2"); 
+				  i = i + 1;
+			     }      	
+                SaveData();UpdateView();
+				
+				},
+				NO:{}});			
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('bided');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="confirmed" Caption="确认" Enable="ReadOnly()&amp;&amp;Status==StatusValue('bided')&amp;&amp;(GetValue('CarrierId') &gt; 0)">
+            <Action>
+                <![CDATA[                  	                   				  
+				 Status=StatusValue('confirmed'); 
+                 SaveData();UpdateView();	
+                			 
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('bided');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="returnbill" Caption="回单" Enable="ReadOnly()&amp;&amp;Status==StatusValue('signed')">
+            <Action>
+                <![CDATA[
+				Status=StatusValue('returnbill');SaveData();UpdateView();
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('signed');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="returnbill-R" Caption="撤销回单" Enable="ReadOnly()&amp;&amp;Status==StatusValue('returnbill')">
+            <Action>
+                <![CDATA[
+				Status=StatusValue('signed');SaveData();UpdateView();
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('returnbill');
+			]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="Adjusted" Caption="分段调整" Enable="ReadOnly()&amp;&amp;(Status==StatusValue('confirmed')||Status==StatusValue('ontheway'))">
+            <Action>
+                <![CDATA[
+				SetPara("OID", GetOID());
+				SetPara("No", No);
+				ShowModal('V_AdjustedView');
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="Delete" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')&amp;&amp;LogisticsOrderNo==''">
+            <Action>
+                <![CDATA[
+			Confirm('是否确定删除当前单据？','YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});
+			
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Description="查询dropitems" Key="setdropitems">
+            <Statement>
+                <![CDATA[select 0 as oid,'发货方' as n from LRP_WarehouseCenter
+union 
+select oid,name from LRP_WarehouseCenter
+union
+select 1 as oid,'收货方' as n from LRP_WarehouseCenter]]>
+            </Statement>
+        </Query>
+        <Query Description="查询由该订单下推的作业单状态" Key="SelectTransportJobStatus">
+            <Statement>
+                <![CDATA[select Status from LRP_TransportJob_H h where OrderNo like ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="No" Caption="订单号" BuddyKey="Lab_No" X="1" Y="0" Enable="false">
+                                <DataBinding ColumnKey="No" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="订单号" X="0" Y="0"/>
+                            <Dict Key="OwnerId" Caption="货主" BuddyKey="Lab_OwnerId" X="3" Y="0" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" ItemKey="LRP_Owner">
+                                <DataBinding ColumnKey="OwnerId" TableKey="LRP_TransportOrder_H" Required="true">
+                                    <ValueChanging>
+                                        <![CDATA[			Confirm('改变货主后将清空收货方和物料明细，是否继续？','YES_NO',
+								{YES:{
+									CommitValue('OwnerId');
+									ClearAllRows('Grid1');
+									RecvPartyId = -1;
+									RecvPartyName = "";
+									RecvAddress = "";
+									RecvProvinceId = -1;
+									RecvCityId = -1;
+									RecvDistrictId = -1; 
+													
+									SendPartyId = -1;
+									SendPartyName = "";
+									SendAddress = "";
+									SendProvinceId = -1;
+									SendCityId = -1;
+									SendDistrictId = -1; 
+								},
+								NO:{RollbackValue('OwnerId');}});
+								Confirm('改变货主后将清空收货方、发货方和物料明细，是否
+
+继续？', 'YES_NO',        
+								{YES: {
+									CommitValue('OwnerId');
+									ClearAllRows('Grid1');
+									SendPartyId = -1;
+									 RecvPartyId = -1;
+								},        
+							NO: {
+								 RollbackValue('OwnerId');}});  ]]>
+                                    </ValueChanging>
+                                    <ValueValidation>
+                                        <![CDATA[GetRowCount('Grid1')<=1 && ToLong(RecvPartyId)<=0 && ToLong(SendPartyId)<=0]]>
+                                    </ValueValidation>
+                                </DataBinding>
+                            </Dict>
+                            <Label Key="Lab_OwnerId" Caption="货主" X="2" Y="0"/>
+                            <TextEditor Key="OwnerNo" Caption="货主单号" BuddyKey="Lab_OwnerNo" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="0">
+                                <DataBinding ColumnKey="OwnerNo" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_OwnerNo" Caption="货主单号" X="4" Y="0"/>
+                            <DatePicker Key="OrderDateTime" Caption="下单日期时间" BuddyKey="Lab_OrderDateTime" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="7" Y="0">
+                                <DataBinding ColumnKey="OrderDateTime" DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd HH:mm:ss')" TableKey="LRP_TransportOrder_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_OrderDateTime" Caption="下单日期时间" X="6" Y="0"/>
+                            <Dict Key="MaterialTypeId" Caption="物料类型" BuddyKey="Lab_MaterialTypeId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="9" Y="3" ItemKey="MaterialType">
+                                <DataBinding ColumnKey="MaterialTypeId" TableKey="LRP_TransportOrder_H"/>
+                            </Dict>
+                            <Label Key="Lab_MaterialTypeId" Caption="物料类型" X="8" Y="3"/>
+                            <Dict Key="SendOrgId" Caption="发站" BuddyKey="Lab_SendOrgId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="1" Y="1" ItemKey="LRP_WarehouseCenter">
+                                <DataBinding ColumnKey="SendOrgId" TableKey="LRP_TransportOrder_H" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[          
+										if(SendOrgId > 0){
+										  var Org = GetValue("SendOrgId"); 
+                                          if(GetValue("DestOrgId") > 0 ){										
+												var OrgId = GetValue("DestOrgId"); 
+												var count = GetRowCount('Grid2');
+												if(Org == OrgId){
+												  if(count == 4){
+													DeleteRow('Grid2',2);
+												  }
+												 SetCellValue('Grid2', 0, 'SendOrgId_G', 0);
+												 SetCellValue('Grid2', 0, 'DestOrgId_G', Org);
+												 SetCellValue('Grid2', 1, 'SendOrgId_G', Org);
+												 SetCellValue('Grid2', 1, 'DestOrgId_G', 1);
+												 SetCellValue('Grid2', 0, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',SendOrgId,'DefaultDispatchOrgId')));
+												 SetCellValue('Grid2', 1, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',SendOrgId,'DefaultDispatchOrgId'))); 
+												}	
+												else{	
+												SetCellValue('Grid2', 0, 'SendOrgId_G', 0);
+												SetCellValue('Grid2', 0, 'DestOrgId_G', Org);
+												SetCellValue('Grid2', 1, 'DestOrgId_G', OrgId);                       
+												SetCellValue('Grid2', 2, 'SendOrgId_G', OrgId);          
+												SetCellValue('Grid2', 2, 'DestOrgId_G', 1);    
+												SetCellValue('Grid2', 1, 'SendOrgId_G', Org); 
+												SetCellValue('Grid2', 0, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',SendOrgId,'DefaultDispatchOrgId')));
+												SetCellValue('Grid2', 1, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',SendOrgId,'DefaultDispatchOrgId'))); 
+												SetCellValue('Grid2', 2, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',DestOrgId,'DefaultDispatchOrgId')));
+											}
+										}											
+										              
+										SetCellValue('Grid2', 0, 'DestOrgId_G', Org);                           
+										SetCellValue('Grid2', 1, 'SendOrgId_G', Org);       
+										SetCellValue('Grid2', 0, 'SendOrgId_G', 0);  
+										SetCellValue('Grid2', 0, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',SendOrgId,'DefaultDispatchOrgId'))); 
+										}
+										
+										]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <Label Key="Lab_SendOrgId" Caption="发站" X="0" Y="1"/>
+                            <DatePicker Key="ExpectPickupTime" Caption="预计提货时间" BuddyKey="Lab_ExpectPickupTime" X="3" Y="1">
+                                <DataBinding ColumnKey="ExpectPickupTime" TableKey="LRP_TransportOrder_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_ExpectPickupTime" Caption="预计提货时间" X="2" Y="1"/>
+                            <Dict Key="DestOrgId" Caption="到站" BuddyKey="Lab_DestOrgId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="1" ItemKey="LRP_WarehouseCenter">
+                                <DataBinding ColumnKey="DestOrgId" TableKey="LRP_TransportOrder_H" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[               
+										if(GetValue("SendOrgId") >0 && DestOrgId>0) {     
+										var Org = GetValue("SendOrgId"); 										
+										var OrgId = GetValue("DestOrgId"); 
+										var count = GetRowCount('Grid2');
+										if(Org == OrgId){
+										  if(count == 4){
+										    DeleteRow('Grid2',2);
+										  }
+										 SetCellValue('Grid2', 1, 'DestOrgId_G', 1);
+										 SetCellValue('Grid2', 1, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',SendOrgId,'DefaultDispatchOrgId'))); 
+										}	
+										else{										
+										SetCellValue('Grid2', 1, 'DestOrgId_G', OrgId);                       
+										SetCellValue('Grid2', 2, 'SendOrgId_G', OrgId);          
+										SetCellValue('Grid2', 2, 'DestOrgId_G', 1);    
+										SetCellValue('Grid2', 0, 'SendOrgId_G', 0);  
+										SetCellValue('Grid2', 1, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',SendOrgId,'DefaultDispatchOrgId'))); 
+										SetCellValue('Grid2', 2, 'DispatchOrgId_G', ToLong(GetDictValue('LRP_WarehouseCenter',DestOrgId,'DefaultDispatchOrgId')));     
+										} }]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <Label Key="Lab_DestOrgId" Caption="到站" X="4" Y="1"/>
+                            <DatePicker Key="ExpectArriveTime" Caption="预计送达时间" BuddyKey="Lab_ExpectArriveTime" X="7" Y="1">
+                                <DataBinding ColumnKey="ExpectArriveTime" TableKey="LRP_TransportOrder_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_ExpectArriveTime" Caption="预计送达时间" X="6" Y="1"/>
+                            <DatePicker Key="BidingTime" Caption="竞价截止时间" Enable="!ReadOnly()" BuddyKey="Lab_BidingTime" X="7" Y="2">
+                                <DataBinding ColumnKey="BidingTime" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_BidingTime" Caption="竞价截止时间" X="6" Y="2"/>
+                            <ComboBox Key="BidingType" Caption="竞价模式" Enable="!ReadOnly()" BuddyKey="Lab_BidingType" X="1" Y="2">
+                                <DataBinding ColumnKey="BidingType" TableKey="LRP_TransportOrder_H" DefaultValue="2" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[ 
+                                       if(GetValue('BidingType') == 1){
+									      SetValue('GrabPrice',0);
+									   }     
+										]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <Item Caption="抢单" Key="gab" Value="2"/>
+                                <Item Caption="竞价" Key="bid" Value="1"/>
+                            </ComboBox>
+                            <Label Key="Lab_BidingType" Caption="竞价模式" X="0" Y="2"/>
+                            <NumberEditor Key="GrabPrice" Caption="抢单价格" Enable="!ReadOnly()&amp;&amp;BidingType==2" BuddyKey="Lab_GrabPrice" X="3" Y="2">
+                                <DataBinding ColumnKey="GrabPrice" TableKey="LRP_TransportOrder_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_GrabPrice" Caption="抢单价格" X="2" Y="2"/>
+                            <NumberEditor Key="BidingPrice" Caption="竞价价格" Enable="false" BuddyKey="Lab_BidingPrice" X="5" Y="2">
+                                <DataBinding ColumnKey="BidingPrice" TableKey="LRP_TransportOrder_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_BidingPrice" Caption="竞价价格" X="4" Y="2"/>
+                            <Dict Key="CarrierId" Caption="承运商" BuddyKey="Lab_CarrierId" Enable="false" X="9" Y="1" ItemKey="LRP_Carrier">
+                                <DataBinding ColumnKey="CarrierId" TableKey="LRP_TransportOrder_H"/>
+                            </Dict>
+                            <Label Key="Lab_CarrierId" Caption="承运商" X="8" Y="1"/>
+                            <TextEditor Key="WaybillNo" Caption="运单号" BuddyKey="Lab_WaybillNo" Enable="!ReadOnly()" X="9" Y="2">
+                                <DataBinding ColumnKey="WaybillNo" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_WaybillNo" Caption="运单号" X="8" Y="2"/>
+                            <NumberEditor Key="ReturnBillPcs" Caption="回单份数" BuddyKey="Lab_ReturnBillPcs" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="1" Y="3">
+                                <DataBinding ColumnKey="ReturnBillPcs" TableKey="LRP_TransportOrder_H">
+                                    <ValueChanged>
+                                        <![CDATA[]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </NumberEditor>
+                            <Label Key="Lab_ReturnBillPcs" Caption="回单份数" X="0" Y="3"/>
+                            <CheckBox Caption="自提" Key="IsSelfPick" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="3" Y="3">
+                                <DataBinding ColumnKey="IsSelfPick" TableKey="LRP_TransportOrder_H"/>
+                            </CheckBox>
+                            <CheckBox Caption="发站自送" Key="IsSelfSend" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="3">
+                                <DataBinding ColumnKey="IsSelfSend" TableKey="LRP_TransportOrder_H"/>
+                            </CheckBox>
+                            <TextEditor Key="Requirement" Caption="运输要求" BuddyKey="Lab_Requirement" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="7" Y="3">
+                                <DataBinding ColumnKey="Requirement" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Requirement" Caption="运输要求" X="6" Y="3"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" SourceType="Status" X="9" Y="0" Enable="false">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_TransportOrder_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="8" Y="0"/>
+                            <NumberEditor Key="Amount" Caption="应收金额" BuddyKey="Lab_Amount" Enable="!ReadOnly()" X="1" Y="4">
+                                <DataBinding ColumnKey="Amount" TableKey="LRP_TransportOrder_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Amount" Caption="应收金额" X="0" Y="4"/>
+                            <NumberEditor Key="ReturnAmount" Caption="应退金额" BuddyKey="Lab_ReturnAmount" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="3" Y="4">
+                                <DataBinding ColumnKey="ReturnAmount" TableKey="LRP_TransportOrder_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_ReturnAmount" Caption="应退金额" X="2" Y="4"/>
+                            <NumberEditor Key="AgencyFund" Caption="代收款" BuddyKey="Lab_AgencyFund" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="4">
+                                <DataBinding ColumnKey="AgencyFund" TableKey="LRP_TransportOrder_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_AgencyFund" Caption="代收款" X="4" Y="4"/>
+                            <NumberEditor Key="AdvanceMoney" Caption="代垫款" BuddyKey="Lab_AdvanceMoney" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="7" Y="4">
+                                <DataBinding ColumnKey="AdvanceMoney" TableKey="LRP_TransportOrder_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_AdvanceMoney" Caption="代垫款" X="6" Y="4"/>
+                            <ComboBox Key="PayMethod" Caption="支付方式" BuddyKey="Lab_PayMethod" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="9" Y="4">
+                                <DataBinding ColumnKey="PayMethod" TableKey="LRP_TransportOrder_H"/>
+                                <Item Caption="现付" Key="0" Value="0"/>
+                                <Item Caption="回单付" Key="1" Value="1"/>
+                                <Item Caption="月结" Key="2" Value="2"/>
+                                <Item Caption="到付" Key="3" Value="3"/>
+                                <Item Caption="预付" Key="4" Value="4"/>
+                                <Item Caption="提付" Key="5" Value="5"/>
+                            </ComboBox>
+                            <Label Key="Lab_PayMethod" Caption="支付方式" X="8" Y="4"/>
+                            <TextEditor Key="Remark" Caption="备注" BuddyKey="Lab_Remark" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="1" Y="5" XSpan="9">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remark" Caption="备注" X="0" Y="5"/>
+                            <Dict Key="DispatchOrgId" Caption="调度组织" BuddyKey="Lab_DispatchOrgId" Visible="false" X="5" Y="6" ItemKey="LRP_DispatchOrg">
+                                <DataBinding ColumnKey="DispatchOrgId" DefaultFormulaValue="getCurDispatchOrgID()" TableKey="LRP_TransportOrder_H"/>
+                            </Dict>
+                            <Label Key="Lab_DispatchOrgId" Caption="调度组织" X="4" Y="6"/>
+                            <ComboBox Key="OperateType" Caption="运作类型" BuddyKey="Lab_OperateType" Visible="false" X="7" Y="6">
+                                <DataBinding ColumnKey="OperateType" TableKey="LRP_TransportOrder_H" DefaultValue="2"/>
+                                <Item Caption="快捷" Key="0" Value="0"/>
+                                <Item Caption="直发" Key="1" Value="1"/>
+                                <Item Caption="多段运输" Key="2" Value="2"/>
+                            </ComboBox>
+                            <Label Key="Lab_OperateType" Caption="运作类型" X="6" Y="6"/>
+                            <ComboBox Key="GenMethod" Caption="订单生成方式" BuddyKey="Lab_GenMethod" Visible="false" X="9" Y="6">
+                                <DataBinding ColumnKey="GenMethod" TableKey="LRP_TransportOrder_H" DefaultValue="1"/>
+                                <Item Caption="人工输入" Key="1" Value="1"/>
+                                <Item Caption="接口导入" Key="2" Value="2"/>
+                                <Item Caption="系统自动生成" Key="3" Value="3"/>
+                            </ComboBox>
+                            <Label Key="Lab_GenMethod" Caption="订单生成方式" X="8" Y="6"/>
+                            <ComboBox Key="OrderType" Caption="订单类型" BuddyKey="Lab_OrderType" Visible="false" X="1" Y="6">
+                                <DataBinding ColumnKey="OrderType" TableKey="LRP_TransportOrder_H" DefaultValue="LTL"/>
+                                <Item Caption="零担" Key="LTL" Value="LTL"/>
+                                <Item Caption="整车" Key="FTL" Value="FTL"/>
+                                <Item Caption="仓配" Key="WD" Value="WD"/>
+                                <Item Caption="多式联运" Key="MT" Value="MT"/>
+                            </ComboBox>
+                            <Label Key="Lab_OrderType" Caption="订单类型" X="0" Y="6"/>
+                            <TextEditor Key="LogisticsOrderNo" Caption="物流订单号" Visible="false" BuddyKey="Lab_LogisticsOrderNo" X="3" Y="6">
+                                <DataBinding ColumnKey="LogisticsOrderNo" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_LogisticsOrderNo" Caption="物流订单号" X="2" Y="6"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef MinWidth="40px" Width="25%"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef MinWidth="40px" Width="55px"/>
+                                <ColumnDef Width="15%"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef MinWidth="40px" Width="20%"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="15%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="first_head2" Padding="5px" Caption="收发货信息">
+                            <Dict Key="SendPartyId" Caption="发货方" BuddyKey="Lab_SendPartyId" Enable="!ReadOnly()&amp;&amp; OwnerId&gt;0 &amp;&amp; LogisticsOrderNo==''" X="1" Y="0" ItemKey="LRP_RecvSendParty">
+                                <DataBinding ColumnKey="SendPartyId" TableKey="LRP_TransportOrder_H">
+                                    <ValueChanged>
+                                        <![CDATA[SetValue('SendProvinceId', GetDictValue('LRP_RecvSendParty',SendPartyId,'ProvinceId'));
+SetValue('SendCityId', GetDictValue('LRP_RecvSendParty',SendPartyId,'CityId'));
+SetValue('SendDistrictId', GetDictValue('LRP_RecvSendParty',SendPartyId,'DistrictId'));
+SetValue('SendAddress',GetDictValue('LRP_RecvSendParty',SendPartyId,'Address') );]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <ItemFilter ItemKey="LRP_RecvSendParty">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue Type="Field" FieldKey="SOID" RefValue="OwnerId"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_SendPartyId" Caption="发货方" X="0" Y="0"/>
+                            <TextEditor Key="SendPartyName" Caption="发货方名称" BuddyKey="Lab_SendPartyName" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="3" Y="0">
+                                <DataBinding ColumnKey="SendPartyName" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',SendPartyId,'Name')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendPartyName" Caption="发货方名称" X="2" Y="0"/>
+                            <TextEditor Key="SendContactor" Caption="联系人" BuddyKey="Lab_SendContactor" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="0">
+                                <DataBinding ColumnKey="SendContactor" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',SendPartyId,'Contacts')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendContactor" Caption="联系人" X="4" Y="0"/>
+                            <TextEditor Key="SendContactTel" Caption="联系电话" BuddyKey="Lab_SendContactTel" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="7" Y="0">
+                                <DataBinding ColumnKey="SendContactTel" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',SendPartyId,'Tel')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendContactTel" Caption="电话" X="6" Y="0"/>
+                            <TextEditor Key="SendContactMobile" Caption="手机" BuddyKey="Lab_SendContactMobile" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="9" Y="0">
+                                <DataBinding ColumnKey="SendContactMobile" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendContactMobile" Caption="手机" X="8" Y="0"/>
+                            <Dict Key="SendProvinceId" Caption="发货 省" BuddyKey="Lab_SendProvinceId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="1" Y="1" ItemKey="LRP_Province">
+                                <DataBinding ColumnKey="SendProvinceId" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',SendPartyId,'ProvinceId')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_SendProvinceId" Caption="发货 省" X="0" Y="1"/>
+                            <Dict Key="SendCityId" Caption="市" BuddyKey="Lab_SendCityId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="3" Y="1" ItemKey="LRP_City">
+                                <DataBinding ColumnKey="SendCityId" TableKey="LRP_TransportOrder_H" Required="true" ValueDependency="SendProvinceId"/>
+                                <ItemFilter ItemKey="LRP_City">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue Type="Field" FieldKey="ProvinceId" RefValue="SendProvinceId"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_SendCityId" Caption="市" X="2" Y="1"/>
+                            <Dict Key="SendDistrictId" Caption="区" BuddyKey="Lab_SendDistrictId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="1" ItemKey="LRP_District">
+                                <DataBinding ColumnKey="SendDistrictId" TableKey="LRP_TransportOrder_H" Required="true" ValueDependency="SendCityId"/>
+                                <ItemFilter ItemKey="LRP_District">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue Type="Field" FieldKey="SOID" RefValue="SendCityId"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_SendDistrictId" Caption="区" X="4" Y="1"/>
+                            <TextEditor Key="SendAddress" Caption="详细地址" BuddyKey="Lab_SendAddress" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="7" Y="1">
+                                <DataBinding ColumnKey="SendAddress" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendAddress" Caption="详细地址" X="6" Y="1"/>
+                            <CheckBox Caption="开票" Key="IsInvoice" Enable="!ReadOnly()" X="8" Y="1">
+                                <DataBinding ColumnKey="IsInvoice" TableKey="LRP_TransportOrder_H"/>
+                            </CheckBox>
+                            <CheckBox Caption="投保" Key="IsInsure" Enable="!ReadOnly()" X="9" Y="1">
+                                <DataBinding ColumnKey="IsInsure" TableKey="LRP_TransportOrder_H"/>
+                            </CheckBox>
+                            <Dict Key="RecvPartyId" Caption="收货方" BuddyKey="Lab_RecvPartyId" Enable="!ReadOnly()&amp;&amp; OwnerId&gt;0 &amp;&amp; LogisticsOrderNo==''" X="1" Y="2" ItemKey="LRP_RecvSendParty">
+                                <DataBinding ColumnKey="RecvPartyId" TableKey="LRP_TransportOrder_H">
+                                    <ValueChanged>
+                                        <![CDATA[SetValue('RecvProvinceId', GetDictValue('LRP_RecvSendParty',RecvPartyId,'ProvinceId'));
+SetValue('RecvCityId', GetDictValue('LRP_RecvSendParty',RecvPartyId,'CityId'));
+SetValue('RecvDistrictId', GetDictValue('LRP_RecvSendParty',RecvPartyId,'DistrictId'));
+SetValue('RecvAddress', GetDictValue('LRP_RecvSendParty',RecvPartyId,'Address'));]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <ItemFilter ItemKey="LRP_RecvSendParty">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue Type="Field" FieldKey="SOID" RefValue="OwnerId"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_RecvPartyId" Caption="收货方" X="0" Y="2"/>
+                            <TextEditor Key="RecvPartyName" Caption="收货方名称" BuddyKey="Lab_RecvPartyName" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="3" Y="2">
+                                <DataBinding ColumnKey="RecvPartyName" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',RecvPartyId,'Name')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_RecvPartyName" Caption="收货方名称" X="2" Y="2"/>
+                            <TextEditor Key="RecvContactor" Caption="联系人" BuddyKey="Lab_RecvContactor" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="2">
+                                <DataBinding ColumnKey="RecvContactor" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',RecvPartyId,'Contacts')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_RecvContactor" Caption="联系人" X="4" Y="2"/>
+                            <TextEditor Key="RecvContactTel" Caption="电话" BuddyKey="Lab_RecvContactTel" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="7" Y="2">
+                                <DataBinding ColumnKey="RecvContactTel" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',RecvPartyId,'Tel')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_RecvContactTel" Caption="电话" X="6" Y="2"/>
+                            <TextEditor Key="RecvContactMobile" Caption="手机" BuddyKey="Lab_RecvContactMobile" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="9" Y="2">
+                                <DataBinding ColumnKey="RecvContactMobile" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_RecvContactMobile" Caption="手机" X="8" Y="2"/>
+                            <Dict Key="RecvProvinceId" Caption="收货 省" BuddyKey="Lab_RecvProvinceId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="1" Y="3" ItemKey="LRP_Province">
+                                <DataBinding ColumnKey="RecvProvinceId" DefaultFormulaValue="GetDictValue('LRP_RecvSendParty',RecvPartyId,'ProvinceId')" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_RecvProvinceId" Caption="收货 省" X="0" Y="3"/>
+                            <Dict Key="RecvCityId" Caption="市" BuddyKey="Lab_RecvCityId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="3" Y="3" ItemKey="LRP_City">
+                                <DataBinding ColumnKey="RecvCityId" TableKey="LRP_TransportOrder_H" Required="true" ValueDependency="RecvProvinceId"/>
+                                <ItemFilter ItemKey="LRP_City">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue Type="Field" FieldKey="ProvinceId" RefValue="RecvProvinceId"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_RecvCityId" Caption="市" X="2" Y="3"/>
+                            <Dict Key="RecvDistrictId" Caption="区" BuddyKey="Lab_RecvDistrictId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="5" Y="3" ItemKey="LRP_District">
+                                <DataBinding ColumnKey="RecvDistrictId" TableKey="LRP_TransportOrder_H" Required="true" ValueDependency="RecvCityId"/>
+                                <ItemFilter ItemKey="LRP_District">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue Type="Field" FieldKey="SOID" RefValue="RecvCityId"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_RecvDistrictId" Caption="区" X="4" Y="3"/>
+                            <TextEditor Key="RecvAddress" Caption="详细地址" BuddyKey="Lab_RecvAddress" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="7" Y="3">
+                                <DataBinding ColumnKey="RecvAddress" TableKey="LRP_TransportOrder_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_RecvAddress" Caption="详细地址" X="6" Y="3"/>
+                            <TextEditor Key="ReceiverPayType" Caption="收货方支付方式" BuddyKey="Lab_ReceiverPayType" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" X="9" Y="3">
+                                <DataBinding ColumnKey="ReceiverPayType" TableKey="LRP_TransportOrder_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_ReceiverPayType" Caption="收货方支付方式" X="8" Y="3"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef MinWidth="40px" Width="25%"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef MinWidth="40px" Width="55px"/>
+                                <ColumnDef Width="15%"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef MinWidth="40px" Width="20%"/>
+                                <ColumnDef Width="99px"/>
+                                <ColumnDef Width="15%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Height="pref" Key="SystemInfo" Padding="10px">
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Dict BuddyKey="L_CREATOR" Caption="创建人" Enable="false" ItemKey="Operator" Key="CREATOR" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_TransportOrder_H"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Enable="false" Key="MODIFYTIME" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TransportOrder_H"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="4" Y="1"/>
+                            <DatePicker Caption="创建时间" Enable="false" Key="CREATETIME" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TransportOrder_H"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Dict Caption="修改人" Enable="false" ItemKey="Operator" Key="MODIFIER" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_TransportOrder_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="4" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="50%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Height="100%" Key="DetailTab">
+                        <Grid Key="Grid1" Caption="物料明细">
+                            <GridColumnCollection>
+                                <GridColumn Caption="选择" Key="Select" Width="80px" Sortable="true"/>
+                                <GridColumn Key="MaterialId" Caption="物料" Width="80px" Sortable="true"/>
+                                <GridColumn Key="MaterialName" Caption="物料名称" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Qty" Caption="数量" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Unit" Caption="单位" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Weight" Caption="重量" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Cubage" Caption="体积" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Package" Caption="包装" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Freight" Caption="运费" Width="80px" Sortable="true"/>
+                                <GridColumn Key="DeliveryFee" Caption="送货费" Width="80px" Sortable="true"/>
+                                <GridColumn Key="OtherFee" Caption="其它金额" Width="80px" Sortable="true"/>
+                                <GridColumn Key="MaterialValue" Caption="申明价值" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Insurance" Caption="保险费" Width="80px" Sortable="true"/>
+                                <GridColumn Key="PickFee" Caption="提货费" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_TransportMaterial_L">
+                                    <GridCell Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true" Key="Select"/>
+                                    <GridCell Key="MaterialId" Caption="物料" CellType="Dict" Enable="!ReadOnly()&amp;&amp; OwnerId&gt;0 &amp;&amp; LogisticsOrderNo==''" ItemKey="LRP_Material">
+                                        <DataBinding ColumnKey="MaterialId"/>
+                                        <ItemFilter ItemKey="LRP_Material">
+                                            <Filter Type="DataSet" Query="select SOID from LRP_OwnerMaterial where OwnerId=?">
+                                                <FilterValue Type="Field" ParaValue="OwnerId"/>
+                                            </Filter>
+                                        </ItemFilter>
+                                    </GridCell>
+                                    <GridCell Key="MaterialName" Caption="物料名称" CellType="TextEditor" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''">
+                                        <DataBinding ColumnKey="MaterialName" DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'Name')" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="Qty" Caption="数量" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="Qty" CheckRule="Qty&gt;0" ErrorInfo="数量必须大于0"/>
+                                    </GridCell>
+                                    <GridCell Key="Unit" Caption="单位" CellType="Dynamic" TypeFormula="if(IsControlNull('MaterialId')){                      &quot;tex&quot;                    }                      else{                     &quot;com&quot;                    }" TypeDependency="MaterialId" Enable="!ReadOnly() &amp;&amp; LogisticsOrderNo==''">
+                                        <DataBinding ColumnKey="Unit" DefaultFormulaValue="GetDictValue('LRP_Material',MaterialId,'BasicUnit')" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="Weight" Caption="重量" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="Weight" CheckRule="Weight&gt;=0" DefaultFormulaValue="if(MaterialId &gt; 0){if(Unit==GetDictValue('LRP_Material',MaterialId,'BasicUnit')){Qty * GetDictValue('LRP_Material',MaterialId,'BasicUnitWeight');}else{Qty * GetDictValue('LRP_Material',MaterialId,'PackingUnitWeight');}}" ErrorInfo="重量不可小于0"/>
+                                    </GridCell>
+                                    <GridCell Key="Cubage" Caption="体积" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="Cubage" CheckRule="Cubage&gt;=0" DefaultFormulaValue="if(MaterialId &gt; 0){if(Unit==GetDictValue('LRP_Material',MaterialId,'BasicUnit')){Qty * GetDictValue('LRP_Material',MaterialId,'BasicUnitCubage');}else{Qty * GetDictValue('LRP_Material',MaterialId,'PackingUnitCubage');}}" ErrorInfo="体积不可小于0"/>
+                                    </GridCell>
+                                    <GridCell Key="Package" Caption="包装" Enable="!ReadOnly()" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Package"/>
+                                    </GridCell>
+                                    <GridCell Key="Freight" Caption="运费" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="Freight" CheckRule="Freight&gt;=0" ErrorInfo="运费不可小于0"/>
+                                    </GridCell>
+                                    <GridCell Key="DeliveryFee" Caption="送货费" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="DeliveryFee" CheckRule="DeliveryFee&gt;=0" ErrorInfo="送货费不可小于0"/>
+                                    </GridCell>
+                                    <GridCell Key="OtherFee" Caption="其它金额" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="OtherFee" CheckRule="OtherFee&gt;=0" ErrorInfo="其它金额不可小于0"/>
+                                    </GridCell>
+                                    <GridCell Key="MaterialValue" Caption="申明价值" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="MaterialValue" CheckRule="MaterialValue&gt;=0" ErrorInfo="申明价值不可小于0"/>
+                                    </GridCell>
+                                    <GridCell Key="Insurance" Caption="保险费" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="Insurance" CheckRule="Insurance&gt;=0" ErrorInfo="保险费不可小于0"/>
+                                    </GridCell>
+                                    <GridCell Key="PickFee" Caption="提货费" Enable="!ReadOnly()" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="PickFee" CheckRule="PickFee&gt;=0" ErrorInfo="提货费不可小于0"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid2" Caption="分段明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="SendOrgId_G" Caption="发站" Width="80px" Sortable="true"/>
+                                <GridColumn Key="DestOrgId_G" Caption="到站" Width="80px" Sortable="true"/>
+                                <GridColumn Key="DispatchOrgId_G" Caption="调度组织" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_TransportSeg_L">
+                                    <GridCell Key="SendOrgId_G" Caption="发站" Enable="false" CellType="ComboBox" SourceType="Formula">
+                                        <DataBinding ColumnKey="SendOrgId"/>
+                                        <FormulaItems>
+                                            <![CDATA[DBNamedQuery('setdropitems')]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="DestOrgId_G" Caption="到站" Enable="DestOrgId_G!=1" CellType="ComboBox" SourceType="Formula">
+                                        <DataBinding ColumnKey="DestOrgId"/>
+                                        <FormulaItems>
+                                            <![CDATA[DBNamedQuery('setdropitems')]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="DispatchOrgId_G" Caption="调度组织" CellType="Dict" ItemKey="LRP_DispatchOrg">
+                                        <DataBinding ColumnKey="DispatchOrgId" Required="true"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid3" Caption="服务明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="ServiceId" Caption="服务" Width="80px" Sortable="true"/>
+                                <GridColumn Key="IncomeId" Caption="收入名称" Width="80px" Sortable="true"/>
+                                <GridColumn Key="ServiceAmount" Caption="金额" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row2" RowHeight="35" TableKey="LRP_TransportOrderService_L">
+                                    <GridCell Key="ServiceId" Caption="服务" CellType="Dict" ItemKey="LRP_LogisticsService">
+                                        <DataBinding ColumnKey="ServiceId" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="IncomeId" Caption="收入名称" CellType="Dict" ItemKey="LRP_Income">
+                                        <DataBinding ColumnKey="IncomeId"/>
+                                    </GridCell>
+                                    <GridCell Key="ServiceAmount" Caption="金额" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="ServiceAmount"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid5" Caption="支出明细">
+                            <GridColumnCollection>
+                                <GridColumn Key="ServiceId" Caption="服务" Width="80px" Sortable="true"/>
+                                <GridColumn Key="ExpenseId" Caption="费用名称" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Amount" Caption="金额" Width="80px" Sortable="true"/>
+                                <GridColumn Key="CouponId" Caption="券ID" Width="80px" Sortable="true"/>
+                                <GridColumn Key="CouponName" Caption="券名称" Width="80px" Sortable="true"/>
+                                <GridColumn Key="CouponCode" Caption="券编号" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row5" RowHeight="35" TableKey="LRP_TransportOrderExpense_L">
+                                    <GridCell Key="ServiceId2" Caption="服务" CellType="Dict" ItemKey="LRP_LogisticsService">
+                                        <DataBinding ColumnKey="ServiceId" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="ExpenseId" Caption="费用名称" CellType="Dict" ItemKey="LRP_Expense">
+                                        <DataBinding ColumnKey="ExpenseId"/>
+                                    </GridCell>
+                                    <GridCell Key="Amount2" Caption="金额" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="Amount"/>
+                                    </GridCell>
+                                    <GridCell Key="CouponId" Caption="券ID" CellType="Dict" ItemKey="LRP_CouponRecords">
+                                        <DataBinding ColumnKey="CouponId"/>
+                                    </GridCell>
+                                    <GridCell Key="CouponName" Caption="券名称" Enable="false" CellType="TextEditor">
+                                        <DataBinding ColumnKey="CouponName"/>
+                                    </GridCell>
+                                    <GridCell Key="CouponCode" Caption="券编号" Enable="false" CellType="TextEditor">
+                                        <DataBinding ColumnKey="CouponCode"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid6" Caption="竞价明细" Visible="BidingType==1">
+                            <GridColumnCollection>
+                                <GridColumn Caption="选择" Key="Select_co" Width="80px" Visible="false" Sortable="true"/>
+                                <GridColumn Key="CarrierId_co" Caption="承运商" Width="80px" Sortable="true"/>
+                                <GridColumn Key="BidingPrice_co" Caption="竞价价格" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Remark_co" Caption="备注" Width="80px" Sortable="true"/>
+                                <GridColumn Key="BidingStatus_co" Caption="竞价状态" Width="80px" Sortable="true"/>
+                                <GridColumn Key="con" Caption="确定" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row5" RowHeight="35" TableKey="LRP_TransportOrderBiding_L">
+                                    <GridCell Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true" Key="Select_6"/>
+                                    <GridCell Key="CarrierId2" Caption="承运商" Enable="false" CellType="Dict" ItemKey="LRP_Carrier">
+                                        <DataBinding ColumnKey="CarrierId"/>
+                                    </GridCell>
+                                    <GridCell Key="BidingPrice2" Caption="竞价价格" Enable="false" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="BidingPrice"/>
+                                    </GridCell>
+                                    <GridCell Key="Remark2" Caption="备注" Enable="false" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Remark"/>
+                                    </GridCell>
+                                    <GridCell Key="BidingStatus2" Caption="竞价状态" Enable="false" CellType="ComboBox">
+                                        <DataBinding ColumnKey="BidingStatus"/>
+                                        <Item Caption="竞价中" Key="wait" Value="0"/>
+                                        <Item Caption="竞价成功" Key="success" Value="1"/>
+                                        <Item Caption="竞价作废" Key="success" Value="2"/>
+                                    </GridCell>
+                                    <GridCell Key="Confirmed" Caption="确定" Enable="BidingStatus2==0" CellType="Button">
+                                        <OnClick>
+                                            <![CDATA[
+									  var rowIndex = GetRowIndex('Grid6');
+									  var i = 0;
+									  var rowCount = GetRowCount('Grid6');
+									  while(i < rowCount){
+									      if(GetCellValue('Grid6',i,'BidingStatus2') == 0 || GetCellValue('Grid6',i,'BidingStatus2') == 1){
+									      if(i == rowIndex){
+										     SetCellValue('Grid6',i,'Select_6',"1");
+											 SetValue('CarrierId',CarrierId2);
+						                     SetValue('BidingPrice',BidingPrice2);
+											 SetCellValue('Grid6',i,'BidingStatus2',"1");
+										  }else{
+										    SetCellValue('Grid6',i,'Select_6',"0");
+											SetCellValue('Grid6',i,'BidingStatus2',"0");
+										  }
+										  }
+										 i = i + 1;
+									}									  
+									   SaveData(); UpdateView();
+									
+									]]>
+                                        </OnClick>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="265px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

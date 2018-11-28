@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_UserPromotionsLogView-Abbr>UserPromotionsLogView</V_UserPromotionsLogView-Abbr>
+	 
+        <L_OwnerUserId>OwnerUserId</L_OwnerUserId>
+		<L_PromotionId>PromotionId</L_PromotionId>
+        <L_ReceiveTime>ReceiveTime</L_ReceiveTime>
+        <L_ReceiveTime_1>To</L_ReceiveTime_1>
+    </UI>
+	<ListViewColumn>
+        <OID>OID</OID>
+        <OwnerUserId>OwnerUserId</OwnerUserId>
+        <PromotionId>PromotionId</PromotionId>
+        <DestOwnerUserId>DestOwnerUserId</DestOwnerUserId>
+	</ListViewColumn>
+</StringTable>

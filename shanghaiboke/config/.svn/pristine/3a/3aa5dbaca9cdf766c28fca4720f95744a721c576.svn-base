@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="货主支付记录" Key="LRP_OwnerPayRecords" PrimaryTableKey="LRP_OwnerPayRecords" PrimaryType="Entity" NoPrefix="OPR" ZeroPrefix="9">
+    <TableCollection>
+        <Table Caption="整车报价单头" Key="LRP_OwnerPayRecords">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            
+            <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="货主用户" DataType="Long" Key="OwnerUserId"/>
+            <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+            <Column Caption="支付类型" DataType="Varchar" Key="PayType" Length="20"/>
+            <Column Caption="支付结果" DataType="Integer" Key="Result"/>
+            <Column Caption="支付日期时间" DataType="DateTime" Key="PayDatetime"/>
+            <Column Caption="金额" DataType="Numeric" Precision="10" Scale="4" Key="Amount"/>
+            <Column Caption="交易单号" DataType="Varchar" Key="PayNo" Length="40"/>
+            <Column Caption="业务单号" DataType="Varchar" Key="BillNo" Length="40"/>
+            <Column Caption="错误代码" DataType="Varchar" Key="ErrorCode" Length="10"/>
+            <Column Caption="错误信息" DataType="Varchar" Key="ErrorMessage" Length="100"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

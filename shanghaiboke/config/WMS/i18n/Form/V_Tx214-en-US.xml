@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Confirm-R>ConfirmR</Confirm-R>
+        <Cancel>Cancel</Cancel>
+        <Confirm>Confirm</Confirm>
+        <Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>FinishR</Finish-R>
+        <Finish>Finish</Finish>
+        <CopyDetail>CopyDetail</CopyDetail>
+    </Opt>
+    <UI>
+	<V_Tx214>Cross-dockingInvoices</V_Tx214>
+        <L_OwnerId>Shipper</L_OwnerId>
+        <Lab_TxTypeId>Tx Type</Lab_TxTypeId>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <SystemInfo>System Info</SystemInfo>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <Description>Description</Description>
+        <detail_content2>Serial Number</detail_content2>
+        <L_RefNo>Associated Order No.</L_RefNo>
+        <L_TxDateTime>TxDateTime</L_TxDateTime>
+        <L_CREATETIME>CREATE TIME</L_CREATETIME>
+        <L_MODIFYTIME>MODIFY TIME</L_MODIFYTIME>
+        <DetailTab>Material Details</DetailTab>
+        <L_No>Number</L_No>
+        <L_Status>Status</L_Status>
+        <BasicTab>Basic Info</BasicTab>
+        <L_OwnerNo>Contract No</L_OwnerNo>
+        <Lab_Remark>Remark(s)</Lab_Remark>
+        <Lab_WarehouseCenterId>Storage Center</Lab_WarehouseCenterId>
+        <L_FinishDateTime>Deadline</L_FinishDateTime>
+    </UI>
+    <GridColumn>
+        <ExpireDate>ExpireDate</ExpireDate>
+        <SrcDateUserDef2>SrcDateUserDef2</SrcDateUserDef2>
+        <BatchNo>BatchNo</BatchNo>
+        <SrcDateUserDef1>SrcDateUserDef1</SrcDateUserDef1>
+        <SrcRefLineOID>SrcRefLineOID</SrcRefLineOID>
+        <RecvDate>RecvDate</RecvDate>
+        <SrcStoreroomId>SrcStoreroomId</SrcStoreroomId>
+        <SrcLocationId>SrcLocationId</SrcLocationId>
+        <Qty>Qty</Qty>
+        <SrcHandingUnitNo>SrcHandingUnitNo</SrcHandingUnitNo>
+        <SrcDictUserDef1>SrcDictUserDef1</SrcDictUserDef1>
+        <MaterialUnit>MaterialUnit</MaterialUnit>
+        <SrcDictUserDef3>SrcDictUserDef3</SrcDictUserDef3>
+        <SrcDictUserDef2>SrcDictUserDef2</SrcDictUserDef2>
+        <SrcDictUserDef5>SrcDictUserDef5</SrcDictUserDef5>
+        <SrcDictUserDef4>SrcDictUserDef4</SrcDictUserDef4>
+        <ManufDate>ManuDate</ManufDate>
+        <SrcStoreareaId>SrcStoreareaId</SrcStoreareaId>
+        <SerialNo>SerialNo</SerialNo>
+        <MaterialId>MaterialId</MaterialId>
+        <SrcStrUserDef5>SrcStrUserDef5</SrcStrUserDef5>
+        <Qty_1>Qty1</Qty_1>
+        <ProjectId>ProjectId</ProjectId>
+        <SrcStrUserDef4>SrcStrUserDef4</SrcStrUserDef4>
+        <SrcStrUserDef3>SrcStrUserDef3</SrcStrUserDef3>
+        <SrcStrUserDef2>SrcStrUserDef2</SrcStrUserDef2>
+        <SrcStrUserDef1>SrcStrUserDef1</SrcStrUserDef1>
+        <SrcMaterialStatusId>SrcMaterialStatusId</SrcMaterialStatusId>
+        <Status_1>Status1</Status_1>
+        <BasicQty>BasicQty</BasicQty>
+        <Select>Select</Select>
+        <SrcNumUserDef3>SrcNumUserDef3</SrcNumUserDef3>
+        <SrcNumUserDef2>SrcNumUserDef2</SrcNumUserDef2>
+        <SrcNumUserDef1>SrcNumUserDef1</SrcNumUserDef1>
+    </GridColumn>
+    <Cell>
+        <SrcStoreareaId>SrcStoreareaIdIsNotNull</SrcStoreareaId>
+        <SrcStoreroomId>SrcStoreroomIdIsNotNull</SrcStoreroomId>
+        <SrcLocationId>SrcLocationIdIsNotNull</SrcLocationId>
+        <Qty>Qty>0</Qty>
+    </Cell>
+</StringTable>

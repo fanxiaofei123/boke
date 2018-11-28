@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="CHCS_Verdor_Contract_Supplement" Caption="合同信息补充" PrimaryTableKey="CHCS_Verdor_Contract_Supplement" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="CHCS_Verdor_Contract_Supplement" Caption="合同信息补充">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="NO" Caption="单据编号" DataType="Varchar" Length="100"/>
+            <Column Key="Business_Unit" Caption="业务单元" DataType="Varchar" Length="20"/>
+            <Column Key="Contract_Name" Caption="合同名称" DataType="Varchar" Length="200"/>
+            <Column Key="Principal_Contract_Code" Caption="主合同编号" DataType="Varchar" Length="100"/>
+            <Column Key="Contract_Code" Caption="合同编号" DataType="Varchar" Length="200"/>
+            <Column Key="Contract_Unit" Caption="签约单位" DataType="Varchar" Length="20"/>
+            <Column Key="Contract_Classify" Caption="合同分类" DataType="Varchar" Length="20"/>
+            <Column Key="Supplier_NO" Caption="供应商编号" DataType="Varchar" Length="100"/>
+            <Column Key="Supplier_Abbr" Caption="供应商简称" DataType="Varchar" Length="100"/>
+            <Column Key="Valid_Time_Start" Caption="有效期起" DataType="Date"/>
+            <Column Key="Valid_Time_End" Caption="有效期止" DataType="Date"/>
+        </Table>
+        <Table Key="CHCS_Contract_Price_Maintain" Caption="合同价格维护" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Product" Caption="餐种" DataType="Long"/>
+            <Column Key="Origin_Unit_Price" Caption="原合同单价" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Origin_Valid_Time_Start" Caption="原有效期起" DataType="Date"/>
+            <Column Key="Origin_Valid_Time_End" Caption="原有效期止" DataType="Date"/>
+            <Column Key="Unit_Price" Caption="单价" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Valid_Time_Start" Caption="有效期起" DataType="Date"/>
+            <Column Key="Valid_Time_End" Caption="有效期止" DataType="Date"/>
+        </Table>
+        <Table Key="CHCS_Single_Price_Maintain" Caption="单品价格维护" TableMode="Detail" ParentKey="CHCS_Contract_Price_Maintain">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Product" Caption="餐种" DataType="Long"/>
+            <Column Key="Single_Type" Caption="单品类型" DataType="Varchar" Length="50"/>
+            <Column Key="Origin_Unit_Price" Caption="原合同单价" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Origin_Valid_Time_Start" Caption="原有效期起" DataType="Date"/>
+            <Column Key="Origin_Valid_Time_End" Caption="原有效期止" DataType="Date"/>
+            <Column Key="Unit_Price" Caption="单价" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Valid_Time_Start" Caption="有效期起" DataType="Date"/>
+            <Column Key="Valid_Time_End" Caption="有效期止" DataType="Date"/>
+        </Table>
+    </TableCollection>
+</DataObject>

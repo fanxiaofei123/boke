@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_UserComplain" Caption="客户投诉" FormType="Entity" ViewKey="V_UserComplainView">
+    <DataSource RefObjectKey="LRP_UserComplain"/>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[
+if(Status==StatusValue("prepared")){
+    if(IsControlNull('Dict1')){Confirm('货主不可为空','OK',{});return true;}
+    if(IsControlNull('DatePicker1')){Confirm('投诉日期时间不可为空','OK',{});return true;}
+    if(IsControlNull('TextEditor3')){Confirm('用户名称不可为空','OK',{});return true;}
+    if(IsControlNull('TextEditor4')){Confirm('手机号不可为空','OK',{});return true;}
+    if(IsControlNull('TextArea1')){Confirm('投诉内容不可为空','OK',{});return true;}
+    SaveData();UpdateView();
+}
+if(Status==StatusValue("finished")){
+    if(IsControlNull('TextEditor6')){Confirm('受理人不可为空','OK',{});return true;}
+    if(IsControlNull('DatePicker2')){Confirm('受理日期时间不可为空','OK',{});return true;}
+    if(IsControlNull('TextArea2')){Confirm('处理结果不可为空','OK',{});return true;}
+    SaveData();UpdateView();
+}
+SaveData();UpdateView();
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[New('V_SatisfactionSurv', 'self');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[DeleteData();UpdateView();Close();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Finish" Caption="完成" Visible="ReadOnly()&amp;&amp;Status==StatusValue('handled')">
+            <Action>
+                <![CDATA[if(IsControlNull('TextEditor6')){Confirm('受理人不可为空','OK',{});return true;}
+if(IsControlNull('DatePicker2')){Confirm('受理日期时间不可为空','OK',{});return true;}
+if(IsControlNull('TextArea2')){Confirm('处理结果不可为空','OK',{});return true;}
+
+
+Confirm('确定要将当前记录进行完成吗？','YES_NO',{YES:{Status=StatusValue('finished');SaveData();UpdateView();},NO:{}});]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[Status=StatusValue('handled');]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="FinishR" Caption="撤销完成" Visible="ReadOnly()&amp;&amp;Status==StatusValue('finished')">
+            <Action>
+                <![CDATA[Confirm('确定要将当前记录进行撤销完成吗？','YES_NO',{YES:{Status=StatusValue('handled');SaveData();UpdateView();},NO:{}});]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[Status=StatusValue('finished');]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="chuli" Caption="处理" Visible="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[Status=StatusValue('handled');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[Status=StatusValue('confirmed');]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="chuli_R" Caption="撤销处理" Visible="ReadOnly()&amp;&amp;Status==StatusValue('handled')">
+            <Action>
+                <![CDATA[Status=StatusValue('confirmed');SaveData();UpdateView();]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[Status=StatusValue('handled');]]>
+            </ExceptionHandler>
+        </Operation>
+        <Operation Key="Confirm" Caption="确认" RefKey="Confirm"/>
+        <Operation Key="ConfirmR" Caption="撤销确认" RefKey="Confirm-R"/>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="TextEditor1" Caption="投诉单号" BuddyKey="Lab_TextEditor1" X="1" Y="0" Enable="false" AsQuery="true" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="NO"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor1" Caption="投诉单号" X="0" Y="0"/>
+                            <Dict Key="Dict1" Caption="货主" BuddyKey="Lab_Dict1" X="4" Y="0" Enable="!ReadOnly() &amp;&amp; Status==100" AsQuery="true" ItemKey="LRP_Owner" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="OwnerId" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[SetValue('Dict2', 0);]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <Label Key="Lab_Dict1" Caption="货主" X="3" Y="0"/>
+                            <TextEditor Key="TextEditor2" Caption="投诉类型" BuddyKey="Lab_TextEditor2" X="7" Y="0" Enable="!ReadOnly() &amp;&amp; Status==100" AsQuery="true" XSpan="2" MaxLength="20">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="ComplainType"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor2" Caption="投诉类型" X="6" Y="0"/>
+                            <Dict Key="Dict2" Caption="投诉用户" BuddyKey="Lab_Dict2" X="1" Y="1" Enable="!ReadOnly() &amp;&amp; Status==100" ItemKey="LRP_OwnerUser" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="OwnerUserId">
+                                    <ValueChanged>
+                                        <![CDATA[SetValue("TextEditor3", GetDictValue("LRP_OwnerUser",GetValue("Dict2"),"LRP_OwnerUser.Name"))]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <ItemFilter ItemKey="LRP_OwnerUser">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue DataType="Long" FieldKey="OwnerId" RefValue="Dict1" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_Dict2" Caption="投诉用户" X="0" Y="1"/>
+                            <TextEditor Key="TextEditor3" Caption="用户名称" BuddyKey="Lab_TextEditor3" X="4" Y="1" Enable="!ReadOnly() &amp;&amp; Status==100" AsQuery="true" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="OwnerUserName"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor3" Caption="用户名称" X="3" Y="1"/>
+                            <TextEditor Key="TextEditor4" Caption="手机号" BuddyKey="Lab_TextEditor4" X="7" Y="1" Enable="!ReadOnly() &amp;&amp; Status==100" XSpan="2" MaxLength="20">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="Mobile"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor4" Caption="手机号" X="6" Y="1"/>
+                            <TextEditor Key="TextEditor5" Caption="关联单号" BuddyKey="Lab_TextEditor5" X="1" Y="2" Enable="!ReadOnly() &amp;&amp; Status&lt;900" AsQuery="true" XSpan="2" MaxLength="20">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="RefNo"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor5" Caption="关联单号" X="0" Y="2"/>
+                            <DatePicker Key="DatePicker1" Caption="投诉日期时间" BuddyKey="Lab_DatePicker1" X="4" Y="2" Enable="!ReadOnly() &amp;&amp; Status==100" AsQuery="true" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="ComplainDatetime" DefaultFormulaValue="ServerDate();" Required="true"/>
+                                <Format/>
+                            </DatePicker>
+                            <Label Key="Lab_DatePicker1" Caption="投诉日期时间" X="3" Y="2"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="2" Enable="false" SourceType="Status" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="Status" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="6" Y="2"/>
+                            <TextEditor Key="TextEditor6" Caption="受理人" BuddyKey="Lab_TextEditor6" X="1" Y="3" Enable="!ReadOnly() &amp;&amp; Status&lt;900" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="Receiver"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor6" Caption="受理人" X="0" Y="3"/>
+                            <TextArea Key="TextArea1" Caption="投诉内容" BuddyKey="Lab_TextArea1" X="1" Y="4" Enable="!ReadOnly() &amp;&amp; Status&lt;900" XSpan="8" YSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="Complaints"/>
+                            </TextArea>
+                            <Label Key="Lab_TextArea1" Caption="投诉内容" X="0" Y="4"/>
+                            <TextArea Key="TextArea2" Caption="处理结果" BuddyKey="Lab_TextArea2" X="1" Y="6" Enable="!ReadOnly() &amp;&amp; Status&lt;900" XSpan="8" YSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="Results"/>
+                            </TextArea>
+                            <Label Key="Lab_TextArea2" Caption="处理结果" X="0" Y="6"/>
+                            <DatePicker Key="DatePicker2" Caption="受理日期时间" BuddyKey="Lab_DatePicker2" X="4" Y="3" Enable="!ReadOnly() &amp;&amp; Status&lt;900" XSpan="2">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="ReceiveDatetime"/>
+                            </DatePicker>
+                            <Label Key="Lab_DatePicker2" Caption="受理日期时间" X="3" Y="3"/>
+                            <RowDefCollection RowGap="8" RowHeight="30">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="GridLayoutPanel1" Caption="系统信息">
+                            <Dict Key="Dict3" Caption="创建人" BuddyKey="Lab_Dict3" X="1" Y="0" ItemKey="Operator">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator();"/>
+                            </Dict>
+                            <Label Key="Lab_Dict3" Caption="创建人" X="0" Y="0"/>
+                            <Dict Key="Dict4" Caption="修改人" BuddyKey="Lab_Dict4" X="1" Y="1" ItemKey="Operator">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator();"/>
+                            </Dict>
+                            <Label Key="Lab_Dict4" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="DatePicker3" Caption="创建时间" BuddyKey="Lab_DatePicker3" X="4" Y="0">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate();"/>
+                            </DatePicker>
+                            <Label Key="Lab_DatePicker3" Caption="创建时间" X="3" Y="0"/>
+                            <DatePicker Key="DatePicker4" Caption="修改时间" BuddyKey="Lab_DatePicker4" X="4" Y="1">
+                                <DataBinding TableKey="LRP_UserComplain" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate();"/>
+                            </DatePicker>
+                            <Label Key="Lab_DatePicker4" Caption="修改时间" X="3" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="物料" Key="LRP_Material" PrimaryTableKey="LRP_Material" PrimaryType="Entity" SecondaryType="ChainDict">
+    <TableCollection>
+        <Table Caption="物料" DBTableName="LRP_Material" Key="LRP_Material" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100" Cache="true"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200" Cache="true"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="别名" DataType="Varchar" Key="DisplayName" Length="100"/>
+            <Column Caption="规格" DataType="Varchar" Key="Spec" Length="100"/>
+            <Column Caption="物料类型" DataType="Long" Key="MaterialTypeId"/>
+            <Column Caption="序列号管控方式" DataType="Integer" Key="SerialControlMethod" Cache="true"/>
+            <Column Caption="基本单位" DataType="Varchar" Key="BasicUnit" Length="10" Cache="true"/>
+            <Column Caption="基本单位重量" DataType="Numeric" Key="BasicUnitWeight" Precision="18" Scale="3" Cache="true"/>
+            <Column Caption="基本单位体积" DataType="Numeric" Key="BasicUnitCubage" Precision="18" Scale="3" Cache="true"/>
+            <Column Caption="基本单位长度" DataType="Numeric" Key="BasicUnitLength" Precision="18" Scale="3"/>
+            <Column Caption="基本单位宽度" DataType="Numeric" Key="BasicUnitWidth" Precision="18" Scale="3"/>
+            <Column Caption="基本单位高度" DataType="Numeric" Key="BasicUnitHeight" Precision="18" Scale="3"/>
+            <Column Caption="整件单位" DataType="Varchar" Key="PackingUnit" Length="10" Cache="true"/>
+            <Column Caption="整件数量" DataType="Numeric" Key="PackingQty" Precision="18" Scale="3" Cache="true"/>
+            <Column Caption="整件单位重量" DataType="Numeric" Key="PackingUnitWeight" Precision="18" Scale="3" Cache="true"/>
+            <Column Caption="整件单位体积" DataType="Numeric" Key="PackingUnitCubage" Precision="18" Scale="3" Cache="true"/>
+            <Column Caption="整件单位长度" DataType="Numeric" Key="PackingUnitLength" Precision="18" Scale="3" Cache="true"/>
+            <Column Caption="整件单位宽度" DataType="Numeric" Key="PackingUnitWidth" Precision="18" Scale="3"/>
+            <Column Caption="整件单位高度" DataType="Numeric" Key="PackingUnitHeight" Precision="18" Scale="3" Cache="true"/>
+            <Column Caption="重量单位" DataType="Long" Key="WeightUnit"/>
+            <Column Caption="体积单位" DataType="Long" Key="CubageUnit" Cache="true"/>
+            <Column Caption="维度单位" DataType="Long" Key="DimensionUnit" Cache="true"/>
+            <Column Caption="默认托盘类型" DataType="Long" Key="DefaultPalletTypeId" Cache="true"/>
+            <Column Caption="每托盘基本数量" DataType="Numeric" Key="QtyPerPallet" Precision="18" Scale="3" Cache="true"/>
+        </Table>
+        <Table Caption="货主-物料分配" DBTableName="LRP_OwnerMaterial" Key="LRP_OwnerMaterial" TableMode="Detail" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+            <Column Caption="货主系统编号" DataType="Varchar" Key="OwnerSysCode" Length="100"/>
+        </Table>
+        <Table Caption="物料-仓储策略" DBTableName="LRP_MaterialStrategy" Key="LRP_MaterialStrategy" TableMode="Detail" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="策略类型" DataType="Varchar" Key="StrategyType" Length="10"/>
+            <Column Caption="策略" DataType="Long" Key="StrategyId"/>
+            <Column Caption="排序" DataType="Numeric" DefaultValue="0" Key="SortOrder" Precision="18" Scale="6"/>
+            <Column Caption="仓储中心" DataType="Long" Key="WarehouseCenterId"/>
+            <Column Key="ReplenishWarningQty" Caption="补货预警量" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="MaxWaitQty" Caption="最大备发量" DataType="Numeric" Precision="18" Scale="6"/>
+        </Table>
+        <Table Caption="物料-储位类型" Key="LRP_MaterialLocType" DBTableName="LRP_MaterialLocType" TableMode="Detail" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+            <Column Key="LocType" Caption="储位类型" DataType="Long"/>
+            <Column Key="Qty" Caption="可存放量" DataType="Numeric" Precision="18" Scale="6"/>
+        </Table>
+    </TableCollection>
+</DataObject>

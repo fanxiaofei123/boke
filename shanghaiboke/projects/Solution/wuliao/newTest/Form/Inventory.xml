@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Inventory" Caption="余额表序时簿" FormType="View">
+    <DataSource RefObjectKey="InventoryList"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="InventoryList">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="OID" Caption="记录号" DataColumnKey="OID" Visible="false"/>
+                        <ListViewColumn Key="Warehouse" Caption="仓库" DataColumnKey="Warehouse" ColumnType="Dict" ItemKey="Warehouse"/>
+                        <ListViewColumn Key="Material" Caption="物料" DataColumnKey="Material" ColumnType="Dict" ItemKey="city"/>
+                        <ListViewColumn Key="Amount" Caption="数量" DataColumnKey="Amount"/>
+                    </ListViewColumnCollection>
+                </ListView>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <Button Key="Button1" Caption="刷新" X="0" Y="0">
+                        <OnClick>
+                            <![CDATA[LoadData()]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

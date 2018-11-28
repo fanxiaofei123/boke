@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="ReceiveDetail" Caption="通知单收货明细" Authenticate="false" HasNavigationBar="false">
+    <DataSource>
+        <DataObject Key="LRP_ReceiveDetail" Caption="通知单收货明细" PrimaryTableKey="LRP_WMTx_L">
+            <TableCollection>
+                <Table Key="LRP_WMTx_L" Caption="通知单收货明细" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="物料ID" DataType="Long" Key="MaterialId"/>
+                    <Column Caption="库区ID" DataType="Long" Key="StoreareaId"/>
+                    <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="10"/>
+                    <Column Caption="通知量" DataType="Numeric" Key="Qty" Precision="18" Scale="6"/>
+                    <Column Caption="收货量" DataType="Numeric" Key="RecvQty" Precision="18" Scale="6"/>
+                    <Column Key="MaterialName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MaterialCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Statement>
+                        <![CDATA[ select 
+  l.OID,
+  l.SOID,
+  l.MaterialId,
+  l.qty,
+  l.MaterialUnit,  
+  l.recvqty,
+  l.StoreareaId,
+  m.Name as MaterialName,
+  m.Code as MaterialCode
+  from LRP_InboundNotic_L l 
+  left join LRP_Material m on m.oid = l.MaterialId where 1=0
+    ]]>
+                    </Statement>
+                </Table>
+                <Table Key="LRP_WMTx_TXL" Caption="本次收货明细" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="物料ID" DataType="Long" Key="MaterialId"/>
+                    <Column Caption="库区ID" DataType="Long" Key="DestStoreareaId"/>
+                    <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="10"/>
+                    <Column Caption="通知量" DataType="Numeric" Key="Qty" Precision="18" Scale="6"/>
+                    <!-- <Column Caption="收货量" DataType="Numeric" Key="RecvQty" Precision="18" Scale="6"/> -->
+                    <Column Key="MaterialName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MaterialCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Column Key="DestBatchNo" Caption="批号" DataType="Varchar" Length="200"/>
+                    <Statement>
+                        <![CDATA[ 
+select 
+  l.OID,
+  l.SOID,
+  l.MaterialId,
+  l.qty,
+  l.MaterialUnit,  
+  l.DestStoreareaId,
+  l.DestBatchNo,
+  m.Name as MaterialName,
+  m.Code as MaterialCode
+  from LRP_WMTx_L l 
+  left join LRP_Material m on m.oid = l.MaterialId where 1=0
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Key="SelectInboundNotice" Description="查找入库通知单">
+            <Statement>
+                <![CDATA[ select 
+  l.OID,
+  l.SOID,
+  l.MaterialId,
+  l.qty,
+  l.MaterialUnit,  
+  l.recvqty,
+  l.StoreareaId,
+  m.Name as MaterialName,
+  m.Code as MaterialCode
+  from LRP_InboundNotice_H h
+ left join  LRP_InboundNotic_L l on h.oid=l.soid
+  left join LRP_Material m on m.oid = l.MaterialId where h.no= ? ]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="SelectReturnNotice" Description="查找退货通知单">
+            <Statement>
+                <![CDATA[select 
+  l.OID,
+  l.SOID,
+  l.MaterialId,
+  l.qty,
+  l.MaterialUnit,  
+  l.recvqty,
+  l.StoreareaId,
+  m.Name as MaterialName,
+  m.Code as MaterialCode
+  from LRP_ReturnNotice_H h
+ left join  LRP_ReturnNotice_L l on h.oid=l.soid
+  left join LRP_Material m on m.oid = l.MaterialId where h.no= ? ]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="SelectCrossDock" Description="查找越库单">
+            <Statement>
+                <![CDATA[ select 
+  l.OID,
+  l.SOID,
+  l.MaterialId,
+  l.qty,
+  l.MaterialUnit,  
+  l.recvqty,
+  l.StoreareaId,
+  m.Name as MaterialName,
+  m.Code as MaterialCode
+  from LRP_CrossDocking_H h
+ left join  LRP_CrossDocking_L l on h.oid=l.soid
+  left join LRP_Material m on m.oid = l.MaterialId where h.no= ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#e6e6e6"/>
+                <LinearLayoutPanel Caption="Title3" Key="Title" Orientation="Horizontal" X="0" Y="0">
+                    <Format BackColor="#f14c52"/>
+                    <Button Key="Cancel" Caption="取消" Height="auto" Width="60px">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Left">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									ShowConfirm('是否放弃本次收货？', 'YES_NO', 
+										{
+											YES: {
+													Back();
+												}, 
+											NO: {} 
+										}
+												)
+								]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="OrderTitle3" Caption="通知单收货明细" Height="auto" Weight="1.0">
+                        <Format ForeColor="#ffffff" HAlign="Center">
+                            <Font Size="20"/>
+                        </Format>
+                    </Label>
+                    <Button Key="Finish" Caption="完成" Height="auto" Width="60px">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Right">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									var count = GetRowCount('list2',false);
+									var b = true;
+									if(count > 0){
+										InvokeService("LRP_ReceiveByNotice", true, false,GetPara('OID'),GetOperator(),Para('TxTypeCode'));
+									    ShowToast("收货完成");	
+										Parent.LoadData();
+										Back();
+									}
+									else{	
+										ShowToast("本次收货明细无数据，无法完成。");								
+									}
+																													
+									]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <Label Key="ShowValue" X="0" Y="1" Visible="false"/>
+                <TabGroup Caption="通知单收货明细" Key="TabPanel1" IndicatorColor="#ff5000" X="0" Y="1">
+                    <TabItem Text="通知明细">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 0);]]>
+                        </Action>
+                    </TabItem>
+                    <TabItem Text="本次收货明细">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 1);]]>
+                        </Action>
+                    </TabItem>
+                </TabGroup>
+                <TableView Key="RouteName_table" X="0" Y="2" Visible="ShowValue==0">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="r1" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel" Height="50px" Orientation="Horizontal">
+                                <Label Key="Lab_NoticeNo" Caption="通知单号" Width="60px" Height="auto"/>
+                                <TextEditor Key="NoticeNo" Caption="通知单号" Enable="false" BorderRadius="4" BorderColor="#dde0e7" HasBorder="true" Width="auto" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r2" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel22" Height="50px" Orientation="Horizontal">
+                                <Label Key="Lab_OwnerId" Caption="货主" Width="40px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <TextEditor Key="OwnerName" Caption="货主" Enable="false" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </TextEditor>
+                                <Label Key="Lab_OwnerNo" Caption="货主单号" Width="55px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <TextEditor Key="OwnerNo" Caption="货主单号" Enable="false" Width="55px" Weight="1.0" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r3" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel33" Height="50px" Orientation="Horizontal">
+                                <TextEditor Key="Material_code" Caption="扫描物料条码" PromptText="扫描物料条码" BorderStyle="none" Weight="1.0" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <KeyEnter>
+                                        <![CDATA[
+										     CheckMaterial();
+										
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Button Key="query_btn" Icon="12.png" OnlyIcon="True" Enable="true" Width="40px" BorderStyle="none" Height="auto">
+                                    <Format HAlign="Left">
+                                        <Font Size="6"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[
+										CheckMaterial();
+									]]>
+                                    </OnClick>
+                                </Button>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r4" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel34" Height="50px" Orientation="Horizontal">
+                                <Label Key="NoticeQty_lbl" Caption="总通知量" Width="60px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="NoticeQty_code" Caption="总通知量" Enable="false" Precision="18" Scale="0" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="RecvQty_Null_lbl" Caption="总收货量" Width="55px" Height="auto">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="RecvQty_Null_code" Caption="总收货量" Enable="false" Precision="18" Scale="0" Width="pref" Weight="1.0" Height="auto">
+                                    <DataBinding DefaultFormulaValue="CalculateQty();"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="list" SeparatorStyle="solid none solid none" RowType="Detail" SeparatorColor="#dde0e7" TableKey="LRP_WMTx_L" SelectColor="#dddddd">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Caption="GridLayoutPanel3">
+                                <Label Key="MaterialId" LeftPadding="5px" Visible="false" X="0" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterialId"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Materialcode" LeftPadding="5px" X="0" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterialCode"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="MaterialName" LeftPadding="5px" X="2" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterialName"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="MaterialUnit" LeftPadding="5px" X="4" Y="1" XSpan="2">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="BatchNo_lbl" Caption="序号" LeftPadding="5px" X="6" Y="0" XSpan="2">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Qty_lbl" Caption="通知量" LeftPadding="5px" X="0" Y="1" XSpan="2">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="Qty" Precision="18" Scale="0" X="2" Y="1" Enable="false" XSpan="2">
+                                    <DataBinding ColumnKey="Qty"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="CheckQty_lbl" Caption="收货量" LeftPadding="5px" X="6" Y="1" XSpan="2">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="CheckQty" Caption="收货量" Precision="18" Enable="false" Scale="0" X="8" Y="1" XSpan="4">
+                                    <DataBinding ColumnKey="RecvQty" DefaultValue="0" VAlign="Bottom"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Button Key="NewRecv" Caption="新增收货" BorderRadius="4" BorderColor="#dde0e7" HasBorder="true" X="10" Y="1" Height="50px" XSpan="2">
+                                    <Format BackColor="#f14c52" ForeColor="#ffffff">
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <OnClick>
+                                        <![CDATA[
+		var a = (GetValue('NoticeQty_code') - GetValue('RecvQty_Null_code'));
+		if(a<>0){
+                var rowcount = GetRowCount('list2',false);
+		PushPara('Materialcode',Materialcode);
+		PushPara('MaterialName',MaterialName);
+		PushPara('MaterialUnit',MaterialUnit); 
+                PushPara('MaterialId',MaterialId);
+                PushPara('RecvQty_Null_code',RecvQty_Null_code);
+		PushPara('qty',Qty-CheckQty);
+                PushPara('rowcount',rowcount);
+		Show('NewReceive');
+                }else{
+                    Confirm("收货量已达到最大值,无法新增收货!");
+                }
+					]]>
+                                    </OnClick>
+                                </Button>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="1">
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="18%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="18%"/>
+                                    <ColumnDef Width="20px"/>
+                                    <ColumnDef Width="16%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="16%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="16%"/>
+                                    <ColumnDef Width="80px"/>
+                                    <ColumnDef Width="16%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <TableView Key="RouteName_table2" X="0" Y="2" Visible="ShowValue==1">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="list2" SeparatorStyle="solid none solid none" RowType="Detail" SeparatorColor="#dde0e7" TableKey="LRP_WMTx_TXL" SelectColor="#dddddd">
+                            <GridLayoutPanel Key="GridLayoutPanel4" Caption="GridLayoutPanel4">
+                                <Label Key="MaterialId2" LeftPadding="5px" Visible="false" X="0" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterialId"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Materialcode2" LeftPadding="5px" X="0" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterialCode"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="MaterialName2" LeftPadding="5px" X="2" Y="0" XSpan="4">
+                                    <DataBinding ColumnKey="MaterialName"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="CheckQty_lb2" Caption="收货量" LeftPadding="5px" Height="auto" X="6" Y="0" XSpan="2">
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="CheckQty2" Caption="收货量" Height="auto" Precision="18" Enable="false" Scale="0" X="8" Y="0" XSpan="4">
+                                    <DataBinding ColumnKey="Qty" VAlign="Bottom">
+                                        <ValueChanged>
+                                            <![CDATA[loop "list" (true)
+{			
+	if(Materialcode == Materialcode2)
+	{ 
+	   CheckQty=CheckQty+CheckQty2;	
+	}					
+}
+]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="BasicUnit2" LeftPadding="5px" X="10" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="StoreareaId" LeftPadding="5px" Visible="false" X="10" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="DestStoreareaId"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="BatchNo2" LeftPadding="5px" Visible="false" X="10" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="DestBatchNo"/>
+                                    <Format>
+                                        <Font Size="13"/>
+                                    </Format>
+                                </Label>
+                                <RowDefCollection RowGap="1">
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="1">
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="18%"/>
+                                    <ColumnDef Width="80px"/>
+                                    <ColumnDef Width="18%"/>
+                                    <ColumnDef Width="20px"/>
+                                    <ColumnDef Width="16%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="16%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="16%"/>
+                                    <ColumnDef Width="50px"/>
+                                    <ColumnDef Width="16%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[
+		 SetValue('NoticeNo',Para('NoticeNo'));
+		 SetValue('OwnerName',Para('OwnerName'));
+	         SetValue('OwnerNo',Para('OwnerNo'));
+			
+			var index = 0;
+			  var dt1 = DBNamedQuery('SelectInboundNotice',Para('NoticeNo'));
+			  var dt2 = DBNamedQuery('SelectReturnNotice',Para('NoticeNo'));
+			  var dt3 = DBNamedQuery('SelectCrossDock',Para('NoticeNo'));
+			  dt1.beforefirst();
+			  dt2.beforefirst();
+			  dt3.beforefirst();
+				
+			  if(dt1.next()){
+				   index = 1;
+				   ReplaceTable('LRP_WMTx_L',dt1);				   
+			  }										  
+			  if(dt2.next()){
+				   index = 2;
+				   ReplaceTable('LRP_WMTx_L',dt2);				   
+			  }
+			   if(dt3.next()){
+				  index = 3;
+				  ReplaceTable('LRP_WMTx_L',dt3); 				  
+			  }										 									  
+			  RefreshControl('RouteName_table');
+			  CalculateQty();
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ]]>
+    </OnPostShow>
+    <MacroCollection>
+        <Macro Key="CalculateQty" Description="计算并设置总通知量和总收货量">
+            <![CDATA[
+				var total = 0.0;
+				var recvqty = 0.0; 
+				
+				var count = GetRowCount('list');
+				var i = 0;
+				while(i < count){
+					total = total + GetCellValue('list',i,'Qty');
+					recvqty = recvqty + GetCellValue('list',i,'CheckQty');
+					i = i + 1;							
+				}
+				SetValue('NoticeQty_code',total);
+				SetValue('RecvQty_Null_code',recvqty);
+			]]>
+        </Macro>
+        <Macro Key="CheckMaterial" Description="根据扫入的物料条码定位对应的物料">
+            <![CDATA[
+				if(Material_code<>''){
+					var focusRowIndex=GetFocusRow('list');
+					var flag=false;
+					var count = GetRowCount('list',false);
+					var i=0;
+					var j=0;
+					while(i<count){
+						if(GetCellValue('list', i,'Materialcode')==Material_code ){
+							SetFocusRow('list',i);
+							SetRowIndex('list',i);
+							ScrollTo('list',i);
+							flag=true;
+							break;
+								}
+								i=i+1;							
+					          }
+					if(flag==false){
+						ShowToast("通知明细中找不到该条码物料。");
+					  }
+				}
+				SetFocus('Material_code');
+			]]>
+        </Macro>
+    </MacroCollection>
+    <FormParaCollection>
+        <FormPara Formula="Para('OID')" Key="OID" Type="Formula"/>
+        <FormPara Formula="Para('NoticeNo')" Key="NoticeNo" Type="Formula"/>
+        <FormPara Formula="Para('OwnerName')" Key="OwnerName" Type="Formula"/>
+        <FormPara Formula="Para('OwnerNo')" Key="OwnerNo" Type="Formula"/>
+        <FormPara Formula="Para('TxTypeCode')" Key="TxTypeCode" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar Style="Custom"/>
+</Form>

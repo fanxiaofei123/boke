@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form AbbrCaption="运输调度单查询" Caption="运输调度单查询" FormType="View" Key="V_TransportDispatchQuery">
+    <DataSource>
+        <DataObject Caption="运输调度单查询" Key="V_TransportDispatchQuery" PrimaryTableKey="LRP_TransportDispatch_H">
+            <TableCollection>
+                <Table Key="LRP_TransportDispatch_H" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DBColumnName="POID" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DBColumnName="SOID" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DBColumnName="VERID" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DBColumnName="DVERID" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="调度单号" DataType="Varchar" Key="No" Length="100" SortType="Desc"/>
+                    <Column Caption="下单日期时间" DataType="DateTime" Key="OrderDateTime"/>
+                    <Column Caption="车牌号" DataType="Varchar" Key="TruckLicenseNo" Length="100"/>
+                    <Column Caption="车型id" DataType="Long" Key="TruckTypeId"/>
+                    <Column Caption="司机" DataType="Varchar" Key="Driver" Length="100"/>
+                    <Column Caption="司机手机" DataType="Varchar" Key="DriverMobile" Length="100"/>
+                    <Column Caption="承运商" DataType="Long" Key="CarrierId"/>
+                    <Column Caption="运输路线" DataType="Long" Key="RouteId"/>
+                    <Column Caption="运输类型" DataType="Varchar" Key="TransMethod" Length="100"/>
+                    <Column Caption="调度组织" DataType="Long" Key="DispatchOrgId"/>
+                    <Column Caption="起运省" DataType="Long" Key="StartProvinceId"/>
+                    <Column Caption="起运市" DataType="Long" Key="StartCityId"/>
+                    <Column Caption="起运区县" DataType="Long" Key="StartDistrictId"/>
+                    <Column Caption="目的省" DataType="Long" Key="EndProvinceId"/>
+                    <Column Caption="目的市" DataType="Long" Key="EndCityId"/>
+                    <Column Caption="目的区县" DataType="Long" Key="EndDistrictId"/>
+                </Table>
+            </TableCollection>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="10px">
+                        <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="1" Y="5">
+                            <DataBinding DefaultValue="V_TransportDispatchQuery"/>
+                        </TextEditor>
+                        <TextEditor Caption="调度单号" Key="No_C" X="5" XSpan="2" Y="1">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportDispatch_H" ColumnKey="No"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="调度单号" Key="L_No" X="4" Y="1"/>
+                        <TextEditor Caption="车牌号" Key="TruckLicenseNo_C" X="5" XSpan="2" Y="2">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportDispatch_H" ColumnKey="TruckLicenseNo"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="车牌号" Key="L_TruckLicenseNo" X="4" Y="2"/>
+                        <Label Caption="调度组织" Key="L_DispatchOrgId" X="0" Y="0"/>
+                        <TextEditor Caption="司机" Key="Driver_C" X="1" XSpan="2" Y="2">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_TransportDispatch_H" ColumnKey="Driver"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Caption="司机" Key="L_Driver" X="0" Y="2"/>
+                        <GridLayoutPanel Caption="地址信息" Key="AddressMessager" X="0" XSpan="3" Y="3">
+                            <Dict BuddyKey="Lab_StartProvinceId_C" Caption="起运省" ItemKey="LRP_Province" Key="StartProvinceId_C" X="1" Y="0">
+                                <Condition CondSign="=" ColumnKey="StartProvinceId" TableKey="LRP_TransportDispatch_H"/>
+                            </Dict>
+                            <Label Caption="起运省" Key="Lab_StartProvinceId_C" X="0" Y="0"/>
+                            <Dict BuddyKey="Lab_StartCityId_C" Caption="市" ItemKey="LRP_City" Key="StartCityId_C" X="3" Y="0">
+                                <Condition CondSign="=" ColumnKey="StartCityId" TableKey="LRP_TransportDispatch_H"/>
+                                <ItemFilter ItemKey="LRP_City">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue FieldKey="ProvinceId" RefValue="StartProvinceId_C" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Caption="市" Key="Lab_StartCityId_C" X="2" Y="0"/>
+                            <RowDefCollection RowGap="1">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="50%" MinWidth="20px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="50%" MinWidth="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="地址信息" Key="AddressMessager1" X="4" XSpan="3" Y="3">
+                            <Dict BuddyKey="Lab_EndProvinceId_C" Caption="目的省" ItemKey="LRP_Province" Key="EndProvinceId_C" X="1" Y="0">
+                                <Condition CondSign="=" ColumnKey="EndProvinceId" TableKey="LRP_TransportDispatch_H"/>
+                            </Dict>
+                            <Label Caption="目的省" Key="Lab_EndProvinceId_C" X="0" Y="0"/>
+                            <Dict BuddyKey="Lab_EndCityId_C" Caption="市" ItemKey="LRP_City" Key="EndCityId_C" X="3" Y="0">
+                                <Condition CondSign="=" ColumnKey="EndCityId" TableKey="LRP_TransportDispatch_H"/>
+                                <ItemFilter ItemKey="LRP_City">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue FieldKey="ProvinceId" RefValue="EndProvinceId_C" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Caption="市" Key="Lab_EndCityId_C" X="2" Y="0"/>
+                            <RowDefCollection RowGap="1">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="70px"/>
+                                <ColumnDef Width="50%" MinWidth="20px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="50%" MinWidth="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <CheckListBox Caption="状态" Key="Status_C" X="5" XSpan="2" Y="5">
+                            <Condition CondSign="in">
+                                <ConditionTarget TableKey="LRP_TransportDispatch_H" ColumnKey="Status"/>
+                            </Condition>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="在途" Key="ontheway" Value="750"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                        </CheckListBox>
+                        <Label Caption="状态" Key="L_Status" X="4" Y="5"/>
+                        <Button Caption="查询" Key="Query" X="8" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Key="Reset" X="8" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <DatePicker Caption="下单日期时间" Key="OrderDateTime_C" X="1" XSpan="2" Y="4">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition CondSign="between" Group="OrderDateTime" GroupHead="true">
+                                <ConditionTarget TableKey="LRP_TransportDispatch_H" ColumnKey="OrderDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="下单日期时间" Key="L_OrderDateTime" X="0" Y="4"/>
+                        <DatePicker Caption="至" Key="OrderDateTime_C_1" X="5" XSpan="2" Y="4">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition CondSign="none" Group="OrderDateTime" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_TransportDispatch_H" ColumnKey="OrderDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <Label Caption="至" Key="L_OrderDateTime_1" X="4" Y="4"/>
+                        <Dict Key="DispatchOrgId_C" Caption="调度组织" BuddyKey="L_DispatchOrgId" X="1" Y="0" AllowMultiSelection="true" ItemKey="LRP_DispatchOrg" XSpan="2">
+                            <Condition CondSign="in" ColumnKey="DispatchOrgId" TableKey="LRP_TransportDispatch_H"/>
+                        </Dict>
+                        <CheckListBox Key="TransMethod_C" Caption="运输类型" BuddyKey="Lab_TransMethod_C" X="5" Y="0" XSpan="2">
+                            <Condition CondSign="in" ColumnKey="TransMethod" TableKey="LRP_TransportDispatch_H"/>
+                            <Item Caption="提货" Key="801" Value="801"/>
+                            <Item Caption="配送" Key="802" Value="802"/>
+                            <Item Caption="干线" Key="803" Value="803"/>
+                            <Item Caption="直发" Key="804" Value="804"/>
+                            <Item Caption="回程" Key="805" Value="805"/>
+                            <Item Caption="短驳" Key="806" Value="806"/>
+                            <Item Caption="混合" Key="807" Value="807"/>
+                            <Item Caption="外车" Key="808" Value="808"/>
+                            <Item Caption="水运" Key="809" Value="809"/>
+                            <Item Caption="空运" Key="810" Value="810"/>
+                            <Item Caption="铁运" Key="811" Value="811"/>
+                        </CheckListBox>
+                        <Label Key="Lab_TransMethod_C" Caption="运输类型" X="4" Y="0"/>
+                        <Dict Key="CarrierId_C" Caption="承运商" BuddyKey="Lab_CarrierId_C" X="1" Y="1" ItemKey="LRP_Carrier" XSpan="2">
+                            <Condition CondSign="=" ColumnKey="CarrierId" TableKey="LRP_TransportDispatch_H"/>
+                        </Dict>
+                        <Label Key="Lab_CarrierId_C" Caption="承运商" X="0" Y="1"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView0" Key="ListView0" TableKey="LRP_TransportDispatch_H" PageLoadType="DB" PageRowCount="10">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Key="OID" Visible="false"/>
+                            <ListViewColumn Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Key="Status" SourceType="Formula">
+                                <FormulaItems>
+                                    <![CDATA[
+								GetStatusItems();
+							]]>
+                                </FormulaItems>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="运输类型" ColumnType="ComboBox" DataColumnKey="TransMethod" Key="TransMethod">
+                                <Item Caption="提货" Key="801" Value="801"/>
+                                <Item Caption="配送" Key="802" Value="802"/>
+                                <Item Caption="干线" Key="803" Value="803"/>
+                                <Item Caption="直发" Key="804" Value="804"/>
+                                <Item Caption="回程" Key="805" Value="805"/>
+                                <Item Caption="短驳" Key="806" Value="806"/>
+                                <Item Caption="混合" Key="807" Value="807"/>
+                                <Item Caption="外车" Key="808" Value="808"/>
+                                <Item Caption="水运" Key="809" Value="809"/>
+                                <Item Caption="空运" Key="810" Value="810"/>
+                                <Item Caption="铁运" Key="811" Value="811"/>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="调度组织" ColumnType="Dict" DataColumnKey="DispatchOrgId" ItemKey="LRP_DispatchOrg" Key="DispatchOrgId"/>
+                            <ListViewColumn Caption="调度单号" ColumnType="HyperLink" DataColumnKey="No" Key="No">
+                                <OnClick>
+                                    <![CDATA[
+									
+									Open('V_TransportDispatch', OID);
+									]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Caption="下单日期时间" ColumnType="DatePicker" DataColumnKey="OrderDateTime" Key="OrderDateTime"/>
+                            <ListViewColumn Caption="承运商" ColumnType="Dict" DataColumnKey="CarrierId" ItemKey="LRP_Carrier" Key="CarrierId"/>
+                            <ListViewColumn Caption="车牌号" ColumnType="TextEditor" DataColumnKey="TruckLicenseNo" Key="TruckLicenseNo"/>
+                            <ListViewColumn Caption="车型" ColumnType="Dict" DataColumnKey="TruckTypeId" ItemKey="LRP_TruckType" Key="TruckTypeId"/>
+                            <ListViewColumn Caption="司机" ColumnType="TextEditor" DataColumnKey="Driver" Key="Driver"/>
+                            <ListViewColumn Caption="司机手机" ColumnType="TextEditor" DataColumnKey="DriverMobile" Key="DriverMobile"/>
+                            <ListViewColumn Caption="起运省" ColumnType="Dict" DataColumnKey="StartProvinceId" ItemKey="LRP_Province" Key="StartProvinceId"/>
+                            <ListViewColumn Caption="市" ColumnType="Dict" DataColumnKey="StartCityId" ItemKey="LRP_City" Key="StartCityId"/>
+                            <ListViewColumn Caption="区县" ColumnType="Dict" DataColumnKey="StartDistrictId" ItemKey="LRP_District" Key="StartDistrictId"/>
+                            <ListViewColumn Caption="目的省" ColumnType="Dict" DataColumnKey="EndProvinceId" ItemKey="LRP_Province" Key="EndProvinceId"/>
+                            <ListViewColumn Caption="市" ColumnType="Dict" DataColumnKey="EndCityId" ItemKey="LRP_City" Key="EndCityId"/>
+                            <ListViewColumn Caption="区县" ColumnType="Dict" DataColumnKey="EndDistrictId" ItemKey="LRP_District" Key="EndDistrictId"/>
+                            <ListViewColumn Caption="运输路线" ColumnType="Dict" DataColumnKey="RouteId" ItemKey="LRP_Route" Key="RouteId"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[
+								Open('V_TransportDispatch', OID);
+						]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="220px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+        
+    ]]>
+    </OnLoad>
+</Form>

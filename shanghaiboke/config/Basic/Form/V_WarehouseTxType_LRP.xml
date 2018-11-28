@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="仓储事务类型" FormType="Dict" Key="V_WarehouseTxType_LRP">
+    <DataSource RefObjectKey="LRP_WarehouseTxType"/>
+    <UICheckRuleCollection>
+        <UICheckRule Description="物料状态不能重复" ErrorInfo="物料状态不能重复"><![CDATA[
+					
+							!CheckDuplicate("MaterialStatusId"); 
+						
+		]]></UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                            <TextEditor BuddyKey="L_Code" Caption="代码" Enable="!ReadOnly()" Key="Code" Tip="「代码」不可为空" X="1" XSpan="3" Y="0">
+                                <DataBinding ColumnKey="Code" Required="true" TableKey="LRP_WarehouseTxType"/>
+                            </TextEditor>
+                            <TextEditor BuddyKey="L_Name" Caption="名称" Enable="!ReadOnly()" Key="Name" Tip="「名称」不可为空" X="6" XSpan="3" Y="0">
+                                <DataBinding ColumnKey="Name" Required="true" TableKey="LRP_WarehouseTxType"/>
+                            </TextEditor>
+                            <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                            <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+                            <TextEditor BuddyKey="Lab_remark" Caption="说明" Key="remark" X="1" XSpan="8" Y="1">
+                                <DataBinding ColumnKey="remark" TableKey="LRP_WarehouseTxType"/>
+                            </TextEditor>
+                            <Label Caption="说明" Key="Lab_remark" X="0" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="75px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                            <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_WarehouseTxType"/>
+                            </Dict>
+                            <DatePicker Caption="创建时间" Format="yyyy-MM-dd HH:mm:ss" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_WarehouseTxType"/>
+                            </DatePicker>
+                            <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_WarehouseTxType"/>
+                            </Dict>
+                            <DatePicker Caption="修改时间" Format="yyyy-MM-dd HH:mm:ss" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_WarehouseTxType"/>
+                            </DatePicker>
+                            <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                            <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                            <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="物料状态明细" Key="TabPanel1">
+                        <Grid Caption="物料状态明细" Key="Grid0">
+                            <GridColumnCollection>
+                                <GridColumn Caption="物料状态" Key="column-0"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow RowType="Detail" TableKey="LRP_WhTxType_MS">
+                                    <GridCell Caption="物料状态" CellType="Dict" ItemKey="LRP_MaterialStatus" Key="MaterialStatusId">
+                                        <DataBinding ColumnKey="MaterialStatusId" TableKey="LRP_WhTxType_MS"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="50%"/>
+                    <SplitSize Size="50%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

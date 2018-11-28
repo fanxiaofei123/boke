@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Exchange_Rate" Caption="汇率" FormType="Dict">
+    <DataSource RefObjectKey="CHCS_Exchange_Rate"/>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                    <GridLayoutPanel Key="BasicInfo" Padding="10px" Caption="基础信息">
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="L_Name" X="4" Y="0">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="Name" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Name" Caption="名称" X="3" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="Code" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
+                        <Dict Key="Foreign_Currency" Caption="外币种" BuddyKey="Lab_Foreign_Currency" X="1" Y="1" ItemKey="Currency">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="Foreign_Currency"/>
+                        </Dict>
+                        <Label Key="Lab_Foreign_Currency" Caption="外币种" X="0" Y="1"/>
+                        <NumberEditor Key="Exchange_Rate" Caption="汇率" BuddyKey="Lab_Exchange_Rate" X="4" Y="1">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="Exchange_Rate"/>
+                        </NumberEditor>
+                        <Label Key="Lab_Exchange_Rate" Caption="汇率" X="3" Y="1"/>
+                        <DatePicker Key="Start_Date" Caption="开始日期" BuddyKey="Lab_Start_Date" X="1" Y="2" OnlyDate="true">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="Start_Date"/>
+                        </DatePicker>
+                        <Label Key="Lab_Start_Date" Caption="开始日期" X="0" Y="2"/>
+                        <DatePicker Key="Stop_Date" Caption="结束日期" BuddyKey="Lab_Stop_Date" X="4" Y="2" OnlyDate="true">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="Stop_Date"/>
+                        </DatePicker>
+                        <Label Key="Lab_Stop_Date" Caption="结束日期" X="3" Y="2"/>
+                        <ComboBox Key="Is_Effective" Caption="是否有效" BuddyKey="Lab_Is_Effective" X="1" Y="3">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="Is_Effective"/>
+                            <Item Caption="是" Key="0" Value="0"/>
+                            <Item Caption="否" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Key="Lab_Is_Effective" Caption="是否有效" X="0" Y="3"/>
+                        <RowDefCollection RowGap="6" RowHeight="30">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysInfo" Padding="10px" Caption="系统信息">
+                        <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="CREATOR"/>
+                        </Dict>
+                        <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                        <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0" Enable="false">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="CREATETIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                        <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="MODIFIER"/>
+                        </Dict>
+                        <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1" Enable="false">
+                            <DataBinding TableKey="CHCS_Exchange_Rate" ColumnKey="MODIFYTIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="2" Y="1"/>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

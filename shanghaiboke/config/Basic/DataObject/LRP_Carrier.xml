@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="承运商" Key="LRP_Carrier" PrimaryTableKey="LRP_Carrier" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="仓间" DBTableName="LRP_Carrier" Key="LRP_Carrier">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long" DefaultValue="0"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+            <Column Key="VendorId" Caption="供应商" DataType="Long" Cache="true"/>
+            <Column Key="Contacts" Caption="联系人" DataType="Varchar" Cache="true" Length="100"/>
+            <Column Key="Tel" Caption="联系电话" DataType="Varchar" Cache="true" Length="100"/>
+        </Table>
+    </TableCollection>
+</DataObject>

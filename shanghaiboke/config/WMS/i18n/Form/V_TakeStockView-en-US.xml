@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <BatchConfirm>Confirm</BatchConfirm>
+        <New>New</New>
+        <BatchDelete>Delete</BatchDelete>
+        <BatchFinishConfirm-R>Finish-R</BatchFinishConfirm-R>
+        <BatchConfirm-R>Confirm-R</BatchConfirm-R>
+        <Close>Close</Close>
+        <BatchFinishConfirm>Finish</BatchFinishConfirm>
+    </Opt>
+    <UI>
+        <V_TakeStockView-Abbr>TakeStockView</V_TakeStockView-Abbr>
+        <cancel>Reset</cancel>
+        <Query>Select</Query>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_CheckDatetimeFrom>CheckDateTimeFrom</Lab_CheckDatetimeFrom>
+        <Lab_No>OrderNo</Lab_No>
+        <Lab_OwnerId>Shipper</Lab_OwnerId>
+        <Lab_StoreroomId>StoreroomId</Lab_StoreroomId>
+        <Lab_CheckDatetimeTo>CheckDateTimeTo</Lab_CheckDatetimeTo>
+        <Lab_WarehouseCenterId>Storage Centre ID</Lab_WarehouseCenterId>
+        <Lab_DataObjectKey>DataObjectKey</Lab_DataObjectKey>
+    </UI>
+    <ListViewColumn>
+        <Stauts_L>Status</Stauts_L>
+        <OwnerId_L>OwnerId</OwnerId_L>
+        <MaterialId_L>Material</MaterialId_L>
+        <LocationId>LocationId</LocationId>
+        <OID>Oid</OID>
+        <No_L>No</No_L>
+        <CheckDatetime_L>CheckDateTime</CheckDatetime_L>
+        <EndDate_L>EndDate</EndDate_L>
+        <Remark_L>Remark</Remark_L>
+        <StoreareaId_L>StoreareaId</StoreareaId_L>
+        <StartDate_L>StartDate</StartDate_L>
+        <Select>Select</Select>
+        <StoreroomId_L>StoreroomId</StoreroomId_L>
+        <CheckPerson_L>CheckPerson</CheckPerson_L>
+    </ListViewColumn>
+    <Items-GenMethod_L0>
+        <Item-0>System generation</Item-0>
+        <Item-1>Inventory entry</Item-1>
+    </Items-GenMethod_L0>
+    <Items-GenMethod_L1>
+        <Item-0>System generation</Item-0>
+        <Item-1>Inventory entry</Item-1>
+    </Items-GenMethod_L1>
+	
+	<Items-Status>
+	  <Item-handled>handled</Item-handled>
+	  <Item-confirmed>Comfirm</Item-confirmed>
+	  <Item-prepared>prepared</Item-prepared>
+        <Item-finished>finished</Item-finished>
+	 </Items-Status>
+</StringTable>

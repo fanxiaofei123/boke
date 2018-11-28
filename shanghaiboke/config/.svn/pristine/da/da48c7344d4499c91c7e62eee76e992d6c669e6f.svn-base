@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--Caption="无通知收货" Authenticate="false" HasNavigationBar="false" -->
+<Form Key="NoInformReceiveManage" FormType="View">
+    <DataSource>
+        <DataObject Key="LRP_NoInformReceiveManage" Caption="无通知收货" PrimaryTableKey="LRP_Notice_H">
+            <TableCollection>
+                <Table Key="LRP_Notice_H" Caption="查找通知单" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Key="OwnerName" Caption="货主名称" DataType="Varchar" Length="200"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+                    <Column Caption="通知单类型" DataType="Integer" Key="a"/>
+                    <Statement>
+                        <![CDATA[
+ select 
+    'a' as a,
+    h.OID,
+	h.Status,
+	h.CREATETIME,
+    h.OwnerNo,
+    h.No,
+    h.WarehouseCenterId,
+	h.OwnerId,
+	o.Name as OwnerName,
+	h.Remark
+from LRP_InboundNotice_H h left join LRP_Owner o on o.oid = h.OwnerId where 1=0
+
+
+
+    ]]>
+                    </Statement>
+                </Table>
+                <Table Key="LRP_Notice_HHis" Caption="收货历史" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="事务单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="事务类型" DataType="Long" Key="TxTypeId"/>
+                    <Column Caption="事务代码" DataType="Varchar" Key="TxTypeCode" Length="10"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="NoticeNo" Length="100"/>
+                    <Column Caption="关联单号" DataType="Varchar" Key="RefNo" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Key="OwnerName" Caption="货主名称" DataType="Varchar" Length="200"/>
+                    <Column Caption="事务日期时间" DataType="DateTime" Key="TxDateTime"/>
+                    <Column Caption="仓管员id" DataType="Long" Key="WarehouseKeeperId"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetUserOperator()" DataType="Long"/>
+                        <Parameter Formula="GetPara('UserDispatchOrg')" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[ select 
+    h.OID,
+	h.Status,
+	h.CREATETIME,
+    h.No,
+    h.TxTypeId,
+    h.TxTypeCode,
+    h.OwnerNo,
+    h.NoticeNo,
+    h.RefNo,
+    h.WarehouseCenterId,
+	h.OwnerId,
+	o.Name as OwnerName,
+    h.TxDateTime,
+	h.WarehouseKeeperId,
+	h.Remark
+from LRP_WMTx_H h join LRP_Owner o on o.oid = h.OwnerId
+   where
+        h.TxTypeCode = '102' and h.WarehouseKeeperId = ? and h.WarehouseCenterId = ? order by h.TxDateTime desc
+ 	
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="SelectOwner" Description="查找货主">
+            <Statement>
+                <![CDATA[select code as c,name as n from lrp_Owner]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#e6e6e6"/>
+                <!--
+                <LinearLayoutPanel Caption="Title" Key="Title" Orientation="Horizontal" X="0" Y="0">
+                    <Format BackColor="#f14c52"/>
+                    <Label Key="OrderTitle" Caption="无通知收货" Height="auto" Weight="1.0">
+                        <Format HAlign="Center" ForeColor="#ffffff">
+                            <Font Size="20"/>
+                        </Format>
+                    </Label>
+                </LinearLayoutPanel>-->
+                <Label Key="ShowValue" X="0" Y="0" Visible="false"/>
+                <TabGroup Caption="收货管理" Key="TabPanel1" IndicatorColor="#ff5000" X="0" Y="0">
+                    <TabItem Text="新增收货">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 0);]]>
+                        </Action>
+                    </TabItem>
+                    <TabItem Text="收货历史">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 1);]]>
+                        </Action>
+                    </TabItem>
+                </TabGroup>
+                <TableView Key="RouteName_table" X="0" Y="1" Visible="ShowValue==0">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="r1" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel" Height="50px" Orientation="Horizontal">
+                                <Label Key="lab_OwnerId" Caption="货主" Width="60px" Height="auto" BorderStyle="none">
+                                    <Format HAlign="Center"/>
+                                </Label>
+                                <ComboBox Key="OwnerId" Caption="货主" SourceType="Formula" Weight="1.0" Height="auto">
+                                    <Format ForeColor="#969696" HAlign="Left">
+                                        <Font Size="13"/>
+                                    </Format>
+                                    <FormulaItems>
+                                        <![CDATA[DBNamedQuery('SelectOwner')]]>
+                                    </FormulaItems>
+                                </ComboBox>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r2" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel2" Height="50px" Orientation="Horizontal">
+                                <Label Key="lab_OwnerNo" Caption="货主单号" Width="60px" Height="auto" BorderStyle="none">
+                                    <Format HAlign="Center"/>
+                                </Label>
+                                <TextEditor Key="OwnerNo" Caption="货主单号" Weight="1.0" Height="auto">
+                                    <Format ForeColor="#969696">
+                                        <Font Size="13"/>
+                                    </Format>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r3" SeparatorStyle="solid solid solid none" SeparatorColor="#dde0e7" TopMargin="5px">
+                            <LinearLayoutPanel Key="service_center_panel3" Height="50px" Orientation="Horizontal">
+                                <Button Key="NewRecv" Caption="新增收货" Width="40px" Weight="1.0" BorderRadius="4" BorderColor="#dde0e7" HasBorder="true">
+                                    <Format ForeColor="#ffffff" HAlign="Center" BackColor="#f14c52"/>
+                                    <OnClick>
+                                        <![CDATA[											
+												if(GetValue('OwnerId') == '' || IsNull(GetValue('OwnerNo'))){
+												    ShowToast("请先输入货主和货主单号。");
+												}else{ 
+												    PushPara('OwnerId',GetValue('OwnerId'));
+													PushPara('OwnerNo',GetValue('OwnerNo'));
+												    Show('NoInformNewReceive');
+												}
+											
+									     ]]>
+                                    </OnClick>
+                                </Button>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <GridLayoutPanel Key="GridLayoutPanel2" Caption="收货历史" X="0" Y="1" Visible="ShowValue==1">
+                    <Format BackColor="#f1f3f8"/>
+                    <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl2" Caption="刷新控件" X="0" Y="1" ProgressBackgroundColorScheme="#cccccc">
+                        <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[DealCondition();
+LoadData();
+ShowToast("没有更多的消息了");
+                            ]]>
+                            <Format/>
+                        </RefreshHeader>
+                        <!-- 	<RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+						<Format/>
+						<![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+					</RefreshFooter> -->
+                        <ListView Caption="收货历史" Key="list2" TableKey="LRP_Notice_HHis" RowHeight="110" Enable="true" PageLoadType="DB" PageRowCount="10" HasBorder="true" X="0" Y="0" BorderColor="#e6e6e6" Padding="5px">
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="No2" DataColumnKey="No" Caption="收货单号"/>
+                                <ListViewColumn Caption="货主" DataColumnKey="OwnerName" Key="OwnerName2"/>
+                                <ListViewColumn Caption="货主单号" DataColumnKey="OwnerNo" Key="OwnerNo2"/>
+                                <ListViewColumn Caption="事务日期时间" ColumnType="DatePicker" DataColumnKey="CREATETIME" Key="CREATETIME2">
+                                    <Format HAlign="Left"/>
+                                </ListViewColumn>
+                                <ListViewColumn Caption="状态" ColumnType="ComboBox" Key="Status" DataColumnKey="Status">
+                                    <Item Caption="已输入" Key="100" Value="100"/>
+                                    <Item Caption="处理中" Key="500" Value="500"/>
+                                    <Item Caption="已完成" Key="900" Value="900"/>
+                                    <Format HAlign="Left"/>
+                                </ListViewColumn>
+                                <ListViewColumn Key="OID2" DataColumnKey="OID" Caption="OID"/>
+                            </ListViewColumnCollection>
+                            <RowClick>
+                                <![CDATA[
+                                    PushPara('OID',OID2);
+									Show('NoFormHistoryDetail');
+            						
+                            ]]>
+                            </RowClick>
+                        </ListView>
+                    </RefreshControl>
+                    <HyperLink Key="Label2" Visible="GetRowCount('list2')==0&amp;&amp;1&lt;&gt;1" Caption="当前没有已收货的单据！" X="0" Y="1">
+                        <Format ForeColor="#000000" HAlign="Center">
+                            <Font Size="26"/>
+                        </Format>
+                    </HyperLink>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="3px"/>
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="list2">
+                    <GridLayout Key="list2">
+                        <LayoutSpan Key="No2" X="1" Y="0"/>
+                        <LayoutSpan Key="OwnerName2" X="3" Y="0" XSpan="2"/>
+                        <LayoutSpan Key="CREATETIME2" X="1" Y="1"/>
+                        <LayoutSpan Key="OwnerNo2" X="5" Y="0"/>
+                        <LayoutSpan Key="Status" X="3" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="45%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="35%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="20%"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Long" Key="UserDispatchOrg" Type="Formula" Formula="root.GetPara('WarehouseCenterId')"/>
+    </FormParaCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="无通知收货" Location="Center">
+            <Label Key="TitleCenter" Caption="无通知收货" Width="150px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

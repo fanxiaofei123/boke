@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Solution Caption="范潇飞" Key="fanxiaofei">
+    <ProjectCollection>
+        <Project Caption="公共配置" Key="Common"/>
+        <Project Caption="考试-范潇飞" Key="fxf"/>
+    </ProjectCollection>
+    <InplaceToolbarCollection>
+        <InplaceToolbar Description="BPM融合" Handler="com.bokesoft.yes.bpm.BPMInplaceToolBarCallback" Tag="BPM"/>
+        <InplaceToolbar Description="提交工作项" Handler="com.bokesoft.yes.bpm.LoadWorkitemInplaceToolBarCallback" Tag="WORKITEM"/>
+    </InplaceToolbarCollection>
+    <LangConfig/>
+</Solution>

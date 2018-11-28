@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<UI>
+		<BasicTab>BasicInfo</BasicTab>
+		<SystemTab>SystemInfo</SystemTab>
+		
+		<L_CREATOR>CREATOR</L_CREATOR>
+		<L_CREATETIME>CREATETIME</L_CREATETIME>
+		<L_MODIFIER>MODIFIER</L_MODIFIER>
+		<L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+		
+		<Lab_Status_h>Status</Lab_Status_h>
+	</UI>
+	<ListViewColumn>
+		<Status>Status</Status>
+	</ListViewColumn>
+    <Entry>
+        <TMSUserApp_UserApp>ShipperAPP</TMSUserApp_UserApp>
+			<TMSUserApp_UserApp_UserOp>ShipperUser</TMSUserApp_UserApp_UserOp>
+				<TMSUserApp_UserApp_UserOp_V_OwnerUser_LRP>OwnerUser</TMSUserApp_UserApp_UserOp_V_OwnerUser_LRP>
+				<TMSUserApp_UserApp_UserOp_V_OwnerUserRouteView>OwnerUserRoute</TMSUserApp_UserApp_UserOp_V_OwnerUserRouteView>
+				<TMSUserApp_UserApp_UserOp_V_OwnerUserMessageView>OwnerUserMessage</TMSUserApp_UserApp_UserOp_V_OwnerUserMessageView>
+				<TMSUserApp_UserApp_UserOp_V_LogisticsAppointmentView>LogisticsAppointment</TMSUserApp_UserApp_UserOp_V_LogisticsAppointmentView>
+				<TMSUserApp_UserApp_UserOp_V_SatisfactionSurv.xml>SatisfactionSurvey</TMSUserApp_UserApp_UserOp_V_SatisfactionSurv.xml>
+				<TMSUserApp_UserApp_UserOp_NewItem>CustomerComplaint</TMSUserApp_UserApp_UserOp_NewItem>
+				
+			<TMSUserApp_UserApp_Quote>Coupon</TMSUserApp_UserApp_Quote>
+				<TMSUserApp_UserApp_Quote_V_CouponType_LRP>CouponType</TMSUserApp_UserApp_Quote_V_CouponType_LRP>
+				<TMSUserApp_UserApp_Quote_V_CouponView>CouponView</TMSUserApp_UserApp_Quote_V_CouponView>
+				<TMSUserApp_UserApp_Quote_V_CouponRecordsView>CouponRecords</TMSUserApp_UserApp_Quote_V_CouponRecordsView>
+			
+			<TMSUserApp_UserApp_Pay>Payment</TMSUserApp_UserApp_Pay>
+				<TMSUserApp_UserApp_Pay_V_OwnerPayRecordsView>OwnerPayRecords</TMSUserApp_UserApp_Pay_V_OwnerPayRecordsView>
+			
+			<TMSUserApp_UserApp_Promotions>Promotions</TMSUserApp_UserApp_Promotions>
+				<TMSUserApp_UserApp_Promotions_V_PromotionsView>PromotionsView</TMSUserApp_UserApp_Promotions_V_PromotionsView>
+				<TMSUserApp_UserApp_Promotions_V_UserPromotionsLogView>UserPromotionsLogView</TMSUserApp_UserApp_Promotions_V_UserPromotionsLogView>
+			
+			<TMSUserApp_UserApp_OwnerAccount>OwnerAccount</TMSUserApp_UserApp_OwnerAccount>
+				<TMSUserApp_UserApp_OwnerAccount_V_OwnerAccountRecordsView>OwnerAccountRecordsView</TMSUserApp_UserApp_OwnerAccount_V_OwnerAccountRecordsView>
+				<TMSUserApp_UserApp_OwnerAccount_V_OwnerAccountBalance>OwnerAccountBalance</TMSUserApp_UserApp_OwnerAccount_V_OwnerAccountBalance>
+			
+			<TMSUserApp_UserApp_PointManage>PointManage</TMSUserApp_UserApp_PointManage>
+				<TMSUserApp_UserApp_PointManage_V_UserPointsRuleView>UserPointsRuleView</TMSUserApp_UserApp_PointManage_V_UserPointsRuleView>
+				<TMSUserApp_UserApp_PointManage_V_AddRecordsQuery>AddRecordsQuery</TMSUserApp_UserApp_PointManage_V_AddRecordsQuery>
+				<TMSUserApp_UserApp_PointManage_V_UserPointsQuery>UserPointsQuery</TMSUserApp_UserApp_PointManage_V_UserPointsQuery>
+				<TMSUserApp_UserApp_PointManage_V_ExchangeItemView>ExchangeItemView</TMSUserApp_UserApp_PointManage_V_ExchangeItemView>
+				<TMSUserApp_UserApp_PointManage_V_ExchangeItemQuery>ExchangeItemQuery</TMSUserApp_UserApp_PointManage_V_ExchangeItemQuery>
+				
+    </Entry>
+	<Items-Status_h>
+		<Item-prepared>prepared</Item-prepared>
+		<Item-confirmed>confirmed</Item-confirmed>
+		<Item-cancelled>cancelled</Item-cancelled>
+	</Items-Status_h>
+	
+	
+</StringTable>

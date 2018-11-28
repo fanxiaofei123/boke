@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Caption="采购审批" Key="PurchaseAudit" IDSeed="18">
+    <Begin Caption="开始节点" ID="1" Key="Begin1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="9" Key="SequenceFlow1" TargetNodeKey="State1"/>
+        </TransitionCollection>
+        <NodeGraphic X="107" Y="204" Height="40" Width="40"/>
+        <NodeAttachment/>
+    </Begin>
+    <State Caption="审批中" ID="2" Key="State1" Status="statusKey2">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="10" Key="SequenceFlow2" TargetNodeKey="Audit1"/>
+        </TransitionCollection>
+        <NodeGraphic X="208" Y="204" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <Audit Caption="采购经理审批" ID="3" Key="Audit1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="11" Key="SequenceFlow3" TargetNodeKey="Decision1"/>
+            <SequenceFlow Caption="顺序流" Condition="False" ID="12" Key="SequenceFlow4" TargetNodeKey="State3"/>
+        </TransitionCollection>
+        <NodeGraphic X="302" Y="199"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="PurchaseAudit_op1" Caption="审批">
+                <Action>
+                    <![CDATA[ShowModal("AuditDialog")]]>
+                </Action>
+            </Operation>
+            <Operation Key="operation1" Caption="审批记录">
+                <Action>
+                    <![CDATA[ShowModal('WFLog',{
+pOID:{GetOID()},
+processKey:{GetProcessKey()},
+processVer:{GetProcessVer()}
+})]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Dictionary Code="PM" ItemKey="Operator"/>
+        </ParticipatorCollection>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <State Caption="通过" ID="4" Key="State2" Status="statusKey3">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="17" Key="SequenceFlow9" TargetNodeKey="End1"/>
+        </TransitionCollection>
+        <NodeGraphic X="685" Y="101" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <State Caption="驳回" ID="5" Key="State3" Status="statusKey4">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="18" Key="SequenceFlow10" TargetNodeKey="End1"/>
+        </TransitionCollection>
+        <NodeGraphic X="685" Y="285" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <End Caption="结束节点" ID="6" Key="End1">
+        <NodeGraphic X="807" Y="204" Height="40" Width="40"/>
+        <NodeAttachment/>
+    </End>
+    <Decision Caption="采购单的总价不超过10000" Condition="PurchaseDetail.TotalPrice&lt;10000" ID="7" Key="Decision1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="13" Key="SequenceFlow5" TargetNodeKey="Audit2" Condition="False"/>
+            <SequenceFlow Caption="顺序流" ID="16" Key="SequenceFlow8" TargetNodeKey="State2"/>
+        </TransitionCollection>
+        <NodeGraphic X="500" Y="123" Width="50"/>
+        <NodeAttachment/>
+    </Decision>
+    <Audit Caption="总经理审批" ID="8" Key="Audit2">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" Condition="False" ID="14" Key="SequenceFlow6" TargetNodeKey="State3"/>
+            <SequenceFlow Caption="顺序流" ID="15" Key="SequenceFlow7" TargetNodeKey="State2"/>
+        </TransitionCollection>
+        <NodeGraphic X="665" Y="199"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="PurchaseAudit_op1" Caption="审批">
+                <Action>
+                    <![CDATA[ShowModal("AuditDialog")]]>
+                </Action>
+            </Operation>
+            <Operation Key="operation1" Caption="审批记录">
+                <Action>
+                    <![CDATA[ShowModal('WFLog',{
+pOID:{GetOID()},
+processKey:{GetProcessKey()},
+processVer:{GetProcessVer()}
+})]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Dictionary Code="GM" ItemKey="Operator"/>
+        </ParticipatorCollection>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <AttachmentCollection/>
+</Process>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Exception_Handling" Caption="异常处理" FormType="View">
+    <DataSource>
+        <DataObject Key="CHCS_Exception_Handling" Caption="异常处理" PrimaryTableKey="CHCS_Exception_Handling">
+            <TableCollection>
+                <Table Key="CHCS_Exception_Handling" Caption="异常处理" SourceType="Query" TableMode="Detail" DBTableName="CHCS_Flight_Plan ">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="FLIGHT_ID" Caption="FLIGHT_ID" DataType="Long"/>
+                    <Column Key="NO" Caption="表单单号" DataType="Varchar"/>
+                    <Column Key="Type" Caption="表单类型" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('key1');" Value="102451597"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select FLIGHT_ID,OID,NO,'配餐单' Type from CHCS_Meals_Provide_Plan_H where FLIGHT_ID=? ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="900px" PopWidth="1500px">
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板" Height="pref" Width="pref">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1" Visible="false">
+                    <TextEditor Key="para" Caption="航班主键" BuddyKey="Lab_para" X="1" Y="0">
+                        <DataBinding DefaultFormulaValue="var Fpara=parent.GetPara('key'); SetPara('key1',Fpara); return Fpara;"/>
+                    </TextEditor>
+                    <Label Key="Lab_para" Caption="航班主键" X="0" Y="0"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="CHCS_Exception_Handling">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="FLIGHT_ID" Caption="FLIGHT_ID" ColumnType="TextEditor" DataColumnKey="FLIGHT_ID"/>
+                        <ListViewColumn Key="OID" Caption="对象标识" ColumnType="NumberEditor" DataColumnKey="OID" IntegerValue="true"/>
+                        <ListViewColumn Key="NO" Caption="表单单号" DataColumnKey="NO" Width="184px"/>
+                        <ListViewColumn Key="Type" Caption="表单类型" DataColumnKey="Type"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('CHCS_Meals_Provide_P', OID);]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[	DealCondition();ReloadGrid("ListView1");ShowData();]]>
+    </OnPostShow>
+</Form>

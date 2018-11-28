@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Tx301" FormType="View">
+    <DataSource>
+        <DataObject Key="Tx302">
+            <TableCollection>
+                <Table Caption="我的移位任务" Key="TakeStockByOrderConfirm" SourceType="Query" TableMode="Detail" Persist="false">
+                    <Column Caption="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="移位单号" DataType="Varchar" Key="No"/>
+                    <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="移位日期时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetUserOperator()" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[
+						select OID,No,OwnerId,CreateTime,OwnerNo from LRP_WMTx_H where WarehouseKeeperId=? and Status=200 and TxTypeCode='301'
+						]]>
+                    </Statement>
+                </Table>
+                <Table Caption="移位历史" Key="TakeStockByOrderFinish" SourceType="Query" TableMode="Detail" Persist="false">
+                    <Column Caption="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="移位单号" DataType="Varchar" Key="No"/>
+                    <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="移位完成日期时间" DataType="DateTime" Key="FinishDateTime"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetUserOperator()" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[
+						select OID,No,OwnerId,FinishDateTime from LRP_WMTx_H where WarehouseKeeperId=? and Status=900 and TxTypeCode='301'
+						]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[
+			if(!IsLogin()){
+				return true;
+			}
+             LoadData();
+			]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Label Key="ShowValue" X="0" Y="0" Visible="false"/>
+                <TabGroup Caption="按单移位" Key="TabPanel1" IndicatorColor="#ff5000" X="0" Y="0">
+                    <TabItem Text="我的移位任务">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 0);]]>
+                        </Action>
+                    </TabItem>
+                    <TabItem Text="移位历史">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 1);]]>
+                        </Action>
+                    </TabItem>
+                </TabGroup>
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1" X="0" Y="1" Visible="ShowValue==0 || Length(ShowValue) == 0">
+                    <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl1" Caption="刷新控件" ProgressBackgroundColorScheme="#cccccc" X="0" Y="0">
+                        <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                            <Format/>
+                        </RefreshHeader>
+                        <RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                            <Format/>
+                        </RefreshFooter>
+                        <ListView Key="listConfirm" Caption="我的移位任务" TableKey="TakeStockByOrderConfirm" RowHeight="60" Enable="true" SeparatorStyle="solid none solid none" Padding="5px">
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" ColumnType="TextEditor" Visible="false"/>
+                                <ListViewColumn Key="No" Caption="移位单号" DataColumnKey="No" ColumnType="TextEditor"/>
+                                <ListViewColumn Key="OwnerId" Caption="货主" DataColumnKey="OwnerId" ColumnType="Dict" ItemKey="LRP_Owner"/>
+                                <ListViewColumn Key="CreateTime" Caption="移位单创建日期时间" DataColumnKey="CreateTime" ColumnType="DatePicker">
+                                    <Format HAlign="Left"/>
+                                </ListViewColumn>
+                                <ListViewColumn Key="OwnerNo" Caption="货主单号" DataColumnKey="OwnerNo" ColumnType="TextEditor"/>
+                            </ListViewColumnCollection>
+                            <RowClick>
+                                <![CDATA[
+								PushPara('OID',OID);Open('Tx301Order',OID);      
+							]]>
+                            </RowClick>
+                        </ListView>
+                    </RefreshControl>
+                    <RowDefCollection>
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel2" Caption="GridLayoutPanel2" X="0" Y="1" Visible="ShowValue==1">
+                    <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl2" Caption="刷新控件" ProgressBackgroundColorScheme="#cccccc" X="0" Y="0">
+                        <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                            <Format/>
+                        </RefreshHeader>
+                        <RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                            <Format/>
+                        </RefreshFooter>
+                        <ListView Key="listFinish" Caption="移位历史" TableKey="TakeStockByOrderFinish" RowHeight="60" Enable="true" SeparatorStyle="solid none solid none" Padding="5px">
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="OID_f" Caption="OID" DataColumnKey="OID" ColumnType="TextEditor" Visible="false"/>
+                                <ListViewColumn Key="No_f" Caption="移位单号" DataColumnKey="No" ColumnType="TextEditor"/>
+                                <ListViewColumn Key="OwnerId_f" Caption="货主" DataColumnKey="OwnerId" ColumnType="Dict" ItemKey="LRP_Owner"/>
+                                <ListViewColumn Key="FinishDateTime_f" Caption="移位单完成日期时间" DataColumnKey="FinishDateTime" ColumnType="DatePicker">
+                                    <Format HAlign="Left"/>
+                                </ListViewColumn>
+                                <ListViewColumn Key="OwnerNo_f" Caption="货主单号" DataColumnKey="OwnerNo" ColumnType="TextEditor"/>
+                            </ListViewColumnCollection>
+                            <RowClick>
+                                <![CDATA[
+								PushPara('OID',OID_f);Open('Tx301Detail',OID_f);      
+							]]>
+                            </RowClick>
+                        </ListView>
+                    </RefreshControl>
+                    <RowDefCollection>
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <LinearLayoutPanel Key="opt_panel" X="0" Y="2" Orientation="Horizontal" BorderStyle="solid none">
+                    <Button Key="Receive" Caption="领取移位任务" Enable="True" Width="pref" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="20"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+								Show('Tx301Receive');
+							]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="Confirm">
+                <ComponentView Key="listConfirm">
+                    <GridLayout Key="listConfirm">
+                        <LayoutSpan Key="No" X="0" Y="0"/>
+                        <LayoutSpan Key="OwnerId" X="1" Y="0"/>
+                        <LayoutSpan Key="CreateTime" X="0" Y="1"/>
+                        <LayoutSpan Key="OwnerNo" X="1" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="70%"/>
+                            <ColumnDef Width="30%"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+                <ComponentView Key="listFinish">
+                    <GridLayout Key="listFinish">
+                        <LayoutSpan Key="No_f" X="0" Y="0"/>
+                        <LayoutSpan Key="OwnerId_f" X="1" Y="0"/>
+                        <LayoutSpan Key="FinishDateTime_f" X="0" Y="1"/>
+                        <LayoutSpan Key="OwnerNo_f" X="1" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="70%"/>
+                            <ColumnDef Width="30%"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="按单移位" Location="Center">
+            <Label Key="TitleCenter" Caption="按单移位" Width="100px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

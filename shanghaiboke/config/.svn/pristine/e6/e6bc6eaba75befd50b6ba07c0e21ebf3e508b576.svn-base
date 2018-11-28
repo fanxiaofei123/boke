@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DriverCurrentOrder" Authenticate="false">
+    <DataSource>
+        <DataObject Key="DriverCurrentOrder" Caption="订单信息" Authenticate="false">
+            <TableCollection>
+                <Table Caption="订单信息" Key="DriverCurrentOrder" SourceType="Query">
+                    <Column Key="TDHOID" Caption="调度单id" DataType="Long"/>
+                    <Column Key="TJHOID" Caption="作业单id" DataType="Long"/>
+                    <Column Key="TOHOID" Caption="订单id" DataType="Long"/>
+                    <Column Key="Status" Caption="作业单状态" DataType="Integer"/>
+                    <Column Key="TJHNo" Caption="作业单号" DataType="Varchar" Length="100"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="ExpectArriveTime" Caption="预计送达时间" DataType="DateTime"/>
+                    <Column Key="SendPartyName" Caption="发货方名称" DataType="Varchar" Length="100"/>
+                    <Column Key="SendAddress" Caption="发货方地址" DataType="Varchar" Length="100"/>
+                    <Column Key="SendContactor" Caption="发货方联系人" DataType="Varchar" Length="100"/>
+                    <Column Key="SendContactTel" Caption="发货方联系人电话" DataType="Varchar" Length="100"/>
+                    <Column Key="RecvPartyName" Caption="收货方名称" DataType="Varchar" Length="100"/>
+                    <Column Key="RecvAddress" Caption="收货方地址" DataType="Varchar" Length="100"/>
+                    <Column Key="RecvContactor" Caption="收货方联系人" DataType="Varchar" Length="100"/>
+                    <Column Key="PayMethod" Caption="付款方式" DataType="Integer"/>
+                    <Column Key="PayStatus" Caption="付款状态" DataType="Integer"/>
+                    <Column Key="TruckTypeId" Caption="车型id" DataType="Long"/>
+                    <Column Key="TruckTypeName" Caption="车型名称" DataType="Varchar" Length="200" Cache="true"/>
+                    <Column Key="TruckLicenseNo" Caption="车牌号" DataType="Varchar" Length="100"/>
+                    <Column Key="Weight" Caption="重量" DataType="Numeric" Precision="18" Scale="2"/>
+                    <Column Key="Cubage" Caption="体积" DataType="Numeric" Precision="18" Scale="2"/>
+                    <Column Key="Amount" Caption="服务费" DataType="Numeric" Precision="18" Scale="2"/>
+                    <Column Key="Freight" Caption="运费" DataType="Numeric" Precision="18" Scale="2"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('TJHOID')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select 
+	TDHOID,
+    TJHOID,
+    TOHOID,
+    Status,
+	TJHNo,
+	DispatchOrgId,
+    ExpectArriveTime,
+    RecvPartyName,
+    RecvAddress,
+    RecvContactor,
+    SendPartyName,
+    SendAddress,
+    SendContactor,
+    SendContactTel,
+    PayMethod,
+	PayStatus,
+    TruckTypeId,
+    TruckTypeName,
+    TruckLicenseNo,
+    Weight,
+    Cubage,
+    Freight,
+    Amount
+from
+    (select 
+        TDH.oid TDHOID,
+            TJH.oid as TJHOID,
+            TOH.oid as TOHOID,
+            TJH.Status,
+			TJH.No as TJHNo,
+			TOH.DispatchOrgId,
+            TOH.ExpectArriveTime,
+            TOH.RecvPartyName,
+            TOH.RecvAddress,
+            TOH.RecvContactor,
+            TOH.SendPartyName,
+            TOH.SendAddress,
+            TOH.SendContactor,
+            TOH.SendContactTel,
+            TOH.PayMethod,
+			TOH.PayStatus,
+            TDH.TruckTypeId,
+            TT.Name as TruckTypeName,
+            TDH.TruckLicenseNo,
+            sum(TJML.Weight) as Weight,
+            sum(TJML.Cubage) as Cubage,
+            sum(TOML.Freight) as Freight
+    from
+        LRP_TransportDispatch_H TDH
+    join LRP_TransportDJ_L TDL ON TDH.oid = TDL.soid
+    join LRP_TransportJob_H TJH ON TJH.oid = TDL.TJId
+    join LRP_TransportOrder_H TOH ON TJH.OrderNo = TOH.No
+    join LRP_TransportJobMat_L TJML ON TJH.oid = TJML.soid
+    join LRP_TransportMaterial_L TOML ON TOH.oid = TOML.soid
+    left join LRP_TruckType TT ON TDH.TruckTypeId = TT.oid
+	where
+        TJH.oid = ?
+    group by TDH.oid , TOH.oid, TJH.oid , TJH.Status , TJH.No, DispatchOrgId, TOH.ExpectArriveTime , TOH.RecvPartyName , TOH.RecvAddress , TOH.RecvContactor , TOH.SendPartyName , TOH.SendAddress , TOH.SendContactor , TOH.SendContactTel , TOH.PayMethod , TOH.PayStatus,TDH.TruckTypeId , TT.Name , TDH.TruckLicenseNo) a
+        Left join
+    (select 
+        TOSL.SOID, sum(TOSL.ServiceAmount) as Amount
+    from
+        LRP_TransportOrderService_L TOSL
+    group by TOSL.SOID) b ON a.TOHOID = b.SOID]]>
+                    </Statement>
+                </Table>
+                <Table Key="TransportOrderRoute" Caption="途径信息" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="AddressName" Caption="地址名称" DataType="Varchar" Length="40"/>
+                    <Column Key="Address" Caption="详细地址" DataType="Varchar" Length="100"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('TJHOID')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select TORL.OID,TORL.AddressName,TORL.Address 
+						from LRP_TransportJob_H TJH 
+						join LRP_TransportOrder_H TOH on TJH.OrderNo=TOH.No
+						join LRP_TransportOrderRoute_L TORL on TORL.Soid = TOH.Soid
+						where AddressType = 50 and TJH.oid = ?]]>
+                    </Statement>
+                </Table>
+                <Table Key="TransportOrderService" TableMode="Detail" SourceType="Query" Caption="物流服务">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="ServiceName" Caption="服务名" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('TJHOID')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select LS.name as ServiceName,
+                        TOSL.ServiceId,sum(TOSL.ServiceAmount) as Amount
+						from LRP_TransportJob_H TJH 
+						join LRP_TransportOrder_H TOH on TJH.OrderNo=TOH.No 
+						left join LRP_TransportOrderService_L TOSL on TOH.oid=TOSL.soid 
+						left join LRP_LogisticsService LS on ls.oid=TOSL.ServiceId
+						where TJH.oid = ?
+						group by LS.name,TOSL.ServiceId]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="TruckId" Description="更新车辆信息">
+            <Statement>
+                <![CDATA[update LRP_TransportDispatch_H set TruckId = ?,TruckLicenseNo = ?,TruckTypeId = ? where OID = ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block Key="block_truck_sel" Root="false">
+            <PopView Key="pop_truck_sel" Height="200px">
+                <GridLayoutPanel Key="pop_truck_sel_panel" Height="185px">
+                    <Format BackColor="#ffffff"/>
+                    <Label Key="truck_pop_title" Caption="可更换车辆" X="1" Y="1" XSpan="6">
+                        <Format ForeColor="#000000" HAlign="Center">
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <Label Key="truck_pop_truck" Caption="车辆" X="1" Y="3">
+                        <Format ForeColor="#000000">
+                            <Font Size="14"/>
+                        </Format>
+                    </Label>
+                    <!-- <ComboBox Key="truck_pop_code" SourceType="Query" Caption="truck" BorderStyle="none" X="3" Y="3" XSpan="4">
+                        <QueryDef>
+                            <Statement>
+                                <![CDATA[select oid as c,name as n from lrp_truck]]>
+                            </Statement>
+                            <ParameterCollection/>
+                        </QueryDef>
+						<DataBinding>
+							<ValueChanged>
+                               <![CDATA[
+							   var 
+							   SetValue('truck_pop_title1',GetDictValue('LRP_TruckType',GetValue('truck_pop_code'),'LRP_TruckType.LicenseNo'));]]>
+							</ValueChanged>
+						</DataBinding>
+                    </ComboBox> -->
+                    <Dict Key="truck_pop_code" ItemKey="LRP_Truck" X="3" Y="3" XSpan="4"/>
+                    <Label Key="truck_pop_title1" Caption="车牌号" X="1" Y="5">
+                        <Format ForeColor="#000000">
+                            <Font Size="14"/>
+                        </Format>
+                    </Label>
+                    <Label Key="Blank" X="3" Y="6" XSpan="4">
+                        <Format BackColor="#999999"/>
+                    </Label>
+                    <TextEditor Key="truck_pop_code1" X="3" Y="5" XSpan="4" HasBorder="true">
+                        <DataBinding DefaultFormulaValue="GetDictValue('LRP_Truck',truck_pop_code, 'LRP_Truck.LicenseNo');" ValueDependency="truck_pop_code"/>
+                    </TextEditor>
+                    <Label Key="TruckTypeId" X="3" Y="5" XSpan="4" Visible="false">
+                        <DataBinding DefaultFormulaValue="GetDictValue('LRP_Truck',truck_pop_code, 'LRP_Truck.TruckTypeId');" ValueDependency="truck_pop_code"/>
+                    </Label>
+                    <Button Key="truck_pop_esc" Caption="取消" Enable="True" X="0" Y="8" XSpan="4" BorderStyle="none">
+                        <Format ForeColor="#000000" BackColor="#ffffff"/>
+                        <OnClick>
+                            <![CDATA[
+ClosePop('pop_truck_sel');
+							]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="truck_pop_ok" Caption="确定" Enable="True" X="4" Y="8" XSpan="4" BorderStyle="none">
+                        <Format ForeColor="#ff0000" BackColor="#ffffff"/>
+                        <OnClick>
+                            <![CDATA[
+							if(IsNull(truck_pop_code1) || Length(truck_pop_code1) == 0){
+								ShowToast('请输入变更后的车牌号');
+								return 0;
+							}
+							var TruckId = ToLong(GetValue('truck_pop_code'));
+							DBNamedUpdate('TruckId', TruckId,truck_pop_code1,TruckTypeId,TDHOID);
+							LoadData();
+							ShowToast('您的车辆已修改成功');
+							ClosePop('pop_truck_sel');
+							]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection>
+                        <RowDef Height="10px"/>
+                        <RowDef Height="20px"/>
+                        <RowDef Height="10px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="10px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="2px"/>
+                        <RowDef Height="10px"/>
+                        <RowDef Height="40px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="40px"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="10px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <OnClose>
+                    <![CDATA[
+					]]>
+                </OnClose>
+            </PopView>
+        </Block>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#ffffff"/>
+                <TableView Key="info_table" X="0" Y="0">
+                    <TableRowCollection>
+                        <TableRow Key="r1" TopMargin="10px">
+                            <GridLayoutPanel Key="detail_panel1" Height="pref" LeftMargin="5px">
+                                <Label Key="OrderMessage" Caption="订单信息" X="3" Y="2" XSpan="5">
+                                    <Format ForeColor="#cc3333">
+                                        <Font Size="15" Bold="true"/>
+                                    </Format>
+                                </Label>
+                                <Image Key="Image5" Caption="Image5" X="6" Y="4" YSpan="2" Image="37.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true" Padding="5px">
+                                    <OnClick>
+                                        <![CDATA[CallPhone(SendContactTel);]]>
+                                    </OnClick>
+                                </Image>
+                                <Label Key="SendContactor" X="5" Y="4" Enable="false">
+                                    <DataBinding ColumnKey="SendContactor" TableKey="DriverCurrentOrder"/>
+                                </Label>
+                                <Label Key="Lab_SendContactor" Caption="发货人" X="3" Y="4"/>
+                                <Label Key="SendContactTel" X="5" Y="5" Enable="false">
+                                    <DataBinding ColumnKey="SendContactTel" TableKey="DriverCurrentOrder"/>
+                                </Label>
+                                <Label Key="Lab_SendContactTel" Caption="联系电话" X="3" Y="5"/>
+                                <DatePicker Key="ExpectArriveTime" X="5" Y="6" Enable="false" Format="MM月dd日 HH:mm">
+                                    <DataBinding ColumnKey="ExpectArriveTime" TableKey="DriverCurrentOrder"/>
+                                    <Format HAlign="Left" BackColor="#ffffff"/>
+                                </DatePicker>
+                                <Label Key="Lab_ExpectArriveTime" Caption="服务时间" X="3" Y="6"/>
+                                <Label Key="TJHNo" BuddyKey="Lab_TJHNo" X="5" Y="3" Caption="订单号">
+                                    <DataBinding ColumnKey="TJHNo" TableKey="DriverCurrentOrder"/>
+                                </Label>
+                                <Label Key="Lab_TJHNo" X="3" Y="3" Caption="订单号"/>
+                                <ComboBox Key="Status" X="6" Y="3" SourceType="Status" Visible="false">
+                                    <DataBinding ColumnKey="Status" TableKey="DriverCurrentOrder"/>
+                                </ComboBox>
+                                <Label Key="Label1" X="0" Y="0" XSpan="8">
+                                    <Format BackColor="#e6e6e6"/>
+                                </Label>
+                                <Image Key="Image6" X="1" Y="2" Image="3-1.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true"/>
+                                <RowDefCollection>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="60px"/>
+                                    <ColumnDef Width="10px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r3" TopMargin="10px">
+                            <GridLayoutPanel Key="detail_panel2" Height="pref" LeftMargin="5px">
+                                <Label Key="AddressMessage" Caption="地址信息" X="3" Y="2" XSpan="3">
+                                    <Format ForeColor="#cc3333">
+                                        <Font Size="15" Bold="true"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="SendPartyName" X="5" Y="3" Enable="false">
+                                    <DataBinding ColumnKey="SendPartyName" TableKey="DriverCurrentOrder"/>
+                                    <Format>
+                                        <Font Size="14"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="SendAddress" X="5" Y="4" Enable="false">
+                                    <DataBinding ColumnKey="SendAddress" TableKey="DriverCurrentOrder"/>
+                                    <Format>
+                                        <Font Size="10"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Lab_SendParty" Caption="始发地" X="3" Y="3" YSpan="2"/>
+                                <Label Key="Label2" X="0" Y="0" XSpan="6">
+                                    <Format BackColor="#e6e6e6"/>
+                                </Label>
+                                <Image Key="Image7" X="1" Y="2" Image="3-1.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true"/>
+                                <RowDefCollection>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="20px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row5" RowType="Detail" TableKey="TransportOrderRoute">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Caption="GridLayoutPanel3" LeftMargin="5px">
+                                <Label Key="AddressName" X="5" Y="0" Enable="false">
+                                    <DataBinding ColumnKey="AddressName"/>
+                                    <Format>
+                                        <Font Size="14"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Address" X="5" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="Address"/>
+                                    <Format>
+                                        <Font Size="10"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Lab_RouteAddressName" Caption="途径地" X="3" Y="0" YSpan="2"/>
+                                <RowDefCollection>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="20px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r4" TopMargin="10px">
+                            <GridLayoutPanel Key="detail_panel4" Height="pref" LeftMargin="5px">
+                                <Label Key="RecvPartyName" X="5" Y="0" Enable="false">
+                                    <DataBinding ColumnKey="RecvPartyName" TableKey="DriverCurrentOrder"/>
+                                    <Format>
+                                        <Font Size="14"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="RecvAddress" X="5" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="RecvAddress" TableKey="DriverCurrentOrder"/>
+                                    <Format>
+                                        <Font Size="10"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="Lab_RecvParty" Caption="目的地" X="3" Y="0" YSpan="2"/>
+                                <RowDefCollection>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="20px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r5" TopMargin="10px">
+                            <GridLayoutPanel Key="detail_panel5" Height="pref" Margin="5px">
+                                <Label Key="MaterialMessage" Caption="货物信息" X="3" Y="2" XSpan="3">
+                                    <Format ForeColor="#cc3333">
+                                        <Font Size="15" Bold="true"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="Weight" Enable="false" Precision="18" BorderStyle="none" X="5" Y="3">
+                                    <DataBinding ColumnKey="Weight" TableKey="DriverCurrentOrder"/>
+                                    <Format BackColor="transparent"/>
+                                </NumberEditor>
+                                <Label Key="Lab_Weight" Caption="重量" X="3" Y="3"/>
+                                <NumberEditor Key="Cubage" Enable="false" Precision="18" BorderStyle="none" X="5" Y="4">
+                                    <DataBinding ColumnKey="Cubage" TableKey="DriverCurrentOrder"/>
+                                    <Format BackColor="transparent"/>
+                                </NumberEditor>
+                                <Label Key="Lab_Cubage" Caption="体积" X="3" Y="4"/>
+                                <Label Key="Label3" X="0" Y="0" XSpan="6">
+                                    <Format BackColor="#e6e6e6"/>
+                                </Label>
+                                <Image Key="Image8" X="1" Y="2" Image="3-1.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true"/>
+                                <RowDefCollection>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="40px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row7" RowType="Detail" TableKey="TransportOrderService">
+                            <GridLayoutPanel Key="GridLayoutPanel4" Caption="GridLayoutPanel4" Margin="5px">
+                                <Label Key="ServiceName" X="5" Y="0" Enable="false">
+                                    <DataBinding ColumnKey="ServiceName"/>
+                                </Label>
+                                <Label Key="Lab_ServiceName" Caption="额外服务" X="3" Y="0"/>
+                                <RowDefCollection>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="7px"/>
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r6" TopMargin="10px">
+                            <GridLayoutPanel Key="detail_panel6" Height="pref" Margin="5px">
+                                <Label Key="TruckMessage" Caption="车辆信息" X="3" Y="2" XSpan="3">
+                                    <Format ForeColor="#cc3333">
+                                        <Font Size="15" Bold="true"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="TruckTypeName" X="5" Y="3" Enable="false">
+                                    <DataBinding ColumnKey="TruckTypeName" TableKey="DriverCurrentOrder"/>
+                                </Label>
+                                <Label Key="Lab_TruckTypeName" Caption="车型" X="3" Y="3"/>
+                                <Label Key="TruckLicenseNo" X="5" Y="4" Enable="false">
+                                    <DataBinding ColumnKey="TruckLicenseNo" TableKey="DriverCurrentOrder"/>
+                                </Label>
+                                <Label Key="Lab_TruckLicenseNo" Caption="车牌号" X="3" Y="4"/>
+                                <NumberEditor Key="Freight" Enable="false" Precision="18" BorderStyle="none" X="5" Y="5">
+                                    <DataBinding ColumnKey="Freight" TableKey="DriverCurrentOrder"/>
+                                    <Format BackColor="transparent"/>
+                                </NumberEditor>
+                                <Label Key="Lab_Amount" Caption="收入" X="3" Y="6"/>
+                                <NumberEditor Key="Amount" Enable="false" Precision="18" BorderStyle="none" X="5" Y="6">
+                                    <DataBinding ColumnKey="Amount" TableKey="DriverCurrentOrder"/>
+                                    <Format BackColor="transparent"/>
+                                </NumberEditor>
+                                <Label Key="Lab_Freight" Caption="运费" X="3" Y="5"/>
+                                <ComboBox Key="PayMethod" OnlyShow="true" Caption="付款方式" X="5" Y="7" Enable="false">
+                                    <DataBinding ColumnKey="PayMethod" TableKey="DriverCurrentOrder"/>
+                                    <Format HAlign="Left"/>
+                                    <Item Caption="现付" Key="0" Value="0"/>
+                                    <Item Caption="回单付" Key="1" Value="1"/>
+                                    <Item Caption="月结" Key="2" Value="2"/>
+                                    <Item Caption="到付" Key="3" Value="3"/>
+                                    <Item Caption="预付" Key="4" Value="4"/>
+                                    <Item Caption="提付" Key="5" Value="5"/>
+                                </ComboBox>
+                                <TextEditor Key="TDHOID" Caption="TDHOID" X="3" Y="7" Visible="false" HasBorder="true">
+                                    <DataBinding ColumnKey="TDHOID" TableKey="DriverCurrentOrder"/>
+                                </TextEditor>
+                                <TextEditor Key="ShowEnable" X="3" Y="7" Visible="false">
+                                    <DataBinding DefaultFormulaValue="ToBool(GetPara('TJHStatus')==710&amp;&amp;GetPara('TDHStatus')==100)"/>
+                                </TextEditor>
+                                <TextEditor Key="ShowEnable1" X="3" Y="7" Visible="false">
+                                    <DataBinding DefaultFormulaValue="ToBool(GetPara('TJHStatus') &lt; 730);"/>
+                                </TextEditor>
+                                <Label Key="Label4" X="0" Y="0" XSpan="6">
+                                    <Format BackColor="#e6e6e6"/>
+                                </Label>
+                                <Image Key="Image9" X="1" Y="2" Image="3-1.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true"/>
+                                <Label Key="PayMethod_l" Caption="付款方式" X="3" Y="7"/>
+                                <RowDefCollection>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="40px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="70px"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row8">
+                            <GridLayoutPanel Key="GridLayoutPanel5" Caption="GridLayoutPanel5" Margin="5px">
+                                <Label Key="Lab_PayStatus" Caption="付款状态" X="3" Y="0"/>
+                                <ComboBox Key="PayStatus" OnlyShow="true" X="4" Y="0" Enable="false">
+                                    <DataBinding ColumnKey="PayStatus" TableKey="DriverCurrentOrder"/>
+                                    <Format ForeColor="#cc3333" HAlign="Left"/>
+                                    <Item Caption="未付" Key="0" Value="0"/>
+                                    <Item Caption="已付" Key="1" Value="1"/>
+                                </ComboBox>
+                                <RowDefCollection>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="80px"/>
+                                    <ColumnDef Width="100%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <LinearLayoutPanel Key="opt_panel2" Orientation="Horizontal" BorderStyle="solid none" Height="100%" Width="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="GridLayoutPanel1" Height="auto" Caption="GridLayoutPanel1" Width="auto">
+                        <Button Key="OrderStart" Caption="开始" X="1" Y="1" Visible="GetPara('TJHStatus')==710&amp;&amp;GetPara('TDHStatus')==100&amp;&amp;GetPara('DriverTaskStatus')==1">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#ff5000"/>
+                            <OnClick>
+                                <![CDATA[                                InvokeService("LRP_DriverOrderProcess", True, false,"start");
+                                ShowToast("已开始");
+                                SetVisible('OrderStart',False);
+                                SetVisible('OrderDepart',True);
+                                SetVisible('OrderArrive',False);
+                                SetVisible('OrderReturn',False);
+                                SetVisible('ChangeTruck',True);
+                                SetVisible('TakePhoto',False);
+                                SetEnable('ChangeTruck',False);
+                                SetVisible('ModifyOrder',False);
+								Parent.LoadData();
+
+									]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="OrderDepart" Caption="发车" X="1" Y="1" Visible="GetPara('TJHStatus')==710&amp;&amp;GetPara('TDHStatus')==100&amp;&amp;GetPara('DriverTaskStatus')==3">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#ff5000"/>
+                            <OnClick>
+                                <![CDATA[
+                                InvokeService("LRP_DriverOrderProcess", True, false,"depart");
+                                ShowToast("已发车");
+                                SetVisible('OrderStart',False);
+                                SetVisible('OrderDepart',False);
+                                SetVisible('OrderArrive',True);
+                                SetVisible('OrderReturn',False);
+                                SetVisible('ChangeTruck',True);
+                                SetVisible('TakePhoto',False);
+                                SetEnable('ChangeTruck',False);
+                                SetEnable('ModifyOrder',False);
+                                Parent.LoadData();
+									]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="OrderArrive" Caption="送达" X="1" Y="1" Visible="GetPara('TJHStatus')==730&amp;&amp;GetPara('TDHStatus')==750">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#ff5000"/>
+                            <OnClick>
+                                <![CDATA[
+                                InvokeService("LRP_DriverOrderProcess", True, false,"arrive");
+                                ShowToast("已送达");
+                                SetVisible('OrderStart',False);
+                                SetVisible('OrderDepart',False);
+                                SetVisible('OrderArrive',False);
+                                SetVisible('OrderReturn',True);
+                                SetVisible('ChangeTruck',False);
+                                SetVisible('TakePhoto',True);
+                                SetEnable('TakePhoto',True);
+                                SetEnable('ModifyOrder',False);
+                                Parent.LoadData();
+									]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="OrderReturn" Caption="回单" X="1" Y="1" Visible="GetPara('TJHStatus')==900&amp;&amp;GetPara('TDHStatus')==900">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#ff5000"/>
+                            <OnClick>
+                                <![CDATA[
+                                InvokeService("LRP_DriverOrderProcess", True, false,"returnbill");
+                                ShowToast("已回单");
+                                SetVisible('OrderStart',False);
+                                SetVisible('OrderDepart',False);
+                                SetVisible('OrderArrive',False);
+                                SetEnable('OrderReturn',False);
+                                SetVisible('OrderReturn',False);
+                                SetVisible('ChangeTruck',False);
+                                SetVisible('TakePhoto',False);
+                                SetEnable('TakePhoto',False);
+                                Parent.LoadData();
+									]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="ChangeTruck" Caption="更换车辆" X="3" Y="1" Visible="GetPara('TJHStatus')&lt;900&amp;&amp;GetPara('TDHStatus')&lt;900" EnableDependency="ShowEnable">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#33ccff"/>
+                            <OnClick>
+                                <![CDATA[                             PopView('pop_truck_sel');
+									]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="TakePhoto" Caption="签收拍照" X="3" Y="1" Visible="GetPara('TJHStatus')==900&amp;&amp;GetPara('TDHStatus')==900">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#33ccff"/>
+                            <OnClick>
+                                <![CDATA[Open('TransportJobAttach', Para('TJHOID'))
+]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="ModifyOrder" Caption="修改订单" X="5" Y="1" Enable="GetPara('TJHStatus') &lt; 730" EnableDependency="ShowEnable1">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#80b380"/>
+                            <OnClick>
+                                <![CDATA[
+								Root.SetPara('UserDispatchOrg',DriverCurrentOrder.DispatchOrgId);
+								Open('DriverChangeOrder',DriverCurrentOrder.TOHOID);
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Pay" Caption="结算" X="7" Y="1" Visible="ToBool((GetValue('PayStatus')) == 0)" HasBorder="true">
+                            <Format ForeColor="#ffffff" BackColor="#cc3333"/>
+                            <OnClick>
+                                <![CDATA[							
+
+                                                                InvokeService("LRP_DriverSetPayStatus", false, false,DriverCurrentOrder.TOHOID,Freight);
+								LoadData();
+								ShowToast('支付成功！');
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Refund" Caption="退款" X="7" Y="1" Visible="ToBool((GetValue('PayStatus')) == 1)" HasBorder="true">
+                            <Format ForeColor="#ffffff" BackColor="#cc3333"/>
+                            <OnClick>
+                                <![CDATA[
+								InvokeService("LRP_DriverRefund", false, false,DriverCurrentOrder.TOHOID);	
+								LoadData();								
+								ShowToast('退款成功！');
+								]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="10px"/>
+                            <RowDef Height="45px"/>
+                            <RowDef Height="5px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="10px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </LinearLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="80px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+		LoadData();
+]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara Formula="Para('TJHOID')" Key="TJHOID" Type="Formula"/>
+    </FormParaCollection>
+    <EventHandlerCollection>
+        <EventHandler Key="OrderChanged" Trigger="Show" MergeEvent="true">
+            <![CDATA[LoadData()]]>
+        </EventHandler>
+    </EventHandlerCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="订单信息" Location="Center">
+            <Label Key="TitleCenter" Caption="订单信息" Width="pref">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

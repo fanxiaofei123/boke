@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Department" Caption="部门信息" FormType="Dict">
+    <DataSource RefObjectKey="CHCS_Department"/>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                <TabPanel Key="TabPanel1">
+                    <GridLayoutPanel Key="BasicInfo" Padding="10px" Caption="基础信息">
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="L_Code" X="1" Y="0">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="Code" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="L_Name" X="4" Y="0">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="Name" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Name" Caption="名称" X="3" Y="0"/>
+                        <TextEditor Key="Abbreviation" Caption="简称" BuddyKey="Lab_Abbreviation" X="1" Y="1">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="Abbreviation"/>
+                        </TextEditor>
+                        <Label Key="Lab_Abbreviation" Caption="简称" X="0" Y="1"/>
+                        <TextEditor Key="Remark" Caption="备注" BuddyKey="Lab_Remark" X="1" Y="2" XSpan="4">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="Remark"/>
+                        </TextEditor>
+                        <Label Key="Lab_Remark" Caption="备注" X="0" Y="2"/>
+                        <RowDefCollection RowGap="6" RowHeight="30">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysInfo" Padding="10px" Caption="系统信息">
+                        <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="CREATOR"/>
+                        </Dict>
+                        <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                        <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0" Enable="false">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="CREATETIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                        <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="MODIFIER"/>
+                        </Dict>
+                        <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1" Enable="false">
+                            <DataBinding TableKey="CHCS_Department" ColumnKey="MODIFYTIME"/>
+                        </DatePicker>
+                        <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="2" Y="1"/>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

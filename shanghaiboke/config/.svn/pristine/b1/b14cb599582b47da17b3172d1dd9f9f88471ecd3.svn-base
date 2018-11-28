@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_DriverApplyView-Abbr>DriverApplyView</V_DriverApplyView-Abbr>
+		
+        <L_No>No</L_No>
+        <Lab_DriverName>DriverName</Lab_DriverName>
+        <Lab_Mobile>Mobile</Lab_Mobile>
+        <Lab_Status_C>Status</Lab_Status_C>
+        <Lab_ApplyDateTimeFrom>ApplyDateTime</Lab_ApplyDateTimeFrom>
+		<Lab_ApplyDateTimeTo>To</Lab_ApplyDateTimeTo>
+		
+		<cancel>Reset</cancel>
+    </UI>
+	<ListViewColumn>
+		<OID>OID</OID>
+		<Select>Select</Select>
+		<Status>Status</Status>
+		<No_LV>No</No_LV>
+		<DriverName_LV>DriverName</DriverName_LV>
+		<Mobile_LV>Mobile</Mobile_LV>
+		<IDCardNo_LV>IDCardNo</IDCardNo_LV>
+		<ContactAddress_LV>ContactAddress</ContactAddress_LV>
+		<LicenseNo_LV>LicenseNo</LicenseNo_LV>
+		<IsSelfCar_LV>IsSelfCar</IsSelfCar_LV>
+		<TruckLicenseNo_LV>TruckLicenseNo</TruckLicenseNo_LV>
+		<ApplyDateTime_LV>ApplyDateTime</ApplyDateTime_LV>
+		<ApprovalDateTime_LV>ApprovalDateTime</ApprovalDateTime_LV>
+	</ListViewColumn>
+    <Items-Status_C>
+	   <Item-1010>submitted</Item-1010>
+	   <Item-1020>Audit</Item-1020>
+	   <Item-1050>passed</Item-1050>
+	   <Item-1090>Failed</Item-1090>
+	</Items-Status_C>
+</StringTable>

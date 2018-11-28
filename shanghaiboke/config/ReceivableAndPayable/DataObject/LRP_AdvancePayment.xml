@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_AdvancePayment" Caption="预付款核销单" NoPrefix="APT" PrimaryType="Entity" PrimaryTableKey="LRP_AdvancePayment">
+    <TableCollection>
+        <Table Key="LRP_AdvancePayment" Caption="预付款核销单">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="公司" Key="CompanyCode" DataType="Long"/>
+            <Column Caption="结算方" Key="SettlementId" DataType="Long"/>
+            <Column Caption="核销日期" DataType="DateTime" Key="HookDate"/>
+            <Column Caption="核销金额" Key="HookMoney" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Caption="会计期" Key="FinicialPeriod" DataType="Long"/>
+            <Column Caption="费用名称" DataType="Long" Key="ExpenseId"/>
+            <Column Caption="业务员" Key="EmployeeID" DataType="Long"/>
+            <Column Caption="备注" DataType="Varchar" Key="Remarks" Length="200"/>
+            <Column Caption="单号" Key="No" DataType="Varchar" SortType="Desc"/>
+            <Column Key="CurrencyId" Caption="币种" DataType="Long"/>
+            <Column Caption="本币核销金额" DataType="Numeric" Key="NativeHookMoney" Precision="18" Scale="6"/>
+            <Column Key="Rate" Caption="汇率" DataType="Numeric" Precision="18" Scale="6"/>
+        </Table>
+        <Table Key="LRP_Payment_Show" Caption="预付款信息" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Caption="付款类型" DataType="Integer" Key="PaymentType"/>
+            <Column Caption="付款日期" DataType="DateTime" Key="PaymentDate"/>
+            <Column Caption="付款单号" Key="PaymentNo" DataType="Varchar"/>
+            <Column Caption="付款金额" Key="PaymentMoney" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Caption="映射对象" DataType="Varchar" Key="MapKey"/>
+            <Column Caption="SrcOID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="SrcSOID" DataType="Long" Key="SrcSOID"/>
+        </Table>
+        <Table Key="LRP_InvoicePayable_Show" Caption="发票信息" TableMode="Detail" ParentKey="LRP_Payment_Show">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="InvoiceOID" Caption="发票oid" DataType="Long"/>
+            <Column Caption="发票编号" Key="InvoiceNo" DataType="Varchar" Length="200"/>
+            <Column Caption="付款单号" Key="PaymentNo" DataType="Varchar"/>
+            <Column Caption="实体票号" DataType="Varchar" Key="InvoiceOriginNo" Length="100"/>
+            <Column Caption="发票类型" DataType="Integer" Key="InvoiceType"/>
+            <Column Caption="发票日期" DataType="DateTime" Key="InvoiceBillDate"/>
+            <Column Key="InvoiceExpenseId" Caption="收入名称" DataType="Long"/>
+            <Column Caption="发票金额" DataType="Numeric" Key="InvoiceSumMoney" Precision="18" Scale="6"/>
+            <Column Key="InvoiceHookMoney" Caption="核销金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="InvoiceUnSettleMoney" Caption="未核金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Caption="映射对象" DataType="Varchar" Key="MapKey"/>
+            <Column Caption="SrcOID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="SrcSOID" DataType="Long" Key="SrcSOID"/>
+        </Table>
+    </TableCollection>
+    <PreSaveProcess>
+        <Process Description="预付款核销保存前反填付款单与发票">
+            <![CDATA[LRP_PreAdvancePaymentConfirm();]]>
+        </Process>
+    </PreSaveProcess>
+</DataObject>

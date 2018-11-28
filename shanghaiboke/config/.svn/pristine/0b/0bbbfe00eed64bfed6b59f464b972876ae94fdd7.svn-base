@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Entry>
+        <BK_Basic_Basic>CompanyBasic</BK_Basic_Basic>
+        <BK_Basic_Basic_V_PeriodType>PeriodType</BK_Basic_Basic_V_PeriodType>
+        <BK_Basic_Basic_V_CompanyCode>CompanyCode</BK_Basic_Basic_V_CompanyCode>
+        <BK_Basic_Basic_V_PurchasingGroup>PurchasingGroup</BK_Basic_Basic_V_PurchasingGroup>
+        <BK_Basic_Basic_V_Customer>Customer</BK_Basic_Basic_V_Customer>
+        <BK_Basic_Basic_V_CustomerAccountGroup>CustomerAccountGroup</BK_Basic_Basic_V_CustomerAccountGroup>
+        <BK_Basic_Basic_V_Currency>Currency</BK_Basic_Basic_V_Currency>
+        <BK_Basic_Basic_V_Unit>Unit</BK_Basic_Basic_V_Unit>
+        <BK_Basic_Basic_V_SaleOrganization>SaleOrganization</BK_Basic_Basic_V_SaleOrganization>
+        <BK_Basic_Basic_V_Country>Country</BK_Basic_Basic_V_Country>
+        <BK_Basic_Basic_V_CreditControlArea>CreditControlArea</BK_Basic_Basic_V_CreditControlArea>
+        <BK_Basic_Basic_V_IndustrySector>IndustrySector</BK_Basic_Basic_V_IndustrySector>
+        <BK_Basic_Basic_V_StorageLocation>StorageLocation</BK_Basic_Basic_V_StorageLocation>
+        <BK_Basic_Basic_V_BusinessArea>BusinessArea</BK_Basic_Basic_V_BusinessArea>
+        <BK_Basic_Basic_V_MaterialGroup>MaterialGroup</BK_Basic_Basic_V_MaterialGroup>
+        <BK_Basic_Basic_V_DispatchOrg_LRP>DispatchOrg</BK_Basic_Basic_V_DispatchOrg_LRP>
+        <BK_Basic_Basic_V_Region>Region</BK_Basic_Basic_V_Region>
+        <BK_Basic_Basic_V_FunctionalArea>FunctionalArea</BK_Basic_Basic_V_FunctionalArea>
+        <BK_Basic_Basic_V_Carrier_LRP>Carrier</BK_Basic_Basic_V_Carrier_LRP>
+        <BK_Basic_Basic_V_ControllingArea>ControllingArea</BK_Basic_Basic_V_ControllingArea>
+        <BK_Basic_Basic_V_VendorAccountGroup>VendorAccountGroup</BK_Basic_Basic_V_VendorAccountGroup>
+        <BK_Basic_Basic_V_CostCenter>CostCenter</BK_Basic_Basic_V_CostCenter>
+        <BK_Basic_Basic_V_Vendor>Vendor</BK_Basic_Basic_V_Vendor>
+        <BK_Basic_Basic_V_PurchasingOrganization>PurchasingOrganization</BK_Basic_Basic_V_PurchasingOrganization>
+        <BK_Basic_Basic_V_WorkCenter>WorkCenter</BK_Basic_Basic_V_WorkCenter>
+        <BK_Basic_Basic_V_Plant>Plant</BK_Basic_Basic_V_Plant>
+        <BK_Basic_Basic_V_Calendar>Calendar</BK_Basic_Basic_V_Calendar>
+        <BK_Basic_Basic_V_CostCenterGroup>CostCenterGroup</BK_Basic_Basic_V_CostCenterGroup>
+        <BK_Basic_Basic_V_AccountChart>AccountChart</BK_Basic_Basic_V_AccountChart>
+        <BK_Basic_Basic_V_DistributionChannel>DistributionChannel</BK_Basic_Basic_V_DistributionChannel>
+        <BK_Basic_Basic_V_Client>Client</BK_Basic_Basic_V_Client>
+        <BK_Basic_Basic_V_VoucherType>VoucherType</BK_Basic_Basic_V_VoucherType>
+        <BK_Basic_Basic_V_UnitSystem>UnitSystem</BK_Basic_Basic_V_UnitSystem>
+        <BK_Basic_Basic_V_ExchangeRateType>ExchangeRateType</BK_Basic_Basic_V_ExchangeRateType>
+        <BK_Basic_Basic_V_ProfitCenter>ProfitCenter</BK_Basic_Basic_V_ProfitCenter>
+        <BK_Basic_Basic_V_Account>Account</BK_Basic_Basic_V_Account>
+        <BK_Basic_Basic_V_Division>Division</BK_Basic_Basic_V_Division>
+        <BK_Basic_Basic_V_Language>Language</BK_Basic_Basic_V_Language>
+		<BK_Basic_Basic_V_MaterialType>MaterialType</BK_Basic_Basic_V_MaterialType>
+		<BK_Basic_Basic_Adjusting_price>Adjusting_price</BK_Basic_Basic_Adjusting_price>
+		<BK_Basic_Basic_Broad_Heading>Broad_Heading</BK_Basic_Basic_Broad_Heading>
+		<BK_Basic_Basic_Component_details>Component_details</BK_Basic_Basic_Component_details>
+		<BK_Basic_Basic_Parts_classification>Parts_classification</BK_Basic_Basic_Parts_classification>
+		<BK_Basic_Basic_Systematics>Systematics</BK_Basic_Basic_Systematics>
+		<BK_Basic_Basic_basicunit>Basicunit</BK_Basic_Basic_basicunit>
+		<BK_Basic_Basic_gcodetypedef>CategoryDictionary</BK_Basic_Basic_gcodetypedef>
+		<BK_Basic_Basic_gcodetypedefg>CategoryDictionary</BK_Basic_Basic_gcodetypedefg>
+		                        
+    </Entry>
+	<DataObj_Column>
+	<Name>Name</Name>
+	<Code>Code</Code>
+	</DataObj_Column>
+</StringTable>

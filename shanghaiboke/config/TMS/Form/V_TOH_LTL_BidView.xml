@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_TOH_LTL_BidView" Caption="运输订单-零担竞价序事簿" FormType="View" AbbrCaption="运输订单-零担竞价序事簿">
+    <DataSource>
+        <DataObject Key="V_TOH_LTL_BidView" Caption="运输订单-零担竞价序事簿" PrimaryTableKey="LRP_TransportOrder_H">
+            <TableCollection>
+                <Table Key="LRP_TransportOrder_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Key="No" Caption="订单号" DataType="Varchar" Length="100" SortType="Desc"/>
+                    <Column Key="OwnerId" Caption="货主id" DataType="Long"/>
+                    <Column Key="OwnerNo" Caption="货主单号" DataType="Varchar" Length="100"/>
+                    <Column Key="SendPartyName" Caption="发货方名称" DataType="Varchar" Length="100"/>
+                    <Column Key="RecvPartyName" Caption="收货方名称" DataType="Varchar" Length="100"/>
+                    <Column Key="OrderDateTime" Caption="下单日期时间" DataType="DateTime"/>
+                    <Column Key="OrderType" Caption="订单类型" DataType="Varchar" Length="10"/>
+                    <Column Key="SendOrgId" Caption="发站" DataType="Long"/>
+                    <Column Key="DestOrgId" Caption="到站" DataType="Long"/>
+                    <Column Key="Requirement" Caption="运输要求" DataType="Varchar" Length="1000"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="Amount" Caption="应收金额" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="PayMethod" Caption="付款方式" DataType="Integer"/>
+                    <Column Key="GenMethod" Caption="订单生成方式" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="LogisticsOrderNo" Caption="物流订单号" DataType="Varchar"/>
+					 <Column Key="ExpectArriveTime" Caption="预计送达时间" DataType="DateTime"/>
+					<Column Key="ExpectPickupTime" Caption="预计提货时间" DataType="DateTime"/>
+					<Column Key="BidingType" Caption="竞价模式" DataType="Integer"/>
+					<Column Key="CarrierId" Caption="承运商id" DataType="Long"/>
+					<TableFilter>
+                        <![CDATA[BidingType != -1]]>
+                    </TableFilter>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+	 <QueryCollection>
+        <Query Description="查询竞价次数" Key="SelectBidQty">
+            <Statement>
+                <![CDATA[select count(*) as num from (select l.* from LRP_TransportOrder_h h left join LRP_TransportOrderBiding_L l on h.oid=l.soid where h.no=? and h.BidingType=1)a]]>
+            </Statement>
+			  <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('V_TOH_LTL_Bid');			
+				]]>
+            </Action>
+        </Operation>
+         <Operation Caption="竞价" Key="BatchBid">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再竞价。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+					Confirm('只有状态是已输入的单据才能进行竞价。','OK','OK:{}');
+					return true;
+				}
+				Confirm('确定要将选中的记录进行竞价吗？','YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,150,-1);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+		 <Operation Caption="撤销竞价" Key="BatchBid-R">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再撤销竞价。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',150,')){
+					Confirm('只有状态是竞价中的单据才能进行撤销竞价。','OK','OK:{}');
+					return true;
+				}
+				Confirm('确定要将选中的记录进行撤销竞价吗？','YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,100,-1);
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+		 <Operation Caption="确认" Key="BatchConfirm">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再确认。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',150,')){
+					Confirm('只有状态是竞价中的单据才能进行确认。','OK','OK:{}');
+					return true;
+				}
+				if(CheckListCarrierId()){
+					Confirm('只有承运商不为空的单据才能进行确认。','OK','OK:{}');
+					return true;
+				}
+				Confirm('确定要将选中的记录进行确认吗？','YES_NO',{YES:{
+					loop "ListView0" (true)
+					{			
+						if(Select == true)
+						{ 
+							InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,200,-1);							
+						}					
+					}
+					LoadData();ShowData();
+				},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="作废" Key="BatchCancel" RefKey="BatchCancel"/>
+        <Operation Caption="撤销作废" Key="BatchCancel-R" RefKey="BatchCancel-R"/>
+        <Operation Key="returnbill" Caption="回单">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再回单。','OK','OK:{}');
+				}
+				else{
+					if(CheckListSelectStatus(',920,')){
+						Confirm('确定要将选中的记录进行回单吗？','YES_NO',{YES:{
+							loop "ListView0" (true)
+							{			
+								if(Select == true)
+								{ 
+									InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,940,-1);
+									LoadData();ShowData();
+								}					
+							}
+						},NO:{}});
+					}
+					else
+					{ Confirm('只有选择了状态是已签收的运输订单，才能进行回单操作。','OK','OK:{}');}
+				}		
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="returnbill-R" Caption="撤销回单">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再撤销回单。','OK','OK:{}');
+				}
+				else{
+					if(CheckListSelectStatus(',940,')){
+						Confirm('确定要将选中的记录进行撤销回单吗？','YES_NO',{YES:{
+							loop "ListView0" (true)
+							{			
+								if(Select == true)
+								{ 
+									InvokeService("LRP_BillStatusChange", false, false,DataObjectKey,OID,920,-1);
+									LoadData();ShowData();
+								}					
+							}
+						},NO:{}});
+					}
+					else
+					{ Confirm('只有选择了状态是已回单的运输订单，才能进行撤销回单操作。','OK','OK:{}');}
+				}		
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="BatchDelete">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm('没有选中任何记录，请选择后再删除。','OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+                        Confirm('只有状态是已输入的单据才能进行删除。','OK','OK:{}');
+						return true;	
+                }						
+				Confirm('确定要将选中的记录进行删除吗？','YES_NO',{
+				YES:{BatchDeleteData('LRP_TransportOrder', 'LRP_TransportOrder_H');LoadData();ShowData();
+						},
+				NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                            <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="10" Y="4">
+                                <DataBinding DefaultValue="LRP_TransportOrder"/>
+                            </TextEditor>
+                            <Label Key="L_No" Caption="订单号" X="0" Y="0"/>
+                            <TextEditor Key="No" Caption="订单号" BuddyKey="L_No" X="1" Y="0" XSpan="3">
+                                <Condition ColumnKey="No" TableKey="LRP_TransportOrder_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_OwnerId" Caption="货主" X="5" Y="0"/>
+                            <Dict Key="OwnerId" Caption="货主" BuddyKey="L_OwnerId" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_Owner" XSpan="3">
+                                <Condition ColumnKey="OwnerId" TableKey="LRP_TransportOrder_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="L_OwnerNo" Caption="货主单号" X="0" Y="1"/>
+                            <TextEditor Key="OwnerNo" Caption="货主单号" BuddyKey="L_OwnerNo" X="1" Y="1" XSpan="3">
+                                <Condition ColumnKey="OwnerNo" TableKey="LRP_TransportOrder_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_Status" Caption="状态" X="5" Y="1"/>
+                            <CheckListBox Key="Status_1" Caption="状态" BuddyKey="L_Status" X="6" Y="1" XSpan="3">
+                                <Condition ColumnKey="Status" TableKey="LRP_TransportOrder_H" CondSign="in"/>
+                                <Item Caption="已输入" Key="prepared" Value="100"/>
+								<Item Caption="竞价中" Key="bided" Value="150"/>
+                                <Item Caption="已确认" Key="confirmed" Value="200"/>
+                                <Item Caption="在途" Key="ontheway" Value="750"/>
+                                <Item Caption="已签收" Key="signed" Value="920"/>
+                                <Item Caption="拒收" Key="rejected" Value="930"/>
+                                <Item Caption="已回单" Key="returnbill" Value="940"/>
+                                <Item Caption="已作废" Key="cancelled" Value="20"/>
+                            </CheckListBox>
+                            <Label Key="L_SendPartyName" Caption="发货方" X="0" Y="2"/>
+                            <TextEditor Key="SendPartyName" Caption="发货方" BuddyKey="L_SendPartyName" X="1" Y="2" XSpan="3">
+                                <Condition ColumnKey="SendPartyName" TableKey="LRP_TransportOrder_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_RecvPartyName" Caption="收货方" X="5" Y="2"/>
+                            <TextEditor Key="RecvPartyName" Caption="收货方" BuddyKey="L_RecvPartyName" X="6" Y="2" XSpan="3">
+                                <Condition ColumnKey="RecvPartyName" TableKey="LRP_TransportOrder_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_OrderDateTime" Caption="下单日期时间" X="0" Y="3"/>
+                            <DatePicker Key="OrderDateTime" Caption="下单日期时间" BuddyKey="L_OrderDateTime" X="1" Y="3" XSpan="3">
+                                <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                                <Condition ColumnKey="OrderDateTime" TableKey="LRP_TransportOrder_H" CondSign="between" Group="OrderDateTime" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="L_OrderDateTime@2" Caption="至" X="5" Y="3"/>
+                            <DatePicker Key="OrderDateTime@2" Caption="至" BuddyKey="L_OrderDateTime@2" X="6" Y="3" XSpan="3">
+                                <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                                <Condition ColumnKey="OrderDateTime" TableKey="LRP_TransportOrder_H" CondSign="in" Group="OrderDateTime" GroupTail="true"/>
+                            </DatePicker>
+							<Label Key="L_BidingType" Caption="竞价模式" X="5" Y="4"/>
+                            <CheckListBox Key="BidingType" Caption="竞价模式" BuddyKey="L_BidingType" X="6" Y="4" XSpan="3">
+							    <DataBinding />
+                                <Condition ColumnKey="BidingType" TableKey="LRP_TransportOrder_H" CondSign="in"/>
+								<Item Caption="抢单" Key="gab" Value="2"/>
+                                <Item Caption="竞价" Key="bid" Value="1"/>
+                            </CheckListBox>
+                            <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[							
+                                       DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="10" Y="1" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();
+								SetValue('DispatchOrgId',getCurDispatchOrgID());
+                                SetValue("OrderType","LTL");
+																	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Dict Key="DispatchOrgId" Caption="调度组织" BuddyKey="Lab_DispatchOrgId" X="1" Y="5" XSpan="3" Visible="false" ItemKey="LRP_DispatchOrg">
+                                <DataBinding DefaultFormulaValue="getCurDispatchOrgID()"/>
+                                <Condition ColumnKey="DispatchOrgId" TableKey="LRP_TransportOrder_H" CondSign="="/>
+                            </Dict>
+                            <Label Key="Lab_DispatchOrgId" Caption="调度组织" X="0" Y="5"/>
+                            <TextEditor Key="OrderType" Caption="订单类型" BuddyKey="Lab_OrderType" Visible="false" X="6" Y="5" XSpan="3">
+                                <DataBinding DefaultValue="LTL"/>
+                                <Condition ColumnKey="OrderType" TableKey="LRP_TransportOrder_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_OrderType" Caption="订单类型" X="5" Y="5"/>
+                            <TextEditor Key="LogisticsOrderNo" Caption="物流订单号" BuddyKey="Lab_LogisticsOrderNo" X="1" Y="4" XSpan="3">
+                                <Condition ColumnKey="LogisticsOrderNo" TableKey="LRP_TransportOrder_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_LogisticsOrderNo" Caption="物流订单号" X="0" Y="4"/>
+                            <RowDefCollection RowHeight="25" RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="99px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="ListView0" TableKey="LRP_TransportOrder_H" PageLoadType="DB" RowAlterable="false">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Visible="false" Width="91px"/>
+                            <ListViewColumn Caption="选择" ColumnType="CheckBox" Enable="true" IsSelect="true" Key="Select"/>
+                            <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                            <ListViewColumn Key="No_LV" Caption="订单号" ColumnType="HyperLink" DataColumnKey="No" Width="160px">
+                                <OnClick>
+                                    <![CDATA[Open('V_TOH_LTL_Bid', OID)]]>
+                                </OnClick>
+                            </ListViewColumn>
+							<ListViewColumn Key="BidingType_LV" Caption="竞价模式" ColumnType="ComboBox" DataColumnKey="BidingType">
+							    <Item Caption="抢单" Key="gab" Value="2"/>
+                                <Item Caption="竞价" Key="bid" Value="1"/>
+							</ListViewColumn>
+							<ListViewColumn Key="BidingQty" Caption="竞价次数" ColumnType="NumberEditor" DefaultFormulaValue="DBNamedQueryValue('SelectBidQty',No_LV)" IntegerValue="true" Precision="18" Scale="0"/>
+							<ListViewColumn Key="CarrierId_LV" Caption="承运商" ColumnType="Dict" DataColumnKey="CarrierId" ItemKey="LRP_Carrier"/>
+                            <ListViewColumn Key="OwnerId_LV" Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" ItemKey="LRP_Owner"/>
+                            <ListViewColumn Key="OwnerNo_LV" Caption="货主单号" ColumnType="TextEditor" DataColumnKey="OwnerNo"/>
+                            <ListViewColumn Key="OrderDateTime_LV" Caption="下单日期时间" ColumnType="DatePicker" DataColumnKey="OrderDateTime" Width="99px"/>
+                            <ListViewColumn Key="LogisticsOrderNo_LV" Caption="物流订单号" ColumnType="TextEditor" DataColumnKey="LogisticsOrderNo"/>
+                            <ListViewColumn Key="SendOrg" Caption="发站" ColumnType="Dict" DataColumnKey="SendOrgId" ItemKey="LRP_WarehouseCenter"/>
+							<ListViewColumn Key="ExpectPickupTime_LV" Caption="预计提货时间" ColumnType="DatePicker" DataColumnKey="ExpectPickupTime" Width="99px"/>
+                            <ListViewColumn Key="DestOrg" Caption="到站" ColumnType="Dict" DataColumnKey="DestOrgId" ItemKey="LRP_WarehouseCenter"/>
+							 <ListViewColumn Key="ExpectArriveTime_LV" Caption="预计送达时间" ColumnType="DatePicker" DataColumnKey="ExpectArriveTime" Width="99px"/>
+                            <ListViewColumn Key="Requirement" Caption="运输要求" ColumnType="TextEditor" DataColumnKey="Requirement"/>
+                            <ListViewColumn Key="SendPartyName_LV" Caption="发货方" ColumnType="TextEditor" DataColumnKey="SendPartyName"/>
+                            <ListViewColumn Key="RecvPartyName_LV" Caption="收货方" ColumnType="TextEditor" DataColumnKey="RecvPartyName"/>
+                            <ListViewColumn Key="Amount" Caption="金额" ColumnType="TextEditor" DataColumnKey="Amount"/>
+                            <ListViewColumn Key="PayMethod_LV" Caption="付款方式" ColumnType="ComboBox" DataColumnKey="PayMethod">
+							    <Item Caption="现付" Key="0" Value="0"/>
+                                <Item Caption="回单付" Key="1" Value="1"/>
+                                <Item Caption="月结" Key="2" Value="2"/>
+                                <Item Caption="到付" Key="3" Value="3"/>
+                                <Item Caption="预付" Key="4" Value="4"/>
+                                <Item Caption="提付" Key="5" Value="5"/>
+							</ListViewColumn>
+                            <ListViewColumn Key="GenMethod_LV" Caption="生成方式" ColumnType="ComboBox" DataColumnKey="GenMethod">
+							    <Item Caption="人工输入" Key="1" Value="1"/>
+                                <Item Caption="接口导入" Key="2" Value="2"/>
+                                <Item Caption="系统自动生成" Key="3" Value="3"/>
+							</ListViewColumn>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_TOH_LTL_Bid', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="35%"/>
+                    <SplitSize Size="65%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+	 <MacroCollection>  
+        <Macro Key="CheckListCarrierId" Description="检查叙事簿中承运商是否为空">
+            <![CDATA[
+				loop "ListView0" (true)
+				{			
+					if(CarrierId_LV > 0)
+					{ 
+						return false;	
+					}					
+				}
+				return true;
+			]]>
+        </Macro>
+		</MacroCollection>
+    <OnLoad>
+        <![CDATA[]]>
+    </OnLoad>
+</Form>

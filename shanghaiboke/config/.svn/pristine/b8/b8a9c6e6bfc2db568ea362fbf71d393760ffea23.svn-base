@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="运输作业单-提货" FormType="Entity" Key="V_701" ViewKey="V_701View">
+    <DataSource RefObjectKey="LRP_TransportJob"/>
+    <OperationCollection>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly() &amp;&amp; (Status==200 || Status==730)">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()&amp;&amp;(Status==200 || Status==730)">
+            <Action>
+                <![CDATA[ 
+	
+					 SaveData(); UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Key="Load" Caption="装货" RefKey="Load"/>
+        <Operation Key="Load-R" Caption="撤销装货" RefKey="Load-R"/>
+        <Operation Key="Finish" Caption="完成" RefKey="FinishTrans"/>
+        <Operation Key="Finish-R" Caption="撤销完成" RefKey="FinishTrans-R"/>
+        <Operation Key="DivideAmount" Caption="分量" Visible="Status==200">
+            <Action>
+                <![CDATA[ShowModal('V_DivideAmount',{OID:{GetOID()}})]]>
+            </Action>
+        </Operation>
+        <Operation Key="UnitAmount" Caption="合并" Visible="Status==200">
+            <Action>
+                <![CDATA[
+					ShowModal('V_UnitAmount',{OID:{GetOID()},SegOid:{SegOid}})
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Caption="载入" Key="Load" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Caption="根面板" Key="root">
+                <ToolBar Caption="ToolBar1" Height="pref" Key="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Caption="主面板" Height="100%" Key="main" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                        <GridLayoutPanel Caption="基本信息" Height="pref" Key="first_head" Padding="10px">
+                            <TextEditor BuddyKey="Lab_No" Caption="作业单号" Enable="false" Key="No" X="1" Y="0" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Caption="作业单号" Key="Lab_No" X="0" Y="0"/>
+                            <Dict BuddyKey="Lab_OwnerId" Caption="货主" Enable="false" ItemKey="LRP_Owner" Key="OwnerId" X="4" Y="0" AsQuery="true" XSpan="4">
+                                <DataBinding ColumnKey="OwnerId" TableKey="LRP_TransportJob_H" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[if(GetRowCount('detail',false)>0){         Confirm('改变货主后将清空物料明细，是否继续？', 'YES_NO',         {YES:{CommitValue('OwnerId');ClearAllRows('detail');},         NO:{RollbackValue('OwnerId');}});}        else{CommitValue('OwnerId');}]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <Label Caption="货主" Key="Lab_OwnerId" X="3" Y="0"/>
+                            <TextEditor BuddyKey="Lab_OwnerNo" Caption="货主单号" Enable="false" Key="OwnerNo" X="10" Y="0" AsQuery="true" XSpan="4">
+                                <DataBinding ColumnKey="OwnerNo" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Caption="货主单号" Key="Lab_OwnerNo" X="9" Y="0"/>
+                            <ComboBox BuddyKey="Lab_Status" Caption="状态" Enable="false" Key="Status" IntegerValue="true" SourceType="Status" X="10" Y="1" AsQuery="true" XSpan="4">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_TransportJob_H" DefaultValue="200"/>
+                            </ComboBox>
+                            <Label Caption="状态" Key="Lab_Status" X="9" Y="1"/>
+                            <TextEditor Key="OrderNo" Caption="订单号" BuddyKey="Lab_OrderNo" X="1" Y="1" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="OrderNo" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_OrderNo" Caption="订单号" X="0" Y="1"/>
+                            <DatePicker Key="OrderDateTime" Caption="下单日期时间" BuddyKey="Lab_OrderDateTime" X="4" Y="1" Enable="false" AsQuery="true" XSpan="4">
+                                <DataBinding ColumnKey="OrderDateTime" TableKey="LRP_TransportJob_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_OrderDateTime" Caption="下单日期时间" X="3" Y="1"/>
+                            <TextEditor Key="SendPartyName" Caption="发货方名称" BuddyKey="Lab_SendPartyName" X="1" Y="2" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="SendPartyName" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendPartyName" Caption="发货方名称" X="0" Y="2"/>
+                            <TextEditor Key="SendContactor" Caption="联系人" BuddyKey="Lab_SendContactor" X="1" Y="3" Enable="false">
+                                <DataBinding ColumnKey="SendContactor" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendContactor" Caption="联系人" X="0" Y="3"/>
+                            <TextEditor Key="SendContactTel" Caption="电话" BuddyKey="Lab_SendContactTel" X="4" Y="3" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="SendContactTel" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendContactTel" Caption="电话" X="3" Y="3"/>
+                            <TextEditor Key="SendContactMobile" Caption="手机" BuddyKey="Lab_SendContactMobile" X="10" Y="3" Enable="false" XSpan="4">
+                                <DataBinding ColumnKey="SendContactMobile" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendContactMobile" Caption="手机" X="9" Y="3"/>
+                            <DatePicker Key="LoadDateTime" Caption="装货日期时间" BuddyKey="Lab_LoadDateTime" X="1" Y="4" Enable="!ReadOnly()&amp;&amp; Status==200">
+                                <DataBinding ColumnKey="LoadDateTime" TableKey="LRP_TransportJob_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_LoadDateTime" Caption="装货日期时间" X="0" Y="4"/>
+                            <DatePicker Key="FinishDateTime" Caption="完成日期时间" BuddyKey="Lab_FinishDateTime" X="4" Y="4" Enable="!ReadOnly()&amp;&amp; Status&lt;900" XSpan="4">
+                                <DataBinding ColumnKey="FinishDateTime" TableKey="LRP_TransportJob_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_FinishDateTime" Caption="完成日期时间" X="3" Y="4"/>
+                            <TextEditor Key="Remark" Caption="备注" BuddyKey="Lab_Remark" X="1" Y="5" Enable="!ReadOnly()&amp;&amp; Status&lt;900" XSpan="13">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remark" Caption="备注" X="0" Y="5"/>
+                            <Dict Key="DispatchOrgId" Caption="调度组织" BuddyKey="Lab_DispatchOrgId" X="4" Y="6" Visible="false" ItemKey="LRP_DispatchOrg" XSpan="4">
+                                <DataBinding ColumnKey="DispatchOrgId" DefaultFormulaValue="getCurDispatchOrgID()" TableKey="LRP_TransportJob_H"/>
+                            </Dict>
+                            <Label Key="Lab_DispatchOrgId" Caption="调度组织" Visible="false" X="3" Y="6"/>
+                            <TextEditor Key="JobType" Caption="作业单类型" BuddyKey="Lab_JobType" X="1" Y="6" Visible="false">
+                                <DataBinding ColumnKey="JobType" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_JobType" Caption="作业单类型" Visible="false" X="0" Y="6"/>
+                            <Dict Key="DestOrg" Caption="到站" BuddyKey="Lab_DestOrg" X="10" Y="4" ItemKey="LRP_WarehouseCenter" XSpan="4">
+                                <DataBinding ColumnKey="DestOrg" TableKey="LRP_TransportJob_H"/>
+                            </Dict>
+                            <Label Key="Lab_DestOrg" Caption="到站" X="9" Y="4"/>
+                            <Dict Key="SendProvinceId" Caption="省" BuddyKey="Lab_SendProvinceId" X="4" Y="2" Enable="false" ItemKey="LRP_Province">
+                                <DataBinding ColumnKey="SendProvinceId" TableKey="LRP_TransportJob_H"/>
+                            </Dict>
+                            <Label Key="Lab_SendProvinceId" Caption="省" X="3" Y="2"/>
+                            <Dict Key="SendCityId" Caption="市" BuddyKey="Lab_SendCityId" X="7" Y="2" Enable="false" ItemKey="LRP_City">
+                                <DataBinding ColumnKey="SendCityId" TableKey="LRP_TransportJob_H"/>
+                            </Dict>
+                            <Label Key="Lab_SendCityId" Caption="市" X="6" Y="2"/>
+                            <Dict Key="SendDistrictId" Caption="区" BuddyKey="Lab_SendDistrictId" X="10" Y="2" Enable="false" ItemKey="LRP_District">
+                                <DataBinding ColumnKey="SendDistrictId" TableKey="LRP_TransportJob_H"/>
+                            </Dict>
+                            <Label Key="Lab_SendDistrictId" Caption="区" X="9" Y="2"/>
+                            <TextEditor Key="TextEditor1SendAddress" Caption="地址" BuddyKey="Lab_TextEditor1SendAddress" X="13" Y="2" Enable="false">
+                                <DataBinding ColumnKey="SendAddress" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor1SendAddress" Caption="地址" X="12" Y="2"/>
+                            <TextEditor Key="SegOid" Caption="分段明细OID" BuddyKey="Lab_SegOid" Visible="false" X="10" Y="6" XSpan="4">
+                                <DataBinding ColumnKey="SegOid" TableKey="LRP_TransportJob_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SegOid" Caption="分段明细OID" Visible="false" X="9" Y="6"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="34%" MinWidth="40px"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="15%" MinWidth="40px"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="15px"/>
+                                <ColumnDef Width="15%" MinWidth="40px"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="15%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="25px"/>
+                                <ColumnDef Width="15%"/>
+                                <ColumnDef Width="10px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SystemInfo" Padding="10px" Caption="系统信息">
+                            <Dict BuddyKey="Lab_CREATOR" Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0" Enable="false" TabOrder="0">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_TransportJob_H"/>
+                            </Dict>
+                            <Label Caption="创建人" Key="Lab_CREATOR" X="0" Y="0"/>
+                            <DatePicker BuddyKey="Lab_CREATETIME" Caption="创建时间" Key="CREATETIME" X="4" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TransportJob_H"/>
+                            </DatePicker>
+                            <Label Caption="创建时间" Key="Lab_CREATETIME" X="3" Y="0"/>
+                            <Dict BuddyKey="Lab_MODIFIER" Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="1" Enable="false">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_TransportJob_H"/>
+                            </Dict>
+                            <Label Caption="修改人" Key="Lab_MODIFIER" X="0" Y="1"/>
+                            <DatePicker BuddyKey="Lab_MODIFYTIME" Caption="修改时间" Key="MODIFYTIME" X="4" Y="1" Enable="false">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TransportJob_H"/>
+                            </DatePicker>
+                            <Label Caption="修改时间" Key="Lab_MODIFYTIME" X="3" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%" MinWidth="40px"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <Grid Caption="物料明细" Height="100%" Key="detail" NewEmptyRow="false" CanDelete="false" CanInsert="false" CanShift="false">
+                            <GridColumnCollection>
+                                <GridColumn Caption="选择" Key="Select" Width="80px"/>
+                                <GridColumn Caption="物料" Key="MaterialId" Width="80px"/>
+                                <GridColumn Key="MaterialName" Caption="物料名称" Width="80px"/>
+                                <GridColumn Key="Qty" Caption="数量" Width="80px"/>
+                                <GridColumn Key="MaterialUnit" Caption="单位" Width="80px"/>
+                                <GridColumn Key="Weight" Caption="重量" Width="80px"/>
+                                <GridColumn Key="Cubage" Caption="体积" Width="80px"/>
+                                <GridColumn Key="Package" Caption="包装" Width="80px"/>
+                                <GridColumn Key="ShipQty" Caption="装货量" Width="80px"/>
+                                <GridColumn Key="SignQty" Caption="签收量" Width="80px"/>
+                                <GridColumn Key="RejectQty" Caption="拒收量" Width="80px"/>
+                                <GridColumn Key="AbnormalQty" Caption="异常量" Width="80px"/>
+                                <GridColumn Key="AbnormalCause" Caption="异常原因" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="R_0" TableKey="LRP_TransportJobMat_L">
+                                    <GridCell Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true" Key="Select"/>
+                                    <GridCell Caption="物料" CellType="Dict" ItemKey="LRP_Material" Key="MaterialId" Enable="false">
+                                        <DataBinding ColumnKey="MaterialId" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="MaterialName" Caption="物料名称" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="MaterialName"/>
+                                    </GridCell>
+                                    <GridCell Key="Qty" Caption="数量" CellType="NumberEditor" Enable="false" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="Qty"/>
+                                    </GridCell>
+                                    <GridCell Key="MaterialUnit" Caption="单位" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="MaterialUnit"/>
+                                    </GridCell>
+                                    <GridCell Key="Weight" Caption="重量" CellType="NumberEditor" Enable="!ReadOnly()&amp;&amp; Status==200" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="Weight"/>
+                                    </GridCell>
+                                    <GridCell Key="Cubage" Caption="体积" CellType="NumberEditor" Enable="!ReadOnly()&amp;&amp; Status==200" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="Cubage"/>
+                                    </GridCell>
+                                    <GridCell Key="Package" Caption="包装" CellType="TextEditor" Enable="!ReadOnly()&amp;&amp; Status==200">
+                                        <DataBinding ColumnKey="Package"/>
+                                    </GridCell>
+                                    <GridCell Key="ShipQty" Caption="装货量" CellType="NumberEditor" Enable="false" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="ShipQty" DefaultFormulaValue="Qty"/>
+                                    </GridCell>
+                                    <GridCell Key="SignQty" Caption="签收量" CellType="NumberEditor" Enable="!ReadOnly()&amp;&amp; Status==730" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="SignQty" CheckRule="SignQty&lt;=ShipQty" DefaultFormulaValue="Qty" ErrorInfo="签收量不能大于装货量"/>
+                                    </GridCell>
+                                    <GridCell Key="RejectQty" Caption="拒收量" CellType="NumberEditor" Enable="!ReadOnly()&amp;&amp; Status==730" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="RejectQty"/>
+                                    </GridCell>
+                                    <GridCell Key="AbnormalQty" Caption="异常量" CellType="NumberEditor" Enable="!ReadOnly()&amp;&amp; Status==200 || Status==730" ShowZero="true" Precision="15" Scale="3">
+                                        <DataBinding ColumnKey="AbnormalQty"/>
+                                    </GridCell>
+                                    <GridCell Key="AbnormalCause" Caption="异常原因" CellType="TextEditor" Enable="!ReadOnly()&amp;&amp; Status==200||Status==730">
+                                        <DataBinding ColumnKey="AbnormalCause"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="270px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

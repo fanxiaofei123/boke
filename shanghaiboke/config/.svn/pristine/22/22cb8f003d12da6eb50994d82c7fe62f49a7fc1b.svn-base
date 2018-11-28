@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_PackingStockDtlView" Caption="包装材料库存明细查询" FormType="View" AbbrCaption="包装材料库存明细查询">
+    <DataSource>
+        <DataObject Key="PackingStockDtl" PrimaryTableKey="LRP_PackingStockDtl">
+            <TableCollection>
+                <Table Key="LRP_PackingStockDtl" Caption="LRP_PackingStockDtl" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="PackingMaterialId" Caption="包装材料" DataType="Long"/>
+                    <Column Key="OnhandQty" Caption="数量" DataType="Numeric" Precision="18" Scale="3"/>
+                    <Column Key="Unit" Caption="单位" DataType="Varchar" Length="1000" Expand="true"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心id" DataType="Long"/>
+                    <Column Key="MaterialBarCode" Caption="包材条码" DataType="Varchar"/>
+                    <Column Key="StoreroomId" Caption="仓间" DataType="Long"/>
+                    <Column Key="StoreareaId" Caption="库区" DataType="Long"/>
+                    <Column Key="LocationId" Caption="储位" DataType="Long"/>
+                    <Column Key="RefOrderNo" Caption="相关单号" DataType="Varchar"/>
+                    <TableFilter>
+                        <![CDATA[]]>
+                    </TableFilter>
+                    <Statement>
+                        <![CDATA[select 
+    *
+from
+    (select 
+			q.WarehouseCenterId,
+            q.PackingMaterialId,
+            q.OnhandQty,
+            m.Unit,
+            q.StoreroomId,
+            q.StoreareaId,
+            q.LocationId,
+			q.MaterialBarCode,
+            q.RefOrderNo
+    from
+        LRP_PackingMaterialQuant q
+    left join LRP_PackingMaterial m ON q.PackingMaterialId = m.OID
+    where q.OnhandQty  > 0) a]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Key="main_toolbar" Height="pref">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%">
+                    <GridLayoutPanel Key="GridLayoutPanel0" Padding="10px" Caption="GridLayoutPanel0">
+                        <Dict Key="WarehouseCenterId_C" Caption="仓储中心" X="1" Y="0" XSpan="2" ItemKey="LRP_WarehouseCenter">
+                            <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                            <Condition ColumnKey="WarehouseCenterId" TableKey="LRP_PackingStockDtl" CondSign="="/>
+                        </Dict>
+                        <Label Key="L_WarehouseCenterId" Caption="仓储中心" X="0" Y="0"/>
+                        <Button Key="Query" Caption="查询" X="8" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Reset" Caption="重置" X="8" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="PackingMaterialId_C" Caption="包装材料" BuddyKey="Lab_PackingMaterialId_C" X="5" Y="0" AllowMultiSelection="true" ItemKey="LRP_PackingMaterial" XSpan="2">
+                            <Condition ColumnKey="PackingMaterialId" TableKey="LRP_PackingStockDtl" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_PackingMaterialId_C" Caption="包装材料" X="4" Y="0"/>
+                        <Dict Key="StoreroomId_C" Caption="仓间" BuddyKey="Lab_StoreroomId_C" X="1" Y="1" ItemKey="LRP_Storeroom" XSpan="2">
+                            <DataBinding ColumnKey="StoreroomId" TableKey="LRP_PackingStockDtl"/>
+                            <Condition ColumnKey="StoreroomId" TableKey="LRP_PackingStockDtl" CondSign="="/>
+                            <ItemFilter ItemKey="LRP_Storeroom">
+                                <Filter Type="FieldValue">
+                                    <FilterValue DataType="Long" FieldKey="WarehouseCenterId" RefValue="WarehouseCenterId_C" Type="Field"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Key="Lab_StoreroomId_C" Caption="仓间" X="0" Y="1"/>
+                        <Dict Key="StoreareaId_C" Caption="库区" BuddyKey="Lab_StoreareaId_C" X="5" Y="1" ItemKey="LRP_Storearea" XSpan="2">
+                            <DataBinding ColumnKey="StoreareaId" TableKey="LRP_PackingStockDtl"/>
+                            <Condition ColumnKey="StoreareaId" TableKey="LRP_PackingStockDtl" CondSign="="/>
+                            <ItemFilter ItemKey="LRP_Storearea">
+                                <Filter Type="FieldValue">
+                                    <FilterValue DataType="Long" FieldKey="StoreroomId" RefValue="StoreroomId_C" Type="Field"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Key="Lab_StoreareaId_C" Caption="库区" X="4" Y="1"/>
+                        <Dict Key="LocationId_C" Caption="储位" BuddyKey="Lab_LocationId_C" X="1" Y="2" ItemKey="LRP_Location" XSpan="2">
+                            <DataBinding ColumnKey="LocationId" TableKey="LRP_PackingStockDtl"/>
+                            <ItemFilter ItemKey="LRP_Location">
+                                <Filter Type="FieldValue">
+                                    <FilterValue DataType="Long" FieldKey="StoreareaId" RefValue="StoreareaId_C" Type="Field"/>
+                                </Filter>
+                            </ItemFilter>
+                        </Dict>
+                        <Label Key="Lab_LocationId_C" Caption="储位" X="0" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView0" Key="ListView0" PageLoadType="DB" TableKey="LRP_PackingStockDtl">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Visible="false"/>
+                            <ListViewColumn Key="MaterialBarCode" Caption="包材条码" ColumnType="TextEditor" DataColumnKey="MaterialBarCode" Width="100px"/>
+                            <ListViewColumn Key="PackingMaterialId" Caption="包装材料" ColumnType="Dict" DataColumnKey="PackingMaterialId" Width="130px" ItemKey="LRP_PackingMaterial"/>
+                            <ListViewColumn Key="OnhandQty" Caption="在库量" ColumnType="NumberEditor" DataColumnKey="OnhandQty" Width="110px" Precision="18" Scale="3"/>
+                            <ListViewColumn Key="Unit" Caption="单位" ColumnType="TextEditor" DataColumnKey="Unit" Width="100px"/>
+                            <ListViewColumn Key="StoreroomId" Caption="仓间" ColumnType="Dict" DataColumnKey="StoreroomId" Width="110px" ItemKey="LRP_Storeroom"/>
+                            <ListViewColumn Key="StoreareaId" Caption="库区" ColumnType="Dict" DataColumnKey="StoreareaId" Width="110px" ItemKey="LRP_Storearea"/>
+                            <ListViewColumn Key="LocationId" Caption="储位" ColumnType="Dict" DataColumnKey="LocationId" Width="110px" ItemKey="LRP_Location"/>
+                            <ListViewColumn Key="WarehouseCenterId" Caption="仓储中心" ColumnType="Dict" DataColumnKey="WarehouseCenterId" Width="130px" ItemKey="LRP_WarehouseCenter"/>
+                            <ListViewColumn Key="RefOrderNo" Caption="相关单号" ColumnType="TextEditor" DataColumnKey="RefOrderNo"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[
+								Open('V_PackingInbound', OID);
+						]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="130px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+        
+    ]]>
+    </OnLoad>
+</Form>

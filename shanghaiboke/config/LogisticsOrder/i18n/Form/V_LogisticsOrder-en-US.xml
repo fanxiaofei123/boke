@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Items-PayMethod>
+        <Item-1>
+USD        
+        </Item-1>
+        <Item-2>
+RMB        
+        </Item-2>
+    </Items-PayMethod>
+    <Items-ReturnType>
+        <Item-1>
+Refunds        
+        </Item-1>
+        <Item-4>
+Refunds        
+        </Item-4>
+        <Item-3>
+Exchange back        
+        </Item-3>
+        <Item-2>
+Only refund        
+        </Item-2>
+    </Items-ReturnType>
+    <Items-TMSOrderType>
+        <Item-1>
+LTL        
+        </Item-1>
+        <Item-4>
+MultimodalTransport        
+        </Item-4>
+        <Item-3>
+Warehouse        
+        </Item-3>
+        <Item-2>
+Vehicle        
+        </Item-2>
+    </Items-TMSOrderType>
+    <Items-ECInvoiceType>
+        <Item-1>
+OrdinaryInvoice        
+        </Item-1>
+        <Item-0>
+NoInvoice        
+        </Item-0>
+        <Item-5>
+Spike        
+        </Item-5>
+        <Item-4>
+Promotions        
+        </Item-4>
+        <Item-3>
+ElectronicInvoice        
+        </Item-3>
+        <Item-2>
+VATInvoice        
+        </Item-2>
+    </Items-ECInvoiceType>
+    <Error>
+        <Qty>
+The quantity must be bigger 0        
+        </Qty>
+    </Error>
+    <Items-StepType>
+        <Item-1>
+Warehouse        
+        </Item-1>
+    </Items-StepType>
+    <Items-ECOrderType>
+        <Item-1>
+SingleProduct        
+        </Item-1>
+        <Item-3>
+MoreProductsAndMore        
+        </Item-3>
+        <Item-2>
+MoreThanOneItem        
+        </Item-2>
+    </Items-ECOrderType>
+    <Items-QZLZ>
+        <Item-FH>
+delivery
+        </Item-FH>
+        <Item-DFH>
+waiting for delivery
+        </Item-DFH>
+    </Items-QZLZ>
+    <Items-ECPrintType>
+        <Item-1>
+PreFront        
+        </Item-1>
+        <Item-2>
+PostPost        
+        </Item-2>
+    </Items-ECPrintType>
+    <Items-GenMethod>
+        <Item-1>
+ManualInput        
+        </Item-1>
+        <Item-3>
+AutomaticallyBySystem        
+        </Item-3>
+        <Item-2>
+InterfaceImport        
+        </Item-2>
+    </Items-GenMethod>
+    <Items-WMSOrderType>
+        <Item-1>
+ReceiptNotice        
+        </Item-1>
+        <Item-5>
+CrossDocking        
+        </Item-5>
+        <Item-4>
+FactoryReturnOrder        
+        </Item-4>
+        <Item-3>
+OutboundOrder        
+        </Item-3>
+        <Item-2>
+ReturnNotice        
+        </Item-2>
+    </Items-WMSOrderType>
+    <Opt>
+        <Delete>
+
+Delete
+        
+        </Delete>
+        <New>
+
+New
+        
+        </New>
+        <Confirm-R>
+
+Confirm-R
+        
+        </Confirm-R>
+        <Cancel>
+
+Cancel
+        
+        </Cancel>
+        <CopyNew>
+
+CopyNew
+        
+        </CopyNew>
+        <Confirm>
+
+Confirm
+        
+        </Confirm>
+        <Save>
+
+Save
+        
+        </Save>
+        <Edit>
+
+Edit
+        
+        </Edit>
+        <Close>
+
+Close
+        
+        </Close>
+        <optKey1>
+
+ImportExcel
+        
+        </optKey1>
+    </Opt>
+    <UI>
+        <L_PayMethod>
+Payment Method        
+        </L_PayMethod>
+        <Lab_RecvContactor>
+RecvContactor        
+        </Lab_RecvContactor>
+        <SystemInfo>
+SystemInfo        
+        </SystemInfo>
+        <Lab_RecPerson>
+RecPerson
+        </Lab_RecPerson>
+        <Lab_Requirement>
+Requirement        
+        </Lab_Requirement>
+        <Lab_SendProvinceId>
+SendProvinceId        
+        </Lab_SendProvinceId>
+        <Lab_RecvPartyName>
+RecvPartyName        
+        </Lab_RecvPartyName>
+        <Lab_ComboBox1>
+Transtype        
+        </Lab_ComboBox1>
+        <Lab_WarehouseCenterId1>
+warehouse centre        
+        </Lab_WarehouseCenterId1>
+        <L_MODIFYTIME>
+MODIFYTIME        
+        </L_MODIFYTIME>
+        <Lab_AgencyFund>
+AgencyFund        
+        </Lab_AgencyFund>
+        <Grid1>
+step details        
+        </Grid1>
+        <L_No>
+Logistics order number        
+        </L_No>
+        <Lab_Total1>
+total        
+        </Lab_Total1>
+        <Grid0>
+material details        
+        </Grid0>
+        <L_Status>
+Status        
+        </L_Status>
+        <Carrier>
+Carrier        
+        </Carrier>
+        <EC>
+E-Commerce        
+        </EC>
+        <Lab_SendContactor>
+SendContactor        
+        </Lab_SendContactor>
+        <L_OwnerId>
+Owner        
+        </L_OwnerId>
+        <Recv>
+Sender and receiver        
+        </Recv>
+        <Lab_OrderType>
+ordertype        
+        </Lab_OrderType>
+        <Lab_client>
+Client        
+        </Lab_client>
+        <L_CREATETIME>
+CREATETIME        
+        </L_CREATETIME>
+        <Lab_ExpressPrice>
+ExpressPrice
+        </Lab_ExpressPrice>
+        <Lab_RecvContactMobile>
+RecvContactMobile        
+        </Lab_RecvContactMobile>
+        <Lab_StepDescription>
+Description of logistics steps        
+        </Lab_StepDescription>
+        <Lab_ReturnBillPcs>
+ReturnBillPcs        
+        </Lab_ReturnBillPcs>
+        <Lab_RecvAddress>
+RecvAddress        
+        </Lab_RecvAddress>
+        <Lab_SendPartyId>
+SendPartyId        
+        </Lab_SendPartyId>
+        <Lab_ExpectArriveTime>
+ExpectArriveTime        
+        </Lab_ExpectArriveTime>
+        <Lab_QZLZ>
+Forced circulation
+        </Lab_QZLZ>
+        <IsInvoice>
+IsInvoice        
+        </IsInvoice>
+        <Lab_Remark>
+Remark        
+        </Lab_Remark>
+        <Lab_SalesNo>
+sales order number        
+        </Lab_SalesNo>
+        <Lab_ECPrintType>
+ECPrintType        
+        </Lab_ECPrintType>
+        <L_MODIFIER>
+MODIFIER        
+        </L_MODIFIER>
+        <Lab_SendContactMobile>
+SendContactMobile        
+        </Lab_SendContactMobile>
+        <L_OrderDateTime>
+Order date time        
+        </L_OrderDateTime>
+        <Lab_RecvDistrictId>
+RecvAddress        
+        </Lab_RecvDistrictId>
+        <Lab_SendAddress>
+SendAddress        
+        </Lab_SendAddress>
+        <Lab_AdvanceMoney>
+AdvanceMoney        
+        </Lab_AdvanceMoney>
+        <Lab_ExpectPickupTime>
+ExpectPickupTime        
+        </Lab_ExpectPickupTime>
+        <BasicTab>
+BasicInformation        
+        </BasicTab>
+        <Lab_RecvPartyId>
+RecvPartyId        
+        </Lab_RecvPartyId>
+        <IsInsure>
+IsInsure        
+        </IsInsure>
+        <Lab_ReturnType>
+Lab_ReturnType        
+        </Lab_ReturnType>
+        <Lab_PurchaseF>
+PurchaseF
+        </Lab_PurchaseF>
+        <Lab_MaterialTypeId>
+MaterialType        
+        </Lab_MaterialTypeId>
+        <Lab_ECInvoiceType>
+ECInvoiceType        
+        </Lab_ECInvoiceType>
+        <Lab_RecvContactEmail>
+RecvContactEmail        
+        </Lab_RecvContactEmail>
+        <Lab_ECOrderType>
+ECOrderType        
+        </Lab_ECOrderType>
+        <Lab_RecvContactTel>
+RecvContactTel        
+        </Lab_RecvContactTel>
+        <Lab_SendDistrictId>
+SendDistrictId        
+        </Lab_SendDistrictId>
+        <Lab_RequireTruckQty>
+RequireTruckQty        
+        </Lab_RequireTruckQty>
+        <L_CREATOR>
+CREATOR        
+        </L_CREATOR>
+        <Lab_ReceiverPayType>
+ReceiverPayType        
+        </Lab_ReceiverPayType>
+        <CheckBox1>
+Is it all right to deliver the goods?        
+        </CheckBox1>
+        <Lab_SendContactTel>
+SendContactTel        
+        </Lab_SendContactTel>
+        <Lab_SendContactEmail>
+SendContactEmail        
+        </Lab_SendContactEmail>
+        <Lab_SendCityId>
+SendCityId        
+        </Lab_SendCityId>
+        <L_GenMethod>
+GenMethod        
+        </L_GenMethod>
+        <Lab_RequireTruckTypeId>
+RequireTruckType        
+        </Lab_RequireTruckTypeId>
+        <Lab_estoreOrderId>
+Order ID        
+        </Lab_estoreOrderId>
+        <Lab_SendPartyName>
+SendPartyName        
+        </Lab_SendPartyName>
+        <Lab_RecvCityId>
+RecvCityId        
+        </Lab_RecvCityId>
+        <L_OwnerNo>
+ContractNo        
+        </L_OwnerNo>
+    </UI>
+    <GridColumn>
+        <ExpireDate>
+
+ExpireDate
+        
+        </ExpireDate>
+        <OrderdtlId>
+
+OrderDelId
+        
+        </OrderdtlId>
+        <BatchNo>
+
+BatchNo
+        
+        </BatchNo>
+        <USDPrice>
+
+USDPrice
+        
+        </USDPrice>
+        <DestOrgId>
+
+DestOrgId
+        
+        </DestOrgId>
+        <ShiF>
+
+Is it all right to deliver the goods?
+        
+        </ShiF>
+        <WarehouseCenterId>
+
+Storage Centre
+        
+        </WarehouseCenterId>
+        <Qty>
+
+Qty
+        
+        </Qty>
+        <Cubage>
+
+Cubage
+        
+        </Cubage>
+        <Freight>
+
+Freight
+        
+        </Freight>
+        <ManufDate>
+
+ManufDate
+        
+        </ManufDate>
+        <estoreOrderId2>
+
+OrderId
+        
+        </estoreOrderId2>
+        <MaterialId>
+
+MaterialId
+        
+        </MaterialId>
+        <DateUserDef2>
+
+DateUserDef2
+        
+        </DateUserDef2>
+        <DateUserDef1>
+
+DateUserDef1
+        
+        </DateUserDef1>
+        <DispatchOrgId>
+
+DispatchOrgId
+        
+        </DispatchOrgId>
+        <cell1>
+
+Supplier
+        
+        </cell1>
+        <Weight>
+
+Weight
+        
+        </Weight>
+        <TMSOrderType>
+
+TMSOrderType
+        
+        </TMSOrderType>
+        <Select1>
+
+Select
+        
+        </Select1>
+        <BasicQty>
+
+BasicQty
+        
+        </BasicQty>
+        <DeliveryFee>
+
+DeliveryFee
+        
+        </DeliveryFee>
+        <StrUserDef5>
+
+StrUserDef5
+        
+        </StrUserDef5>
+        <Package>
+
+Package
+        
+        </Package>
+        <StrUserDef4>
+
+StrUserDef4
+        
+        </StrUserDef4>
+        <StrUserDef3>
+
+StrUserDef3
+        
+        </StrUserDef3>
+        <RMBPrice>
+
+RMBPrice
+        
+        </RMBPrice>
+        <StrUserDef2>
+
+StrUserDef2
+        
+        </StrUserDef2>
+        <EnglishName>
+
+EnglishName
+        
+        </EnglishName>
+        <StrUserDef1>
+
+StrUserDef1
+        
+        </StrUserDef1>
+        <PickFee>
+
+PickFee
+        
+        </PickFee>
+        <StepType>
+
+StepType
+        
+        </StepType>
+        <PickAllowLack>
+
+PickAllowLack
+        
+        </PickAllowLack>
+        <OrderNo>
+
+OrderNo
+        
+        </OrderNo>
+        <RecvDate>
+
+RecvDate
+        
+        </RecvDate>
+        <IsQuick>
+
+IsQuick
+        
+        </IsQuick>
+        <MaterialStatusId>
+
+MaterialStatus
+        
+        </MaterialStatusId>
+        <MaterialUnit>
+
+MaterialUnit
+        
+        </MaterialUnit>
+        <MaterialName>
+
+MaterialName
+        
+        </MaterialName>
+        <PictureNo>
+
+PictureNo
+        
+        </PictureNo>
+        <DictUserDef5>
+
+DictUserDef5
+        
+        </DictUserDef5>
+        <DictUserDef4>
+
+DictUserDef4
+        
+        </DictUserDef4>
+        <ProjectId>
+
+ProjectId
+        
+        </ProjectId>
+        <column-s>
+
+Column-s
+        
+        </column-s>
+        <NumUserDef3>
+
+NumUserDef3
+        
+        </NumUserDef3>
+        <NumUserDef2>
+
+NumUserDef2
+        
+        </NumUserDef2>
+        <NumUserDef1>
+
+NumUserDef1
+        
+        </NumUserDef1>
+        <SendOrgId>
+
+SendOrgId
+        
+        </SendOrgId>
+        <MaterialValue>
+
+MaterialValue
+        
+        </MaterialValue>
+        <Insurance>
+
+Insurance
+        
+        </Insurance>
+        <Total>
+
+TotalPrices
+        
+        </Total>
+        <DictUserDef3>
+
+DictUserDef3
+        
+        </DictUserDef3>
+        <WMSOrderType>
+
+WMSOrderType
+        
+        </WMSOrderType>
+        <DictUserDef2>
+
+DictUserDef2
+        
+        </DictUserDef2>
+        <DictUserDef1>
+
+DictUserDef1
+        
+        </DictUserDef1>
+        <NeedExchange>
+
+NeedExchange
+        
+        </NeedExchange>
+        <OtherFee>
+
+OtherFee
+        
+        </OtherFee>
+    </GridColumn>
+    <Items-OrderType>
+        <Item-1>
+SalesOrder        
+        </Item-1>
+        <Item-4>
+ReturnOrder
+        </Item-4>
+        <Item-3>
+OutboundOrder        
+        </Item-3>
+        <Item-2>
+SellOrder        
+        </Item-2>
+    </Items-OrderType>
+</StringTable>

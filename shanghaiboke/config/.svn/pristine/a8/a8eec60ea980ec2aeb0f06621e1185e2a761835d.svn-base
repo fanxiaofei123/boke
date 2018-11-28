@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+		<V_O_IncomeTerm_LRP>IncomeTerm</V_O_IncomeTerm_LRP>
+		
+        <Lab_No>No</Lab_No>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_IncomeId>IncomeId</Lab_IncomeId>
+        <Lab_DataObjectKey>DataObjectKey</Lab_DataObjectKey>
+        <Lab_WarehouseIdField>WarehouseIdField</Lab_WarehouseIdField>
+        <Lab_DispatchOrgIdField>DispatchOrgIdField</Lab_DispatchOrgIdField>
+        <Lab_OwnerIdField>OwnerIdField</Lab_OwnerIdField>
+        <Lab_SettlementIdField>SettlementIdField</Lab_SettlementIdField>
+        <Lab_NoField>NoField</Lab_NoField>
+        <Lab_OrderDateField>OrderDateField</Lab_OrderDateField>
+        <Lab_QtyField>QtyField</Lab_QtyField>
+        <NeedSummaryApportion>NeedSummaryApportion</NeedSummaryApportion>
+        <Lab_ApportionType>ApportionType</Lab_ApportionType>
+        <Lab_Remark>Remark</Lab_Remark>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_ConditionSql>ConditionSql</Lab_ConditionSql>
+        <Lab_cmb_amounttype>amounttype</Lab_cmb_amounttype>
+        <Lab_pricefield>pricefield</Lab_pricefield>
+        <Lab_customprice>customprice</Lab_customprice>
+        <Lab_amountfield>amountfield</Lab_amountfield>
+        <Lab_customamount>customamount</Lab_customamount>
+		
+		
+        <Grid0>Condition detail</Grid0>
+        <Grid1>Billing detail</Grid1>
+        <Grid2>Summary detail</Grid2>
+    </UI>
+	
+    <GridColumn>
+        <column0>Select</column0>
+        <LeftBrackets>LeftBrackets</LeftBrackets>
+        <ObjectAttribute>ObjectAttribute</ObjectAttribute>
+        <Operator>Operator</Operator>
+        <Value>Value</Value>
+        <RightBrackets>RightBrackets</RightBrackets>
+        <LogicalOperator>LogicalOperator</LogicalOperator>
+		
+        <column1>Select</column1>
+        <LowerNumber>LowerNumber</LowerNumber>
+        <UpperNumber>UpperNumber</UpperNumber>
+        <PriceType>PriceType</PriceType>
+        <Price>Price</Price>
+        <AddPrice>AddPrice</AddPrice>
+        <MinPrice>MinPrice</MinPrice>
+        <MaxPrice>MaxPrice</MaxPrice>
+		
+		<column2>Select</column2>
+        <ObjectAttribute_L>ObjectAttribute</ObjectAttribute_L>
+    </GridColumn>
+	
+    <Items-cmb_amounttype>
+		<Item-10>default</Item-10>
+		<Item-20>price</Item-20>
+		<Item-30>money</Item-30>
+    </Items-cmb_amounttype>
+	
+	
+</StringTable>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

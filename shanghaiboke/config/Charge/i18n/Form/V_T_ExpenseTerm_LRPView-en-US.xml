@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+		<V_T_ExpenseTerm_LRPView-Abbr>ExpenseTermView</V_T_ExpenseTerm_LRPView-Abbr>
+		
+        <L_No>No</L_No>
+        <L_Name>Name</L_Name>
+        <L_ExpenseId>ExpenseName</L_ExpenseId>
+        <Lab_Status_H>Status</Lab_Status_H>
+    </UI>
+	
+    <ListViewColumn>
+        <Select>Select</Select>
+        <Status>Status</Status>
+        <No_LV>No</No_LV>
+        <Name_LV>Name</Name_LV>
+        <ExpenseId_LV>ExpenseName</ExpenseId_LV>
+        <Remark>Remark</Remark>
+    </ListViewColumn>
+	
+	
+    <Items-Status_H>
+		<Item-prepared>prepared</Item-prepared>
+		<Item-confirmed>confirmed</Item-confirmed>
+		<Item-cancelled>cancelled</Item-cancelled>
+    </Items-Status_H>
+	
+</StringTable>

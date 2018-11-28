@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_PackingStockCollectView" Caption="包装材料库存汇总查询" FormType="View" AbbrCaption="包装材料库存汇总查询">
+    <DataSource>
+        <DataObject Key="PackingStockCollect" Caption="包材库存汇总查询" PrimaryTableKey="LRP_PackingQuant">
+            <TableCollection>
+                <Table Key="LRP_PackingQuant" Caption="包材库存汇总查询" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="PackingMaterialId" Caption="包装材料" DataType="Long"/>
+                    <Column Key="OnhandQty" Caption="数量" DataType="Numeric" Precision="18" Scale="3"/>
+                    <Column Key="Unit" Caption="单位" DataType="Varchar" Length="1000" Expand="true"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心id" DataType="Long"/>
+                    <TableFilter>
+                        <![CDATA[]]>
+                    </TableFilter>
+                    <Statement>
+                        <![CDATA[select 
+    *
+from
+    (select 
+        q.WarehouseCenterId,
+            q.PackingMaterialId,
+            sum(q.OnhandQty) as OnhandQty,
+            m.Unit
+    from
+        LRP_PackingMaterialQuant q
+    join LRP_PackingMaterial m ON q.PackingMaterialId = m.OID
+    where
+        q.OnhandQty > 0
+    group by q.WarehouseCenterId , q.PackingMaterialId , m.Unit) a
+	where OnhandQty > 0]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Key="main_toolbar" Height="pref">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%">
+                    <GridLayoutPanel Key="GridLayoutPanel0" Padding="10px" Caption="GridLayoutPanel0">
+                        <Dict Key="WarehouseCenterId_C" Caption="仓储中心" X="1" Y="0" XSpan="2" ItemKey="LRP_WarehouseCenter">
+                            <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                            <Condition CondSign="=" ColumnKey="WarehouseCenterId" TableKey="LRP_PackingQuant"/>
+                        </Dict>
+                        <Label Key="L_WarehouseCenterId" Caption="仓储中心" X="0" Y="0"/>
+                        <Button Key="Query" Caption="查询" X="8" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Reset" Caption="重置" X="8" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="PackingMaterialId_C" Caption="包装材料" BuddyKey="Lab_PackingMaterialId_C" X="5" Y="0" ItemKey="LRP_PackingMaterial" XSpan="2" AllowMultiSelection="true">
+                            <Condition CondSign="in" ColumnKey="PackingMaterialId" TableKey="LRP_PackingQuant"/>
+                        </Dict>
+                        <Label Key="Lab_PackingMaterialId_C" Caption="包装材料" X="4" Y="0"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%" MinWidth="50px"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView0" Key="ListView0" PageLoadType="DB" TableKey="LRP_PackingQuant">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" Visible="false"/>
+                            <ListViewColumn Key="WarehouseCenterId" Caption="仓储中心" ColumnType="Dict" DataColumnKey="WarehouseCenterId" Width="130px" ItemKey="LRP_WarehouseCenter"/>
+                            <ListViewColumn Key="PackingMaterialId" Caption="包装材料" ColumnType="Dict" DataColumnKey="PackingMaterialId" Width="130px" ItemKey="LRP_PackingMaterial"/>
+                            <ListViewColumn Key="OnhandQty" Caption="在库量" ColumnType="NumberEditor" DataColumnKey="OnhandQty" Width="110px" Precision="18" Scale="3"/>
+                            <ListViewColumn Key="Unit" Caption="单位" ColumnType="TextEditor" DataColumnKey="Unit" Width="100px"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[
+								Open('V_PackingInbound', OID);
+						]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="85px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+        
+    ]]>
+    </OnLoad>
+    <NavigationBar Style="Custom"/>
+</Form>

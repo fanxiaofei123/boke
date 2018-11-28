@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_TransportOrder" Caption="运输订单" PrimaryTableKey="LRP_TransportOrder_H" NoPrefix="TO" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_TransportOrder_H" Caption="运输订单头">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Key="No" Caption="订单号" DataType="Varchar" Length="100" SortType="Desc"/>
+            <Column Key="OwnerNo" Caption="货主单号" DataType="Varchar" Length="100"/>
+            <Column Key="OwnerId" Caption="货主id" DataType="Long"/>
+            <Column Key="OrderType" Caption="订单类型" DataType="Varchar" Length="10"/>
+            <Column Key="OperateType" Caption="运作类型" DataType="Integer"/>
+            <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+            <Column Key="OrderDateTime" Caption="下单日期时间" DataType="DateTime"/>
+            <Column Key="FinishDateTime" Caption="完成日期时间" DataType="DateTime"/>
+            <Column Key="SendOrgId" Caption="发站" DataType="Long"/>
+            <Column Key="DestOrgId" Caption="到站" DataType="Long"/>
+            <Column Key="Requirement" Caption="运输要求" DataType="Varchar" Length="1000"/>
+            <Column Key="RequireTruckTypeId" Caption="要求车型" DataType="Long"/>
+            <Column Key="RequireTruckQty" Caption="要求车辆数" DataType="Numeric" Precision="18" Scale="0"/>
+            <Column Key="ExpectArriveTime" Caption="预计送达时间" DataType="DateTime"/>
+            <Column Key="SendPartyId" Caption="发货方" DataType="Long"/>
+            <Column Key="SendPartyName" Caption="发货方名称" DataType="Varchar" Length="100"/>
+            <Column Caption="起点经度" Key="SendLongitude" DataType="Numeric" Precision="10" Scale="6"/>
+            <Column Caption="起点纬度" Key="SendLatitude" DataType="Numeric" Precision="10" Scale="6"/>
+            <Column Key="SendProvinceId" Caption="省" DataType="Long"/>
+            <Column Key="SendCityId" Caption="市" DataType="Long"/>
+            <Column Key="SendDistrictId" Caption="区" DataType="Long"/>
+            <Column Key="SendAddress" Caption="地址" DataType="Varchar" Length="100"/>
+            <Column Key="SendContactor" Caption="联系人" DataType="Varchar" Length="100"/>
+            <Column Key="SendContactTel" Caption="联系人电话" DataType="Varchar" Length="100"/>
+            <Column Key="SendContactMobile" Caption="联系人手机" DataType="Varchar" Length="100"/>
+            <Column Key="SendContactEmail" Caption="联系人电邮" DataType="Varchar" Length="100"/>
+            <Column Key="RecvPartyId" Caption="收货方" DataType="Long"/>
+            <Column Key="RecvPartyName" Caption="收货方名称" DataType="Varchar" Length="100"/>
+            <Column Caption="终点经度" Key="RecvLongitude" DataType="Numeric" Precision="10" Scale="6"/>
+            <Column Caption="终点纬度" Key="RecvLatitude" DataType="Numeric" Precision="10" Scale="6"/>
+            <Column Key="RecvProvinceId" Caption="省" DataType="Long"/>
+            <Column Key="RecvCityId" Caption="市" DataType="Long"/>
+            <Column Key="RecvDistrictId" Caption="区" DataType="Long"/>
+            <Column Key="RecvAddress" Caption="地址" DataType="Varchar" Length="100"/>
+            <Column Key="RecvContactor" Caption="联系人" DataType="Varchar" Length="100"/>
+            <Column Key="RecvContactTel" Caption="联系人电话" DataType="Varchar" Length="100"/>
+            <Column Key="RecvContactMobile" Caption="联系人手机" DataType="Varchar" Length="100"/>
+            <Column Key="RecvContactEmail" Caption="联系人电邮" DataType="Varchar" Length="100"/>
+            <Column Key="ReceiverPayType" Caption="收货方支付方式" DataType="Varchar" Length="100"/>
+            <Column Key="IsInvoice" Caption="是否开票" DataType="Integer"/>
+            <Column Key="IsInsure" Caption="是否投保" DataType="Integer"/>
+            <Column Caption="承运商id" DataType="Long" Key="CarrierId"/>
+            <Column Key="WaybillNo" Caption="运单号" DataType="Varchar" Length="100"/>
+            <Column Key="ReturnBillPcs" Caption="回单份数" DataType="Integer"/>
+            <Column Key="IsSelfPick" Caption="是否自提" DataType="Integer" DefaultValue="0"/>
+            <Column Key="IsSelfSend" Caption="发站自送" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Amount" Caption="应收金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="ReturnAmount" Caption="应退金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="PromiseArriveTime" Caption="承诺送达时间" DataType="DateTime"/>
+            <Column Key="LastArriveTime" Caption="最后送达时间" DataType="DateTime"/>
+            <Column Key="DeliveryResult" Caption="配送结果" DataType="Varchar" Length="100"/>
+            <Column Key="DeliveryResultTime" Caption="配送结果操作时间" DataType="DateTime"/>
+            <Column Key="DeliveryMan" Caption="配送员" DataType="Varchar" Length="100"/>
+            <Column Key="DetainCause" Caption="滞留原因" DataType="Varchar" Length="1000"/>
+            <Column Key="TransferOrg" Caption="中转仓库" DataType="Long"/>
+            <Column Key="TransferInTime" Caption="中转仓库入库时间" DataType="DateTime"/>
+            <Column Key="TransferOutTime" Caption="中转仓库出库时间" DataType="DateTime"/>
+            <Column Key="AgencyFund" Caption="代收货款" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="AdvanceMoney" Caption="代垫货款" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="PayMethod" Caption="付款方式" DataType="Integer"/>
+            <Column Key="PayStatus" Caption="付款状态" DataType="Integer" DefaultValue="0"/>
+            <Column Key="MaterialTypeId" Caption="物料类别" DataType="Long"/>
+            <Column Caption="备注" DataType="Varchar" Key="Remark" Length="1000"/>
+            <Column Key="GenMethod" Caption="订单生成方式" DataType="Integer" DefaultValue="1"/>
+            <Column Caption="物流订单号" DataType="Varchar" Key="LogisticsOrderNo" Length="40"/>
+            <Column Caption="物流订单步骤明细OID" DataType="Long" Key="LogisticsOrderStepOID"/>
+            <Column Key="OwnerUserId" Caption="货主用户" DataType="Long"/>
+            <Column Key="SalespersonId" Caption="销售员" DataType="Long"/>
+            <Column Key="Mileage" Caption="里程数" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="UserRating" Caption="用户打分" DataType="Varchar" Length="40"/>
+            <Column Key="UserScore" Caption="用户评分" DataType="Integer"/>
+            <Column Key="UserComment" Caption="用户评价" DataType="Varchar" Length="200"/>
+            <Column Key="PayChannel" Caption="付款渠道" DataType="Varchar" Length="40"/>
+            <Column Key="TotalCubage" Caption="总体积" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="TotalWeight" Caption="总重量" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="BillSource" Caption="订单来源" DataType="Varchar" Length="40" DefaultValue="pc"/>
+            <Column Key="TotalAmount" Caption="总金额" DataType="Numeric" Precision="16" Scale="4"/>
+            <Column Key="SrvAmount" Caption="额外服务总费用" DataType="Numeric" Precision="16" Scale="4"/>
+            <Column Key="GoodsAmount" Caption="货值" DataType="Numeric" Precision="16" Scale="4"/>
+            <Column Key="MaterialTotalQty" Caption="货物总数量" DataType="Numeric" Precision="16" Scale="4"/>
+            <Column Key="ExpectPickupTime" Caption="预计提货时间" DataType="DateTime"/>
+            <Column Key="BidingType" Caption="竞价模式" DataType="Integer"/>
+            <Column Key="GrabPrice" Caption="抢单价格" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="BidingPrice" Caption="竞价价格" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="BidingTime" Caption="竞价日期时间" DataType="DateTime"/>
+        </Table>
+        <Table Key="LRP_TransportMaterial_L" Caption="运输订单物料明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="数据映射key" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="来源单据明细ID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="来源单据头id" DataType="Long" Key="SrcSOID"/>
+            <Column Key="MaterialId" Caption="物料" DataType="Long"/>
+            <Column Key="MaterialName" Caption="物料名称" DataType="Varchar" Length="100"/>
+            <Column Key="Qty" Caption="数量" DataType="Numeric" Precision="18" Scale="6" DefaultValue="0"/>
+            <Column Key="Unit" Caption="单位" DataType="Varchar" Length="100"/>
+            <Column Caption="动态单元格标识" DataType="Varchar" Key="UnitTypeDefKey"/>
+            <Column Key="Weight" Caption="重量" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="Cubage" Caption="体积" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="Package" Caption="包装" DataType="Varchar" Length="100"/>
+            <Column Key="Freight" Caption="运费" DataType="Numeric" Precision="18" Scale="6" DefaultValue="0"/>
+            <Column Key="DeliveryFee" Caption="送货费" DataType="Numeric" Precision="18" Scale="6" DefaultValue="0"/>
+            <Column Key="OtherFee" Caption="其它金额" DataType="Numeric" Precision="18" Scale="6" DefaultValue="0"/>
+            <Column Key="MaterialValue" Caption="申明价值" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="Insurance" Caption="保险费" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="PickFee" Caption="提货费" DataType="Numeric" Precision="18" Scale="6" DefaultValue="0"/>
+            <Column Key="TransferFee" Caption="转运费" DataType="Numeric" Precision="18" Scale="6" DefaultValue="0"/>
+            <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+        </Table>
+        <Table Key="LRP_TransportSeg_L" Caption="运输订单分段明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="数据映射key" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="来源单据明细ID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="来源单据头id" DataType="Long" Key="SrcSOID"/>
+            <Column Key="SendOrgId" Caption="发站" DataType="Long"/>
+            <Column Key="DestOrgId" Caption="到站" DataType="Long"/>
+            <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+        </Table>
+        <Table Key="LRP_TransportOrderRoute_L" Caption="运输订单途经明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="数据映射key" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="来源单据明细ID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="来源单据头id" DataType="Long" Key="SrcSOID"/>
+            <Column Key="AddressName" Caption="地址名称" DataType="Varchar" Length="40"/>
+            <Column Caption="地址类型" DataType="Integer" Key="AddressType" DefaultValue="50"/>
+            <Column Key="ProvinceId" Caption="省" DataType="Long"/>
+            <Column Key="CityId" Caption="市" DataType="Long"/>
+            <Column Key="DistrictId" Caption="区" DataType="Long"/>
+            <Column Key="Address" Caption="详细地址" DataType="Varchar" Length="100"/>
+            <Column Key="Contact" Caption="联系人" DataType="Varchar" Length="40"/>
+            <Column Key="Tel" Caption="联系电话" DataType="Varchar" Length="40"/>
+            <Column Key="Latitude" Caption="纬度" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="Longitude" Caption="经度" DataType="Numeric" Precision="18" Scale="6"/>
+        </Table>
+        <Table Key="LRP_TransportOrderService_L" Caption="运输订单服务明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="数据映射key" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="来源单据明细ID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="来源单据头id" DataType="Long" Key="SrcSOID"/>
+            <Column Key="ServiceId" Caption="物流服务" DataType="Long"/>
+            <Column Key="IncomeId" Caption="收入id" DataType="Long"/>
+            <Column Key="ServiceAmount" Caption="金额" DataType="Numeric" Precision="18" Scale="6"/>
+        </Table>
+        <Table Key="LRP_TransportOrderExpense_L" Caption="运输订单支出明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="数据映射key" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="来源单据明细ID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="来源单据头id" DataType="Long" Key="SrcSOID"/>
+            <Column Key="ServiceId" Caption="物流服务" DataType="Long"/>
+            <Column Key="ExpenseId" Caption="费用id" DataType="Long"/>
+            <Column Key="Amount" Caption="金额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="CouponId" Caption="券id" DataType="Long"/>
+            <Column Caption="券名称" DataType="Varchar" Key="CouponName" Length="40"/>
+            <Column Caption="券编号" DataType="Varchar" Key="CouponCode" Length="40"/>
+        </Table>
+        <Table Key="LRP_TransportAttach_L" Caption="运输订单附件明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="数据映射key" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="来源单据明细ID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="来源单据头id" DataType="Long" Key="SrcSOID"/>
+            <Column Caption="附件路径" DataType="Varchar" Key="AttachmentURL" Length="200"/>
+        </Table>
+        <Table Key="LRP_TransportOrderBiding_L" Caption="运输订单竞价明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="序号" DataType="Integer" Key="SEQUENCE"/>
+            <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="数据映射key" DataType="Varchar" Key="MapKey" Length="100"/>
+            <Column Caption="来源单据明细ID" DataType="Long" Key="SrcOID"/>
+            <Column Caption="来源单据头id" DataType="Long" Key="SrcSOID"/>
+            <Column Caption="承运商" DataType="Long" Key="CarrierId"/>
+            <Column Key="BidingPrice" Caption="竞价价格" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Caption="备注" DataType="Varchar" Key="Remark" Length="200"/>
+            <Column Caption="竞价状态" DataType="Integer" Key="BidingStatus"/>
+        </Table>
+    </TableCollection>
+    <PreSaveProcess>
+        <Process>
+            <![CDATA[
+               LRP_TransOrderPreSave();
+			]]>
+        </Process>
+    </PreSaveProcess>
+    <PostSaveProcess>
+        <Process>
+            <![CDATA[
+               LRP_TransOrderConfirm();
+			]]>
+        </Process>
+    </PostSaveProcess>
+</DataObject>

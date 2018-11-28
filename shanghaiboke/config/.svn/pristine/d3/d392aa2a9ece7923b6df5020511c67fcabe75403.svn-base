@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_TruckRepair" Caption="车辆维修单" FormType="Entity" ViewKey="LRP_TruckRepairView">
+    <DataSource RefObjectKey="LRP_TruckRepair"/>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[
+
+           if(GetRowCount("Grid0", false)<=0){ 
+		Confirm('明细列表不可为空', 'OK','OK:{}');
+		return true;
+	     }
+        
+			    SaveData(); UpdateView();   ]]>
+            </Action>
+        </Operation>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[       New('V_TruckRepair');]]>
+            </Action>
+        </Operation>
+        <Operation Key="CopyNew" Caption="复制新增" RefKey="CopyNew"/>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()&amp;&amp;Status&lt;StatusValue('finished')">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Confirm" Caption="确认" Enable="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[				 Status=StatusValue('confirmed'); 
+                 SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="ConfirmR" Caption="撤销确认" Enable="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[Status=StatusValue('prepared');SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Handled" Caption="处理中" Enable="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[				 Status=StatusValue('handled'); 
+                 SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="HandledR" Caption="撤销处理" Enable="ReadOnly()&amp;&amp;Status==StatusValue('handled')">
+            <Action>
+                <![CDATA[Status=StatusValue('confirmed');SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Finish" Caption="完成" Enable="ReadOnly()&amp;&amp;Status==200 || Status==500">
+            <Action>
+                <![CDATA[Confirm('确定要将当前记录进行完成吗？','YES_NO',{YES:{Status=StatusValue('finished');SaveData();UpdateView();},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="FinishR" Caption="撤销完成" Enable="ReadOnly()&amp;&amp;Status==900">
+            <Action>
+                <![CDATA[Confirm('确定要将当前记录进行撤销完成吗？','YES_NO',{YES:{Status=StatusValue('handled');SaveData();UpdateView();},NO:{}});
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="系统信息" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="RuleNo" Caption="维修单号" BuddyKey="Lab_RuleNo" X="1" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_TruckRepair_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_RuleNo" Caption="维修单号" X="0" Y="0"/>
+                            <Dict Key="FleetId" Caption="车队" BuddyKey="Lab_FleetId" X="4" Y="0" ItemKey="LRP_Fleet" AsQuery="true">
+                                <DataBinding ColumnKey="FleetId" TableKey="LRP_TruckRepair_H" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_FleetId" Caption="车队" X="3" Y="0"/>
+                            <Dict Key="TruckId" Caption="车辆" BuddyKey="Lab_TruckId" X="7" Y="0" ItemKey="LRP_Truck" AsQuery="true">
+                                <DataBinding ColumnKey="TruckId" TableKey="LRP_TruckRepair_H" Required="true"/>
+                                <ItemFilter ItemKey="LRP_Truck">
+                                    <Filter Query="select OID from LRP_Truck where FleetId=?" Type="DataSet">
+                                        <FilterValue DataType="Long" ParaValue="FleetId" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_TruckId" Caption="车辆" X="6" Y="0"/>
+                            <TextEditor Key="LicenseNo" Caption="牌照号" BuddyKey="Lab_LicenseNo" X="1" Y="1" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="LicenseNo" DefaultFormulaValue="GetDictValue(&quot;LRP_Truck&quot;,TruckId, &quot;LicenseNo&quot;)" TableKey="LRP_TruckRepair_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_LicenseNo" Caption="牌照号" X="0" Y="1"/>
+                            <DatePicker Key="RepairDate" Caption="维修日期" BuddyKey="Lab_RepairDate" X="4" Y="1" AsQuery="true">
+                                <DataBinding ColumnKey="RepairDate" TableKey="LRP_TruckRepair_H" Required="true"/>
+                                <Format/>
+                            </DatePicker>
+                            <Label Key="Lab_RepairDate" Caption="维修日期" X="3" Y="1"/>
+                            <TextEditor Key="RepairShop" Caption="修理厂" BuddyKey="Lab_RepairShop" X="7" Y="1" AsQuery="true">
+                                <DataBinding ColumnKey="RepairShop" TableKey="LRP_TruckRepair_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_RepairShop" Caption="修理厂" X="6" Y="1"/>
+                            <TextEditor Key="Lab_Remark" Caption="备注" BuddyKey="Lab_Lab_Remark" X="1" Y="2" XSpan="4" AsQuery="true">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_TruckRepair_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Lab_Remark" Caption="备注" X="0" Y="2"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="2" SourceType="Status" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_TruckRepair_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="6" Y="2"/>
+                            <RowDefCollection RowGap="6" RowHeight="30">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="99px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="30%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SystemInfo" Caption="系统信息">
+                            <Dict Key="CREATOR" Caption="创建时间" BuddyKey="Lab_CREATOR" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_TruckRepair_H"/>
+                            </Dict>
+                            <Label Key="Lab_CREATOR" Caption="创建时间" X="0" Y="0"/>
+                            <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="5" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_TruckRepair_H"/>
+                            </Dict>
+                            <Label Key="Lab_MODIFIER" Caption="修改人" X="4" Y="0"/>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="1" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="ServerDate()" TableKey="LRP_TruckRepair_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_CREATETIME" Caption="创建时间" X="0" Y="1"/>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="5" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TruckRepair_H"/>
+                            </DatePicker>
+                            <Label Key="Lab_MODIFYTIME" Caption="修改时间" X="4" Y="1"/>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                        <Grid Key="Grid0" Caption="车辆维修单明细 ">
+                            <GridColumnCollection>
+                                <GridColumn Key="RepairItemId" Caption="维修项目" Width="80px" CellType="Dict" ItemKey="V_RepairItem" Sortable="true"/>
+                                <GridColumn Key="Repairman" Caption="修理工" Width="80px" Sortable="true"/>
+                                <GridColumn Key="RepairAmount" Caption="修理金额" Width="80px" Sortable="true"/>
+                                <GridColumn Key="Remark" Caption="备注" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_RepairCheck_L">
+                                    <GridCell Key="RepairItemId" Caption="维修项目" CellType="Dict" ItemKey="LRP_RepairItem">
+                                        <DataBinding ColumnKey="RepairItemId" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="Repairman" Caption="修理工" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Repairman"/>
+                                    </GridCell>
+                                    <GridCell Key="RepairAmount" Caption="修理金额" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="RepairAmount"/>
+                                    </GridCell>
+                                    <GridCell Key="Remark" Caption="备注" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Remark"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

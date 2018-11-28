@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Caption="拣货单发货管理" Authenticate="false" HasNavigationBar="false" -->
+<Form Key="ShipByPickManage" FormType="View">
+    <DataSource>
+        <DataObject Key="LRP_ShipByPickManage" Caption="拣货单发货管理" PrimaryTableKey="LRP_WMTx_H">
+            <TableCollection>
+                <Table Key="LRP_WMTx_H" Caption="我的拣货任务" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="事务单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="事务类型" DataType="Long" Key="TxTypeId"/>
+                    <Column Caption="事务代码" DataType="Varchar" Key="TxTypeCode" Length="10"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="NoticeNo" Length="100"/>
+                    <Column Caption="关联单号" DataType="Varchar" Key="RefNo" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Key="OwnerName" Caption="货主名称" DataType="Varchar" Length="200"/>
+                    <Column Caption="事务日期时间" DataType="DateTime" Key="TxDateTime"/>
+                    <Column Caption="接收任务日期时间" DataType="DateTime" Key="AcceptTaskDateTime"/>
+                    <Column Caption="操作完成日期时间" DataType="DateTime" Key="FinishDateTime"/>
+                    <Column Caption="仓管员id" DataType="Long" Key="WarehouseKeeperId"/>
+                    <Column Key="WarehouseKeeperName" Caption="仓管员" DataType="Varchar" Length="200"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+                    <Statement>
+                        <![CDATA[ select 
+    h.OID,
+	h.Status,
+	h.CREATETIME,
+    h.No,
+    h.TxTypeId,
+    h.TxTypeCode,
+    h.OwnerNo,
+    h.NoticeNo,
+    h.RefNo,
+    h.WarehouseCenterId,
+	h.OwnerId,
+	o.Name as OwnerName,
+	wk.Name as WarehouseKeeperName,
+    h.TxDateTime,
+    h.AcceptTaskDateTime,
+    h.FinishDateTime,
+	h.WarehouseKeeperId,
+	h.Remark
+from LRP_WMTx_H h join LRP_Owner o on o.oid = h.OwnerId left join LRP_WarehouseKeeper wk on h.WarehouseKeeperId = wk.oid
+    where
+        h.TxTypeCode in('201','203','205') 		
+		and h.Status = 900
+    ]]>
+                    </Statement>
+                </Table>
+                <Table Key="LRP_WMTx_HHis" Caption="发货历史" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="事务单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="事务类型" DataType="Long" Key="TxTypeId"/>
+                    <Column Caption="事务代码" DataType="Varchar" Key="TxTypeCode" Length="10"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo" Length="100"/>
+                    <Column Caption="通知单号" DataType="Varchar" Key="NoticeNo" Length="100"/>
+                    <Column Caption="关联单号" DataType="Varchar" Key="RefNo" Length="100"/>
+                    <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主id" DataType="Long" Key="OwnerId"/>
+                    <Column Key="OwnerName" Caption="货主名称" DataType="Varchar" Length="200"/>
+                    <Column Caption="事务日期时间" DataType="DateTime" Key="TxDateTime"/>
+                    <Column Caption="接收任务日期时间" DataType="DateTime" Key="AcceptTaskDateTime"/>
+                    <Column Caption="操作完成日期时间" DataType="DateTime" Key="FinishDateTime"/>
+                    <Column Caption="仓管员id" DataType="Long" Key="WarehouseKeeperId"/>
+                    <Column Key="WarehouseKeeperName" Caption="仓管员" DataType="Varchar" Length="200"/>
+                    <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetUserOperator();" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[ select 
+    h.OID,
+	h.Status,
+	h.CREATETIME,
+    h.No,
+    h.TxTypeId,
+    h.TxTypeCode,
+    h.OwnerNo,
+    h.NoticeNo,
+    h.RefNo,
+    h.WarehouseCenterId,
+	h.OwnerId,
+	o.Name as OwnerName,
+	wk.Name as WarehouseKeeperName,
+    h.TxDateTime,
+    h.AcceptTaskDateTime,
+    h.FinishDateTime,
+	h.WarehouseKeeperId,
+	h.Remark
+from LRP_WMTx_H h join LRP_Owner o on o.oid = h.OwnerId left join LRP_WarehouseKeeper wk on h.WarehouseKeeperId = wk.oid
+    where
+        h.TxTypeCode in('211') 
+		and h.WarehouseKeeperId = ? 
+		and h.Status = 900
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#f1f3f8"/>
+                <Label Key="ShowValue" X="0" Y="0" Visible="false"/>
+                <TabGroup Caption="拣货管理" Key="TabPanel1" IndicatorColor="#ff5000" X="0" Y="0">
+                    <TabItem Text="查找拣货单">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 0);]]>
+                        </Action>
+                    </TabItem>
+                    <TabItem Text="发货历史">
+                        <Action>
+                            <![CDATA[SetValue('ShowValue', 1);]]>
+                        </Action>
+                    </TabItem>
+                </TabGroup>
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="查找拣货单" X="0" Y="2" Visible="ShowValue==0 || Length(ShowValue) == 0">
+                    <GridLayoutPanel Key="GridLayoutPanel11" Caption="搜索条件" X="0" Y="0">
+                        <Format BackColor="#ffffff"/>
+                        <TextEditor Key="NoticeNo_C" Caption="订单号" Padding="2px" BorderStyle="none" Enable="True" X="1" Y="0">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_WMTx_H" ColumnKey="NoticeNo"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Key="Lab_NoticeNo_C" Caption="订单号" X="0" Y="0"/>
+                        <Dict Key="OwnerId_C" Caption="货主" Padding="2px" BorderStyle="none" ItemKey="LRP_Owner" Enable="True" X="4" Y="0">
+                            <Format BackColor="transparent"/>
+                            <Condition CondSign="=">
+                                <ConditionTarget TableKey="LRP_WMTx_H" ColumnKey="OwnerId"/>
+                            </Condition>
+                        </Dict>
+                        <Label Key="Lab_OwnerId_C" Caption="货主" X="3" Y="0"/>
+                        <DatePicker Key="FinishDateTime_C" Caption="拣货日期" Padding="2px" BorderStyle="none" Enable="True" X="1" Y="1" Format="yyyy-MM-dd">
+                            <DataBinding DefaultFormulaValue="ServerDate()"/>
+                            <Format HAlign="Left">
+                                <Font Size="13"/>
+                            </Format>
+                        </DatePicker>
+                        <Label Key="Lab_FinishDateTime_C" Caption="拣货日期" X="0" Y="1"/>
+                        <DatePicker Caption="拣货日期" Key="Real_FinishDateTime_C" Visible="false" X="1" Y="1">
+                            <DataBinding DefaultFormulaValue="Format(FinishDateTime_C,'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition CondSign="between" Group="FinishDateTime" GroupHead="true">
+                                <ConditionTarget TableKey="LRP_WMTx_H" ColumnKey="FinishDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <DatePicker Caption="拣货日期至" Key="Real_FinishDateTime_C_1" Visible="false" X="1" Y="1">
+                            <DataBinding DefaultFormulaValue="Format(FinishDateTime_C,'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition CondSign="none" Group="FinishDateTime" GroupTail="true">
+                                <ConditionTarget TableKey="LRP_WMTx_H" ColumnKey="FinishDateTime"/>
+                            </Condition>
+                        </DatePicker>
+                        <TextEditor Key="OwnerNo_C" Caption="货主单号" Padding="2px" BorderStyle="none" Enable="True" X="4" Y="1">
+                            <Condition CondSign="like">
+                                <ConditionTarget TableKey="LRP_WMTx_H" ColumnKey="OwnerNo"/>
+                            </Condition>
+                        </TextEditor>
+                        <Label Key="Lab_OwnerNo_C" Caption="货主单号" X="3" Y="1"/>
+                        <Button Key="Search" Caption="查询" X="3" Y="2" XSpan="2">
+                            <Format ForeColor="#ffffff" HAlign="Center" BackColor="#f14c52"/>
+                            <OnClick>
+                                <![CDATA[DealCondition();
+LoadData();
+IsShow=1;
+									]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="40px"/>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="GridLayoutPanel12" Caption="结果列表" X="0" Y="1">
+                        <Format BackColor="#ffffff"/>
+                        <ListView Caption="结果列表" Key="list" TableKey="LRP_WMTx_H" X="0" Y="0" RowHeight="80" Enable="true" SeparatorStyle="solid none solid none" HasBorder="true" BorderColor="#e6e6e6" Padding="5px" Visible="(ShowValue==0 &amp;&amp; IsShow&lt;&gt;0) || (Length(ShowValue) == 0 &amp;&amp; IsShow&lt;&gt;0)">
+                            <Format Font="20px"/>
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="SelectField" IsSelect="true" DefaultValue="0" ColumnType="CheckBox" Visible="false" Icon="flight_check_unselect.png" SelectedIcon="flight_check_select.png" Stretch="true" ImageScaleType="Fit_XY"/>
+                                <ListViewColumn Caption="货主" DataColumnKey="OwnerName" Key="OwnerName"/>
+                                <ListViewColumn Caption="货主单号" DataColumnKey="OwnerNo" Key="OwnerNo"/>
+                                <ListViewColumn Caption="事务名称" ColumnType="ComboBox" Key="TxTypeCode" DataColumnKey="TxTypeCode">
+                                    <Item Caption="按出库订单拣货" Key="201" Value="201"/>
+                                    <Item Caption="无订单拣货" Key="203" Value="203"/>
+                                    <Item Caption="按退厂订单拣货" Key="205" Value="205"/>
+                                </ListViewColumn>
+                                <ListViewColumn Caption="拣货日期时间" ColumnType="DatePicker" DataColumnKey="FinishDateTime" Key="FinishDateTime">
+                                    <Format HAlign="Left"/>
+                                </ListViewColumn>
+                                <ListViewColumn Caption="订单号" Key="NoticeNo" DataColumnKey="NoticeNo"/>
+                                <ListViewColumn Key="WarehouseKeeperName" DataColumnKey="WarehouseKeeperName" Caption="拣货人"/>
+                                <ListViewColumn Key="OID" DataColumnKey="OID" Caption="OID"/>
+                                <ListViewColumn Key="No" DataColumnKey="No" Caption="拣货单号"/>
+                            </ListViewColumnCollection>
+                            <RowClick>
+                                <![CDATA[
+									PushPara('OID',OID);
+									Show('ShipByPick');	 
+								]]>
+                            </RowClick>
+                        </ListView>
+                        <HyperLink Key="Label1" X="0" Y="0" Visible="GetRowCount('list')==0&amp;&amp;IsShow&lt;&gt;0" Caption="查询结果为空！">
+                            <Format ForeColor="#000000" HAlign="Center">
+                                <Font Size="26"/>
+                            </Format>
+                        </HyperLink>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="120px"/>
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel2" Caption="拣货历史" X="0" Y="2" Visible="ShowValue==1">
+                    <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl2" Caption="刷新控件" ProgressBackgroundColorScheme="#cccccc" X="0" Y="0">
+                        <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[var aa = IsShow;
+DealCondition();
+LoadData();
+ShowToast("没有更多的消息了");
+IsShow=aa;]]>
+                            <Format/>
+                        </RefreshHeader>
+                        <RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                            <Format/>
+                        </RefreshFooter>
+                        <ListView Caption="拣货历史" Key="list2" TableKey="LRP_WMTx_HHis" RowHeight="80" Enable="true" PageLoadType="DB" PageRowCount="10" HasBorder="true" BorderColor="#e6e6e6" Padding="5px">
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="No2" DataColumnKey="No" Caption="发货单号"/>
+                                <ListViewColumn Caption="货主" DataColumnKey="OwnerName" Key="OwnerName2"/>
+                                <ListViewColumn Caption="事务日期时间" ColumnType="DatePicker" DataColumnKey="TxDateTime" Key="TxDateTime2"/>
+                                <ListViewColumn Caption="订单号" Key="NoticeNo2" DataColumnKey="NoticeNo"/>
+                                <ListViewColumn Key="Status2" DataColumnKey="Status" ColumnType="ComboBox" SourceType="Status"/>
+                                <ListViewColumn Key="OID2" DataColumnKey="OID" Caption="OID"/>
+                            </ListViewColumnCollection>
+                            <RowClick>
+                                <![CDATA[
+                                    PushPara('OID',OID2);
+            						Show('ShipDetail');	
+                            ]]>
+                            </RowClick>
+                        </ListView>
+                    </RefreshControl>
+                    <HyperLink Key="Label2" Visible="GetRowCount('list2')==0" Caption="当前没有已拣货的单据！" X="0" Y="0">
+                        <Format ForeColor="#000000" HAlign="Center">
+                            <Font Size="26"/>
+                        </Format>
+                    </HyperLink>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TextEditor Key="IsShow" X="0" Y="1" Visible="false">
+                    <DataBinding DefaultValue="0"/>
+                    <Format ForeColor="#f1f3f8"/>
+                </TextEditor>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="6px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="list">
+                    <GridLayout Key="list">
+                        <LayoutSpan Key="SelectField" X="0" Y="0"/>
+                        <LayoutSpan Key="TxTypeCode" X="1" Y="0"/>
+                        <LayoutSpan Key="NoticeNo" X="3" Y="0"/>
+                        <LayoutSpan Key="OwnerName" X="5" Y="0"/>
+                        <LayoutSpan Key="FinishDateTime" X="1" Y="1" XSpan="2"/>
+                        <LayoutSpan Key="OwnerNo" X="3" Y="1"/>
+                        <LayoutSpan Key="WarehouseKeeperName" X="5" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="37%"/>
+                            <ColumnDef Width="8px"/>
+                            <ColumnDef Width="45%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="18%"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+                <ComponentView Key="list2">
+                    <GridLayout Key="list2">
+                        <LayoutSpan Key="No2" X="1" Y="0"/>
+                        <LayoutSpan Key="OwnerName2" X="5" Y="0"/>
+                        <LayoutSpan Key="TxDateTime2" X="3" Y="1"/>
+                        <LayoutSpan Key="NoticeNo2" X="1" Y="1"/>
+                        <LayoutSpan Key="Status2" X="5" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="40%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="35%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" ForeColor="#ffffff" Style="Custom">
+        <BarItem Caption="BarItem1" Key="BarItem1" Location="Center">
+            <Label Key="Label3" Caption="拣货管理" Width="150px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

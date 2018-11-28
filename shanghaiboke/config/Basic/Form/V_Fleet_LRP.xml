@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="车队" FormType="Dict" Key="V_Fleet_LRP">
+    <DataSource RefObjectKey="LRP_Fleet"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+            <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                    <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                    <TextEditor Caption="代码" Enable="!ReadOnly()" Key="Code" X="1" XSpan="3" Y="0" Tip="「代码」不可为空">
+                        <DataBinding ColumnKey="Code" Required="true" TableKey="LRP_Fleet"/>
+                    </TextEditor>
+                    <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+                    <TextEditor Caption="名称" Enable="!ReadOnly()" Key="Name" X="6" XSpan="3" Y="0" Tip="「名称」不可为空">
+                        <DataBinding ColumnKey="Name" Required="true" TableKey="LRP_Fleet"/>
+                    </TextEditor>
+                    <Label Caption="公司" Key="L_CompanyCodeId" X="0" Y="1"/>
+                    <Dict Caption="公司" Enable="!ReadOnly()" Key="CompanyCodeId" ItemKey="CompanyCode" X="1" XSpan="3" Y="1">
+                        <DataBinding ColumnKey="CompanyCodeId" TableKey="LRP_Fleet"/>
+                    </Dict>
+                    <Label Caption="成本中心" Key="L_CostCenterId" X="5" Y="1"/>
+                    <Dict Caption="成本中心" Enable="!ReadOnly()" Key="CostCenterId" ItemKey="CostCenter" X="6" XSpan="3" Y="1">
+                        <DataBinding ColumnKey="CostCenterId" TableKey="LRP_Fleet"/>
+                    </Dict>
+                    <Label Caption="联系人" Key="L_Contacts" X="0" Y="2"/>
+                    <TextEditor Caption="联系人" Enable="!ReadOnly()" Key="Contacts" X="1" Y="2">
+                        <DataBinding ColumnKey="Contacts" TableKey="LRP_Fleet"/>
+                    </TextEditor>
+                    <Label Caption="联系电话" Key="L_Tel" X="2" Y="2"/>
+                    <TextEditor Caption="联系电话" Enable="!ReadOnly()" Key="Tel" X="3" Y="2">
+                        <DataBinding ColumnKey="Tel" TableKey="LRP_Fleet"/>
+                    </TextEditor>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="10">
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="25%"/>
+                        <ColumnDef Width="55px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Caption="系统信息" Key="SystemTab">
+                    <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                        <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_Fleet"/>
+                    </Dict>
+                    <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                        <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Fleet"/>
+                    </DatePicker>
+                    <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                        <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_Fleet"/>
+                    </Dict>
+                    <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                        <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Fleet"/>
+                    </DatePicker>
+                    <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                    <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                    <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                    <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="55px"/>
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

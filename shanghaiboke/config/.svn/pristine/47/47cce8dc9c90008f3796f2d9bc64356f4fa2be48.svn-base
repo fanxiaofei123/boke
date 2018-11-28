@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <BatchConfirm>
+BatchConfirm
+        </BatchConfirm>
+        <New>
+New
+        </New>
+        <BatchConfirm-R>
+BatchConfirm-R
+        </BatchConfirm-R>
+        <Close>
+Close
+        </Close>
+        <ImportExcel>
+ImportExcel
+        </ImportExcel>
+    </Opt>
+    <UI>
+		<V_LogisticsOrderView>LogisticsOrderView</V_LogisticsOrderView>
+        <L_OwnerId>
+OwnerId
+        </L_OwnerId>
+        <Query>
+Query
+        </Query>
+        <L_StepDescription>
+StepDescription
+        </L_StepDescription>
+        <L_No>
+No
+        </L_No>
+        <Lab_OrderType1>
+OrderType
+        </Lab_OrderType1>
+        <L_Status>
+Status
+        </L_Status>
+        <L_OwnerNo>
+OwnerNo
+        </L_OwnerNo>
+        <Reset>
+Reset
+        </Reset>
+        <L_OrderDateTime>
+OrderDateTime
+        </L_OrderDateTime>
+        <L_OrderDateTime_1>
+to
+        </L_OrderDateTime_1>
+        <Lab_SalesNo>
+Lab_SalesNo
+        </Lab_SalesNo>
+    </UI>
+    <ListViewColumn>
+        <Status>
+Status
+        </Status>
+        <OrderDateTime>
+OrderDateTime
+        </OrderDateTime>
+        <SendDistrictId>
+SendDistrictId
+        </SendDistrictId>
+        <RecvProvinceId>
+RecvProvinceId
+        </RecvProvinceId>
+        <RecvCityId>
+RecvCityId
+        </RecvCityId>
+        <No>
+No
+        </No>
+        <SendPartyName>
+SendPartyName
+        </SendPartyName>
+        <RecvDistrictId>
+RecvDistrictId
+        </RecvDistrictId>
+        <OID>
+OID
+        </OID>
+        <OwnerNo>
+OwnerNo
+        </OwnerNo>
+        <SendProvinceId>
+SendProvinceId
+        </SendProvinceId>
+        <OrderType>
+OrderType
+        </OrderType>
+        <OwnerId>
+OwnerId
+        </OwnerId>
+        <Select>
+Select
+        </Select>
+        <GenMethod>
+GenMethod
+        </GenMethod>
+        <StepDescription>
+StepDescription
+        </StepDescription>
+        <SendCityId>
+SendCityId
+        </SendCityId>
+        <RecvPartyName>
+RecvPartyName
+        </RecvPartyName>
+    </ListViewColumn>
+    <Items-OrderType1>
+        <Item-4>
+BackOrder
+        </Item-4>
+        <Item-3>
+OutboundOrder
+        </Item-3>
+    </Items-OrderType1>
+    <Items-OrderType>
+        <Item-1>
+LTL
+        </Item-1>
+        <Item-4>
+MultimodalTransport
+        </Item-4>
+        <Item-3>
+Warehouse
+        </Item-3>
+        <Item-2>
+Vehicle
+        </Item-2>
+    </Items-OrderType>
+	<Items-Status_C>
+        <Item-prepared>prepared</Item-prepared>
+        <Item-confirmed>confirmed</Item-confirmed>
+        <Item-handled>handled</Item-handled>
+	<Item-finished>finished</Item-finished>
+	<Item-cancelled>cancelled</Item-cancelled>
+    </Items-Status_C>
+	<Items-Status>
+        <Item-prepared>Prepared</Item-prepared>
+        <Item-cancelled>Cancelled</Item-cancelled>
+        <Item-confirmed>Confirmed</Item-confirmed>
+    </Items-Status>
+</StringTable>

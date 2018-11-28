@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="货主" Key="LRP_Owner" PrimaryTableKey="LRP_Owner" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="货主" DBTableName="LRP_Owner" Key="LRP_Owner" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long" DefaultValue="0"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100" Cache="true"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200" Cache="true"/>
+            <Column Key="CustomerId" Caption="客户" DataType="Long" Cache="true"/>
+            <Column Key="Contacts" Caption="联系人" DataType="Varchar" Length="100"/>
+            <Column Key="Tel" Caption="联系电话" DataType="Varchar" Length="100"/>
+            <Column Key="ERPIntegrated" Caption="ERP集成货主" DataType="Integer" DefaultValue="0"/>
+            <Column Key="PickAllowLack" Caption="分配库存允许缺货" DataType="Integer" DefaultValue="1" Cache="true"/>
+        </Table>
+        <Table Caption="收发货方" DBTableName="LRP_RecvSendParty" Key="LRP_RecvSendParty" TableMode="Detail" SourceType="DataObject">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long" DefaultValue="0"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="200"/>
+            <Column Key="CountryId" Caption="国家地区" DataType="Long"/>
+            <Column Key="ProvinceId" Caption="省/直辖市" DataType="Long"/>
+            <Column Key="CityId" Caption="城市" DataType="Long"/>
+            <Column Key="DistrictId" Caption="区县" DataType="Long"/>
+            <Column Key="Address" Caption="地址" DataType="Varchar" Length="100"/>
+            <Column Key="Contacts" Caption="联系人" DataType="Varchar" Length="100"/>
+            <Column Key="Tel" Caption="联系电话" DataType="Varchar" Length="100"/>
+            <Column Key="Email" Caption="电子邮件" DataType="Varchar" Length="100"/>
+            <Column Key="CustomerId" Caption="ERP客户" DataType="Long"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+        </Table>
+    </TableCollection>
+</DataObject>

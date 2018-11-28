@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<StringTable> 
+  <UI> 
+    <V_PackingStockDtlView-Abbr>PackingStockDtlQuery</V_PackingStockDtlView-Abbr>  
+	
+    <L_WarehouseCenterId>WarehouseCenter</L_WarehouseCenterId>  
+    <Lab_PackingMaterialId_C>PackingMaterial</Lab_PackingMaterialId_C>  
+	<Lab_StoreroomId_C>StoreroomId</Lab_StoreroomId_C>
+	<Lab_StoreareaId_C>StoreareaId</Lab_StoreareaId_C>
+	<Lab_LocationId_C>LocationId</Lab_LocationId_C>
+	
+    <Query>Query</Query>  
+    <Reset>Reset</Reset>  
+  </UI>  
+  <ListViewColumn> 
+	<OID>OID</OID>
+	<MaterialBarCode>MaterialBarCode</MaterialBarCode>
+    <PackingMaterialId>PackingMaterial</PackingMaterialId>  
+	<OnhandQty>OnhandQty</OnhandQty>
+	<Unit>Unit</Unit>
+	<StoreroomId>StoreroomId</StoreroomId>
+	<StoreareaId>StoreareaId</StoreareaId>
+	<LocationId>LocationId</LocationId>
+    <WarehouseCenterId>WarehouseCenter</WarehouseCenterId>  
+    <RefOrderNo>RefOrderNo</RefOrderNo>  
+  </ListViewColumn>  
+</StringTable>

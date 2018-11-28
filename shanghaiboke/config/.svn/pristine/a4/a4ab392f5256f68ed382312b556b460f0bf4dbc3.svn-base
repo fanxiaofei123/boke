@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Lab_Systematics>Systematics</Lab_Systematics>
+        <Button1>Query</Button1>
+        <Lab_Adjusting_price>AdjustPrice</Lab_Adjusting_price>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_EnglishName>EnglishName</Lab_EnglishName>
+        <Lab_Picture_No>PicNo</Lab_Picture_No>
+        <Lab_Parts_classification>PartsClassfiction</Lab_Parts_classification>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_Customs_GoodsCode>CusGoodscode</Lab_Customs_GoodsCode>
+        <Lab_Component_details>ComponentDetail</Lab_Component_details>
+        <Lab_Broad_Heading>BroadHeading</Lab_Broad_Heading>
+        <Lab_Material_Code>MaterialCode</Lab_Material_Code>
+        <Lab_Buy_Code>BuyCode</Lab_Buy_Code>
+        <Lab_Modeoftransport>ModesfTransport</Lab_Modeoftransport>
+    </Opt>
+    <UI>
+        <Lab_Systematics>Systematics</Lab_Systematics>
+        <Button1>Query</Button1>
+        <Lab_Adjusting_price>AdjustPrice</Lab_Adjusting_price>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_EnglishName>EnglishName</Lab_EnglishName>
+        <Lab_Picture_No>PicNo</Lab_Picture_No>
+        <Lab_Parts_classification>PartsClassfiction</Lab_Parts_classification>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_Customs_GoodsCode>CusGoodscode</Lab_Customs_GoodsCode>
+        <Lab_Component_details>ComponentDetail</Lab_Component_details>
+        <Lab_Broad_Heading>BroadHeading</Lab_Broad_Heading>
+        <Lab_Material_Code>MaterialCode</Lab_Material_Code>
+        <Lab_Buy_Code>BuyCode</Lab_Buy_Code>
+        <Lab_Modeoftransport>ModesfTransport</Lab_Modeoftransport>
+    </UI>
+    <ListViewColumn>
+        <Code1>code</Code1>
+        <Material_Code1>Materilcode</Material_Code1>
+        <Broad_Heading1>BroadHead</Broad_Heading1>
+        <Component_details1>Componect</Component_details1>
+        <Parts_classification1>Part</Parts_classification1>
+        <Buy_Code1>Buycode</Buy_Code1>
+        <Customs_GoodsCode1>CusCode</Customs_GoodsCode1>
+        <Systematics1>Systematics</Systematics1>
+        <Modeoftransport1>Modeoftransport</Modeoftransport1>
+        <EnglishName1>englishname</EnglishName1>
+        <Picture_No1>PicNo</Picture_No1>
+        <Name1>name</Name1>
+        <Adjusting_price1>AdjustingPrice</Adjusting_price1>
+    </ListViewColumn>
+	
+</StringTable>

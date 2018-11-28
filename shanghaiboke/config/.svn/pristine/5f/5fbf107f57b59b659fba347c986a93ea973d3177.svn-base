@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="加工通知单引入库存" Key="Quant-KittingNotice" SrcDataObjectKey="LRP_QuoteQuant" TgtDataObjectKey="LRP_KittingNotice">
+    <SourceTableCollection Height="780" Width="245" X="30" Y="30">
+        <SourceTable Key="LRP_QuoteQuant" TableKey="LRP_OutboundNotice_L" IsPrimary="true" TargetTableKey="LRP_KittingNoticeRaw_L">
+            <SourceField Definition="MaterialId" TargetFieldKey="MaterialId"/>
+            <SourceField Definition="MaterialId" TargetFieldKey="MaterialId"/>
+            <SourceField Definition="BatchNo" TargetFieldKey="BatchNo"/>
+            <SourceField Definition="BatchNo" TargetFieldKey="BatchNo"/>
+            <SourceField Definition="ManufDate" TargetFieldKey="ManufDate"/>
+            <SourceField Definition="ManufDate" TargetFieldKey="ManufDate"/>
+            <SourceField Definition="ExpireDate" TargetFieldKey="ExpireDate"/>
+            <SourceField Definition="ExpireDate" TargetFieldKey="ExpireDate"/>
+            <SourceField Definition="RecvDate" TargetFieldKey="RecvDate"/>
+            <SourceField Definition="ProjectId" TargetFieldKey="ProjectId"/>
+            <SourceField Definition="ProjectId" TargetFieldKey="ProjectId"/>
+            <SourceField Definition="StrUserDef1" TargetFieldKey="StrUserDef1"/>
+            <SourceField Definition="StrUserDef1" TargetFieldKey="StrUserDef1"/>
+            <SourceField Definition="StrUserDef2" TargetFieldKey="StrUserDef2"/>
+            <SourceField Definition="StrUserDef2" TargetFieldKey="StrUserDef2"/>
+            <SourceField Definition="StrUserDef3" TargetFieldKey="StrUserDef3"/>
+            <SourceField Definition="StrUserDef3" TargetFieldKey="StrUserDef3"/>
+            <SourceField Definition="StrUserDef4" TargetFieldKey="StrUserDef4"/>
+            <SourceField Definition="StrUserDef4" TargetFieldKey="StrUserDef4"/>
+            <SourceField Definition="StrUserDef5" TargetFieldKey="StrUserDef5"/>
+            <SourceField Definition="StrUserDef5" TargetFieldKey="StrUserDef5"/>
+            <SourceField Definition="DateUserDef1" TargetFieldKey="DateUserDef1"/>
+            <SourceField Definition="DateUserDef1" TargetFieldKey="DateUserDef1"/>
+            <SourceField Definition="DateUserDef2" TargetFieldKey="DateUserDef2"/>
+            <SourceField Definition="DateUserDef2" TargetFieldKey="DateUserDef2"/>
+            <SourceField Definition="NumUserDef1" TargetFieldKey="NumUserDef1"/>
+            <SourceField Definition="NumUserDef1" TargetFieldKey="NumUserDef1"/>
+            <SourceField Definition="NumUserDef2" TargetFieldKey="NumUserDef2"/>
+            <SourceField Definition="NumUserDef2" TargetFieldKey="NumUserDef2"/>
+            <SourceField Definition="NumUserDef3" TargetFieldKey="NumUserDef3"/>
+            <SourceField Definition="NumUserDef3" TargetFieldKey="NumUserDef3"/>
+            <SourceField Definition="AddQty" TargetFieldKey="Qty"/>
+            <SourceField Definition="AddQty" TargetFieldKey="Qty"/>
+            <SourceField Definition="MaterialStatusId" TargetFieldKey="MaterialStatusId"/>
+            <SourceField Definition="MaterialStatusId" TargetFieldKey="MaterialStatusId"/>
+            <SourceField Definition="StoreroomId" TargetFieldKey="StoreroomId"/>
+            <SourceField Definition="StoreareaId" TargetFieldKey="StoreareaId"/>
+            <SourceField Definition="LocationId" TargetFieldKey="LocationId"/>
+            <SourceField Definition="BasicUnit" TargetFieldKey="MaterialUnit"/>
+            <SourceField Definition="BasicUnit" TargetFieldKey="MaterialUnit"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="780" Width="366" X="339" Y="31">
+        <TargetTable Key="LRP_KittingNoticeRaw_L" IsPrimary="true">
+            <TargetField Definition="MaterialId"/>
+            <TargetField Definition="BatchNo"/>
+            <TargetField Definition="ManufDate"/>
+            <TargetField Definition="ExpireDate"/>
+            <TargetField Definition="RecvDate"/>
+            <TargetField Definition="ProjectId"/>
+            <TargetField Definition="StrUserDef1"/>
+            <TargetField Definition="StrUserDef2"/>
+            <TargetField Definition="StrUserDef3"/>
+            <TargetField Definition="StrUserDef4"/>
+            <TargetField Definition="StrUserDef5"/>
+            <TargetField Definition="DateUserDef1"/>
+            <TargetField Definition="DateUserDef2"/>
+            <TargetField Definition="NumUserDef1"/>
+            <TargetField Definition="NumUserDef2"/>
+            <TargetField Definition="NumUserDef3"/>
+            <TargetField Definition="Qty"/>
+            <TargetField Definition="MaterialStatusId"/>
+            <TargetField Definition="StoreroomId"/>
+            <TargetField Definition="StoreareaId"/>
+            <TargetField Definition="LocationId"/>
+            <TargetField Definition="MaterialUnit"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

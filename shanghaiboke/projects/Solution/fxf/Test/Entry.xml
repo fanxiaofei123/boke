@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="界面自定义表单" Icon="Bill.png" Key="TestCustomBill">
+        <EntryItem Caption="实体表单" FormKey="TestView" Key="TestView" Type="Form"/>
+        <EntryItem Caption="物料字典" FormKey="DictEdit" Key="MaterialDict" Parameters="FormKey=MaterialDict" Type="Form"/>
+        <EntryItem Caption="字典定义" FormKey="DictTest" Key="DictTest" Type="Form"/>
+        <EntryItem Caption="仓库字典" FormKey="DictEdit" Key="WarehouseDict" Parameters="FormKey=WarehouseDict" Type="Form"/>
+        <EntryItem Caption="单选框定义" FormKey="RadioButtonTest" Key="RadioButtonTest" Type="Form"/>
+        <EntryItem Caption="采购单" FormKey="PurchaseView" Key="PurchaseView" Type="Form"/>
+        <EntryItem Caption="父单据" FormKey="Form1" Key="Form1" Type="Form"/>
+        <EntryItem Caption="子单据" FormKey="Form2" Key="Form2" Type="Form"/>
+        <EntryItem Caption="库存余额表" FormKey="InventoryList" Key="InventoryList" Type="Form"/>
+        <EntryItem Caption="出库单" FormKey="StockOutView" Key="StockOutView" Type="Form"/>
+        <EntryItem Caption="期间分组库存余额表" FormKey="InventoryView" Key="InventoryView" Type="Form"/>
+        <EntryItem Caption="测试" FormKey="FxfTestView" Key="FxfTestView" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
+    </Entry>
+</Entry>

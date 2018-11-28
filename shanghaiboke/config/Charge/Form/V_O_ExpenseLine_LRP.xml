@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_O_ExpenseLine_LRP" Caption="其它费用明细调整" InitState="Default">
+    <DataSource>
+        <DataObject Key="V_O_ExpenseLine_LRP" Caption="其它费用明细调整" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="LRP_ExpenseLine" Caption="费用明细" DBTableName="LRP_ExpenseLine" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="WarehouseCenterId" Caption="仓储中心" DataType="Long"/>
+                    <Column Key="ComputeNo" Caption="计算号" DataType="Varchar" Length="40"/>
+                    <Column Key="CarrierId" Caption="承运商" DataType="Long"/>
+                    <Column Key="SettlementId" Caption="结算方" DataType="Long"/>
+                    <Column Key="ExpenseId" Caption="费用名称" DataType="Long"/>
+                    <Column Key="BizDate" Caption="业务日期" DataType="Date"/>
+                    <Column Key="BizQty" Caption="业务量" DataType="Numeric" Precision="15" Scale="3"/>
+                    <Column Key="CalculationAmount" Caption="计算金额" DataType="Numeric" Precision="15" Scale="3"/>
+                    <Column Key="AdjustAmount" Caption="调整后金额" DataType="Numeric" Precision="15" Scale="3"/>
+                    <Column Key="GenMethod" Caption="生成方式" DataType="Integer"/>
+                    <Column Key="BillOID" Caption="单据ID" DataType="Long"/>
+                    <Column Key="BillNo" Caption="单据号" DataType="Varchar" Length="100"/>
+                    <Column Key="ExpenseContractTermId" Caption="条款ID" DataType="Long"/>
+                    <Column Key="ExpenseContractTermName" Caption="条款名称" DataType="Varchar" Length="100"/>
+                    <Column Key="TermLineId" Caption="条款明细ID" DataType="Long"/>
+                    <Column Key="TermLineName" Caption="条款明细名称" DataType="Varchar" Length="100"/>
+                    <Column Key="ExpenseContractId" Caption="合约ID" DataType="Long"/>
+                    <Column Key="ExpenseContractName" Caption="合约名称" DataType="Varchar" Length="100"/>
+                    <Column Key="SourceType" Caption="来源类型" DataType="Varchar" Length="10"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="100"/>
+                    <TableFilter>
+                        <![CDATA[WarehouseCenterId = ? or DispatchOrgId = ?]]>
+                    </TableFilter>
+                    <ParameterCollection>
+                        <Parameter Formula="GetPara('WarehouseCenterId');"/>
+                        <Parameter Formula="GetPara('DispatchOrg');"/>
+                    </ParameterCollection>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()" ShortCuts="Ctrl+E">
+            <Action>
+                <![CDATA[Edit()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()" ShortCuts="Ctrl+S">
+            <Action>
+                <![CDATA[SaveData(); 
+UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[//重新查询
+//DealCondition();LoadData();ShowData();
+Cancel();	]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchConfirm" Caption="确认" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[var noselect = true;
+var i=0;
+var count = GetRowCount("Grid1",false); 
+while (i < count){		
+    if(GetCellValue("Grid1", i, "Select") == true){ 	
+	noselect = false;
+        
+        if (Status > 100){
+            Confirm(LocaleString('CHshow','chkey41'));
+            return 0;
+        }			
+    }	
+    i=i+1;				
+}
+if (noselect) {
+    Confirm(LocaleString('CHshow','chkey42'));
+    return 0;
+}
+
+Confirm(LocaleString('CommonDef','key19'),'YES_NO',{YES:{
+    loop "Grid1" (true){
+        if(Select == true){ 
+	  Status = 200;
+          Select = false;
+	}					
+    }
+    SaveData(); 
+    UpdateView();
+},NO:{}});
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchConfirm-R" Caption="撤销确认" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[var noselect = true;
+var i=0;
+var count = GetRowCount("Grid1",false); 
+while (i < count){		
+    if(GetCellValue("Grid1", i, "Select") == true){ 	
+	noselect = false;
+        
+        if (Status != 200){
+            Confirm(LocaleString('CHshow','chkey43'));
+            return 0;
+        }			
+    }	
+    i=i+1;				
+}
+if (noselect) {
+    Confirm(LocaleString('CHshow','chkey9'));
+    return 0;
+}
+
+Confirm(LocaleString('CommonDef','key22'),'YES_NO',{YES:{
+    loop "Grid1" (true){
+        if(Select == true){ 
+	  Status = 100;
+          Select = false;
+	}					
+    }
+    SaveData(); 
+    UpdateView();
+},NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchDelete" Caption="删除">
+            <Action>
+                <![CDATA[
+//由于该数据对象只有明细，因此不能用batchdeletedata
+var noselect = true;
+var i=0;
+var count = GetRowCount("Grid1"); 
+while (i < count){		
+    if(GetCellValue("Grid1", i, "Select") == true){ 	
+	noselect = false;
+        //若选择了状态大于100的明细则不允许删除
+        if (Status > 100){
+            Confirm(LocaleString('CHshow','chkey44'));
+            return 0;
+        }			
+    }	
+    i=i+1;				
+}
+if (noselect) {
+    Confirm(LocaleString('CHshow','chkey11'));
+    return 0;
+}
+//编辑状态和非编辑状态有两种删除方式
+if (ReadOnly()){
+    //非编辑状态下，因为会直接删除，所以要进行判断
+    Confirm(LocaleString('OwnerNull','key102'),'YES_NO',{YES:{
+        var i=0;
+        var count = GetRowCount("Grid1"); 
+        while ( i < count ) {
+            if(GetCellValue("Grid1", i, "Select") == true){ 
+                DeleteRow("Grid1",i); 
+                i=i-1; 
+	        count=count-1; 
+            }
+            i=i+1;
+        }  
+        //如果是非编辑情况下，直接保存
+        SaveData(); 
+        UpdateView();
+    },NO:{return 0;}});
+
+}else {
+    
+    i=0;
+    while ( i < count - 1 ) {
+        if(GetCellValue("Grid1", i, "Select") == true){ 
+            DeleteRow("Grid1",i); 
+            i=i-1; 
+	    count=count-1; 
+        }
+        i=i+1;
+    }    
+}
+       			   
+
+
+
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="queryKey1" Description="查询仓储中心">
+            <Statement>
+                <![CDATA[select  oid ,name from LRP_WarehouseCenter where OID=? ]]>
+            </Statement>
+        </Query>
+        <Query Key="queryKey2" Description="查询调度组织">
+            <Statement>
+                <![CDATA[select  oid ,name from LRP_DispatchOrg where OID=? ]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <GridLayoutPanel Key="query" Height="100%" Padding="5px" BottomPadding="5px" Caption="查询字段">
+                        <Button Key="Query" Caption="查询" X="12" Y="0" Enable="ReadOnly()" TabOrder="200">
+                            <OnClick>
+                                <![CDATA[//清空故意设置的查无数据的条件
+SetValue("OID_C", "");
+DealCondition();
+LoadData();
+ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="cancel" Caption="重置" X="12" Y="1" Enable="ReadOnly()" TabOrder="210">
+                            <OnClick>
+                                <![CDATA[ResetCondition();
+SetValue("DispatchOrg_C", getCurDispatchOrgID());
+SetValue("WarehouseCenterId_C", getCurOrgID());
+SetValue("SourceType_C", "O");
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="ExpenseId_C" Caption="费用名称" BuddyKey="Lab_ExpenseId_C" X="2" Y="0" Enable="ReadOnly()" AllowMultiSelection="true" ItemKey="LRP_Expense" TabOrder="10" XSpan="3">
+                            <Condition ColumnKey="ExpenseId" TableKey="LRP_ExpenseLine" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_ExpenseId_C" Caption="费用名称" X="0" Y="0" XSpan="2"/>
+                        <TextEditor Key="ContractName_C" Caption="合约名称" BuddyKey="Lab_ContractName_C" X="8" Y="0" Enable="ReadOnly()" MaxLength="40" TabOrder="20" XSpan="3">
+                            <Condition ColumnKey="ExpenseContractName" TableKey="LRP_ExpenseLine" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_ContractName_C" Caption="合约名称" X="6" Y="0" XSpan="2"/>
+                        <TextEditor Key="TermName_C" Caption="条款名称" BuddyKey="Lab_TermName_C" X="2" Y="1" Enable="ReadOnly()" MaxLength="40" TabOrder="30" XSpan="3">
+                            <Condition ColumnKey="ExpenseContractTermName" TableKey="LRP_ExpenseLine" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_TermName_C" Caption="条款名称" X="0" Y="1" XSpan="2"/>
+                        <TextEditor Key="TermLineName_C" Caption="条款明细名称" BuddyKey="Lab_TermLineName_C" X="8" Y="1" Enable="ReadOnly()" MaxLength="40" TabOrder="40" XSpan="3">
+                            <Condition ColumnKey="TermLineName" TableKey="LRP_ExpenseLine" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_TermLineName_C" Caption="条款明细名称" X="6" Y="1" XSpan="2"/>
+                        <CheckListBox Key="Status_C" Caption="状态" BuddyKey="Lab_Status_C" X="8" Y="3" Enable="ReadOnly()" TabOrder="60" XSpan="3">
+                            <Condition ColumnKey="Status" TableKey="LRP_ExpenseLine" CondSign="in"/>
+                            <Item Caption="已输入" Key="100" Value="100"/>
+                            <Item Caption="已确认" Key="200" Value="200"/>
+                            <Item Caption="已对账" Key="960" Value="960"/>
+                        </CheckListBox>
+                        <Label Key="Lab_Status_C" Caption="状态" X="6" Y="3" XSpan="2"/>
+                        <Dict Key="CarrierId_C" Caption="承运商" BuddyKey="Lab_CarrierId_C" X="2" Y="2" Enable="ReadOnly()" AllowMultiSelection="true" ItemKey="LRP_Carrier" TabOrder="70" XSpan="3">
+                            <Condition ColumnKey="CarrierId" TableKey="LRP_ExpenseLine" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_CarrierId_C" Caption="承运商" X="0" Y="2" XSpan="2"/>
+                        <DatePicker Key="StartDate_C" Caption="业务日期" BuddyKey="Lab_StartDate_C" X="2" Y="4" Enable="ReadOnly()" TabOrder="90" XSpan="3">
+                            <DataBinding DefaultFormulaValue="ServerDBDate();"/>
+                            <Condition ColumnKey="BizDate" TableKey="LRP_ExpenseLine" CondSign="between" Group="BizDate" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_StartDate_C" Caption="业务日期" X="0" Y="4" XSpan="2"/>
+                        <DatePicker Key="EndDate_C" Caption="至" BuddyKey="Lab_EndDate_C" X="8" Y="4" Enable="ReadOnly()" TabOrder="100" XSpan="3">
+                            <DataBinding DefaultFormulaValue="ServerDBDate();"/>
+                            <Condition ColumnKey="BizDate" TableKey="LRP_ExpenseLine" CondSign="between" Group="BizDate" GroupTail="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_EndDate_C" Caption="至" X="6" Y="4" XSpan="2"/>
+                        <TextEditor Key="DispatchOrg_C" Caption="调度组织" X="12" Y="3" Visible="false" Enable="false">
+                            <DataBinding DefaultFormulaValue="getCurDispatchOrgID()"/>
+                            <Condition ColumnKey="DispatchOrgId" TableKey="LRP_ExpenseLine" CondSign="none"/>
+                        </TextEditor>
+                        <TextEditor Key="SourceType_C" Caption="来源类型" X="12" Y="4" Visible="false" Enable="false">
+                            <DataBinding DefaultValue="O"/>
+                            <Condition ColumnKey="SourceType" TableKey="LRP_ExpenseLine" CondSign="="/>
+                        </TextEditor>
+                        <TextEditor Key="OID_C" Caption="OID" X="12" Y="2" Visible="false" Enable="false">
+                            <DataBinding DefaultValue="-999"/>
+                            <Condition ColumnKey="OID" TableKey="LRP_ExpenseLine" CondSign="="/>
+                        </TextEditor>
+                        <Dict Key="SettlementId_C" Caption="结算方" BuddyKey="Lab_SettlementId_C" X="8" Y="2" ItemKey="Vendor" XSpan="3">
+                            <Condition ColumnKey="SettlementId" TableKey="LRP_ExpenseLine" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_SettlementId_C" Caption="结算方" X="6" Y="2" XSpan="2"/>
+                        <Dict Key="WarehouseCenterId_C" Caption="仓储中心" BuddyKey="Lab_WarehouseCenterId_C" X="2" Y="3" Visible="false" ItemKey="LRP_WarehouseCenter" XSpan="3">
+                            <Condition ColumnKey="WarehouseCenterId" TableKey="LRP_ExpenseLine" CondSign="none"/>
+                        </Dict>
+                        <Label Key="Lab_WarehouseCenterId_C" Caption="仓储中心" X="0" Y="3" XSpan="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Grid1" Caption="Grid1" CanDelete="false" CanShift="false" Height="pref" PageLoadType="UI">
+                        <GridColumnCollection>
+                            <GridColumn Key="Select" Caption="选择" Width="55px"/>
+                            <GridColumn Key="Status" Caption="状态" Width="55px" Sortable="true"/>
+                            <GridColumn Key="WarehouseCenterId" Caption="仓储中心" Width="80px"/>
+                            <GridColumn Key="DispatchOrgId" Caption="调度组织" Width="80px" Sortable="true"/>
+                            <GridColumn Key="CarrierId" Caption="承运商" Width="80px" Sortable="true"/>
+                            <GridColumn Key="SettlementId" Caption="结算方" Width="80px" Sortable="true"/>
+                            <GridColumn Key="ExpenseId" Caption="费用名称" Width="80px" Sortable="true"/>
+                            <GridColumn Key="BizDate" Caption="业务日期" Width="80px" Sortable="true"/>
+                            <GridColumn Key="BizQty" Caption="业务量" Width="59px" Sortable="true"/>
+                            <GridColumn Key="CalculationAmount" Caption="计算金额" Width="65px" Sortable="true"/>
+                            <GridColumn Key="AdjustAmount" Caption="调整后金额" Width="72px" Sortable="true"/>
+                            <GridColumn Key="GenMethod" Caption="生成方式" Width="63px" Sortable="true"/>
+                            <GridColumn Key="SourceType" Caption="来源类型" Visible="false" Width="67px"/>
+                            <GridColumn Key="BillNo" Caption="单号" Width="131px" Sortable="true"/>
+                            <GridColumn Key="BillOID" Caption="单据ID" Visible="false" Width="80px"/>
+                            <GridColumn Key="ComputeNo" Caption="计算号" Width="95px" Visible="false" Sortable="true"/>
+                            <GridColumn Key="ExpenseContractTermId" Caption="条款ID" Visible="false" Width="80px"/>
+                            <GridColumn Key="ExpenseContractTermName" Caption="条款名称" Width="80px" Sortable="true"/>
+                            <GridColumn Key="TermLineId" Caption="条款明细ID" Visible="false" Width="80px"/>
+                            <GridColumn Key="TermLineName" Caption="条款明细名称" Width="80px" Visible="false" Sortable="true"/>
+                            <GridColumn Key="ExpenseContractId" Caption="合约ID" Visible="false" Width="80px"/>
+                            <GridColumn Key="ExpenseContractName" Caption="合约名称" Width="80px" Sortable="true"/>
+                            <GridColumn Key="OID" Caption="OID" Visible="false" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="LRP_ExpenseLine">
+                                <GridCell Key="Select" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true"/>
+                                <GridCell Key="Status" Caption="状态" CellType="ComboBox" Enable="false">
+                                    <DataBinding ColumnKey="Status" DefaultValue="100"/>
+                                    <Item Caption="已输入" Key="100" Value="100"/>
+                                    <Item Caption="已确认" Key="200" Value="200"/>
+                                    <Item Caption="已对账" Key="960" Value="960"/>
+                                </GridCell>
+                                <GridCell Key="WarehouseCenterId" Caption="仓储中心" CellType="ComboBox" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true);" SourceType="Formula">
+                                    <DataBinding ColumnKey="WarehouseCenterId" CheckRule="WarehouseCenterId != '' || DispatchOrgId != ''" DefaultFormulaValue="getCurOrgID()" ErrorInfo="仓储中心和调度组织不可全为空"/>
+                                    <FormulaItems>
+                                        <![CDATA[DBNamedQuery('queryKey1',getCurOrgID());]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="DispatchOrgId" Caption="调度组织" CellType="ComboBox" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true);" SourceType="Formula">
+                                    <DataBinding ColumnKey="DispatchOrgId" DefaultFormulaValue="getCurDispatchOrgID()"/>
+                                    <FormulaItems>
+                                        <![CDATA[DBNamedQuery('queryKey2',getCurDispatchOrgID());]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="CarrierId" Caption="承运商" CellType="Dict" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true);" ItemKey="LRP_Carrier">
+                                    <DataBinding ColumnKey="CarrierId" CheckRule="CarrierId &gt; 0 || SettlementId &gt; 0" ErrorInfo="承运商和结算方不可全为空" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="SettlementId" Caption="结算方" CellType="Dict" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true)" ItemKey="Vendor">
+                                    <DataBinding ColumnKey="SettlementId" DefaultFormulaValue="ToLong(GetDictValue('LRP_Carrier',CarrierId,'VendorId'));" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="ExpenseId" Caption="费用名称" CellType="Dict" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true);" ItemKey="LRP_Expense">
+                                    <DataBinding ColumnKey="ExpenseId" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="BizDate" Caption="业务日期" CellType="DatePicker" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true);" Format="yyyy-MM-dd">
+                                    <DataBinding ColumnKey="BizDate" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="BizQty" Caption="业务量" CellType="NumberEditor" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true);" ShowZero="true">
+                                    <DataBinding ColumnKey="BizQty" DefaultValue="0"/>
+                                </GridCell>
+                                <GridCell Key="CalculationAmount" Caption="计算金额" CellType="NumberEditor" Enable="false" ShowZero="true">
+                                    <DataBinding ColumnKey="CalculationAmount" DefaultValue="0"/>
+                                </GridCell>
+                                <GridCell Key="AdjustAmount" Caption="调整后金额" CellType="NumberEditor" Enable="IIF(ReadOnly() || Status &gt; 100, false, true);" ShowZero="true">
+                                    <DataBinding ColumnKey="AdjustAmount" DefaultValue="0"/>
+                                </GridCell>
+                                <GridCell Key="GenMethod" Caption="生成方式" CellType="ComboBox" Enable="false">
+                                    <DataBinding ColumnKey="GenMethod" DefaultValue="2"/>
+                                    <Item Caption="系统生成" Key="1" Value="1"/>
+                                    <Item Caption="手工输入" Key="2" Value="2"/>
+                                </GridCell>
+                                <GridCell Key="SourceType" Caption="来源类型" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="SourceType" DefaultValue="O"/>
+                                </GridCell>
+                                <GridCell Key="BillNo" Caption="单号" CellType="TextEditor" Enable="IIF(ReadOnly() || GenMethod == 1 || Status &gt; 100, false, true);" MaxLength="40" Trim="true">
+                                    <DataBinding ColumnKey="BillNo" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="BillOID" Caption="单据ID" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="BillOID"/>
+                                </GridCell>
+                                <GridCell Key="ComputeNo" Caption="计算号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ComputeNo"/>
+                                </GridCell>
+                                <GridCell Key="ExpenseContractTermId" Caption="条款ID" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ExpenseContractTermId"/>
+                                </GridCell>
+                                <GridCell Key="ExpenseContractTermName" Caption="条款名称" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ExpenseContractTermName"/>
+                                </GridCell>
+                                <GridCell Key="TermLineId" Caption="条款明细ID" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="TermLineId"/>
+                                </GridCell>
+                                <GridCell Key="TermLineName" Caption="条款明细名称" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="TermLineName"/>
+                                </GridCell>
+                                <GridCell Key="ExpenseContractId" Caption="合约ID" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ExpenseContractId"/>
+                                </GridCell>
+                                <GridCell Key="ExpenseContractName" Caption="合约名称" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ExpenseContractName"/>
+                                </GridCell>
+                                <GridCell Key="OID" Caption="OID" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="200px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[//先加载条件，防止用户打开界面后直接编辑，然后取消而导致的加载所有数据
+DealCondition();]]>
+    </OnPostShow>
+    <FormParaCollection>
+        <FormPara DataType="Long" Formula="GetValue('WarehouseCenterId_C');" Key="WarehouseCenterId" Type="Formula"/>
+        <FormPara DataType="Long" Formula="GetValue('DispatchOrg_C');" Key="DispatchOrg" Type="Formula"/>
+    </FormParaCollection>
+</Form>

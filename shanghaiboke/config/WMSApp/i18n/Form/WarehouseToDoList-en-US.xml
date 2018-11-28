@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<UI>
+		<TitleCenter>Warehouse management</TitleCenter>
+		<contact_label1>NoticeGoods</contact_label1>
+		<contact_label2>NoNoticeGoods</contact_label2>
+		<contact_label5>putawayReceive</contact_label5>
+		<contact_label6>ReceiveQuick</contact_label6>
+		<contact_label7>putawayRepertory</contact_label7>
+		<contact_label11>OrderPicking</contact_label11>
+		<contact_label51>WaveTimePicking</contact_label51>
+		<contact_label21>PickingDispatch</contact_label21>
+		<contact_label41>repertoryDispatch</contact_label41>
+		<contact_label61>dispatchBillDispatch</contact_label61>
+		<contact_label12>AccordingToTheSingleShift</contact_label12>
+		<contact_label22>TheInstantDisplacement</contact_label22>
+		<contact_label62>DispatchAreaExceptionHandling</contact_label62>
+		<contact_label32>CommonReplenishment</contact_label32>
+		<contact_label42>AccordingToTheSingleCheck</contact_label42>
+		<contact_label52>AccordingToTheStoringCheck</contact_label52>
+		<contact_label93>QueryStock</contact_label93>
+
+
+		<rk>storage</rk>
+		<ck>outbound</ck>
+		<kncz>operating</kncz>
+	</UI>
+</StringTable>

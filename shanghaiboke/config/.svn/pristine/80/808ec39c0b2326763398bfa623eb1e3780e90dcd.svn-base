@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_LogisticsAppointmentView" Caption="业务预约序事簿" FormType="View" AbbrCaption="业务预约视图">
+    <DataSource>
+        <DataObject Key="V_LogisticsAppointmentView" Caption="业务预约视图" PrimaryTableKey="LRP_LogisticsAppointment_H">
+            <TableCollection>
+                <Table Key="LRP_LogisticsAppointment_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="No" Caption="单号" DataType="Varchar" Length="100" SortType="Desc"/>
+                    <Column Key="OwnerUserId" Caption="货主用户" DataType="Long"/>
+                    <Column Key="ContactTel" Caption="联系人电话" DataType="Varchar" Length="100"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="Contactor" Caption="联系人" DataType="Varchar" Length="100"/>
+                    <Column Key="Requirement" Caption="需求描述" DataType="Varchar" Length="200"/>
+                    <Column Key="Treatment" Caption="处理情况" DataType="Varchar" Length="200"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="100%" Padding="10px" Caption="查询字段">
+                        <Label Key="L_No" Caption="预约号" X="0" Y="0"/>
+                        <TextEditor Key="No" Caption="预约号" BuddyKey="L_No" X="1" Y="0" XSpan="3">
+                            <Condition ColumnKey="No" TableKey="LRP_LogisticsAppointment_H" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="L_OwnerUserId" Caption="货主用户" X="5" Y="0"/>
+                        <Dict Key="OwnerUserId" Caption="货主用户" BuddyKey="L_OwnerUserId" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_OwnerUser" XSpan="3">
+                            <Condition ColumnKey="OwnerUserId" TableKey="LRP_LogisticsAppointment_H" CondSign="in"/>
+                        </Dict>
+                        <Label Key="L_ContactTel" Caption="联系人电话" X="0" Y="1"/>
+                        <TextEditor Key="ContactTel" Caption="联系人电话" BuddyKey="L_ContactTel" X="1" Y="1" XSpan="3">
+                            <Condition ColumnKey="ContactTel" TableKey="LRP_LogisticsAppointment_H" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="L_CREATETIME" Caption="创建日期时间" X="0" Y="2"/>
+                        <DatePicker Key="CREATETIME" Caption="创建日期时间" BuddyKey="L_CREATETIME" X="1" Y="2" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Format/>
+                            <Condition ColumnKey="CREATETIME" TableKey="LRP_LogisticsAppointment_H" CondSign="between" Group="CREATETIME" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="L_CREATETIME_Comp2" Caption="到" X="5" Y="2"/>
+                        <DatePicker Key="CREATETIME_Comp2" Caption="到" BuddyKey="L_CREATETIME_Comp2" X="6" Y="2" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Format/>
+                            <Condition ColumnKey="CREATETIME" TableKey="LRP_LogisticsAppointment_H" CondSign="in" Group="CREATETIME" GroupTail="true"/>
+                        </DatePicker>
+                        <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="cancel" Caption="重置" X="10" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <CheckListBox BuddyKey="Lab_Status" Caption="状态" Key="Status" X="6" XSpan="3" Y="1">
+                            <Condition ColumnKey="Status" TableKey="LRP_LogisticsAppointment_H" CondSign="in"/>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已确认" Key="confirmed" Value="200"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                            <Item Caption="已作废" Key="cancelled" Value="20"/>
+                        </CheckListBox>
+                        <Label Key="Lab_Status" Caption="状态" X="5" Y="1"/>
+                        <RowDefCollection RowHeight="30" RowGap="8">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="99px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Key="list" PageLoadType="DB" TableKey="LRP_LogisticsAppointment_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="LRP_LogisticsAppointment_H" Visible="false" Width="30px"/>
+                            <ListViewColumn Key="No_LV" Caption="预约号" ColumnType="HyperLink" DataColumnKey="No">
+                                <OnClick>
+                                    <![CDATA[Open('V_LogisticsAppointment', OID)]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="OwnerUserId_LV" Caption="货主用户" ColumnType="Dict" DataColumnKey="OwnerUserId" ItemKey="LRP_OwnerUser"/>
+                            <ListViewColumn Key="Contactor" Caption="联系人" ColumnType="TextEditor" DataColumnKey="Contactor"/>
+                            <ListViewColumn Key="ContactTel_LV" Caption="联系人电话" ColumnType="TextEditor" DataColumnKey="ContactTel"/>
+                            <ListViewColumn Key="Requirement" Caption="需求描述" ColumnType="TextEditor" DataColumnKey="Requirement"/>
+                            <ListViewColumn Key="CREATETIME_LV" Caption="创建日期时间" ColumnType="DatePicker" DataColumnKey="CREATETIME" Width="95px"/>
+                            <ListViewColumn Key="Treatment" Caption="处理情况" ColumnType="TextEditor" DataColumnKey="Treatment"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_LogisticsAppointment', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="125px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <!-- <TimerTaskCollection>
+        <TimerTask Delay="1000" Key="tTaskKey" Period="1000" Repeat="true">
+            <![CDATA[LoadData(false);]]>
+        </TimerTask>
+    </TimerTaskCollection> -->
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

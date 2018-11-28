@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="司机" Key="LRP_Driver" PrimaryTableKey="LRP_Driver" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="司机" DBTableName="LRP_Driver" Key="LRP_Driver">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="版本号" DataType="Integer" Key="VERID"/>
+            <Column Caption="明细版本号" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status" DefaultValue="0"/>
+            <Column Caption="启用状态" DataType="Integer" Key="Enable" DefaultValue="1"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="字典父亲OID" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+            <Column Caption="创建人员" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人员" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+			
+            <Column Key="Mobile" Caption="手机" DataType="Varchar" Length="100"/>
+			<Column Key="IDCardNo" Caption="身份证" DataType="Varchar" Length="40"/>
+			<Column Key="ContactAddress" Caption="联系地址" DataType="Varchar" Length="100"/>			
+			<Column Key="LicenseNo" Caption="驾照号" DataType="Varchar" Length="40"/>
+			<Column Key="DriverType" Caption="司机类型" DataType="Varchar" Length="10"/>
+			<Column Key="AvatarUrl" Caption="头像路径" DataType="Varchar" Length="200"/>
+			<Column Key="Password" Caption="密码" DataType="Varchar" Length="1000"/>
+			<Column Key="OperatorID" DataType="Long"/>
+			<Column Key="AppStatus" Caption="App使用状态" DataType="Integer" DefaultValue="0"/>
+        </Table>
+        <Table Caption="司机-调度组织关联" DBTableName="LRP_Driver_Org" Key="LRP_Driver_Org" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="版本号" DataType="Integer" Key="VERID"/>
+            <Column Caption="明细版本号" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="启用状态" DataType="Integer" Key="Enable"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="字典父亲OID" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+            <Column Caption="创建人员" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人员" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="调度组织" DataType="Long" Key="DispatchOrgId"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DriverInfo">
+    <DataSource>
+        <DataObject Caption="司机" Key="DriverInfo" PrimaryTableKey="LRP_Driver">
+            <TableCollection>
+                <Table Caption="货主用户" Key="LRP_Driver" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="100" Cache="true"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="200" Cache="true"/>
+                    <Column Key="Mobile" Caption="手机" DataType="Varchar" Length="100"/>
+                    <Column Key="IDCardNo" Caption="身份证" DataType="Varchar" Length="40"/>
+                    <Column Key="ContactAddress" Caption="联系地址" DataType="Varchar" Length="100"/>
+                    <Column Key="LicenseNo" Caption="驾照号" DataType="Varchar" Length="40"/>
+                    <Column Key="DriverType" Caption="司机类型" DataType="Varchar" Length="10"/>
+                    <Column Key="AvatarUrl" Caption="头像路径" DataType="Varchar" Length="200"/>
+                    <Column Key="Password" Caption="密码" DataType="Varchar" Length="1000"/>
+                    <Column Key="AppStatus" Caption="App使用状态" DataType="Integer"/>
+                    <TableFilter>
+                        <![CDATA[LRP_Driver.OID=?]]>
+                    </TableFilter>
+                    <ParameterCollection>
+                        <Parameter Formula="GetUserOperator()"/>
+                    </ParameterCollection>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <TableView Key="main" TopMargin="10px">
+                <Format BackColor="#f1f3f8"/>
+                <TableRowCollection>
+                    <TableRow Key="r1" SeparatorStyle="solid none" SeparatorColor="#e6eaf2">
+                        <LinearLayoutPanel Key="my_logo_panel" Height="60px" Orientation="Horizontal" LeftPadding="10px">
+                            <Label Key="lbl_my_logo" Caption="头像" Width="100px" Height="auto">
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <Label Key="OID" Width="100px" Height="auto" Visible="false">
+                                <DataBinding TableKey="LRP_Driver" ColumnKey="OID"/>
+                            </Label>
+                            <Label Key="lbl_1" Width="100px" Weight="1.0" Height="auto"/>
+                            <Image Key="my_logo" Caption="头像" Stretch="true" ImageScaleType="Fit_XY" Width="100px" Height="auto">
+                                <DataBinding TableKey="LRP_Driver" ColumnKey="AvatarUrl"/>
+                            </Image>
+                            <Button Key="my_logo_more" Icon="more_arrow.png" Width="20px" Height="auto" BorderStyle="none">
+                                <Format BackColor="transparent"/>
+                            </Button>
+                        </LinearLayoutPanel>
+                        <RowClick>
+                            <![CDATA[Open('DriverModifyLogo',OID)]]>
+                        </RowClick>
+                    </TableRow>
+                    <TableRow Key="r2" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+                        <LinearLayoutPanel Key="IDCardNo_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+                            <Label Key="lbl_IDCardNo" Caption="身份证" Width="100px" Height="auto">
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <Label Key="IDCardNo" RightPadding="10px" Width="10px" Weight="1.0" Height="auto">
+                                <DataBinding TableKey="LRP_Driver" ColumnKey="IDCardNo"/>
+                                <Format ForeColor="#969696" HAlign="Right" BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r3" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+                        <LinearLayoutPanel Key="RealName_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+                            <Label Key="lbl_LicenseNo" Caption="驾照号" Width="100px" Height="auto">
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <Label Key="LicenseNo" RightPadding="10px" Width="50px" Weight="1.0" Height="auto">
+                                <DataBinding TableKey="LRP_Driver" ColumnKey="LicenseNo"/>
+                                <Format ForeColor="#969696" HAlign="Right" BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r4" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+                        <LinearLayoutPanel Key="Mobile_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+                            <Label Key="lbl_Mobile" Caption="手机" Width="100px" Height="auto">
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Mobile" RightPadding="10px" Width="10px" Weight="1.0" Height="auto">
+                                <DataBinding TableKey="LRP_Driver" ColumnKey="Mobile"/>
+                                <Format ForeColor="#969696" HAlign="Right" BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r5" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+                        <LinearLayoutPanel Key="ContactAddress_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+                            <Label Key="lbl_ContactAddress" Caption="联系地址" Width="100px" Height="auto">
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <Label Key="ContactAddress" RightPadding="10px" Width="10px" Weight="1.0" Height="auto">
+                                <DataBinding TableKey="LRP_Driver" ColumnKey="ContactAddress"/>
+                                <Format ForeColor="#969696" HAlign="Right" BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r6" SeparatorStyle="solid none" SeparatorColor="#dde0e7" TopMargin="10px">
+                        <LinearLayoutPanel Key="Password_panel" Orientation="Horizontal" Height="60px" LeftPadding="10px">
+                            <Label Key="lbl_Password" Caption="修改密码" Width="100px" Height="auto">
+                                <Format BackColor="#ffffff">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Label>
+                            <Label Key="lbl_2" Width="100px" Weight="1.0" Height="auto"/>
+                            <Button Key="password" Icon="more_arrow.png" RightPadding="10px" Width="20px" Height="auto">
+                                <Format ForeColor="#969696" HAlign="Right" BackColor="Transparent">
+                                    <Font Size="16"/>
+                                </Format>
+                            </Button>
+                        </LinearLayoutPanel>
+                        <RowClick>
+                            <![CDATA[Show('DriverModifyPsd')]]>
+                        </RowClick>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+        <ViewCollection>
+            <View Key="All"/>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <EventHandlerCollection>
+        <EventHandler Key="UserInfoChanged" Trigger="Show" MergeEvent="true">
+            <![CDATA[LoadData()]]>
+        </EventHandler>
+    </EventHandlerCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="个人资料" Location="Center">
+            <Label Key="TitleCenter" Caption="个人资料" Width="100%">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

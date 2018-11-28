@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="币种" FormType="Dict" Key="V_Currency">
+    <DataSource RefObjectKey="Currency"/>
+    <Body>
+        <Block>
+            <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <TextEditor Caption="代码" Key="Code" Tip="「代码」不能为空" X="1" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="BK_Currency" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="名称" Key="Name" Tip="「名称」不能为空" X="6" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="BK_Currency" Required="true"/>
+                        </TextEditor>
+                        <TextEditor Caption="ISO代码" Key="ISOCode" X="1" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="ISOCode" TableKey="BK_Currency"/>
+                        </TextEditor>
+                        <TextEditor Caption="小数精度" Key="DecimalScale" X="6" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="DecimalScale" TableKey="BK_Currency" CheckRule="ToInt(DecimalScale)&gt;0" ErrorInfo="「小数精度」不可小于0"/>
+                        </TextEditor>
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+                        <Label Caption="ISO代码" Key="L_ISOCode" X="0" Y="1"/>
+                        <Label Caption="小数精度" Key="L_DecimalScale" X="5" Y="1"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%" MinWidth="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="BK_Currency"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="BK_Currency"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="BK_Currency"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="BK_Currency"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

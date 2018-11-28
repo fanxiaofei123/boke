@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_Name>Name</L_Name>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <Grid0>Grid0</Grid0>
+        <Lab_ProvinceId>ProvinceId</Lab_ProvinceId>
+        <SystemTab>SystemTab</SystemTab>
+        <BasicTab>BasicTab</BasicTab>
+        <L_Code>Code</L_Code>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+    </UI>
+    <GridColumn>
+        <column1>Name</column1>
+        <column0>Code</column0>
+    </GridColumn>
+    <Cell>
+        <D_Code>Code</D_Code>
+        <D_Name>Name</D_Name>
+    </Cell>
+</StringTable>

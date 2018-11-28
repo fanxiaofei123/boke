@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="RadioButtonTest" Caption="单选框定义">
+    <DataSource>
+        <DataObject Key="RadioButtonTest" Caption="单选框定义" PrimaryTableKey="RadioButtonTest">
+            <TableCollection>
+                <Table Key="RadioButtonTest" Caption="单选框定义">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <RadioButton Caption="男" GroupKey="Gender" IsGroupHead="true" Key="Male" Value="1" X="0" Y="0"/>
+                    <RadioButton Caption="女" GroupKey="Gender" Key="Female" Value="2" X="1" Y="0"/>
+                    <RadioButton Caption="未知" GroupKey="Gender" Key="Unknown" Value="0" X="2" Y="0"/>
+                    <RowDefCollection RowHeight="30" RowGap="6">
+                        <RowDef/>
+                        <RowDef/>
+                        <RowDef/>
+                        <RowDef/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="20">
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="34%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

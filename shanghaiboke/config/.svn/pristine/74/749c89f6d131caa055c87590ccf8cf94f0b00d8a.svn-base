@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_Portal_LRP" Caption="首页">
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <WebBrowser Key="webBrowse" Caption="首页" Height="100%"/>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[if(GetSessionPara("Language")=="en"){
+    webBrowse="LRP_Portal_en/cc_bzrk.html";
+}else{
+    //默认中文
+    webBrowse="LRP_Portal/cc_bzrk.html";
+}]]>
+    </OnLoad>
+</Form>

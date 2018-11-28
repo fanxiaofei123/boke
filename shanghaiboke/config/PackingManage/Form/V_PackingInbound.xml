@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="包装材料入库单" FormType="Entity" Key="V_PackingInbound">
+    <DataSource RefObjectKey="LRP_PackingInbound"/>
+    <OperationCollection>
+        <Operation Caption="新增" Key="New" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				New('V_PackingInbound');
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="保存" Key="Save" ShortCuts="Ctrl+S" Visible="!ReadOnly()&amp;&amp;Status==100">
+            <Action>
+                <![CDATA[
+					if(GetRowCount('Grid0',false)<=0){
+						Confirm(LocaleString('CommonDef','key1'),'OK','OK:{}');	
+						return true;
+					}
+					var CurStoreroomId_V = CurStoreroomId;
+					var CurStoreareaId_V = CurStoreareaId;
+					var EnterMaterialCode_V = EnterMaterialCode;
+					var EnterLocationCode_V = EnterLocationCode;
+					var EnterMaterialBarCode_V = EnterMaterialBarCode;
+					var CurLocation_V = CurLocation;
+					var CurMaterial_V = CurMaterial;
+					SaveData();UpdateView();
+					CurStoreroomId = CurStoreroomId_V;
+					CurStoreareaId = CurStoreareaId_V;
+					EnterMaterialCode = EnterMaterialCode_V;
+					EnterLocationCode = EnterLocationCode_V;
+					EnterMaterialBarCode = EnterMaterialBarCode_V;
+					CurLocation = CurLocation_V;
+					CurMaterial = CurMaterial_V;
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+		<Operation Caption="批量物料条码入库" Key="Edit" Visible="!ReadOnly()&amp;&amp;Status==100">
+            <Action>
+                <![CDATA[
+					if(CurMaterial<=0){
+						Confirm(LocaleString('PAshow','pakey1'),'OK','OK:{}');
+						SetFocus('EnterMaterialBarCode',true);
+						return true;
+					}
+					if(CurLocation<=0){
+						Confirm(LocaleString('PAshow','pakey2'),'OK','OK:{}');
+						SetFocus('EnterLocationCode',true);
+						return true;
+					}
+				
+					ShowModal('BantchSerials');]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="Delete" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+			Confirm(LocaleString('CommonDef','key2'),'YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});
+			
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" RefKey="Cancel"/>
+        <Operation Caption="完成" Key="Finish" Visible="Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[				
+					if(GetRowCount('Grid0',false)<=0){
+						Confirm(LocaleString('CommonDef','key1'),'OK','OK:{}');	
+						return true;
+					}	
+					Confirm(LocaleString('CommonDef','key3'),'YES_NO',{YES:{
+						SetValue('InboundDateTime',ServerDate());
+						Status=StatusValue('finished');
+						var CurStoreroomId_V = CurStoreroomId;
+						var CurStoreareaId_V = CurStoreareaId;
+						var EnterMaterialCode_V = EnterMaterialCode;
+						var EnterLocationCode_V = EnterLocationCode;
+						var EnterMaterialBarCode_V = EnterMaterialBarCode;
+						var CurLocation_V = CurLocation;
+						var CurMaterial_V = CurMaterial;
+						SaveData();
+						UpdateView();
+						CurStoreroomId = CurStoreroomId_V;
+						CurStoreareaId = CurStoreareaId_V;
+						EnterMaterialCode = EnterMaterialCode_V;
+						EnterLocationCode = EnterLocationCode_V;
+						EnterMaterialBarCode = EnterMaterialBarCode_V;
+						CurLocation = CurLocation_V;
+						CurMaterial = CurMaterial_V;
+					},NO:{}});
+				]]>
+            </Action>
+            <ExceptionHandler>
+                <![CDATA[				
+				Status=StatusValue('prepared');
+			]]>
+            </ExceptionHandler>
+        </Operation>   
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                        <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                            <TextEditor Caption="入库单号" Enable="false" Key="No" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="No" TableKey="LRP_PackingInbound_H"/>
+                            </TextEditor>
+                            <Label Caption="入库单号" Key="L_No" X="0" Y="0"/>                            
+							<ComboBox Caption="状态" Enable="false" Key="Status" SourceType="Status" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_PackingInbound_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Caption="状态" Key="L_Status" X="4" Y="0"/>						
+                            
+                            <DatePicker Caption="创建日期时间" Enable="false" Key="CREATETIME" OnlyDate="false" X="1" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="CREATETIME" TableKey="LRP_PackingInbound_H"/>
+                            </DatePicker>
+                            <Label Caption="创建日期时间" Key="L_CREATETIME" X="0" Y="1"/>
+                            <DatePicker Caption="入库日期时间" Enable="false" Key="InboundDateTime" OnlyDate="false" X="5" XSpan="2" Y="1">
+                                <DataBinding ColumnKey="InboundDateTime" TableKey="LRP_PackingInbound_H"/>
+                            </DatePicker>
+                            <Label Caption="入库日期时间" Key="L_InboundDateTime" X="4" Y="1"/>                            
+                            
+                            <TextEditor BuddyKey="Lab_Remark" Caption="备注" Enable="!ReadOnly()" Key="Remark" X="1" XSpan="6" Y="2">
+                                <DataBinding ColumnKey="Remark" TableKey="LRP_PackingInbound_H"/>
+                            </TextEditor>
+                            <Label Caption="备注" Key="Lab_Remark" X="0" Y="2"/>
+							<Dict BuddyKey="Lab_WarehouseCenterId" Caption="仓储中心" ItemKey="LRP_WarehouseCenter" Key="WarehouseCenterId" Visible="false" X="2" XSpan="2" Y="3">
+                                <DataBinding ColumnKey="WarehouseCenterId" DefaultFormulaValue="getCurOrgID()" TableKey="LRP_PackingInbound_H"/>
+                            </Dict>
+                            <Label Caption="仓储中心" Key="Lab_WarehouseCenterId" Visible="false" X="0" Y="3"/>
+							<Label Caption="当前仓间" Key="CurStoreroomId" Visible="false" X="0" Y="3"/>
+							<Label Caption="当前库区" Key="CurStoreareaId" Visible="false" X="0" Y="3"/>
+							<TextEditor BuddyKey="Lab_EnterMaterialCode" Caption="扫描物料种类" Enable="!ReadOnly()" Key="EnterMaterialCode" X="1" XSpan="2" Y="3">
+								<KeyEnter>
+									<![CDATA[
+										
+										var dt=DBNamedQuery("QueryPackingMaterial",EnterMaterialCode); 
+										if(dt.size()>0)
+										{
+											dt.beforefirst();
+											dt.next();
+											SetValue('CurMaterial',dt.OID);
+											SetFocus('EnterLocationCode',true);
+										}
+										else
+										{
+											Confirm(LocaleParaFormat('PAshow','pakey3',EnterMaterialCode),'OK','OK:{}');
+											SetFocus('EnterMaterialCode',true);
+										}
+												
+											  ]]>
+								</KeyEnter>
+							</TextEditor>
+                            <Label Caption="扫描物料种类" Key="Lab_EnterMaterialCode" X="0" Y="3"/>
+							<Dict BuddyKey="Lab_CurMaterial" Caption="当前物料种类" Enable="!ReadOnly()" ItemKey="LRP_PackingMaterial" Key="CurMaterial" X="5" XSpan="2" Y="3"/>
+							<Label Caption="当前物料种类" Key="Lab_CurMaterial" X="4" Y="3"/>
+							
+							<TextEditor BuddyKey="Lab_EnterLocationCode" Caption="扫描储位码" Enable="!ReadOnly()" Key="EnterLocationCode" X="1" XSpan="2" Y="4">
+								<KeyEnter>
+									<![CDATA[
+										
+										var dt=DBNamedQuery("QueryLocation",EnterLocationCode); 
+										if(dt.size()>0)
+										{
+											dt.beforefirst();
+											dt.next();
+											SetValue('CurLocation',dt.OID);
+											SetValue('CurStoreroomId',dt.StoreroomId);
+											SetValue('CurStoreareaId',dt.StoreareaId);
+											SetFocus('EnterMaterialBarCode',true);
+										}
+										else
+										{
+											Confirm(LocaleParaFormat('PAshow','pakey3',EnterLocationCode),'OK','OK:{}');
+											SetFocus('EnterLocationCode',true);
+										}
+												
+											  ]]>
+								</KeyEnter>
+							</TextEditor>
+                            <Label Caption="扫描储位码" Key="Lab_EnterLocationCode" X="0" Y="4"/>
+							<Dict BuddyKey="Lab_CurLocation" Caption="当前储位" Enable="!ReadOnly()" ItemKey="LRP_Location" Key="CurLocation" X="5" XSpan="2" Y="4"/>
+							<Label Caption="当前储位" Key="Lab_CurLocation" X="4" Y="4"/>
+							
+							<TextEditor BuddyKey="Lab_EnterMaterialBarCode" Caption="扫描物料条码" Enable="!ReadOnly()" Key="EnterMaterialBarCode" X="1" XSpan="6" Y="5">
+								<KeyEnter>
+									<![CDATA[
+										if(CurMaterial<=0){
+											Confirm(LocaleString('PAshow','pakey1'),'OK','OK:{}');
+											SetFocus('EnterMaterialBarCode',true);
+											return true;
+										}
+										if(CurLocation<=0){
+											Confirm(LocaleString('PAshow','pakey2'),'OK','OK:{}');
+											SetFocus('EnterMaterialBarCode',true);
+											return true;
+										}
+										//检查扫入的条码是否已存在
+										var count = GetRowCount('Grid0');
+										var i = 0;
+										while ( i < count ) {
+											if(GetCellValue('Grid0',i,"MaterialBarCode") == EnterMaterialBarCode){
+												i = i + 1;
+												Confirm(LocaleParaFormat('PAshow','pakey5',i),'OK','OK:{}');
+												return true;
+											}
+											i = i + 1;
+										}
+										
+										//检查扫入的条码是否存在于库存中									
+										var dt=DBNamedQuery("QueryQuantMaterial",EnterMaterialBarCode); 
+										if(dt.size()>0)
+										{									
+											Confirm(LocaleString('PAshow','pakey6'),'OK','OK:{}');	
+											SetFocus('EnterMaterialBarCode',true);											
+											return true;
+										}
+										else
+										{
+											//新增一条入库记录
+											var index = InsertRow('Grid0',-1);
+											SetCellValue('Grid0', index,'MaterialId',CurMaterial);
+											SetCellValue('Grid0', index,'MaterialBarCode',EnterMaterialBarCode);
+											SetCellValue('Grid0', index,'Qty',1);
+											SetCellValue('Grid0', index,'StoreroomId',CurStoreroomId);
+											SetCellValue('Grid0', index,'StoreareaId',CurStoreareaId);
+											SetCellValue('Grid0', index,'LocationId',CurLocation);
+											
+											//为汇总界面添加记录
+											var b = false;
+											count = GetRowCount('Grid_Sum');
+											i = 0;
+											while ( i < count ) {
+												if(GetCellValue('Grid_Sum',i,"MaterialId_Sum") == CurMaterial
+												&& GetCellValue('Grid_Sum',i,"LocationId_Sum") == CurLocation){
+													SetCellValue('Grid_Sum', i,'Qty_Sum',GetCellValue('Grid_Sum',i,"Qty_Sum") +1);
+													b = true;
+													break;													
+												}
+												i = i + 1;
+											}
+											if(!b){
+												//添加一条汇总记录
+												var index1 = InsertRow('Grid_Sum',-1);
+												SetCellValue('Grid_Sum', index1,'MaterialId_Sum',CurMaterial);
+												SetCellValue('Grid_Sum', index1,'Qty_Sum',1);
+												SetCellValue('Grid_Sum', index1,'StoreroomId_Sum',CurStoreroomId);
+												SetCellValue('Grid_Sum', index1,'StoreareaId_Sum',CurStoreareaId);
+												SetCellValue('Grid_Sum', index1,'LocationId_Sum',CurLocation);
+											}
+											SetFocus('EnterMaterialBarCode',true);
+										}
+												
+											  ]]>
+								</KeyEnter>
+							</TextEditor>
+                            <Label Caption="扫描物料条码" Key="Lab_EnterMaterialBarCode" X="0" Y="5"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="33%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef MinWidth="50px" Width="33%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>                        
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+					<GridLayoutPanel Caption="订单明细" Key="DetailTab">
+                        <Grid Caption="物料明细" Key="Grid0" CanInsert="false" CanDelete="false" CanShift="false" NewEmptyRow="false" X="0" XSpan="2" Y="1">
+                            <GridColumnCollection>
+                                <GridColumn Caption="物料" Key="MaterialId" Width="80px" Sortable="true"/>
+                                <GridColumn Caption="物料条码" Key="MaterialBarCode"  Width="80px" Sortable="true"/>
+                                <GridColumn Caption="数量" Key="Qty" Width="80px" Sortable="true"/>							
+                                <GridColumn Caption="仓间" Key="StoreroomId" Width="80px" Sortable="true"/>
+                                <GridColumn Caption="库区" Key="StoreareaId" Width="80px" Sortable="true"/>
+                                <GridColumn Caption="储位" Key="LocationId" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="R3" TableKey="LRP_PackingInbound_L">
+                                    <GridCell Caption="物料" CellType="Dict" Enable="false" ItemKey="LRP_PackingMaterial" Key="MaterialId">
+                                        <DataBinding ColumnKey="MaterialId" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Caption="物料条码" CellType="TextEditor" Enable="false" Key="MaterialBarCode">
+                                        <DataBinding ColumnKey="MaterialBarCode"/>
+                                    </GridCell>
+                                    <GridCell Caption="数量" CellType="NumberEditor" Enable="false" Key="Qty">
+                                        <DataBinding ColumnKey="Qty" CheckRule="Qty&gt;0" ErrorInfo="数量必须大于0"/>
+                                    </GridCell>
+                                    <GridCell Caption="仓间" CellType="Dict" Enable="false" ItemKey="LRP_Storeroom" Key="StoreroomId">
+                                        <DataBinding ColumnKey="StoreroomId"/>
+                                    </GridCell>
+                                    <GridCell Caption="库区" CellType="Dict" Enable="false" ItemKey="LRP_Storearea" Key="StoreareaId">
+                                        <DataBinding ColumnKey="StoreareaId"/>
+                                    </GridCell>
+                                    <GridCell Caption="储位" CellType="Dict" Enable="false" ItemKey="LRP_Location" Key="LocationId">
+                                        <DataBinding ColumnKey="LocationId"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+						<Button Caption="删除明细" Key="DeleteDetail" X="0" Y="0" Visible="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+                                <OnClick>
+                                    <![CDATA[
+										//对应修改汇总记录
+										var index = GetRowIndex('Grid0');
+										var count = GetRowCount('Grid_Sum');
+										var i = 0;
+										while ( i < count ) {
+											if(GetCellValue('Grid_Sum',i,"MaterialId_Sum") == GetCellValue('Grid0',index,"MaterialId")
+											&& GetCellValue('Grid_Sum',i,"LocationId_Sum") == GetCellValue('Grid0',index,"LocationId")){
+												if(GetCellValue('Grid_Sum',i,"Qty_Sum") > 1){
+													SetCellValue('Grid_Sum',i,'Qty_Sum',GetCellValue('Grid_Sum',i,"Qty_Sum") -1);
+												}
+												else{
+													DeleteRow("Grid_Sum",i);
+												}
+												break;													
+											}
+											i = i + 1;
+										}
+										DeleteRow("Grid0",index);
+									]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowGap="2">
+                                <RowDef Height="20px"/>
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="2">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+						<Grid Caption="物料明细汇总" Key="Grid_Sum" CanInsert="false" CanDelete="false" CanShift="false" NewEmptyRow="false">
+                            <GridColumnCollection>
+                                <GridColumn Caption="物料" Key="MaterialId_Sum" Width="80px" Sortable="true"/>
+                                <GridColumn Caption="数量" Key="Qty_Sum" Width="80px" Sortable="true"/>					
+                                <GridColumn Caption="仓间" Key="StoreroomId_Sum" Width="80px" Sortable="true"/>
+                                <GridColumn Caption="库区" Key="StoreareaId_Sum" Width="80px" Sortable="true"/>
+                                <GridColumn Caption="储位" Key="LocationId_Sum" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="R_Sum">
+                                    <GridCell Caption="物料" CellType="Dict" Enable="false" ItemKey="LRP_PackingMaterial" Key="MaterialId_Sum"/>
+                                    <GridCell Caption="数量" CellType="NumberEditor" Enable="false" Key="Qty_Sum"/>
+                                    <GridCell Caption="仓间" CellType="Dict" Enable="false" ItemKey="LRP_Storeroom" Key="StoreroomId_Sum"/>
+                                    <GridCell Caption="库区" CellType="Dict" Enable="false" ItemKey="LRP_Storearea" Key="StoreareaId_Sum"/>
+                                    <GridCell Caption="储位" CellType="Dict" Enable="false" ItemKey="LRP_Location" Key="LocationId_Sum"/>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="265px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[	
+	]]>
+    </OnLoad>
+	<OnPostShow>
+        <![CDATA[
+		if(!IsNew()){
+			//根据物料明细创建出汇总明细
+			var count = GetRowCount('Grid0');
+			var i = 0;
+			while ( i < count ) {
+				var count1 = GetRowCount('Grid_Sum');
+				var j = 0;
+				var b = false;
+				while ( j < count1 ) {
+					if(GetCellValue('Grid_Sum',j,"MaterialId_Sum") == GetCellValue('Grid0',i,"MaterialId")
+					&& GetCellValue('Grid_Sum',j,"LocationId_Sum") == GetCellValue('Grid0',i,"LocationId")){
+						SetCellValue('Grid_Sum',j,'Qty_Sum',GetCellValue('Grid_Sum',j,"Qty_Sum")+1);
+						b = true;
+						break;													
+					}
+					j = j+1;
+				}
+				
+				if(!b){
+					//添加一条汇总记录
+					j = InsertRow('Grid_Sum',-1);
+					SetCellValue('Grid_Sum', j,'MaterialId_Sum',GetCellValue('Grid0',i,"MaterialId"));
+					SetCellValue('Grid_Sum', j,'Qty_Sum',1);
+					SetCellValue('Grid_Sum', j,'StoreroomId_Sum',GetCellValue('Grid0',i,"StoreroomId"));
+					SetCellValue('Grid_Sum', j,'StoreareaId_Sum',GetCellValue('Grid0',i,"StoreareaId"));
+					SetCellValue('Grid_Sum', j,'LocationId_Sum',GetCellValue('Grid0',i,"LocationId"));
+				}
+				i = i + 1;
+			}
+		}
+	]]>
+    </OnPostShow>
+	<QueryCollection>        
+        <Query Description="查询扫描得储位" Key="QueryLocation">
+            <Statement>
+                <![CDATA[select OID,StoreroomId,StoreareaId from LRP_Location where Code=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+		<Query Description="查询扫描得包装材料" Key="QueryPackingMaterial">
+            <Statement>
+                <![CDATA[select OID from LRP_PackingMaterial where Code=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+		<Query Description="查询扫描的物料条码是否存在于库存表中" Key="QueryQuantMaterial">
+            <Statement>
+                <![CDATA[select OID from LRP_PackingMaterialQuant where OnhandQty>0 and MaterialBarCode=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+</Form>

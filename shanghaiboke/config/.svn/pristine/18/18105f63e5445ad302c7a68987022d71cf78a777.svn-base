@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="CHCS_Flight_Change_Infomation" Caption="航班变动信息" PrimaryTableKey="CHCS_Flight_Change_Infomation" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="CHCS_Flight_Change_Infomation" Caption="航班变动信息" TableMode="Detail">
+            <Column Key="ID" Caption="对应序列SEQ_T2" DataType="Long"/>
+            <Column Key="FLIGHT_ID" Caption="航班ID" DataType="Long"/>
+            <Column Key="COL" Caption="列名" DataType="Varchar"/>
+            <Column Key="OLD_VALUE" Caption="旧值" DataType="Varchar"/>
+            <Column Key="NEW_VALUE" Caption="新值" DataType="Varchar"/>
+            <Column Key="IDU" Caption="I是INSERT另D是DELE" DataType="Varchar"/>
+            <Column Key="MODIFY_TIME" Caption="时间戳" DataType="DateTime"/>
+            <Column Key="REMARK" Caption="备注" DataType="Varchar"/>
+        </Table>
+    </TableCollection>
+</DataObject>

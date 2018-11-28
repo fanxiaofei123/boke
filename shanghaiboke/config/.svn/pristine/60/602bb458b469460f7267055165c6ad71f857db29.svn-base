@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <CopyGridRow>CopyGridRow</CopyGridRow>
+        <New>New</New>
+		<Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+		<V_O_ExpenseContract_LRP>O_ExpenseContract</V_O_ExpenseContract_LRP>
+		
+        <Lab_No>No</Lab_No>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_RefNo>CarrierNo</Lab_RefNo>
+        <Lab_CarrierId>CarrierId</Lab_CarrierId>
+        <Lab_SettlementId>SettlementId</Lab_SettlementId>
+		<Lab_WarehouseCenterId>WarehouseCenterId</Lab_WarehouseCenterId>
+        <Lab_EffectiveDate>EffectiveDate</Lab_EffectiveDate>
+        <Lab_ExpireDate>ExpireDate</Lab_ExpireDate>
+        <Lab_DispatchOrgId>DispatchOrgId</Lab_DispatchOrgId>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_Remark>Remark</Lab_Remark>
+		
+		<Grid1>Clause</Grid1>
+    </UI>
+	
+    <GridColumn>
+        <column1>Select</column1>
+        <ExpenseId>ExpenseId</ExpenseId>
+        <TermId>TermId</TermId>
+    </GridColumn>
+	
+</StringTable>

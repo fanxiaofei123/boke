@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_MODIFIER>Modifier</L_MODIFIER>
+        <Lab_Unit>SI Unit</Lab_Unit>
+        <Lab_UnitMass>UnitMass</Lab_UnitMass>
+        <DaMaoTab>DaMao</DaMaoTab>
+        <OACheck>OA</OACheck>
+        <L_MODIFYTIME>ModifyTime</L_MODIFYTIME>
+        <WuliuTab>logistics</WuliuTab>
+        <CaiWuCheck>GroupFinance</CaiWuCheck>
+        <BasicTab>Information</BasicTab>
+        <HRPCheck>HRP</HRPCheck>
+        <OATab>OA</OATab>
+        <DaMaoCheck>DamaoCheck</DaMaoCheck>
+        <Lab_UnitCurrent>UnitCurrent</Lab_UnitCurrent>
+        <Lab_UnitLuminosity>UnitLuminosity</Lab_UnitLuminosity>
+        <Lab_UnitTemperature>Lab_</Lab_UnitTemperature>
+        <L_CREATOR>Creator</L_CREATOR>
+        <DianShangTab>E-commerce</DianShangTab>
+        <PressureRel>Pressurecorrelation</PressureRel>
+        <HRPTab>HRP</HRPTab>
+        <DianShangCheck>E-commerce</DianShangCheck>
+        <L_Code>Code</L_Code>
+        <Lab_UnitTime>UnitTime</Lab_UnitTime>
+        <L_CREATETIME>CreateTime</L_CREATETIME>
+        <IsNonSystem>IsNonSystem</IsNonSystem>
+        <L_Name>Name</L_Name>
+        <Lab_UnitLength>UnitLength</Lab_UnitLength>
+        <CaiWuTab>GroupFinance</CaiWuTab>
+        <TemperatureRel>Temperaturecorrelation</TemperatureRel>
+        <SystemTab>SystemMessage</SystemTab>
+        <Lab_UnitMoleQuantity>UnitMoleQuantity</Lab_UnitMoleQuantity>
+        <WuliuCheck>logistics</WuliuCheck>
+    </UI>
+</StringTable>

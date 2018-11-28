@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="科目" Key="Account" PrimaryTableKey="BK_Account" PrimaryType="Entity"  SecondaryType="Dict">
+	<TableCollection>
+                <Table Caption="科目" DBTableName="BK_Account" Key="BK_Account">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+                    <Column Caption="父节点" DataType="Long" Key="ParentID"/>
+                    <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+                    <Column Caption="科目组" DataType="Long" Key="AccountGroupID"/>
+		    <Column Caption="资产负债表科目" DataType="Integer" Key="IsBalanceSheetAccount" Length="1" DefaultValue="1"/>
+		    <Column Caption="损益表科目" DataType="Integer" Key="IsPLStatementAccount" Length="1" DefaultValue="0"/>
+		    <Column Caption="科目表" DataType="Long" Key="AccountChartID"/>
+		    <Column Caption="集团科目" DataType="Long" Key="GroupAccountID"/>
+		    <Column Caption="外部代码" DataType="Varchar" Key="UseCode" Length="100"/>
+		    <Column Caption="功能范围" DataType="Long" Key="FunctionAreaID"/>
+		    <Column Caption="内部交易码" DataType="Long" Key="InterTradeCode"/>
+		    <Column Caption="抵消报表项目" DataType="Long" Key="ReportItem"/>
+		    <Column Caption="内部交易科目" DataType="Integer" Key="InterTradeAccount" Length="1"/>
+                </Table>
+	</TableCollection>
+</DataObject>

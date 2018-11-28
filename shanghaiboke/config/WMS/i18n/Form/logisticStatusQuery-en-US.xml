@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+	<logisticStatusQuery>logisticStatusQuery</logisticStatusQuery>
+        <Query>
+Query
+        </Query>
+        <Lab_OwnerID1>
+Ownerid
+        </Lab_OwnerID1>
+        <Lab_OrderType>
+Ordertype
+        </Lab_OrderType>
+        <Lab_logNum1>
+LogNumber
+        </Lab_logNum1>
+        <Lab_OutboundNo1>
+OntboundNo
+        </Lab_OutboundNo1>
+    </UI>
+    <Items-OrderType1>
+        <Item-1>
+SellOrder
+        </Item-1>
+        <Item-4>
+BackOrder
+        </Item-4>
+        <Item-3>
+LogOrder
+        </Item-3>
+        <Item-2>
+SaleOrder
+        </Item-2>
+    </Items-OrderType1>
+    <ListViewColumn>
+        <Status>
+Status
+        </Status>
+        <OrderDateTime>
+OrderDatatime
+        </OrderDateTime>
+        <OutBoundTime>
+OuntBoundtime
+        </OutBoundTime>
+        <No>
+Lognumber
+        </No>
+        <Owner>
+Owner
+        </Owner>
+        <OrderType1>
+Ordertype
+        </OrderType1>
+        <OutBoundStatus>
+OuntboundStatus
+        </OutBoundStatus>
+        <PickTime>
+Picktime
+        </PickTime>
+        <OID>
+Oid
+        </OID>
+        <OID3>
+Oid3
+        </OID3>
+        <OID2>
+oid2
+        </OID2>
+        <OID4>
+Oid4
+        </OID4>
+        <OutBoundNo>
+Ountboundno
+        </OutBoundNo>
+        <PickStatus>
+PickStatus
+        </PickStatus>
+        <JHDateTime>
+JHDatetime
+        </JHDateTime>
+        <JHStatus>
+JHStatus
+        </JHStatus>
+        <PickNo>
+PickNo
+        </PickNo>
+        <JHNo>
+JHNo
+        </JHNo>
+    </ListViewColumn>
+    <Items-OrderType>
+        <Item-4>
+BackOrder
+        </Item-4>
+        <Item-3>
+OuntboundOder
+        </Item-3>
+    </Items-OrderType>
+</StringTable>

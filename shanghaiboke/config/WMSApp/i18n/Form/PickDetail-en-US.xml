@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Label1>NoMaterialDetail</Label1>
+        <OrderTitle>PickDetail</OrderTitle>
+    </UI>
+    <ListViewColumn>
+        <SelectField>selectField</SelectField>
+        <MaterilCode>MaterialCode </MaterilCode>
+        <SrcBatchNo>SRCBatchNo</SrcBatchNo>
+        <Qty>Qty</Qty>
+        <MaterialUnit>MaterialUnit</MaterialUnit>
+        <MaterilName>MaterialName</MaterilName>
+        <LocationName>LocationName</LocationName>
+    </ListViewColumn>
+</StringTable>

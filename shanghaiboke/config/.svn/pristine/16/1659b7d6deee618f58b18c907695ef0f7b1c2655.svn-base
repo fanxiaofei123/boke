@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_HandoverView" Caption="配备交接单视图" FormType="View" AbbrCaption="配备交接单视图">
+    <DataSource>
+        <DataObject Key="CHCS_Handover" Caption="配备交接单视图" PrimaryTableKey="CHCS_Handover_H">
+            <TableCollection>
+                <Table Key="CHCS_Handover_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="NO" Caption="配备单号" DataType="Varchar" Length="100"/>
+                    <Column Key="Vendor" Caption="航食公司" DataType="Long"/>
+                    <Column Key="FlightDate" Caption="航班日期" DataType="Date"/>
+                    <Column Key="Aircraft_Number" Caption="飞机号" DataType="Varchar"/>
+                    <Column Key="Aircraft_Type_Number" Caption="机型" DataType="Long"/>
+                    <Column Key="Flight_Number" Caption="航班号" DataType="Long"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('CHCS_Handover')]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                            <Label Key="L_NO" Caption="配备单号" X="0" Y="0"/>
+                            <TextEditor Key="NO" Caption="配备单号" BuddyKey="L_NO" X="1" Y="0" XSpan="3">
+                                <Condition ColumnKey="NO" TableKey="CHCS_Handover_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_Vendor" Caption="航食公司" X="5" Y="0"/>
+                            <Dict Key="Vendor" Caption="航食公司" BuddyKey="L_Vendor" X="6" Y="0" ItemKey="Vendor">
+                                <Condition ColumnKey="Vendor" TableKey="CHCS_Handover_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="L_FlightDate" Caption="航班日期" X="0" Y="1"/>
+                            <DatePicker Key="FlightDate" Caption="航班日期" BuddyKey="L_FlightDate" X="1" Y="1" OnlyDate="true">
+                                <Format/>
+                                <Condition ColumnKey="FlightDate" TableKey="CHCS_Handover_H" CondSign="between" Group="FlightDate" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="L_FlightDate_Comp2" Caption="到" X="2" Y="1"/>
+                            <DatePicker Key="FlightDate_Comp2" Caption="到" BuddyKey="L_FlightDate_Comp2" X="3" Y="1" OnlyDate="true">
+                                <Format/>
+                                <Condition ColumnKey="FlightDate" TableKey="CHCS_Handover_H" CondSign="between" Group="FlightDate" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="L_Aircraft_Number" Caption="飞机号" X="8" Y="1"/>
+                            <TextEditor Key="Aircraft_Number" Caption="飞机号" BuddyKey="L_Aircraft_Number" X="9" Y="1">
+                                <Condition ColumnKey="Aircraft_Number" TableKey="CHCS_Handover_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="L_Aircraft_Type_Number" Caption="机型" X="5" Y="1"/>
+                            <Dict Key="Aircraft_Type_Number" Caption="机型" BuddyKey="L_Aircraft_Type_Number" X="6" Y="1" ItemKey="CHCS_Aircraft_Type">
+                                <Condition ColumnKey="Aircraft_Type_Number" TableKey="CHCS_Handover_H" CondSign="in"/>
+                            </Dict>
+                            <Button Key="Query" Caption="查询" X="11" Y="0" Enable="true" XSpan="2">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="11" Y="1" Enable="true" XSpan="2">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Label Key="L_Flight_Number" Caption="航班号" X="8" Y="0"/>
+                            <Dict Key="Flight_Number" Caption="航班号" BuddyKey="L_Flight_Number" X="9" Y="0" ItemKey="CHCS_Flight">
+                                <Condition ColumnKey="Flight_Number" TableKey="CHCS_Handover_H" CondSign="="/>
+                            </Dict>
+                            <RowDefCollection RowHeight="30" RowGap="6">
+                                <RowDef/>
+                                <RowDef/>
+                                <RowDef/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="20">
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="16%"/>
+                                <ColumnDef Width="15px"/>
+                                <ColumnDef Width="16%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="32%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="32%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="4%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="list" PageLoadType="DB" TableKey="CHCS_Handover_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="CHCS_Handover_H" Visible="false" Width="30px"/>
+                            <ListViewColumn Key="NO_LV" Caption="配备单号" ColumnType="TextEditor" DataColumnKey="NO" Width="100px"/>
+                            <ListViewColumn Key="Vendor_LV" Caption="航食公司" ColumnType="Dict" DataColumnKey="Vendor" Width="100px" ItemKey="Vendor"/>
+                            <ListViewColumn Key="FlightDate_LV" Caption="航班日期" ColumnType="DatePicker" DataColumnKey="FlightDate" Width="100px" Format="yyyy-MM-dd" OnlyDate="true"/>
+                            <ListViewColumn Key="Aircraft_Number_LV" Caption="飞机号" ColumnType="TextEditor" DataColumnKey="Aircraft_Number" Width="100px"/>
+                            <ListViewColumn Key="Aircraft_Type_Number_LV" Caption="机型" ColumnType="Dict" DataColumnKey="Aircraft_Type_Number" Width="100px" ItemKey="CHCS_Aircraft_Type"/>
+                            <ListViewColumn Key="Flight_Number_LV" Caption="航班号" ColumnType="Dict" DataColumnKey="Flight_Number" ItemKey="CHCS_Flight"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('CHCS_Handover', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="30%"/>
+                    <SplitSize Size="70%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

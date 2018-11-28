@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="练习自定义表单" Icon="Bill.png" Key="newTestCustomBill">
+        <EntryItem Caption="test" FormKey="testView" Key="testView" Type="Form"/>
+        <EntryItem Caption="dict" FormKey="DictEdit" Key="dict" Parameters="FormKey=dict" Type="Form"/>
+        <EntryItem Caption="请假" FormKey="qingjiaView" Key="qingjiaView" Type="Form"/>
+        <EntryItem Caption="省份字典" FormKey="DictEdit" Key="Province" Parameters="FormKey=Province" Type="Form"/>
+        <EntryItem Caption="城市字典" FormKey="DictEdit" Key="city" Parameters="FormKey=city" Type="Form"/>
+        <EntryItem Caption="省市" FormKey="provincecityView" Key="provincecityView" Type="Form"/>
+        <EntryItem Caption="求职信息表" FormKey="qiuzhixinxiView" Key="qiuzhixinxiView" Type="Form"/>
+        <EntryItem Caption="链式字典" FormKey="DictEdit" Key="lianshidict" Parameters="FormKey=lianshidict" Type="Form"/>
+        <EntryItem Caption="shitu1" FormKey="Shitu1" Key="Shitu1" Type="Form"/>
+        <EntryItem Caption="入库单" FormKey="RukudanView" Key="RukudanView" Type="Form"/>
+        <EntryItem Caption="物料字典" FormKey="DictEdit" Key="MaterialDict" Parameters="FormKey=MaterialDict" Type="Form"/>
+        <EntryItem Caption="余额表序时簿" FormKey="Inventory" Key="Inventory" Type="Form"/>
+        <EntryItem Caption="入库单2" FormKey="Rukudan2View" Key="Rukudan2View" Type="Form"/>
+        <EntryItem Caption="仓库字典" FormKey="DictEdit" Key="Warehouse" Parameters="FormKey=Warehouse" Type="Form"/>
+        <EntryItem Caption="出库单" FormKey="ChukudanView" Key="ChukudanView" Type="Form"/>
+        <EntryItem Caption="采购单" FormKey="CaigoudanView" Key="CaigoudanView" Type="Form"/>
+        <EntryItem Caption="入库单3" FormKey="Rukudan3View" Key="Rukudan3View" Type="Form"/>
+        <EntryItem Caption="采购单1" FormKey="Caigoudan1View" Key="Caigoudan1View" Type="Form"/>
+        <EntryItem Caption="入库单1" FormKey="Rukudan1View" Key="Rukudan1View" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
+    </Entry>
+</Entry>

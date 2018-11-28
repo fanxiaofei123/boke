@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_TruckInsurance" Caption="车辆保险单" FormType="Entity" ViewKey="V_TruckInsuranceView">
+    <DataSource RefObjectKey="LRP_TruckInsurance"/>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[
+				New('V_TruckInsurance');
+			]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[
+			    SaveData(); UpdateView();
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[
+			Confirm('是否确定删除当前单据？','YES_NO',{YES:{DeleteData();UpdateView();Close();},NO:{}});
+			
+			]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Confirm" Caption="确认" RefKey="Confirm"/>
+        <Operation Key="Confirm-R" Caption="撤销确认" RefKey="Confirm-R"/>
+        <Operation Key="ToCancel" Caption="作废" RefKey="ToCancel"/>
+        <Operation Key="ToCancel-R" Caption="撤销作废" RefKey="ToCancel-R"/>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="QueryLicenseNo">
+            <Statement DBType="MySql">
+                <![CDATA[SELECT LicenseNo FROM LRP_Truck WHERE OID = ?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="No" Caption="保险单号" BuddyKey="Lab_No" X="1" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_TruckInsurance"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="保险单号" X="0" Y="0"/>
+                            <Dict Key="FleetId" Caption="车队" BuddyKey="Lab_FleetId" X="4" Y="0" Enable="!ReadOnly()&amp;&amp;Status==100" ItemKey="LRP_Fleet" AsQuery="true">
+                                <DataBinding ColumnKey="FleetId" TableKey="LRP_TruckInsurance" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_FleetId" Caption="车队" X="3" Y="0"/>
+                            <Dict Key="TruckId" Caption="车辆" BuddyKey="Lab_TruckId" X="7" Y="0" Enable="!ReadOnly()&amp;&amp;Status==100" ItemKey="LRP_Truck">
+                                <DataBinding ColumnKey="TruckId" TableKey="LRP_TruckInsurance" Required="true"/>
+                                <ItemFilter ItemKey="LRP_Truck">
+                                    <Filter Query="SELECT OID FROM LRP_Truck WHERE FleetId = ? " Type="DataSet">
+                                        <FilterValue DataType="Long" ParaValue="FleetId" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_TruckId" Caption="车辆" X="6" Y="0"/>
+                            <Dict Key="InsuranceCompanyId" Caption="保险公司" BuddyKey="Lab_InsuranceCompanyId" X="4" Y="1" Enable="!ReadOnly()&amp;&amp;Status==100" ItemKey="LRP_InsuranceCompany">
+                                <DataBinding ColumnKey="InsuranceCompanyId" TableKey="LRP_TruckInsurance" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_InsuranceCompanyId" Caption="保险公司" X="3" Y="1"/>
+                            <Dict Key="InsuranceTypeId" Caption="险种" BuddyKey="Lab_InsuranceTypeId" X="7" Y="1" Enable="!ReadOnly()&amp;&amp;Status==100" ItemKey="LRP_InsuranceType" AsQuery="true">
+                                <DataBinding ColumnKey="InsuranceTypeId" TableKey="LRP_TruckInsurance" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_InsuranceTypeId" Caption="险种" X="6" Y="1"/>
+                            <TextEditor Key="PoliceNo" Caption="保单号" BuddyKey="Lab_PoliceNo" X="1" Y="2" Enable="!ReadOnly()&amp;&amp;Status==100" AsQuery="true">
+                                <DataBinding ColumnKey="PoliceNo" TableKey="LRP_TruckInsurance" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_PoliceNo" Caption="保单号" X="0" Y="2"/>
+                            <DatePicker Key="EffectiveDate" Caption="生效日期" BuddyKey="Lab_EffectiveDate" X="4" Y="2" Enable="!ReadOnly()&amp;&amp;Status==100" AsQuery="true">
+                                <DataBinding ColumnKey="EffectiveDate" TableKey="LRP_TruckInsurance" Required="true"/>
+                                <Format/>
+                            </DatePicker>
+                            <Label Key="Lab_EffectiveDate" Caption="生效日期" X="3" Y="2"/>
+                            <NumberEditor Key="Premium" Caption="保费" BuddyKey="Lab_Premium" X="1" Y="3" Enable="!ReadOnly()&amp;&amp;Status==100">
+                                <DataBinding ColumnKey="Premium" TableKey="LRP_TruckInsurance"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Premium" Caption="保费" X="0" Y="3"/>
+                            <NumberEditor Key="InsuredAmount" Caption="投保金额" BuddyKey="Lab_InsuredAmount" X="4" Y="3" Enable="!ReadOnly()&amp;&amp;Status==100">
+                                <DataBinding ColumnKey="InsuredAmount" TableKey="LRP_TruckInsurance"/>
+                            </NumberEditor>
+                            <Label Key="Lab_InsuredAmount" Caption="投保金额" X="3" Y="3"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="3" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_TruckInsurance" DefaultValue="100"/>
+                                <Item Caption="已输入" Key="prepared" Value="100"/>
+                                <Item Caption="已确认" Key="confirmed" Value="200"/>
+                                <Item Caption="已作废" Key="cancelled" Value="20"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="6" Y="3"/>
+                            <TextEditor Key="LicenseNo" Caption="车牌号" BuddyKey="Lab_LicenseNo" X="1" Y="1" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="LicenseNo" DefaultFormulaValue="GetDictValue(&quot;LRP_Truck&quot;, TruckId, &quot;LicenseNo&quot;)" TableKey="LRP_TruckInsurance"/>
+                            </TextEditor>
+                            <Label Key="Lab_LicenseNo" Caption="车牌号" X="0" Y="1"/>
+                            <DatePicker Key="ExpireDate" Caption="截至日期" BuddyKey="Lab_ExpireDate" X="7" Y="2" Enable="!ReadOnly()&amp;&amp;Status==100" AsQuery="true" Width="pref">
+                                <DataBinding ColumnKey="ExpireDate" TableKey="LRP_TruckInsurance" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[if(ToString(EffectiveDate) != "" && ToString(ExpireDate) != "" && EffectiveDate > ExpireDate){
+    Confirm("截至日期不能小于生效日期");
+    SetValue("ExpireDate", "");
+}]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <Format/>
+                            </DatePicker>
+                            <Label Key="Lab_ExpireDate" Caption="截至日期" X="6" Y="2"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="55px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SystemInfo" Height="pref" Padding="10px" Caption="系统信息">
+                            <Label Key="L_CREATOR" Caption="创建人" X="0" Y="0"/>
+                            <Dict Key="CREATOR" Caption="创建人" BuddyKey="L_CREATOR" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_TruckInsurance"/>
+                            </Dict>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" X="5" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TruckInsurance"/>
+                            </DatePicker>
+                            <Label Key="L_MODIFYTIME" Caption="修改时间" X="4" Y="1"/>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" X="1" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_TruckInsurance"/>
+                            </DatePicker>
+                            <Label Key="L_CREATETIME" Caption="创建时间" X="0" Y="1"/>
+                            <Dict Key="MODIFIER" Caption="修改人" X="5" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_TruckInsurance"/>
+                            </Dict>
+                            <Label Key="L_MODIFIER" Caption="修改人" X="4" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%" MinWidth="50px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="190px"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_TruckInsurance" Caption="车辆保险单" NoPrefix="TI" PrimaryTableKey="LRP_TruckInsurance" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_TruckInsurance" Caption="车辆保险单">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="No" Caption="保险单号" DataType="Varchar"/>
+            <Column Key="FleetId" Caption="车队" DataType="Long"/>
+            <Column Key="TruckId" Caption="车辆id" DataType="Long" Precision="18" Scale="0"/>
+            <Column Key="LicenseNo" Caption="牌照号" DataType="Varchar" Length="40" Precision="18" Scale="0"/>
+            <Column Key="InsuranceCompanyId" Caption="保险公司id" DataType="Long"/>
+            <Column Key="InsuranceTypeId" Caption="险种" DataType="Long"/>
+            <Column Key="PoliceNo" Caption="保单号" DataType="Varchar" Length="40"/>
+            <Column Key="EffectiveDate" Caption="生效日期" DataType="DateTime" DefaultValue=""/>
+            <Column Key="ExpireDate" Caption="截至日期" DataType="DateTime"/>
+            <Column Key="Premium" Caption="保费" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="InsuredAmount" Caption="投保金额" DataType="Numeric" Precision="16" Scale="2"/>
+        </Table>
+    </TableCollection>
+    <MigrationCheckRuleCollection>
+        <MigrationCheckScript RunType="Server">
+            <![CDATA[TotalPoints >=0 && AvailablePoints >= 0]]>
+        </MigrationCheckScript>
+    </MigrationCheckRuleCollection>
+</DataObject>

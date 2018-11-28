@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DriverSign">
+    <DataSource RefObjectKey="LRP_DriverSign"/>
+    <QueryCollection>
+        <Query Key="QueryTruckTypeList" Description="根据司机的调度组织过滤车型">
+            <Statement>
+                <![CDATA[select distinct tt.OID as k,tt.name as n from LRP_TruckType tt join LRP_Truck t on tt.oid=t.TruckTypeId join LRP_TruckDispatchOrg tdo on t.oid=tdo.soid where tdo.DispatchOrgId in (select DispatchOrgId from LRP_Driver_Org where soid=?)]]>
+            </Statement>
+        </Query>
+        <Query Key="QueryLicenseNo" Description="根据车型取到车牌号">
+            <Statement>
+                <![CDATA[
+				select t.LicenseNo as k,t.LicenseNo as n from LRP_Truck t join LRP_TruckDispatchOrg tdo on t.oid=tdo.soid where t.TruckTypeId = ? and t.TruckStatus = 1 and tdo.DispatchOrgId in (select DispatchOrgId from LRP_Driver_Org where soid=?)
+				]]>
+            </Statement>
+        </Query>
+        <Query Key="QuerySignStatus" Description="查找签到状态">
+            <Statement>
+                <![CDATA[select SignStatus from LRP_DriverSign where DriverId = ? and SignOnTime in (select max(SignOnTime) from LRP_DriverSign where DriverId = ?)]]>
+            </Statement>
+        </Query>
+        <Query Key="QueryVINNo" Description="根据车牌号取到车架号">
+            <Statement>
+                <![CDATA[
+				select VINNo from LRP_Truck  where LicenseNo = ?
+				]]>
+            </Statement>
+        </Query>
+        <Query Key="UpdateDriver" Description="修改司机app使用状态是在线">
+            <Statement>
+                <![CDATA[
+				update LRP_Driver set AppStatus = 1 where oid = ?
+				]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="GridLayoutPanel_quick1" Caption="GridLayoutPanel1" TopMargin="20px" LeftPadding="20px" RightPadding="20px" X="0" Y="0">
+                <Format BackColor="#f1f3f8"/>
+                <Dict Key="DriverId" Caption="司机" ItemKey="LRP_Driver" Visible="false" Height="auto" X="0" Y="0">
+                    <DataBinding TableKey="LRP_DriverSign" ColumnKey="DriverId"/>
+                    <Format ForeColor="#1a1a1a">
+                        <Font Size="16"/>
+                    </Format>
+                </Dict>
+                <ComboBox Key="SignStatus" X="0" Y="0" Visible="false">
+                    <DataBinding TableKey="LRP_DriverSign" ColumnKey="SignStatus" DefaultValue="1"/>
+                    <Item Caption="离线" Key="SignOff" Value="0"/>
+                    <Item Caption="在线" Key="SignOn" Value="1"/>
+                </ComboBox>
+                <DatePicker Key="SignOnTime" Caption="签到时间" Visible="false" Height="auto" X="0" Y="0">
+                    <DataBinding TableKey="LRP_DriverSign" ColumnKey="SignOnTime"/>
+                </DatePicker>
+                <Label Key="lbl_TruckTypeId" Caption="车型：" X="0" Y="0" Height="auto" XSpan="2">
+                    <Format ForeColor="#000000">
+                        <Font Size="16"/>
+                    </Format>
+                </Label>
+                <ComboBox Key="TruckTypeId" Caption="车型" Height="auto" X="2" Y="0" XSpan="3" SourceType="Formula">
+                    <DataBinding TableKey="LRP_DriverSign" ColumnKey="TruckTypeId"/>
+                    <Format ForeColor="#969696">
+                        <Font Size="16"/>
+                    </Format>
+                    <FormulaItems>
+                        <![CDATA[DBNamedQuery('QueryTruckTypeList',GetOperator())]]>
+                    </FormulaItems>
+                </ComboBox>
+                <Label Key="lbl_LicenseNo" Caption="车牌号：" X="0" Y="1" Height="auto" XSpan="2">
+                    <Format ForeColor="#000000">
+                        <Font Size="16"/>
+                    </Format>
+                </Label>
+                <ComboBox Key="LicenseNo" Caption="车牌号" Height="auto" SourceType="Formula" X="2" Y="1" XSpan="3">
+                    <DataBinding TableKey="LRP_DriverSign" ColumnKey="LicenseNo"/>
+                    <Format ForeColor="#969696">
+                        <Font Size="16"/>
+                    </Format>
+                    <FormulaItems>
+                        <![CDATA[DBNamedQuery('QueryLicenseNo',TruckTypeId,GetOperator())]]>
+                    </FormulaItems>
+                </ComboBox>
+                <Button Key="Sign_btn" Caption="签到" X="1" Y="3" XSpan="3" Width="pref">
+                    <Format HAlign="Center" ForeColor="#ffffff" BackColor="#f14c52" HighlightColor="#e64d4d">
+                        <Font Size="16"/>
+                    </Format>
+                    <OnClick>
+                        <![CDATA[
+							if(TruckTypeId==''){
+								ShowToast("请选择车型！！");
+								return true;
+							}
+							if(LicenseNo==''){
+								ShowToast("请选择车牌号！！");
+								return true;
+							}
+							var statusValue = DBNamedQueryValue('QuerySignStatus',GetOperator(),GetOperator());
+							if(statusValue==1){
+								ShowToast("您签到过了");
+							}else{
+								SetValue('DriverId',GetOperator());
+								SetValue('SignOnTime',ServerDate());
+								SaveData();
+								DBNamedUpdate('UpdateDriver',GetOperator());
+								var VINNo = DBNamedQueryValue('QueryVINNo',LicenseNo);
+								Root.SetPara('VINNo',VINNo);
+								ShowToast("签到成功");
+								SetEnable('Sign_btn',false);
+							}
+							
+						
+					]]>
+                    </OnClick>
+                </Button>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="91px"/>
+                    <RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="40px"/>
+                    <ColumnDef Width="20%"/>
+                    <ColumnDef Width="60%"/>
+                    <ColumnDef Width="20%"/>
+                    <ColumnDef Width="40px"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="签到" Location="Center">
+            <Label Key="TitleCenter" Caption="签到" Width="60px">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

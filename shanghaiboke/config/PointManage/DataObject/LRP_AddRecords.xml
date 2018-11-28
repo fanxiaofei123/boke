@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_AddRecords" Caption="用户积分增加记录" NoPrefix="UPAR" PrimaryTableKey="LRP_AddRecords" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_AddRecords" Caption="用户积分增加记录">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Key="UserId" Caption="货主用户id" DataType="Long"/>
+            <Column Key="UserPointsRuleId" Caption="用户积分规则id" DataType="Long"/>
+            <Column Key="RefNo" Caption="相关单号" DataType="Varchar" Length="40"/>
+            <Column Key="Points" Caption="积分" DataType="Numeric" Precision="18" Scale="0"/>
+            <Column Key="UsedPoints" Caption="已用积分" DataType="Numeric" Precision="18" Scale="0"/>
+            <Column Key="ExpireDate" Caption="失效日期" DataType="Date"/>
+            <Column Key="UseStatus" Caption="使用状态" DataType="Varchar" DefaultValue="0"/>
+        </Table>
+    </TableCollection>
+</DataObject>

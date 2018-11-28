@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+        <V_SerialQuantQuery>SerialQuantQuery</V_SerialQuantQuery>
+        <Query>Query</Query>
+        <Lab_StoreareaId>StoreareaId</Lab_StoreareaId>
+        <Lab_MaterialStatusId>MaterialStatus</Lab_MaterialStatusId>
+        <Lab_LocationId>LocationId</Lab_LocationId>
+        <Lab_OwnerId>OwnerId</Lab_OwnerId>
+        <Lab_MaterialId>Material</Lab_MaterialId>
+        <Lab_StoreroomId>StoreroomId</Lab_StoreroomId>
+        <Lab_SerialNo>SerialNo</Lab_SerialNo>
+        <Reset>Reset</Reset>
+        <Lab_WarehouseCenterId>WarehouseCenterId</Lab_WarehouseCenterId>
+    </UI>
+    <ListViewColumn>
+        <StoreroomId_LV>StoreroomId</StoreroomId_LV>
+        <WarehouseCenterId_LV>WarehouseCenterId</WarehouseCenterId_LV>
+        <StoreareaId_LV>StoreareaId</StoreareaId_LV>
+        <LocationId_LV>LocationId</LocationId_LV>
+        <MaterialId_LV>Material</MaterialId_LV>
+        <OwnerId_LV>OwnerId</OwnerId_LV>
+        <MaterialStatusId_LV>MaterialStatus</MaterialStatusId_LV>
+        <HandlingUnitNo_LV>ContainerNo</HandlingUnitNo_LV>
+        <SerialNo_LV>SerialNo</SerialNo_LV>
+    </ListViewColumn>
+</StringTable>

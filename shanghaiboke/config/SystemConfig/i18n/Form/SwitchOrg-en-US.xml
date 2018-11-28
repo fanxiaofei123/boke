@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+	    <SwitchOrg>SwitchOrg</SwitchOrg>
+        <Lab_PostWareHouseId>Post switching warehouse</Lab_PostWareHouseId>
+        <btn_cancel>Cancel</btn_cancel>
+        <Lab_CurDispatchId>CurrentDispatchId</Lab_CurDispatchId>
+        <Lab_CurWarehouseId>CurrentWarehouse</Lab_CurWarehouseId>
+        <btn_ok>Ok</btn_ok>
+        <Lab_PostDispatchId>Post switching Dispatch organization</Lab_PostDispatchId>
+    </UI>
+</StringTable>

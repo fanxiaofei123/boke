@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Entry>
+        <SystemConfig_System_Operator>Operator</SystemConfig_System_Operator>
+        <SystemConfig_System_Role>Role</SystemConfig_System_Role>
+        <SystemConfig_System_V_QuantUserDefFields_LRP>QuantUserDefFields</SystemConfig_System_V_QuantUserDefFields_LRP>
+        <SystemConfig_System_Portal>Portal</SystemConfig_System_Portal>
+        <SystemConfig_System_RoleRightsSet>RoleRightsSet</SystemConfig_System_RoleRightsSet>
+        <SystemConfig_System_LoginOperators>LoginOperators</SystemConfig_System_LoginOperators>
+        <SystemConfig_System>System</SystemConfig_System>
+        <SystemConfig_System_SwitchOrg>SwitchOrg</SystemConfig_System_SwitchOrg>
+		<SystemConfig_System_V_WarehouseKeeper_LRP>WarehouseKeeper</SystemConfig_System_V_WarehouseKeeper_LRP>
+    </Entry>
+</StringTable>

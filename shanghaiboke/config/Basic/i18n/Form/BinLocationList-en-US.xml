@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>New</New>
+        <Print>Print</Print>
+        <ImportExcel>ImportExcel</ImportExcel>
+    </Opt>
+    <UI>
+	    <BinLocationList>BinLocationList</BinLocationList>
+        <Lab_LocTypeId>LocTypeId</Lab_LocTypeId>
+        <Lab_LocLayer>LocLayer</Lab_LocLayer>
+        <Lab_name>Name</Lab_name>
+        <Button1>Inquire</Button1>
+        <Lab_code>inquire</Lab_code>
+        <Lab_StoreareaId>StoreareaId</Lab_StoreareaId>
+        <Lab_StoreroomId>StoreroomId</Lab_StoreroomId>
+        <Lab_Rack>Rack</Lab_Rack>
+        <Lab_Rack_Face>Rack_Face</Lab_Rack_Face>
+    </UI>
+    <ListViewColumn>
+        <name_c>Name</name_c>
+        <LocTypeId_c>LocTypeId</LocTypeId_c>
+        <StoreroomId_c>StoreroomId</StoreroomId_c>
+        <RackFace>RackFace</RackFace>
+        <code_c>Code</code_c>
+        <Rack_1>Rack</Rack_1>
+        <LocLayer1>LocLayer</LocLayer1>
+        <StoreareaId_c>StoreareaId</StoreareaId_c>
+    </ListViewColumn>
+	<Items-Rack_Face>
+	   <Item-A>A</Item-A>
+	   <Item-B>B</Item-B>
+	</Items-Rack_Face>
+</StringTable>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="FinishInspectDetail" Authenticate="false">
+    <DataSource>
+        <DataObject Key="FinishInspectDetail" Caption="检验完成明细" PrimaryTableKey="LRP_WMTx_L">
+            <TableCollection>
+                <Table Key="LRP_WMTx_L" Caption="检验完成明细" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="MaterialId" Caption="物料ID" DataType="Long"/>
+                    <Column Key="MaterialUnit" Caption="单位" DataType="Varchar" Length="10"/>
+                    <Column Key="SrcBatchNo" Caption="批号" DataType="Varchar" Length="100"/>
+                    <Column Key="Qty" Caption="数量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="SrcLocationId" Caption="储位" DataType="Long"/>
+                    <Column Key="MtlName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MtlCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Column Key="SrcLocationCode" Caption="源储位代码" DataType="Varchar"/>
+                    <Column Key="SrcMaterialStatusId" Caption="源物料状态" DataType="Varchar"/>
+                    <Column Key="DestMaterialStatusId" Caption="目标物料状态" DataType="Long"/>
+                    <Column Key="SrcMaterialStatusName" Caption="源物料状态名称" DataType="Varchar"/>
+                    <Column Key="DestMaterialStatusName" Caption="目标物料状态名称" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('OID');"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT l.OID,
+  l.SOID,
+  l.MaterialId,
+  l.MaterialUnit,
+  l.SrcBatchNo,
+  l.Qty,
+  l.SrcMaterialStatusId,
+  l.DestMaterialStatusId,
+  l.SrcLocationId,
+  m.Name      AS MtlName,
+  m.Code      AS MtlCode,
+  sms.name as SrcMaterialStatusName,
+  dms.name as DestMaterialStatusName,
+  srcloc.Code AS SrcLocationCode
+FROM LRP_WMTx_L l
+LEFT JOIN LRP_Material m
+ON m.oid = l.MaterialId
+LEFT JOIN LRP_Location srcloc
+ON srcloc.oid = l.SrcLocationId
+LEFT JOIN LRP_MaterialStatus sms
+ON sms.oid = l.SrcMaterialStatusId 
+LEFT JOIN LRP_MaterialStatus dms
+ON dms.oid = l.DestMaterialStatusId
+    where
+        l.SOID = ?
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[
+				LoadData();
+			 ]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#e6e6e6"/>
+                <TableView Caption="物料明细" Key="list" X="0" Y="0" Padding="5px">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" TableKey="LRP_WMTx_L" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2">
+                            <GridLayoutPanel Key="GridLayoutPanel2" Caption="GridLayoutPanel2">
+                                <Label Key="MtlCode" Caption="无物料代码" X="4" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MtlCode"/>
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <Label Key="MtlName" Caption="无物料名称" X="6" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MtlName"/>
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <TextEditor Key="SrcBatchNo" Caption="批号" BuddyKey="Lab_SrcBatchNo" X="2" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="SrcBatchNo"/>
+                                    <Format HAlign="Left"/>
+                                </TextEditor>
+                                <Label Key="Lab_SrcBatchNo" Caption="批号：" X="1" Y="1"/>
+                                <Label Key="SrcLocationName" Caption="无储位代码" X="1" Y="0" Enable="false" XSpan="2">
+                                    <DataBinding ColumnKey="SrcLocationCode"/>
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <NumberEditor Key="Qty" Caption="数量" BuddyKey="Lab_Qty" X="5" Y="1" Enable="false" Scale="0">
+                                    <DataBinding ColumnKey="Qty"/>
+                                    <Format HAlign="Left"/>
+                                </NumberEditor>
+                                <Label Key="Lab_Qty" Caption="数量：" X="4" Y="1"/>
+                                <TextEditor Key="MaterialUnit" X="6" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                    <Format HAlign="Left"/>
+                                </TextEditor>
+                                <TextEditor Key="DestMaterialStatusName" Caption="目标状态：" BuddyKey="Lab_DestMaterialStatusName" X="5" Y="2" Enable="false" XSpan="2">
+                                    <DataBinding ColumnKey="DestMaterialStatusName"/>
+                                    <Format HAlign="Left"/>
+                                </TextEditor>
+                                <Label Key="Lab_DestMaterialStatusName" Caption="目标状态：" X="4" Y="2"/>
+                                <TextEditor Key="SrcMaterialStatusName" Caption="原状态：" BuddyKey="Lab_SrcMaterialStatusName" X="2" Y="2" Enable="false">
+                                    <DataBinding TableKey="LRP_WMTx_L" ColumnKey="SrcMaterialStatusName"/>
+                                </TextEditor>
+                                <Label Key="Lab_SrcMaterialStatusName" Caption="原状态：" X="1" Y="2"/>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="45px"/>
+                                    <ColumnDef Width="55%"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="60px"/>
+                                    <ColumnDef Width="15%"/>
+                                    <ColumnDef Width="30%"/>
+                                    <ColumnDef Width="10px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection RowGap="5">
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection ColumnGap="5">
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara Formula="Para('OID')" Key="OID" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="检验完成明细" Location="Center">
+            <Label Key="TitleCenter" Caption="检验完成明细" Width="pref">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

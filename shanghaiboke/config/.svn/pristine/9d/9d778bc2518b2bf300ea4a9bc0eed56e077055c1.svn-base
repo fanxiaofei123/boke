@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Cancel>Cancel</Cancel>
+        <Lab_LackQty>LackQty</Lab_LackQty>
+        <AddAll>AddAll</AddAll>
+        <Save>Save</Save>
+        <OrderTitle>ShipByLocation</OrderTitle>
+        <Lab_AddQty>AddQty</Lab_AddQty>
+        <PickQty_label>PickQty</PickQty_label>
+        <Qty_label>Qty</Qty_label>
+    </UI>
+    <Prompt>
+        <GetMaterialCode>MaterialCode</GetMaterialCode>
+    </Prompt>
+</StringTable>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Label2>Not currently has stores documents!Not currently has stores documents!</Label2>
+        <OrderTitle>QuickPutaway</OrderTitle>
+        <cztzd>search</cztzd>
+        <sjls>history</sjls>
+        <lab_NoticeNo3>NoticeNo</lab_NoticeNo3>
+        <lab_OwnerId3>Owner</lab_OwnerId3>
+        <lab_ReceiveDate>ReceiveDate</lab_ReceiveDate>
+        <lab_OwnerNo3>OwnerNo</lab_OwnerNo3>
+        <Qurey>Qurey</Qurey>
+		<lab_ReceiveDate_To>ReceiveDate_To</lab_ReceiveDate_To>
+		<reset>Reset</reset>
+    </UI>
+		<Items-TxTypeCode> 
+			<Item-InboundNotice>InboundNotice</Item-InboundNotice>
+			<Item-ReturnNotice>ReturnNotice</Item-ReturnNotice>
+		</Items-TxTypeCode>
+	<Items-Status> 
+		<Item-200>enter</Item-200>
+		<Item-500>confirmed</Item-500>
+	</Items-Status>
+	<Items-Status2> 
+		<Item-100>enter</Item-100>
+		<Item-500>processing</Item-500>
+		<Item-900>finish</Item-900>
+	</Items-Status2>
+</StringTable>

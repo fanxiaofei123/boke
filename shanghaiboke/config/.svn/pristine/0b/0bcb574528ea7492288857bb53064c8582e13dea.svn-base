@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="GetRejectCause" >
+    <Body>
+        <Block>
+            <TableView Key="main">
+                <Format BackColor="#e6e6e6"/>
+                <TableRowCollection>
+                    <TableRow Key="r1" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2" TopMargin="10px">
+                        <LinearLayoutPanel Key="user_panel" Orientation="Horizontal" Height="120px" LeftPadding="20px" RightPadding="20px">
+                            <TextEditor Key="RejectCause" Caption="请输入拒绝原因" PromptText="请输入拒绝原因" BorderStyle="none" Width="0px" Weight="1.0" Height="auto"/>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r2" TopMargin="50px" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2">
+                        <LinearLayoutPanel Key="r4_panel" Height="50px" Orientation="Horizontal">
+                            <Format BackColor="#f0f2f7"/>
+                            <Button LeftMargin="10px" RightMargin="10px" Key="logout" Caption="确定" Width="0px" Weight="1.0" Height="auto" BorderStyle="none" BorderRadius="5">
+                                <Format ForeColor="#ffffff" BackColor="#f14c52">
+                                    <Font Size="16"/>
+                                </Format>
+                                <OnClick>
+                                    <![CDATA[
+										if(RejectCause == ""){
+											ShowToast('请输入拒绝原因');
+											return true;
+										}
+										InvokeService('LRP_DriverReceiveOrder', false, false, GetPara('OID'), false, RejectCause); 										
+										Parent.Close();
+										//SendSignal('UserInfoChanged');
+										Close();
+									]]>
+                                </OnClick>
+                            </Button>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+        <ViewCollection>
+            <View Key="All"/>
+        </ViewCollection>
+    </Body>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="请输入拒绝原因" Location="Center">
+            <Label Key="TitleCenter" Caption="请输入拒绝原因" Width="100%">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

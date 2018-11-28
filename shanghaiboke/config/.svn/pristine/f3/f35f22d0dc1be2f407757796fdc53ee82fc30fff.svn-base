@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Contract_Warning_View" Caption="合同有效期预警" FormType="View">
+    <DataSource RefObjectKey="CHCS_Contract_Warning"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                        <Dict Key="Warning_Level" Caption="预警级别" BuddyKey="Lab_Warning_Level" X="1" Y="0" ItemKey="CHCS_Warn_Time_Set">
+                            <Condition ColumnKey="Warning_Level" TableKey="CHCS_Contract_Warning" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_Warning_Level" Caption="预警级别" X="0" Y="0"/>
+                        <TextEditor Key="Contract_Code" Caption="合同编号" BuddyKey="Lab_Contract_Code" X="3" Y="0">
+                            <Condition ColumnKey="Contract_Code" TableKey="CHCS_Contract_Warning" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Contract_Code" Caption="合同编号" X="2" Y="0"/>
+                        <TextEditor Key="Supplier_NO" Caption="供应商编号" BuddyKey="Lab_Supplier_NO" X="5" Y="0">
+                            <Condition ColumnKey="Supplier_NO" TableKey="CHCS_Contract_Warning" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Supplier_NO" Caption="供应商编号" X="4" Y="0"/>
+                        <DatePicker Key="Effective_Date" Caption="合同生效日期" BuddyKey="Lab_Effective_Date" X="1" Y="1">
+                            <Condition ColumnKey="Effective_Date" TableKey="CHCS_Contract_Warning" CondSign="between" Group="Effective_Date" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Effective_Date" Caption="合同生效日期" X="0" Y="1"/>
+                        <DatePicker Key="Expiration_Date" Caption="合同到期日期" BuddyKey="Lab_Expiration_Date" X="3" Y="1">
+                            <Condition ColumnKey="Expiration_Date" TableKey="CHCS_Contract_Warning" CondSign="between" Group="Effective_Date" GroupTail="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Expiration_Date" Caption="合同到期日期" X="2" Y="1"/>
+                        <TextEditor Key="Contract_Unit" Caption="供应商名称" BuddyKey="Lab_Contract_Unit" X="5" Y="1">
+                            <Condition ColumnKey="Contract_Unit" TableKey="CHCS_Contract_Warning" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Contract_Unit" Caption="供应商名称" X="4" Y="1"/>
+                        <TextEditor Key="Supplier_Abbr" Caption="供应商简称" BuddyKey="Lab_Supplier_Abbr" X="1" Y="2">
+                            <Condition ColumnKey="Supplier_Abbr" TableKey="CHCS_Contract_Warning" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Supplier_Abbr" Caption="供应商简称" X="0" Y="2"/>
+                        <TextEditor Key="Contract_Name" Caption="合同名称" BuddyKey="Lab_Contract_Name" X="3" Y="2">
+                            <Condition ColumnKey="Contract_Name" TableKey="CHCS_Contract_Warning" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Contract_Name" Caption="合同名称" X="2" Y="2"/>
+                        <Button Key="Query" Caption="查询" X="4" Y="3">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Reset" Caption="重置" X="5" Y="3">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowHeight="30" RowGap="6">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="CHCS_Contract_Warning">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="Close_Warning" Caption="关闭预警" ColumnType="Button" Enable="
+(GetDictValue(&quot;CHCS_Warn_Time_Set&quot;, GetCellValue(&quot;ListView1&quot;, -1, &quot;Warning_Level_LV&quot;), &quot;Code&quot;)==0)||(IsNull(GetCellValue(&quot;ListView1&quot;, -1, &quot;Warning_Level_LV&quot;)))"/>
+                            <ListViewColumn Key="Contract_Code_LV" Caption="合同编号" ColumnType="TextEditor" DataColumnKey="Contract_Code"/>
+                            <ListViewColumn Key="Contract_Name_LV" Caption="合同名称" ColumnType="TextEditor" DataColumnKey="Contract_Name"/>
+                            <ListViewColumn Key="Supplier_NO_LV" Caption="供应商编号" ColumnType="TextEditor" DataColumnKey="Supplier_NO"/>
+                            <ListViewColumn Key="Contract_Unit_LV" Caption="供应商名称" ColumnType="TextEditor" DataColumnKey="Contract_Unit"/>
+                            <ListViewColumn Key="Supplier_Abbr_LV" Caption="供应商简称" ColumnType="TextEditor" DataColumnKey="Supplier_Abbr"/>
+                            <ListViewColumn Key="Effective_Date_LV" Caption="合同生效日期" ColumnType="DatePicker" DataColumnKey="Effective_Date"/>
+                            <ListViewColumn Key="Expiration_Date_LV" Caption="合同到期日期" ColumnType="DatePicker" DataColumnKey="Expiration_Date" Width="109px"/>
+                            <ListViewColumn Key="Maturity_Days_LV" Caption="距离到期日天数" ColumnType="TextEditor" DataColumnKey="Maturity_Days" Width="90px"/>
+                            <ListViewColumn Key="Warning_Level_LV" Caption="预警级别" ColumnType="Dict" DataColumnKey="Warning_Level" ItemKey="CHCS_Warn_Time_Set"/>
+                        </ListViewColumnCollection>
+                    </ListView>
+                    <SplitSize Size="35%"/>
+                    <SplitSize Size="65%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

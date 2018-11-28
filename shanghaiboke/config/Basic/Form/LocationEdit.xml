@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="储位编辑" FormulaAbbrCaption="Para('EntryCaption')" FormulaCaption="Para('EntryCaption')" Key="LocationEdit">
+    <OperationCollection>
+        <Operation Caption="新增(N)" Key="NewDict" ShortCuts="Ctrl+N" Visible="!Container.IsNewOrEdit()">
+            <Action>
+                <![CDATA[
+				NewDict(Para('FormKey'));SetEnable('DictView',false);ClearSelection('DictView');
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="修改(M)" Enable="GetSelectedValue('DictView','OID') &gt; 0" Key="Modify" ShortCuts="Ctrl+M" Visible="!Container.IsNewOrEdit()">
+            <Action>
+                <![CDATA[
+				Container.Edit();SetEnable('DictView',false);Container.Account_EnableSet();	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="保存(S)" Key="Save" ShortCuts="Ctrl+S" Visible="Container.IsNewOrEdit()">
+            <Action>
+                <![CDATA[Container.SaveData();RefreshDictView('DictView',Container.GetDataObjectKey(),Container.GetOID(),Container.GetInitOperationState());SetEnable('DictView',true)]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消(Z)" Key="Cancel" ShortCuts="Ctrl+Z" Visible="Container.IsNewOrEdit()">
+            <Action>
+                <![CDATA[
+				Container.Cancel();SetEnable('DictView',true)	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="启用" Enable="IsEnable('DictView') &amp;&amp; GetSelectedValue('DictView','Enable') &lt;&gt; 1" Key="EnabledDict">
+            <Action>
+                <![CDATA[
+				
+					Container.EnabledDict(Container.GetDataObjectKey(),Container.GetOID());
+					RefreshDictView('DictView',Container.GetDataObjectKey(),Container.GetOID(),Container.GetInitOperationState());
+					
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="停用" Enable="IsEnable('DictView') &amp;&amp; GetSelectedValue('DictView','Enable') == 1" Key="DisabledDict">
+            <Action>
+                <![CDATA[
+				
+					Container.EnabledDict(Container.GetDataObjectKey(),Container.GetOID(),0);
+					RefreshDictView('DictView',Container.GetDataObjectKey(),Container.GetOID(),Container.GetInitOperationState());
+					
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="作废" Enable="IsEnable('DictView') &amp;&amp; GetSelectedValue('DictView','Enable') == 0" Key="InvalidDict">
+            <Action>
+                <![CDATA[
+				
+					Container.EnabledDict(Container.GetDataObjectKey(),Container.GetOID(),-1);
+					RefreshDictView('DictView',Container.GetDataObjectKey(),Container.GetOID(),Container.GetInitOperationState());
+					
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Enable="IsEnable('DictView') &amp;&amp; GetSelectedValue('DictView','Enable') == -1" Key="DeleteDict">
+            <Action>
+                <![CDATA[
+				Confirm('确定要删除吗？','YES_NO',{
+					YES:{
+						Container.DeleteData();
+						RefreshDictView('DictView',Container.GetDataObjectKey(),Container.GetOID(),Container.GetInitOperationState());
+					}
+				})
+				
+				]]>
+            </Action>
+        </Operation>
+        <Operation Key="Import" Caption="导入Excel(I)" ShortCuts="Ctrl+I" Visible="!Container.IsNewOrEdit()">
+			<Action>
+				<![CDATA[ImportExcel();]]>	
+			</Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="Split">
+                    <FlexFlowLayoutPanel Key="Left">
+                        <GridLayoutPanel Caption="GridLayoutPanel1" Height="100px" Key="GridLayoutPanel1" Padding="10px">
+                            <Dict Caption="仓间" ItemKey="LRP_Storeroom" Key="StoreroomId" X="1" Y="0">
+                                <ItemFilter ItemKey="LRP_Storeroom">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue FieldKey="WarehouseCenterId" RefValue="WarehouseCenterId" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Caption="仓间" Key="L_StoreroomId" X="0" Y="0"/>
+                            <Dict Caption="库区" ItemKey="LRP_Storearea" Key="StoreareaId" Enable="StoreroomId&gt;0" X="1" Y="1">
+                                <ItemFilter ItemKey="LRP_Storearea">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue FieldKey="StoreroomId" RefValue="StoreroomId" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Caption="库区" Key="L_StoreareaId" X="0" Y="1"/>
+                            <Dict BuddyKey="Lab_WarehouseCenterId" Caption="仓储中心" ItemKey="LRP_WarehouseCenter" Visible="false" Key="WarehouseCenterId" X="1" Y="2">
+                                <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                            </Dict>
+                            <Label Caption="仓储中心" Key="Lab_WarehouseCenterId" X="0" Y="2"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="50px"/>
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <DictView Key="DictView" Height="100%" FormulaItemKey="GetDataObjectKey(Para('FormKey'))">
+                            <FocusRowChanged>
+                                <![CDATA[
+							OpenDict(Para('FormKey'),GetSelectedValue('DictView','OID'),'Container')
+						]]>
+                            </FocusRowChanged>
+                            <ItemFilter ItemKey="LRP_Location">
+                                <Filter Query="select h.SOID from LRP_Location h  where h.StoreroomId=?" Type="DataSet" Condition="StoreroomId&gt;0 &amp;&amp; StoreareaId&lt;=0">
+                                    <FilterValue ParaValue="StoreroomId" Type="Field"/>
+                                </Filter>
+                                <Filter Query="select h.SOID from LRP_Location h  where h.StoreareaId=?" Type="DataSet" Condition="StoreareaId&gt;0 &amp;&amp; StoreroomId&lt;=0">
+                                    <FilterValue ParaValue="StoreareaId" Type="Field"/>
+                                </Filter>
+                                <Filter Query="select h.SOID from LRP_Location h  where 1=0" Type="DataSet" Condition="StoreareaId&lt;=0 &amp;&amp; StoreroomId&lt;=0"/>
+                                <Filter Query="select SOID from LRP_Location where StoreareaId=? and WarehouseCenterId=?" Type="DataSet" Condition="StoreroomId&gt;0 &amp;&amp; StoreareaId&gt;0">
+                                    <FilterValue ParaValue="StoreareaId" Type="Field"/>
+                                    <FilterValue ParaValue="getCurOrgID();"/>
+                                </Filter>
+                            </ItemFilter>
+                        </DictView>
+                    </FlexFlowLayoutPanel>
+                    <Container Key="Container" Style="Stack"/>
+                    <SplitSize Size="30%"/>
+                    <SplitSize Size="70%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+		ShowDictView('DictView');
+	]]>
+    </OnLoad>
+</Form>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Close>
+
+Close        
+        
+        </Close>
+    </Opt>
+    <UI>
+		<vir_StockCollect>StockCollect</vir_StockCollect>
+        <cancel>
+Reset                
+        </cancel>
+        <Query>
+Query                
+        </Query>
+        <Lab_MaterialStatusId>
+MaterialStatusId                
+        </Lab_MaterialStatusId>
+        <ListView3>
+Stockcollect
+        </ListView3>
+        <Lab_OwnerId>
+OwnerId                
+        </Lab_OwnerId>
+        <Lab_MaterialId>
+MaterialId                
+        </Lab_MaterialId>
+        <Lab_WarehouseCenterId>
+WarehouseCenterId                
+        </Lab_WarehouseCenterId>
+    </UI>
+    <ListViewColumn>
+        <Picture_No4>
+
+PicNo
+        
+        </Picture_No4>
+        <V_OwnerId>
+
+Ownerid
+        
+        </V_OwnerId>
+        <OnhandQty>
+
+Onhandqty
+        
+        </OnhandQty>
+        <Picture_No2>
+
+Picno
+        
+        </Picture_No2>
+        <V_OwnerId_02>
+
+Ownerid
+        
+        </V_OwnerId_02>
+        <V_OwnerId_03>
+
+OwnerId
+        
+        </V_OwnerId_03>
+        <V_OwnerId_04>
+
+Ownerid
+        
+        </V_OwnerId_04>
+        <V_BasicUnit>
+
+Basicunit
+        
+        </V_BasicUnit>
+        <V_WarehouseCenterId>
+
+WarehouseCenterid
+        
+        </V_WarehouseCenterId>
+        <V_MaterialId_03>
+
+Materialid
+        
+        </V_MaterialId_03>
+        <V_MaterialId_02>
+
+Materialid
+        
+        </V_MaterialId_02>
+        <V_MaterialStatusId>
+
+MaterialStatusid
+        
+        </V_MaterialStatusId>
+        <EnglishName4>
+
+Englishname
+        
+        </EnglishName4>
+        <EnglishName1>
+
+Englishname
+        
+        </EnglishName1>
+        <Picture_No1>
+
+Picno
+        
+        </Picture_No1>
+        <EnglishName2>
+
+Englishname
+        
+        </EnglishName2>
+        <V_MaterialId_04>
+
+Materialid
+        
+        </V_MaterialId_04>
+        <OnhandQty_03>
+
+Onhandqty
+        
+        </OnhandQty_03>
+        <V_BasicUnit_03>
+
+Basicunit
+        
+        </V_BasicUnit_03>
+        <V_BasicUnit_02>
+
+Basicunit
+        
+        </V_BasicUnit_02>
+        <OnhandQty_04>
+
+Onhandqty
+        
+        </OnhandQty_04>
+        <V_MaterialId>
+
+MaterialId 
+        
+        </V_MaterialId>
+        <OnhandQty_02>
+
+Onhanqty
+        
+        </OnhandQty_02>
+        <V_BasicUnit_04>
+
+Basicunit
+        
+        </V_BasicUnit_04>
+        <Picture_No>
+
+Picno
+        
+        </Picture_No>
+        <V_MaterialStatusId_02>
+
+Materialstatusid
+        
+        </V_MaterialStatusId_02>
+        <V_MaterialStatusId_03>
+
+Materialstatusid
+        
+        </V_MaterialStatusId_03>
+        <V_WarehouseCenterId_02>
+
+WarehouseCenterid
+        
+        </V_WarehouseCenterId_02>
+        <V_WarehouseCenterId_03>
+
+WarehouseCenterid
+        
+        </V_WarehouseCenterId_03>
+        <V_WarehouseCenterId_04>
+
+WarehouseCenterid
+        
+        </V_WarehouseCenterId_04>
+        <EnglishName>
+
+Englishname
+        
+        </EnglishName>
+    </ListViewColumn>
+</StringTable>

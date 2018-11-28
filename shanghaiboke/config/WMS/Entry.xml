@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="仓储管理" Key="WMS">
+        <Entry Caption="入库管理" Key="Inbound">
+            <EntryItem Caption="入库通知单" FormKey="V_InboundNoticeView" Key="V_InboundNoticeView" Type="Form"/>
+            <EntryItem Caption="退货通知单" FormKey="V_ReturnNoticeView" Key="V_ReturnNoticeView" Type="Form"/>
+            <EntryItem Caption="越库单" FormKey="V_CrossDockingView" Key="V_CrossDockingView" Type="Form"/>
+            <Entry Caption="收货单" Key="Receipt">
+                <EntryItem Caption="按通知收货单" FormKey="V_Tx101View" Key="V_Tx101View" Type="Form"/>
+                <EntryItem Caption="无通知收货单" FormKey="V_Tx102View" Key="V_Tx102View" Type="Form"/>
+                <EntryItem Caption="退货收货单" FormKey="V_Tx103View" Key="V_Tx103View" Type="Form"/>
+                <EntryItem Caption="越库收货单" FormKey="V_Tx104View" Key="V_Tx104View" Type="Form"/>
+            </Entry>
+            <Entry Caption="上架单" Key="Putaway">
+                <EntryItem Caption="按收货单上架" FormKey="V_Tx111View" Key="V_Tx111View" Type="Form"/>
+                <EntryItem Caption="按通知单上架" FormKey="V_Tx112View" Key="V_Tx112View" Type="Form"/>
+                <EntryItem Caption="按收货区库存上架" FormKey="V_Tx113View" Key="V_Tx113View" Type="Form"/>
+                <EntryItem Caption="按加工区库存上架" FormKey="V_Tx114View" Key="V_Tx114View" Type="Form"/>
+            </Entry>
+        </Entry>
+        <Entry Caption="出库管理" Key="Outbound">
+            <EntryItem Caption="出库订单" FormKey="V_OutboundNoticeView" Key="V_OutboundNoticeView" Type="Form"/>
+            <EntryItem Caption="波次单" FormKey="V_WaveView" Key="V_WaveView" Type="Form"/>
+            <EntryItem Caption="退厂订单" FormKey="V_BackNoticeView" Key="V_BackNoticeView" Type="Form"/>
+            <Entry Caption="拣货单" Key="Pick">
+                <EntryItem Caption="按订单拣货" FormKey="V_Tx201View" Key="V_Tx201View" Type="Form"/>
+                <EntryItem Caption="按波次单拣货" FormKey="V_Tx202View" Key="V_Tx202View" Type="Form"/>
+                <EntryItem Caption="无订单拣货" FormKey="V_Tx203View" Key="V_Tx203View" Type="Form"/>
+                <EntryItem Caption="按加工通知单拣货" FormKey="V_Tx204View" Key="V_Tx204View" Type="Form"/>
+                <EntryItem Caption="按退厂订单拣货" FormKey="V_Tx205View" Key="V_Tx205View" Type="Form"/>
+            </Entry>
+            <Entry Caption="发货单" Key="Ship">
+                <EntryItem Caption="按拣货单发货" FormKey="V_Tx211View" Key="V_Tx211View" Type="Form"/>
+                <EntryItem Caption="按订单快速发货" FormKey="V_Tx212View" Key="V_Tx212View" Type="Form"/>
+                <EntryItem Caption="按发货区库存发货" FormKey="V_Tx213View" Key="V_Tx213View" Type="Form"/>
+                <EntryItem Caption="越库发货" FormKey="V_Tx214View" Key="V_Tx214View" Type="Form"/>
+            </Entry>
+        </Entry>
+        <Entry Caption="库存管理" Key="Stock">
+            <EntryItem Caption="初始库存单" FormKey="V_Tx406View" Key="V_Tx406View" Type="Form"/>
+            <EntryItem Caption="调整减少单" FormKey="V_Tx401View" Key="V_Tx401View" Type="Form"/>
+            <EntryItem Caption="调整增加单" FormKey="V_Tx402View" Key="V_Tx402View" Type="Form"/>
+            <EntryItem Caption="货权转移单" FormKey="V_Tx403View" Key="V_Tx403View" Type="Form"/>
+            <EntryItem Caption="加工通知单" FormKey="V_KittingNoticeView" Key="V_KittingNoticeView" Type="Form"/>
+            <EntryItem Caption="加工完成单" FormKey="V_Tx404View" Key="V_Tx404View" Type="Form"/>
+            <EntryItem Caption="快速加工单" FormKey="V_Tx405View" Key="V_Tx405View" Type="Form"/>
+            <EntryItem Caption="移位单" FormKey="V_Tx301View" Key="V_Tx301View" Type="Form"/>
+            <EntryItem Caption="普通补货单" FormKey="V_Tx302View" Key="V_Tx302View" Type="Form"/>
+            <EntryItem Caption="物料状态变更单" FormKey="V_Tx303View" Key="V_Tx303View" Type="Form"/>
+            <EntryItem Caption="物料属性变更单" FormKey="V_Tx304View" Key="V_Tx304View" Type="Form"/>
+            <EntryItem Caption="快速检验单" FormKey="V_Tx305View" Key="V_Tx305View" Type="Form"/>
+            <EntryItem Caption="样品移出单" FormKey="V_Tx306View" Key="V_Tx306View" Type="Form"/>
+            <EntryItem Caption="样品检验完成单" FormKey="V_Tx307View" Key="V_Tx307View" Type="Form"/>
+            <EntryItem Caption="样品入库单" FormKey="V_Tx308View" Key="V_Tx308View" Type="Form"/>
+            <EntryItem Caption="发货区异常品处理单" FormKey="V_Tx309View" Key="V_Tx309View" Type="Form"/>
+            <EntryItem Caption="紧急补货单" FormKey="V_Tx310View" Key="V_Tx310View" Type="Form"/>
+            <EntryItem Caption="盘点单" FormKey="V_TakeStockView" Key="V_TakeStockView" Type="Form"/>
+        </Entry>
+        <Entry Caption="报表查询" Key="ReportQuery">
+            <EntryItem Caption="序列号库存查询" FormKey="V_SerialQuantQuery" Key="V_SerialQuantQuery" Type="Form"/>
+            <EntryItem Caption="序列号事务查询" FormKey="V_WMTxSerialQuery" Key="V_WMTxSerialQuery" Type="Form"/>
+            <EntryItem Caption="库存事务单明细查询" FormKey="V_WMTxView" Key="V_WMTxView" Type="Form"/>
+            <EntryItem Caption="库存汇总查询" FormKey="V_StockCollect" Key="V_StockCollect" Type="Form"/>
+            <EntryItem Caption="库存明细查询" FormKey="V_StockDtl" Key="V_StockDtl" Type="Form"/>
+            <EntryItem Caption="日结" FormKey="V_DailyQuant_LRP" Key="V_DailyQuant_LRP" Type="Form"/>
+            <EntryItem Caption="日结期间库存查询" FormKey="V_DailyQuantQuery" Key="V_DailyQuantQuery" Type="Form"/>
+        </Entry>
+        <Entry Caption="包装耗材管理" Key="PackingManage">
+            <EntryItem Caption="包装耗材入库单" FormKey="V_PackingInboundView" Key="V_PackingInboundView" Type="Form"/>
+            <EntryItem Caption="包装耗材出库单" FormKey="V_PackingOutboundView" Key="V_PackingOutboundView" Type="Form"/>
+            <EntryItem Caption="包装耗材类型出库单" FormKey="V_PackingMaterialTypeView" Key="V_PackingMaterialTypeView" Type="Form"/>
+            <EntryItem Caption="包装方案匹配单" FormKey="V_PackingStrategyMatchView" Key="V_PackingStrategyMatchView" Type="Form"/>
+            <EntryItem Caption="包装耗材库存汇总查询" FormKey="V_PackingStockCollectView" Key="V_PackingStockCollectView" Type="Form"/>
+            <EntryItem Caption="包装耗材库存明细查询" FormKey="V_PackingStockDtlView" Key="V_PackingStockDtlView" Type="Form"/>
+        </Entry>
+        <EntryItem Caption="仓储任务分配" FormKey="V_AllocateWMSTask" Key="V_AllocateWMSTask" Type="Form"/>
+        <EntryItem Caption="仓库平面图" FormKey="plantest" Key="plantest" Type="Form"/>
+        <Entry Caption="月台预约" Key="PlatformReservation">
+            <EntryItem Caption="月台预约单" FormKey="V_PlatformReservationView" Key="V_PlatformReservationView" Type="Form"/>
+            <EntryItem Caption="月台预约状况查询" FormKey="V_LRP_PlatformReservationQuery" Key="V_LRP_PlatformReservationQuery" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
+            <EntryItem Caption="入场审核" FormKey="V_AdmissionAudit" Key="V_AdmissionAudit" Type="Form"/>
+            <EntryItem Caption="离场审核" FormKey="V_DepartureAudit" Key="V_DepartureAudit" Type="Form"/>
+        </Entry>
+    </Entry>
+</Entry>

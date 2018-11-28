@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Caption="发货明细" Authenticate="false" HasNavigationBar="false" -->
+<Form Key="ShipDetail" FormType="View">
+    <DataSource>
+        <DataObject Key="LRP_ShipDetail" Caption="发货明细" PrimaryTableKey="LRP_WMTx_L">
+            <TableCollection>
+                <Table Key="LRP_WMTx_L" Caption="发货明细" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="物料ID" DataType="Long" Key="MaterialId"/>
+                    <Column Caption="单位" DataType="Varchar" Key="MaterialUnit" Length="10"/>
+                    <Column Caption="批号" DataType="Varchar" Key="SrcBatchNo" Length="100"/>
+                    <Column Caption="数量" DataType="Numeric" Key="Qty" Precision="18" Scale="6"/>
+                    <Column Caption="储位" DataType="Long" Key="SrcLocationId"/>
+                    <Column Key="MaterilName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MaterilCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Column Key="LocationName" Caption="储位名称" DataType="Varchar" Length="200"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('OID');"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[ select 
+    l.OID,
+	l.SOID,
+	l.MaterialId,
+	l.MaterialUnit,
+    l.SrcBatchNo,
+    l.Qty,
+    l.SrcLocationId,
+    m.Name as MaterilName,
+    m.Code as MaterilCode,
+	loc.Name as LocationName
+	from LRP_WMTx_L l left join LRP_Material m on m.oid = l.MaterialId left join LRP_Location loc on loc.oid = l.SrcLocationId 
+    where
+        l.SOID = ?
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="FormActive" Range="Action" Verb="">
+            <![CDATA[
+				LoadData();
+			 ]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#e6e6e6"/>
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="进行中" X="0" Y="0">
+                    <RefreshControl ColorSchemes="#17bb92" Key="RefreshControl1" Caption="刷新控件" ProgressBackgroundColorScheme="#cccccc" X="0" Y="0">
+                        <RefreshHeader Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                            <Format/>
+                        </RefreshHeader>
+                        <RefreshFooter Icon="" PromptText="正在加载" FinishText="加载完成">
+                            <![CDATA[LoadData();ShowToast("没有更多的消息了")]]>
+                            <Format/>
+                        </RefreshFooter>
+                        <ListView Caption="拣货明细" Key="list" TableKey="LRP_WMTx_L" RowHeight="80" Enable="true" SeparatorStyle="solid none solid none" HasBorder="true" BorderColor="#e6e6e6" Padding="5px">
+                            <Format Font="20px"/>
+                            <ListViewColumnCollection>
+                                <ListViewColumn Key="SelectField" IsSelect="true" DefaultValue="0" ColumnType="CheckBox" Visible="false" Icon="flight_check_unselect.png" SelectedIcon="flight_check_select.png" Stretch="true" ImageScaleType="Fit_XY"/>
+                                <ListViewColumn Caption="物料代码" DataColumnKey="MaterilCode" Key="MaterilCode"/>
+                                <ListViewColumn Caption="物料名称" DataColumnKey="MaterilName" Key="MaterilName"/>
+                                <ListViewColumn Caption="单位" DataColumnKey="MaterialUnit" Key="MaterialUnit"/>
+                                <ListViewColumn Caption="批号" DataColumnKey="SrcBatchNo" Key="SrcBatchNo"/>
+                                <ListViewColumn Caption="数量" ColumnType="NumberEditor" Key="Qty" DataColumnKey="Qty" Precision="18" Scale="0"/>
+                                <ListViewColumn Caption="发货区" DataColumnKey="LocationName" Key="LocationName"/>
+                            </ListViewColumnCollection>
+                        </ListView>
+                    </RefreshControl>
+                    <HyperLink Key="Label1" X="0" Y="0" Visible="GetRowCount('list')==0" Caption="当前订单没有物料明细！">
+                        <Format HAlign="Center" ForeColor="#000000">
+                            <Font Size="26"/>
+                        </Format>
+                    </HyperLink>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="100%"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="list">
+                    <GridLayout Key="list">
+                        <LayoutSpan Key="SelectField" X="0" Y="0"/>
+                        <LayoutSpan Key="MaterilCode" X="1" Y="0"/>
+                        <LayoutSpan Key="MaterilName" X="3" Y="0"/>
+                        <LayoutSpan Key="SrcBatchNo" X="5" Y="0"/>
+                        <LayoutSpan Key="Qty" X="1" Y="1"/>
+                        <LayoutSpan Key="MaterialUnit" X="3" Y="1"/>
+                        <LayoutSpan Key="LocationName" X="5" Y="1"/>
+                        <RowDefCollection>
+                            <RowDef Height="35px"/>
+                            <RowDef Height="35px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="34%"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara Formula="Para('OID')" Key="OID" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar Style="Custom" BackColor="#f14c52" ForeColor="#ffffff">
+        <BarItem Caption="BarItem1" Key="BarItem1" Location="Center">
+            <Label Key="Label2" Caption="发货明细" Width="150px">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

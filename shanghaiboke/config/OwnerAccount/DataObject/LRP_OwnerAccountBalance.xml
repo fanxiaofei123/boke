@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="货主账户余额" Key="LRP_OwnerAccountBalance" NoPrefix="OAB" ZeroPrefix="9" PrimaryTableKey="LRP_OwnerAccountBalance" SecondaryType="Migration" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="货主账户余额" Key="LRP_OwnerAccountBalance">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="货主id" DataType="Long" Key="OwnerId" GroupType="Discrete"/>
+            <Column Caption="币种" DataType="Varchar" Key="Currency" Length="10" DefaultValue="CNY" GroupType="Discrete"/>
+            <Column Key="Balance" Caption="余额" DataType="Numeric" Precision="18" Scale="6"/>
+            <Column Key="FreezeAmount" Caption="冻结余额" DataType="Numeric" Precision="18" Scale="6"/>
+        </Table>
+    </TableCollection>
+    <MigrationCheckRuleCollection>
+        <MigrationCheckScript Description="冻结金额不能大于余额，请检查" RunType="Server">
+            <![CDATA[FreezeAmount <= Balance]]>
+        </MigrationCheckScript>
+        <MigrationCheckScript Description="余额不能小于0，请检查" RunType="Server">
+            <![CDATA[Balance >=0]]>
+        </MigrationCheckScript>
+    </MigrationCheckRuleCollection>
+    <OIDFilter/>
+</DataObject>

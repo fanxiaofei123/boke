@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="CHCS_Meals_Provide_P" Caption="配餐计划单" PrimaryTableKey="CHCS_Meals_Provide_Plan_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="CHCS_Meals_Provide_Plan_H" Caption="配餐计划单">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+            <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+            <Column Key="BillDate" Caption="单据日期" DataType="DateTime"/>
+            <Column Key="Creator" Caption="制单人" DataType="Long" Description="保存人员" ItemKey="Operator"/>
+            <Column Key="CreateTime" Caption="制单日期" DataType="DateTime"/>
+            <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+            <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Flight_Type_Number" Caption="航班性质" DataType="Long"/>
+            <Column Key="Flight_Number" Caption="航班号" DataType="Long" DataNumber="LONG"/>
+            <Column Key="Departure" Caption="偏离" DataType="Numeric" Precision="16" Scale="0"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar"/>
+            <Column Key="Flight_Date_Start" Caption="预计起飞时间" DataType="DateTime" DataDate="DATETIME"/>
+            <Column Key="Flight_Date_Stop" Caption="预计到达时间" DataType="DateTime" DataDate="DATETIME"/>
+            <Column Key="Aircraft_Type_Number" Caption="机型" DataType="Long"/>
+            <Column Key="Route_Departure_Airport_Code" Caption="起飞站" DataType="Long" DataDeparture_Airport="LONG"/>
+            <Column Key="Route_Arrival_Airport_Code" Caption="到达站" DataType="Long" DataArrival_Airport="LONG"/>
+            <Column Key="Aircraft_Number" Caption="机号" DataType="Long" DataNumber="LONG"/>
+            <Column Key="Week" Caption="班期" DataType="Long"/>
+            <Column Key="Flight_Date_Deviate_stop" Caption="偏离后预计到达" DataType="DateTime"/>
+            <Column Key="IsPandaNo" Caption="是否熊猫号" DataType="Varchar"/>
+        </Table>
+        <Table Key="CHCS_Meals_Provide_Plan_L" Caption="配餐明细" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Product" Caption="名称" DataType="Long"/>
+            <Column Key="IsProvide" Caption="是否配备" DataType="Integer"/>
+            <Column Key="Unit" Caption="单位" DataType="Long"/>
+            <Column Key="Vendor" Caption="航食公司" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

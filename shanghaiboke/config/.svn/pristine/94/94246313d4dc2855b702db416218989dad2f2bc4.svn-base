@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_AllocateWMSTask>AllocateWMSTask</V_AllocateWMSTask>
+        <btn_empquery>Query</btn_empquery>
+        <btn_empreset>Reset</btn_empreset>
+        <Lab_dic_owner>OwnerId</Lab_dic_owner>
+        <Lab_dic_txtype>TransactionType</Lab_dic_txtype>
+        <Lab_txt_name>Name</Lab_txt_name>
+        <Lab_dp_datefrom>DateFrom</Lab_dp_datefrom>
+        <btn_billquery>Query</btn_billquery>
+        <btn_billreset>Reset</btn_billreset>
+        <Lab_dp_dateto>DateTo</Lab_dp_dateto>
+        <Lab_txt_billno>No</Lab_txt_billno>
+        <Lab_txt_group>WorkGroup</Lab_txt_group>
+        <btn_allocate>Distribution</btn_allocate>
+    </UI>
+    <GridColumn>
+        <selectBill>Select</selectBill>
+        <empid>EmpId</empid>
+        <counts>Allocated</counts>
+        <name>Name</name>
+        <l_oid>Oid</l_oid>
+        <empgroup>WorkGroup</empgroup>
+        <selectEMP>Select</selectEMP>
+        <ownerid>OwnerId</ownerid>
+		<txtypecode>TxtypeCode</txtypecode>
+        <billno>No</billno>
+        <txtype>TransactionType</txtype>
+        <txdate>TranDate</txdate>
+    </GridColumn>
+</StringTable>

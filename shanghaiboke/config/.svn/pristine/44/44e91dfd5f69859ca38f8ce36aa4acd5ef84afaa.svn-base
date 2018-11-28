@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+	<Entry Caption="系统配置" Key="System">
+		<EntryItem Caption="首页" FormKey="V_Portal_LRP" Key="Portal" Type="Form"/>
+		<EntryItem Caption="切换组织机构" FormKey="SwitchOrg" Key="SwitchOrg" Type="Form" Target="modal"/>
+        <EntryItem Caption="操作员" FormKey="DictEdit" Key="Operator" Parameters="FormKey=Operator" Type="Form"/>
+        <EntryItem Caption="角色" FormKey="DictEdit" Key="Role" Parameters="FormKey=Role" Type="Form"/>
+		<EntryItem Caption="预警时间设置" FormKey="DictEdit" Key="CHCS_Warn_Time_Set" Media="WEB,PC,IOS,ANDROID," Parameters="FormKey=CHCS_Warn_Time_Set" Type="Form"/>
+	<EntryItem Caption="角色权限设置" FormKey="RoleRightsSet" Key="RoleRightsSet" Parameters="FormKey=RoleRightsSet" Type="Form"/>
+		<EntryItem Caption="库存预留字段" FormKey="V_QuantUserDefFields_LRP" Key="V_QuantUserDefFields_LRP" Type="Form"/>
+		<EntryItem Caption="登录用户管理" FormKey="LoginOperators" Key="LoginOperators" Type="Form"/>
+    </Entry>
+</Entry>

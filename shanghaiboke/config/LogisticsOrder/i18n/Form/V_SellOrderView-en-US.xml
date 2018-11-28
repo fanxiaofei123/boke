@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>New</New>
+		<optKey1>Import</optKey1>
+    </Opt>
+    <UI>
+	    <V_SellOrderView-Abbr>SellOrderView</V_SellOrderView-Abbr>
+        <L_OwnerId>Owner</L_OwnerId>
+        <cancel>Cancel</cancel>
+        <L_OrderDateTime_Comp2>OrderDateTo</L_OrderDateTime_Comp2>
+        <Query>Query</Query>
+        <L_No>SellOrderNo</L_No>
+        <L_OwnerNo>OwnerNo</L_OwnerNo>
+        <L_OrderDateTime>OrderDateFrom</L_OrderDateTime>
+		<L_SalesNo>L_SalesNo</L_SalesNo>
+		<L_Status>Status</L_Status>
+    </UI>
+    <ListViewColumn>
+        <OwnerNo_LV>OwnerNo</OwnerNo_LV>
+        <No_LV>SellOrderNo</No_LV>
+        <OwnerId_LV>Owner</OwnerId_LV>
+        <OID>Oid</OID>
+        <OrderDateTime_LV>OrderDate</OrderDateTime_LV>
+        <OrderType_LV>OrderTye</OrderType_LV>
+		<SalesNo_LV>SalesNo</SalesNo_LV>
+		<Status_LV>Status</Status_LV>
+    </ListViewColumn>
+	<Items-OrderType_LV>
+	   <Item-1>Sales Order</Item-1>
+	   <Item-2>Purchase Order</Item-2>
+	   <Item-3>Logistics Orders</Item-3>
+	</Items-OrderType_LV>
+</StringTable>

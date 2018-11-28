@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_PaymentByInvoice" Caption="按发票付款" FormType="Entity" ViewKey="V_PaymentView">
+    <DataSource RefObjectKey="LRP_Payment"/>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[var sumMoney = 0.0;
+var rate = GetValue('Rate');
+if(GetRowCount('Grid1') < 0){
+    Confirm(LocaleString('CommonDef','key1'),'OK','OK:{}');
+    return 0;
+}
+
+loop "Grid1" (true){
+    sumMoney = sumMoney + InvoiceUnSettleMoney;
+}
+if(GetValue('PaymentMoney') == 0){
+    SetValue('PaymentMoney', sumMoney, true);
+}
+
+if(GetValue('PaymentMoney') > sumMoney){
+    Confirm(LocaleString('ReceivableAnd','key9'),'OK','OK:{}');
+    return 0;
+}
+if(GetValue('PaymentMoney') > 0 && GetValue('PaymentMoney') != sumMoney){
+    Confirm(LocaleParaFormat("ReceivableAnd","key10",PaymentMoney,sumMoney), 'YES_NO',{YES:{
+ 
+},NO:{
+    return 0;
+}});
+}
+SaveData(); UpdateView();						
+                                ]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit" ShortCuts="Ctrl+E"/>
+        <Operation Key="QuoteInvoice" Caption="引入发票" Enable="!ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[if(CompanyCode > 0 && SettlementId > 0){
+	ShowModal('V_QuoteInvoicePay',
+	{CompanyCode_para:{CompanyCode},
+	SettlementId_para:{SettlementId},
+	pFormKey:{GetFormKey()}
+	});
+}else{
+	Confirm(LocaleString('ReceivableAnd','key3'), 'OK',{OK:{}});
+}]]>
+            </Action>
+        </Operation>
+        <Operation Key="Confirm" Caption="确认" Enable="ReadOnly()&amp;&amp;Status==StatusValue('prepared')">
+            <Action>
+                <![CDATA[Status=StatusValue('confirmed');SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Confirm-R" Caption="撤销确认" Enable="ReadOnly()&amp;&amp;Status==StatusValue('confirmed')">
+            <Action>
+                <![CDATA[Status=StatusValue('prepared');SaveData();UpdateView();
+
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete" ShortCuts="Ctrl+D"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="ToCancel-R" Caption="撤销作废" RefKey="ToCancel-R"/>
+        <Operation Key="ToCancel" Caption="作废" RefKey="ToCancel"/>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Height="pref" Key="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main" Orientation="Vertical" Height="100%" Caption="主面板">
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="10px" Caption="基本信息">
+                            <TextEditor Key="No" Caption="单号" BuddyKey="Lab_No" X="1" Y="0" Enable="false" AsQuery="true">
+                                <DataBinding ColumnKey="No" TableKey="LRP_Payment"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="单号" X="0" Y="0"/>
+                            <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="7" Y="0" Enable="false" SourceType="Status" IntegerValue="true" AsQuery="true">
+                                <DataBinding ColumnKey="Status" TableKey="LRP_Payment" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="状态" X="6" Y="0"/>
+                            <TextEditor Key="Remarks" Caption="备注" BuddyKey="Lab_Remarks" X="4" Y="4" Enable="!ReadOnly()" AsQuery="true" XSpan="4">
+                                <DataBinding ColumnKey="Remarks" TableKey="LRP_Payment"/>
+                            </TextEditor>
+                            <Label Key="Lab_Remarks" Caption="备注" X="3" Y="4"/>
+                            <Dict Key="CompanyCode" Caption="公司" BuddyKey="Lab_CompanyCode" X="4" Y="0" ItemKey="CompanyCode" AsQuery="true">
+                                <DataBinding ColumnKey="CompanyCode" TableKey="LRP_Payment"/>
+                            </Dict>
+                            <Label Key="Lab_CompanyCode" Caption="公司" X="3" Y="0"/>
+                            <Dict Key="SettlementId" Caption="结算方" BuddyKey="Lab_SettlementId" X="1" Y="1" ItemKey="Vendor" AsQuery="true">
+                                <DataBinding ColumnKey="SettlementId" TableKey="LRP_Payment"/>
+                            </Dict>
+                            <Label Key="Lab_SettlementId" Caption="结算方" X="0" Y="1"/>
+                            <DatePicker Key="PaymentDate" Caption="付款日期" BuddyKey="Lab_PaymentDate" X="4" Y="1" AsQuery="true">
+                                <DataBinding ColumnKey="PaymentDate" TableKey="LRP_Payment" Required="true"/>
+                                <Format/>
+                            </DatePicker>
+                            <Label Key="Lab_PaymentDate" Caption="付款日期" X="3" Y="1"/>
+                            <NumberEditor Key="Rate" Caption="汇率" BuddyKey="Lab_Rate" X="7" Y="3" ShowZero="true">
+                                <DataBinding ColumnKey="Rate" TableKey="LRP_Payment" DefaultValue="1"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Rate" Caption="汇率" X="6" Y="3"/>
+                            <NumberEditor Key="PaymentMoney" Caption="付款金额" BuddyKey="Lab_PaymentMoney" X="4" Y="3" Precision="18" Scale="6" ShowZero="true" AsQuery="true">
+                                <DataBinding ColumnKey="PaymentMoney" CheckRule="PaymentMoney &gt; 0" TableKey="LRP_Payment" ErrorInfo="【付款金额】必须大于0" Required="true"/>
+                            </NumberEditor>
+                            <Label Key="Lab_PaymentMoney" Caption="付款金额" X="3" Y="3"/>
+                            <Dict Key="CurrencyID" Caption="交易货币" BuddyKey="Lab_CurrencyID" X="1" Y="3" ItemKey="Currency">
+                                <DataBinding ColumnKey="CurrencyID" TableKey="LRP_Payment" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_CurrencyID" Caption="交易货币" X="0" Y="3"/>
+                            <NumberEditor Key="NativePaymentMoney" Caption="本币付款金额" BuddyKey="Lab_NativePaymentMoney" X="1" Y="4" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                <DataBinding ColumnKey="NativePaymentMoney" DefaultFormulaValue="GetValue('PaymentMoney')*Rate" TableKey="LRP_Payment" ValueDependency="PaymentMoney,Rate"/>
+                            </NumberEditor>
+                            <Label Key="Lab_NativePaymentMoney" Caption="本币付款金额" X="0" Y="4"/>
+                            <Dict Key="EmployeeID" Caption="业务员" BuddyKey="Lab_EmployeeID" X="7" Y="1" ItemKey="Operator" AsQuery="true">
+                                <DataBinding ColumnKey="EmployeeID" TableKey="LRP_Payment"/>
+                            </Dict>
+                            <Label Key="Lab_EmployeeID" Caption="业务员" X="6" Y="1"/>
+                            <Dict Key="BankId" Caption="付款银行" BuddyKey="Lab_BankId" X="4" Y="2" ItemKey="LRP_Bank">
+                                <DataBinding ColumnKey="BankId" TableKey="LRP_Payment"/>
+                            </Dict>
+                            <Label Key="Lab_BankId" Caption="付款银行" X="3" Y="2"/>
+                            <Dict Key="BankAccountNo" Caption="银行账号" BuddyKey="Lab_BankAccountNo" X="7" Y="2" ItemKey="LRP_BankAccount">
+                                <DataBinding ColumnKey="BankAccountNo" TableKey="LRP_Payment"/>
+                                <ItemFilter ItemKey="LRP_BankAccount">
+                                    <Filter Type="FieldValue">
+                                        <FilterValue DataType="Long" FieldKey="Bank" RefValue="BankId" Type="Field"/>
+                                    </Filter>
+                                </ItemFilter>
+                            </Dict>
+                            <Label Key="Lab_BankAccountNo" Caption="银行账号" X="6" Y="2"/>
+                            <Dict Key="PaymentTypeID" Caption="结算方式" BuddyKey="Lab_PaymentTypeID" X="1" Y="2" ItemKey="LRP_PayMethod">
+                                <DataBinding ColumnKey="PaymentTypeID" TableKey="LRP_Payment"/>
+                            </Dict>
+                            <Label Key="Lab_PaymentTypeID" Caption="结算方式" X="0" Y="2"/>
+                            <TextEditor Key="PaymentType" Caption="付款类型" BuddyKey="Lab_PaymentType" X="1" Y="5" Visible="false">
+                                <DataBinding ColumnKey="PaymentType" TableKey="LRP_Payment" DefaultValue="801"/>
+                            </TextEditor>
+                            <Label Key="Lab_PaymentType" Caption="付款类型" X="0" Y="5"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="77px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="second_head" Height="pref" Padding="10px" Caption="系统信息">
+                            <Dict Key="CREATOR" Caption="创建人" BuddyKey="Lab_CREATOR" X="1" Y="0" ItemKey="Operator">
+                                <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator();" TableKey="LRP_Payment"/>
+                            </Dict>
+                            <Label Key="Lab_CREATOR" Caption="创建人" X="0" Y="0"/>
+                            <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Lab_CREATETIME" X="3" Y="0">
+                                <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_Payment"/>
+                            </DatePicker>
+                            <Label Key="Lab_CREATETIME" Caption="创建时间" X="2" Y="0"/>
+                            <Dict Key="MODIFIER" Caption="修改人" BuddyKey="Lab_MODIFIER" X="1" Y="1" ItemKey="Operator">
+                                <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator();" TableKey="LRP_Payment"/>
+                            </Dict>
+                            <Label Key="Lab_MODIFIER" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Lab_MODIFYTIME" X="3" Y="1">
+                                <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate();" TableKey="LRP_Payment"/>
+                            </DatePicker>
+                            <Label Key="Lab_MODIFYTIME" Caption="修改日期" X="2" Y="1"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Height="100%" Key="DetailTab">
+                        <Grid Key="Grid1" Caption="发票信息" NewEmptyRow="false" CanInsert="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="SrcOID" Caption="SrcOID" Width="80px" Visible="false" Sortable="true"/>
+                                <GridColumn Key="InvoiceNo" Caption="发票编号" Width="150px" Sortable="true"/>
+                                <GridColumn Key="InvoiceOriginNo" Caption="实体票号" Width="150px" Sortable="true"/>
+                                <GridColumn Key="InvoiceType" Caption="发票类型" Width="100px" Sortable="true"/>
+                                <GridColumn Key="InvoiceBillDate" Caption="发票日期" Width="100px" Sortable="true"/>
+                                <GridColumn Key="InvoiceExpenseId" Caption="费用名称" Width="100px" Sortable="true"/>
+                                <GridColumn Key="InvoiceSumMoney" Caption="发票金额" Width="100px" Sortable="true"/>
+                                <GridColumn Key="InvoiceHookMoney" Caption="发票核销金额" Width="100px" Sortable="true"/>
+                                <GridColumn Key="InvoiceUnSettleMoney" Caption="发票未核金额" Width="100px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="LRP_InvoicePayable_Show">
+                                    <GridCell Key="SrcOID" Caption="SrcOID">
+                                        <DataBinding ColumnKey="SrcOID"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceNo" Caption="发票编号" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="InvoiceNo"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceOriginNo" Caption="实体票号" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="InvoiceOriginNo"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceType" Caption="发票类型" CellType="ComboBox" Enable="false">
+                                        <DataBinding ColumnKey="InvoiceType"/>
+                                        <Item Caption="蓝字发票" Key="0" Value="0"/>
+                                        <Item Caption="红字发票" Key="1" Value="1"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceBillDate" Caption="发票日期" CellType="DatePicker" Enable="false">
+                                        <DataBinding ColumnKey="InvoiceBillDate"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceExpenseId" Caption="费用名称" CellType="Dict" Enable="false" ItemKey="LRP_Expense">
+                                        <DataBinding ColumnKey="InvoiceExpenseId"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceSumMoney" Caption="发票金额" CellType="NumberEditor" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                        <DataBinding ColumnKey="InvoiceSumMoney"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceHookMoney" Caption="发票核销金额" CellType="NumberEditor" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                        <DataBinding ColumnKey="InvoiceHookMoney"/>
+                                    </GridCell>
+                                    <GridCell Key="InvoiceUnSettleMoney" Caption="发票未核金额" CellType="NumberEditor" Enable="false" Precision="18" Scale="6" ShowZero="true">
+                                        <DataBinding ColumnKey="InvoiceUnSettleMoney"/>
+                                    </GridCell>
+                                    <UICheckRuleCollection>
+                                        <UICheckRule ErrorInfo="您的发票明细存在重复引用">
+                                            <![CDATA[!CheckDuplicate("SrcOID")]]>
+                                        </UICheckRule>
+                                    </UICheckRuleCollection>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="235px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

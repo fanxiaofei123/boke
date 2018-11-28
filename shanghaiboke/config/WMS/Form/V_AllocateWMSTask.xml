@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_AllocateWMSTask" Caption="仓储任务分配">
+    <DataSource>
+        <DataObject Key="V_AllocateWMSTask" Caption="仓储任务分配" PrimaryTableKey="V_AllocateWMSTask">
+            <TableCollection>
+                <Table Key="TxBillData" Caption="库存事务单" SourceType="Query" TableMode="Detail">
+                    <Column Key="oid" Caption="事务单OID" DataType="Long"/>
+                    <Column Key="no" Caption="单号" DataType="Varchar"/>
+                    <Column Key="ownerid" Caption="货主" DataType="Long"/>
+                    <Column Key="TxDateTime" Caption="事务日期时间" DataType="DateTime"/>
+                    <Column Key="TxTypeId" Caption="事务类型" DataType="Long"/>
+                    <Column Key="txtypecode" Caption="事务类型代码" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="getCurOrgID();"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select oid ,no ,ownerid,TxDateTime ,TxTypeId,txtypecode from LRP_WMTx_H h where (h.status=200 or h.status=200) and h.WarehouseKeeperId=0 and h.WarehouseCenterId=?]]>
+                    </Statement>
+                </Table>
+                <Table Key="EmpData" Caption="仓管员" SourceType="Query" TableMode="Detail">
+                    <Column Key="oid" Caption="仓管员id" DataType="Long"/>
+                    <Column Key="name" Caption="姓名" DataType="Varchar"/>
+                    <Column Key="WorkGroup" Caption="工作组" DataType="Varchar"/>
+                    <Column Key="counts" Caption="已配" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="getCurOrgID();"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select oid ,name,WorkGroup,counts from LRP_WarehouseKeeper a join (select count(oid) as counts,WarehouseKeeperId from LRP_WMTx_H group by WarehouseKeeperId) b on a.oid=b.WarehouseKeeperId  where a.status=0 and a.WarehouseCenterId=?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SPAllocate" Height="100%" Caption="SPAllocate">
+                    <SplitPanel Key="SPBill" Orientation="Vertical" Caption="SPBill">
+                        <GridLayoutPanel Key="GLPBillQuery" Caption="GLPBillQuery" BottomPadding="5px" LeftPadding="5px" RightPadding="5px" TopPadding="5px">
+                            <TextEditor Key="txt_billno" Caption="单号" BuddyKey="Lab_txt_billno" X="1" Y="0">
+                                <Condition ColumnKey="no" TableKey="TxBillData" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_txt_billno" Caption="单号" X="0" Y="0"/>
+                            <Dict Key="dic_owner" Caption="货主" BuddyKey="Lab_dic_owner" X="4" Y="0" ItemKey="LRP_Owner" AllowMultiSelection="true">
+                                <Condition ColumnKey="ownerid" TableKey="TxBillData" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_dic_owner" Caption="货主" X="3" Y="0"/>
+                            <DatePicker Key="dp_datefrom" Caption="事务日期时间" BuddyKey="Lab_dp_datefrom" X="1" Y="1">
+                                <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                                <Condition ColumnKey="TxDateTime" TableKey="TxBillData" CondSign="between" Group="TxDateTime" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_dp_datefrom" Caption="事务日期时间" X="0" Y="1"/>
+                            <DatePicker Key="dp_dateto" Caption="至" BuddyKey="Lab_dp_dateto" X="4" Y="1">
+                                <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                                <Condition ColumnKey="TxDateTime" TableKey="TxBillData" CondSign="in" Group="TxDateTime" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_dp_dateto" Caption="至" X="3" Y="1"/>
+                            <Button Key="btn_billquery" Caption="查询" X="0" Y="3">
+                                <OnClick>
+                                    <![CDATA[DealCondition();ReloadGrid("GridBill");ShowData();]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="btn_billreset" Caption="重置" X="3" Y="3">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition("TxBillData"); ]]>
+                                </OnClick>
+                            </Button>
+                            <Dict Key="dic_txtype" Caption="事务类型" BuddyKey="Lab_dic_txtype" X="1" Y="2" ItemKey="LRP_WarehouseTxType">
+                                <Condition ColumnKey="TxTypeId" TableKey="TxBillData" CondSign="="/>
+                            </Dict>
+                            <Label Key="Lab_dic_txtype" Caption="事务类型" X="0" Y="2"/>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="GridBill" Caption="GridBill" NewEmptyRow="false" CanDelete="false" CanInsert="false" CanShift="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="selectBill" Caption="选择" Width="80px" Sortable="true"/>
+                                <GridColumn Key="l_oid" Caption="OID" Width="80px" Visible="false" Sortable="true"/>
+                                <GridColumn Key="billno" Caption="单号" Width="80px" Sortable="true"/>
+                                <GridColumn Key="ownerid" Caption="货主" Width="80px" Sortable="true"/>
+                                <GridColumn Key="txtype" Caption="事务类型" Width="80px" Visible="false" Sortable="true"/>
+                                <GridColumn Key="txtypecode" Caption="事务类型代码" Width="80px" Sortable="true"/>
+                                <GridColumn Key="txdate" Caption="事务日期时间" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="TxBillData">
+                                    <GridCell Key="selectBill" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                    <GridCell Key="oid" Caption="OID" CellType="NumberEditor" IntegerValue="true">
+                                        <DataBinding ColumnKey="oid"/>
+                                    </GridCell>
+                                    <GridCell Key="billno" Caption="单号" CellType="HyperLink" Enable="true">
+                                        <DataBinding ColumnKey="no"/>
+                                        <OnClick>
+                                            <![CDATA[if(GetCellValue('GridBill', -1, 'txtypecode')!=''){
+Open('V_Tx'&txtypecode, oid);
+}
+]]>
+                                        </OnClick>
+                                    </GridCell>
+                                    <GridCell Key="ownerid" Caption="货主" CellType="Dict" Enable="false" ItemKey="LRP_Owner">
+                                        <DataBinding ColumnKey="ownerid"/>
+                                    </GridCell>
+                                    <GridCell Key="txtype" Caption="事务类型" CellType="Dict" Enable="false" ItemKey="LRP_WarehouseTxType">
+                                        <DataBinding ColumnKey="TxTypeId"/>
+                                    </GridCell>
+                                    <GridCell Key="txtypecode" Caption="事务类型代码" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="txtypecode"/>
+                                    </GridCell>
+                                    <GridCell Key="txdate" Caption="事务日期时间" CellType="DatePicker" Enable="false">
+                                        <DataBinding ColumnKey="TxDateTime"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <SplitSize Size="150px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Key="GLPAlloct" Caption="GLPAlloct">
+                        <Button Key="btn_allocate" Caption="分配" X="1" Y="4">
+                            <OnClick>
+                                <![CDATA[
+                                if(GridIsSelected('GridBill','selectBill')==false){
+                                Confirm(LocaleString('OwnerNull','key106'), 'OK','OK:{}');
+                                return true;
+                                }
+                                if(GridIsSelectedOne('GridEmp','selectEMP')==false){
+                                Confirm(LocaleString('OwnerNull','key107'), 'OK','OK:{}');
+                                return true;
+                                }
+                                InvokeService("LRP_AllocateWMSTask", false, false, GetGridSelectedID("GridBill","selectBill","oid"),GetGridSelectedID("GridEmp","selectEMP","empid"));
+                                LoadData();ShowData();
+                                ]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="5px"/>
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="5px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <SplitPanel Key="SPEmp" Orientation="Vertical" Caption="SPEmp">
+                        <GridLayoutPanel Key="GLPEmpQuery" Caption="GLPEmpQuery" Margin="10px" BottomPadding="5px" LeftPadding="5px" RightPadding="5px" TopPadding="5px">
+                            <TextEditor Key="txt_name" Caption="姓名" BuddyKey="Lab_txt_name" X="1" Y="0">
+                                <Condition ColumnKey="name" TableKey="EmpData" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_txt_name" Caption="姓名" X="0" Y="0"/>
+                            <TextEditor Key="txt_group" Caption="工作组" BuddyKey="Lab_txt_group" X="4" Y="0">
+                                <Condition ColumnKey="WorkGroup" TableKey="EmpData" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_txt_group" Caption="工作组" X="3" Y="0"/>
+                            <Button Key="btn_empquery" Caption="查询" X="0" Y="1">
+                                <OnClick>
+                                    <![CDATA[DealCondition();ReloadGrid("GridEmp");ShowData();]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="btn_empreset" Caption="重置" X="3" Y="1">
+                                <OnClick>
+                                    <![CDATA[ResetCondition("EmpData");]]>
+                                </OnClick>
+                            </Button>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="GridEmp" Caption="GridEmp" NewEmptyRow="false" CanDelete="false" CanInsert="false" CanShift="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="selectEMP" Caption="选择" Width="80px" Sortable="true"/>
+                                <GridColumn Key="empid" Caption="EMPID" Width="80px" Visible="false" Sortable="true"/>
+                                <GridColumn Key="name" Caption="姓名" Width="80px" Sortable="true"/>
+                                <GridColumn Key="empgroup" Caption="工作组" Width="80px" Sortable="true"/>
+                                <GridColumn Key="counts" Caption="已配" Width="80px" Sortable="true"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="EmpData">
+                                    <GridCell Key="selectEMP" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                    <GridCell Key="empid" Caption="EMPID" CellType="NumberEditor" IntegerValue="true">
+                                        <DataBinding ColumnKey="oid"/>
+                                    </GridCell>
+                                    <GridCell Key="name" Caption="姓名" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="name"/>
+                                    </GridCell>
+                                    <GridCell Key="empgroup" Caption="工作组" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="WorkGroup"/>
+                                    </GridCell>
+                                    <GridCell Key="counts" Caption="已配" CellType="NumberEditor" Enable="false" IntegerValue="true">
+                                        <DataBinding ColumnKey="counts"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <SplitSize Size="150px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <SplitSize Size="50%"/>
+                    <SplitSize Size="80px"/>
+                    <SplitSize Size="50%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

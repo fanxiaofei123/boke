@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataMigration Caption="入库迁移库存" Key="StockIn2Inventory" SrcDataObjectKey="StockIn" TgtDataObjectKey="Inventory" StatusFieldKey="Status" StatusValue="3">
+    <SourceTableCollection Height="240" Width="205" X="30" Y="30">
+        <SourceTable TableKey="StockInDetail" IsPrimary="true">
+            <SourceField Definition="Warehouse" OpSign="Assign" TargetFieldKey="Warehouse" TargetTableKey="Inventory"/>
+            <SourceField Definition="Materiel" OpSign="Assign" TargetFieldKey="Materiel" TargetTableKey="Inventory"/>
+            <SourceField Definition="Amount" TargetFieldKey="Amount" TargetTableKey="Inventory"/>
+            <SourceField Definition="Unit" OpSign="Assign" TargetFieldKey="Unit" TargetTableKey="Inventory"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="240" Width="175" X="280" Y="31">
+        <TargetTable TableKey="Inventory">
+            <TargetField FieldKey="Warehouse"/>
+            <TargetField FieldKey="Materiel"/>
+            <TargetField FieldKey="Amount"/>
+            <TargetField FieldKey="Unit"/>
+        </TargetTable>
+    </TargetTableCollection>
+</DataMigration>

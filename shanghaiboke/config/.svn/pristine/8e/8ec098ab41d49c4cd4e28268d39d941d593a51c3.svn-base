@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_SatisfactionSurvView" Caption="满意度调查视图" FormType="View" AbbrCaption="满意度调查视图">
+    <DataSource>
+        <DataObject Key="LRP_SatisfactionSurv" Caption="满意度调查视图" PrimaryTableKey="LRP_SatisfactionSurv">
+            <TableCollection>
+                <Table Key="LRP_SatisfactionSurv" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="NO" Caption="单号" DataType="Varchar"/>
+                    <Column Key="OwnerId" Caption="货主" DataType="Long"/>
+                    <Column Key="SurveyType" Caption="调查类型" DataType="Varchar"/>
+                    <Column Key="RefNo" Caption="关联单号" DataType="Varchar" Length="100"/>
+                    <Column Key="SatisfactionLevel" Caption="满意度等级" DataType="Integer" Precision="4" Scale="2"/>
+                    <Column Key="SurveyDatetime" Caption="调查日期时间" DataType="DateTime"/>
+                    <Column Key="Mobile" Caption="手机号" DataType="Varchar" Length="40"/>
+                    <Column Key="OwnerUserName" Caption="用户名称" DataType="Varchar" Length="40"/>
+                    <Column Key="Remark" Caption="备注" DataType="Varchar" Length="1000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('V_SatisfactionSurv')]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除">
+            <Action>
+                <![CDATA[if(CheckListNoSelect()){
+	Confirm('没有选中任何记录，请选择后再删除。','OK','OK:{}');
+	return true;
+}
+				
+Confirm('确定要将选中的记录进行删除吗？','YES_NO',{
+	YES:{BatchDeleteData('LRP_SatisfactionSurv', 'LRP_SatisfactionSurv');LoadData();ShowData();},
+	NO:{}});]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段">
+                        <Label Key="L_TextEditor1" Caption="调查单号" X="0" Y="0"/>
+                        <TextEditor Key="TextEditor1" Caption="调查单号" BuddyKey="L_TextEditor1" X="1" Y="0" XSpan="3">
+                            <Condition ColumnKey="NO" TableKey="LRP_SatisfactionSurv" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="L_Dict1" Caption="货主" X="5" Y="0"/>
+                        <Dict Key="Dict1" Caption="货主" BuddyKey="L_Dict1" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_Owner" XSpan="3">
+                            <Condition ColumnKey="OwnerId" TableKey="LRP_SatisfactionSurv" CondSign="in"/>
+                        </Dict>
+                        <Label Key="L_TextEditor2" Caption="调查类型" X="5" Y="1"/>
+                        <TextEditor Key="TextEditor2" Caption="调查类型" BuddyKey="L_TextEditor2" X="6" Y="1" XSpan="3">
+                            <Condition ColumnKey="SurveyType" TableKey="LRP_SatisfactionSurv" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="L_TextEditor5" Caption="关联单号" X="0" Y="2"/>
+                        <TextEditor Key="TextEditor5" Caption="关联单号" BuddyKey="L_TextEditor5" X="1" Y="2" XSpan="3">
+                            <Condition ColumnKey="RefNo" TableKey="LRP_SatisfactionSurv" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="L_ComboBox1" Caption="满意度等级" X="5" Y="2"/>
+                        <ComboBox Key="ComboBox1" Caption="满意度等级" BuddyKey="L_ComboBox1" X="6" Y="2" XSpan="3">
+                            <Condition ColumnKey="SatisfactionLevel" TableKey="LRP_SatisfactionSurv" CondSign="="/>
+                            <Item Caption="很不满意" Key="10" Value="10"/>
+                            <Item Caption="不满意" Key="40" Value="40"/>
+                            <Item Caption="一般" Key="60" Value="60"/>
+                            <Item Caption="满意" Key="80" Value="80"/>
+                            <Item Caption="很满意" Key="100" Value="100"/>
+                        </ComboBox>
+                        <Label Key="L_DatePicker1" Caption="调查日期时间" X="0" Y="3"/>
+                        <DatePicker Key="DatePicker1" Caption="调查日期时间" BuddyKey="L_DatePicker1" X="1" Y="3" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Format/>
+                            <Condition ColumnKey="SurveyDatetime" TableKey="LRP_SatisfactionSurv" CondSign="between" Group="DatePicker1" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="L_DatePicker1_Comp2" Caption="到" X="5" Y="3"/>
+                        <DatePicker Key="DatePicker1_Comp2" Caption="到" BuddyKey="L_DatePicker1_Comp2" X="6" Y="3" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Format/>
+                            <Condition ColumnKey="SurveyDatetime" TableKey="LRP_SatisfactionSurv" CondSign="between" Group="DatePicker1" GroupTail="true"/>
+                        </DatePicker>
+                        <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="cancel" Caption="重置" X="10" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Label Key="L_TextEditor3" Caption="用户名称" X="0" Y="1"/>
+                        <TextEditor Key="TextEditor3" Caption="用户名称" BuddyKey="L_TextEditor3" X="1" Y="1" XSpan="3">
+                            <Condition ColumnKey="OwnerUserName" TableKey="LRP_SatisfactionSurv" CondSign="like"/>
+                        </TextEditor>
+                        <RowDefCollection RowHeight="30" RowGap="6">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Height="pref" Key="ListView0" PageLoadType="DB" TableKey="LRP_SatisfactionSurv">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="LRP_SatisfactionSurv" Visible="false" Width="30px"/>
+                            <ListViewColumn Key="Select" Caption="选择" ColumnType="CheckBox" Width="80px" IsSelect="true"/>
+                            <ListViewColumn Key="TextEditor1_LV" Caption="调查单号" ColumnType="HyperLink" DataColumnKey="NO" Width="170px">
+                                <OnClick>
+                                    <![CDATA[Open('V_SatisfactionSurv', OID);]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="Dict1_LV" Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" ItemKey="LRP_Owner"/>
+                            <ListViewColumn Key="TextEditor3_LV" Caption="用户名称" ColumnType="TextEditor" DataColumnKey="OwnerUserName"/>
+                            <ListViewColumn Key="ComboBox1_LV" Caption="满意度等级" ColumnType="ComboBox" DataColumnKey="SatisfactionLevel" Width="100px">
+                                <Item Caption="很不满意" Key="10" Value="10"/>
+                                <Item Caption="不满意" Key="40" Value="40"/>
+                                <Item Caption="一般" Key="60" Value="60"/>
+                                <Item Caption="满意" Key="80" Value="80"/>
+                                <Item Caption="很满意" Key="100" Value="100"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="column1" Caption="联系电话" ColumnType="TextEditor" DataColumnKey="Mobile"/>
+                            <ListViewColumn Key="TextEditor5_LV" Caption="关联单号" ColumnType="TextEditor" DataColumnKey="RefNo" Width="150px"/>
+                            <ListViewColumn Key="TextEditor2_LV" Caption="调查类型" ColumnType="TextEditor" DataColumnKey="SurveyType"/>
+                            <ListViewColumn Key="DatePicker1_LV" Caption="调查日期时间" ColumnType="DatePicker" DataColumnKey="SurveyDatetime" Width="150px"/>
+                            <ListViewColumn Key="column2" Caption="备注" ColumnType="TextEditor" DataColumnKey="Remark"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_SatisfactionSurv', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="150px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

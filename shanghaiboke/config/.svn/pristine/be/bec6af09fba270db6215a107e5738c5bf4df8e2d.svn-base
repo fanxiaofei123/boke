@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Items-Status2>
+        <Item-100>
+Prepare        
+        </Item-100>
+        <Item-900>
+Finished        
+        </Item-900>
+        <Item-500>
+Processing        
+        </Item-500>
+    </Items-Status2>
+    <UI>
+        <Label2>
+currently no numbers on the shelf        
+        </Label2>
+        <OrderTitle>
+Stock by receiving area        
+        </OrderTitle>
+		<search>search</search>
+		<sjls>History</sjls>
+		<NoticeNo3>No</NoticeNo3>
+		<lab_OwnerId3>OwnerId</lab_OwnerId3>
+		<lab_ReceiveDate>OrderDate</lab_ReceiveDate>
+		<lab_OwnerNo3>Contract No</lab_OwnerNo3>
+		<Qurey>Qurey</Qurey>
+    </UI>
+    <Items-Status>
+        <Item-900>
+Finished        
+        </Item-900>
+        <Item-500>
+Processing        
+        </Item-500>
+        <Item-200>
+Enter        
+        </Item-200>
+    </Items-Status>
+    <ListViewColumn>
+        <Status>
+Status        
+        </Status>
+        <OwnerName>
+OwnerNmae        
+        </OwnerName>
+        <CREATETIME2>
+CreateTime2        
+        </CREATETIME2>
+        <Status2>
+Status        
+        </Status2>
+        <ownerId2>
+OwnerID2        
+        </ownerId2>
+        <OwnerName2>
+Ownername        
+        </OwnerName2>
+        <CreateTime>
+CreateTime        
+        </CreateTime>
+        <NoticeNo2>
+noticeNo        
+        </NoticeNo2>
+        <OID>
+OID        
+        </OID>
+        <OID2>
+OID        
+        </OID2>
+        <NoticeNo>
+NoticeNo        
+        </NoticeNo>
+        <OwnerNo>
+OwnerNo        
+        </OwnerNo>
+        <SumQty>
+SumQty        
+        </SumQty>
+        <No2>
+PutNo        
+        </No2>
+        <WarehouseCenterId2>
+WarehouseCenterID        
+        </WarehouseCenterId2>
+    </ListViewColumn>
+</StringTable>

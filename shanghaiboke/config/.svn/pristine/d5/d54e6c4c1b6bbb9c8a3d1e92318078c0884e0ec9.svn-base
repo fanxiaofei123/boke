@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form AbbrCaption="盘点单序事簿" Caption="盘点单序事簿" FormType="View" Key="V_TakeStockView">
+    <DataSource>
+        <DataObject Caption="盘点单序事簿" Key="V_TakeStockView">
+            <TableCollection>
+                <Table Key="LRP_TakeStock_H" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="盘点单号" DataType="Varchar" Key="No" SortType="Desc"/>
+                    <Column Caption="仓储中心ID" DataType="Long" Key="WarehouseCenterId"/>
+                    <Column Caption="货主ID" DataType="Long" Key="OwnerId"/>
+                    <Column Key="StoreroomId" Caption="仓间ID" DataType="Long"/>
+                    <Column Key="StoreareaId" Caption="库区ID" DataType="Long"/>
+                    <Column Key="LocationId" Caption="储位ID" DataType="Long"/>
+                    <Column Caption="物料ID" DataType="Long" Key="MaterialId"/>
+                    <Column Key="StartDate" Caption="异动开始日期" DataType="Date"/>
+                    <Column Key="EndDate" Caption="异动结束日期" DataType="Date"/>
+                    <Column Key="CheckPerson" Caption="盘点员" DataType="Varchar"/>
+                    <Column Key="CheckDatetime" Caption="盘点日期时间" DataType="DateTime"/>
+                    <Column Key="Remark" Caption="备注" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Caption="新增" Icon="new.png" Key="New">
+            <Action>
+                <![CDATA[
+				New('V_TakeStock')	
+			]]>
+            </Action>
+        </Operation>
+        <Operation Caption="确认" Key="BatchConfirm" RefKey="BatchConfirm"/>
+        <Operation Caption="撤销确认" Key="BatchConfirm-R" RefKey="BatchConfirm-R"/>
+        <Operation Caption="完成" Key="BatchFinishConfirm" RefKey="BatchFinishConfirm"/>
+        <Operation Caption="撤销完成" Key="BatchFinishConfirm-R" RefKey="BatchFinishConfirm-R"/>
+        <Operation Key="BatchDelete" Caption="删除">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString("CommonDef", "key35"),'OK','OK:{}');
+					return true;
+				}
+				
+				if(CheckListSelectStatus(',100,')){	
+					Confirm(LocaleString("CommonDef", "key36"),'YES_NO',{YES:{BatchDeleteData('LRP_TakeStock', 'LRP_TakeStock_H');},NO:{}});
+				}
+				else
+				{ Confirm(LocaleString("CommonDef", "key37"),'OK','OK:{}');}
+						
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="关闭界面" Key="Close" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Height="100%" Key="main" Padding="0px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical" X="0" Y="1">
+                    <GridLayoutPanel Caption="查询字段" Height="100%" Key="query" Padding="10px">
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Caption="重置" Enable="true" Key="cancel" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[
+								ResetCondition();SetValue('WarehouseCenterId',getCurOrgID());
+								]]>
+                            </OnClick>
+                        </Button>
+                        <TextEditor Key="No" Caption="盘点单号" BuddyKey="Lab_No" X="1" Y="0" XSpan="3">
+                            <Condition ColumnKey="No" TableKey="LRP_TakeStock_H" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_No" Caption="盘点单号" X="0" Y="0"/>
+                        <Dict Key="OwnerId" Caption="货主" BuddyKey="Lab_OwnerId" X="6" Y="0" XSpan="3" ItemKey="LRP_Owner" AllowMultiSelection="true">
+                            <Condition ColumnKey="OwnerId" TableKey="LRP_TakeStock_H" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_OwnerId" Caption="货主" X="5" Y="0"/>
+                        <Dict Key="StoreroomId" Caption="仓间" BuddyKey="Lab_StoreroomId" X="1" Y="1" XSpan="3" ItemKey="LRP_Storeroom" AllowMultiSelection="true">
+                            <Condition ColumnKey="StoreroomId" TableKey="LRP_TakeStock_H" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_StoreroomId" Caption="仓间" X="0" Y="1"/>
+                        <CheckListBox BuddyKey="Lab_Status" Caption="状态" Key="Status" X="6" XSpan="3" Y="1">
+                            <Condition ColumnKey="Status" TableKey="LRP_TakeStock_H" CondSign="in"/>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已确认" Key="confirmed" Value="200"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                        </CheckListBox>
+                        <Label Key="Lab_Status" Caption="状态" X="5" Y="1"/>
+                        <DatePicker Key="CheckDatetimeFrom" Caption="盘点日期时间" BuddyKey="Lab_CheckDatetimeFrom" X="1" Y="2" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition ColumnKey="CheckDatetime" TableKey="LRP_TakeStock_H" CondSign="between" Group="CheckDatetime" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_CheckDatetimeFrom" Caption="盘点日期时间" X="0" Y="2"/>
+                        <DatePicker Key="CheckDatetimeTo" Caption="至" BuddyKey="Lab_CheckDatetimeTo" X="6" Y="2" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition ColumnKey="CheckDatetime" TableKey="LRP_TakeStock_H" CondSign="in" Group="CheckDatetime" GroupTail="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_CheckDatetimeTo" Caption="至" X="5" Y="2"/>
+                        <Dict Key="WarehouseCenterId" Caption="仓储中心ID" BuddyKey="Lab_WarehouseCenterId" X="1" Y="3" Visible="false" ItemKey="LRP_WarehouseCenter" XSpan="3">
+                            <DataBinding DefaultFormulaValue="getCurOrgID()"/>
+                            <Condition ColumnKey="WarehouseCenterId" TableKey="LRP_TakeStock_H" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_WarehouseCenterId" Caption="仓储中心ID" Visible="false" X="0" Y="3"/>
+                        <TextEditor Key="DataObjectKey" Caption="数据源key" BuddyKey="Lab_DataObjectKey" X="6" Y="3" Visible="false">
+                            <DataBinding DefaultValue="LRP_TakeStock"/>
+                        </TextEditor>
+                        <Label Key="Lab_DataObjectKey" Caption="数据源key" X="5" Y="3"/>
+                        <RowDefCollection RowHeight="25" RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Key="ListView0" PageLoadType="DB" RowAlterable="false" TableKey="LRP_TakeStock_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Caption="选择" ColumnType="CheckBox" Key="Select" IsSelect="true" Width="80px"/>
+                            <ListViewColumn Caption="对象标识" ColumnType="TextEditor" Key="OID" Visible="false" DataColumnKey="OID"/>
+                            <ListViewColumn Key="Stauts_L" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                            <ListViewColumn Key="No_L" Caption="盘点单号" DataColumnKey="No" ColumnType="HyperLink">
+                                <OnClick>
+                                    <![CDATA[Open('V_TakeStock',OID);]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="OwnerId_L" Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" ItemKey="LRP_Owner"/>
+                            <ListViewColumn Key="StoreroomId_L" Caption="仓间" ColumnType="Dict" DataColumnKey="StoreroomId" ItemKey="LRP_Storeroom"/>
+                            <ListViewColumn Key="StoreareaId_L" Caption="库区" ColumnType="Dict" DataColumnKey="StoreareaId" ItemKey="LRP_Storearea"/>
+                            <ListViewColumn Key="LocationId" Caption="储位" ColumnType="Dict" DataColumnKey="LocationId" ItemKey="LRP_Location"/>
+                            <ListViewColumn Key="MaterialId_L" Caption="物料" ColumnType="Dict" DataColumnKey="MaterialId" ItemKey="LRP_Material"/>
+                            <ListViewColumn Key="StartDate_L" Caption="异动开始日期" ColumnType="DatePicker" DataColumnKey="StartDate"/>
+                            <ListViewColumn Key="EndDate_L" Caption="异动结束日期" ColumnType="DatePicker" DataColumnKey="EndDate"/>
+                            <ListViewColumn Key="CheckPerson_L" Caption="盘点员" ColumnType="TextEditor" DataColumnKey="CheckPerson"/>
+                            <ListViewColumn Key="CheckDatetime_L" Caption="盘点日期时间" ColumnType="DatePicker" DataColumnKey="CheckDatetime"/>
+                            <ListViewColumn Key="Remark_L" Caption="备注" ColumnType="TextEditor" DataColumnKey="Remark"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_TakeStock', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="130px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="30">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

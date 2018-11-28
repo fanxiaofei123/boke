@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Lab_Denominator>Denominator</Lab_Denominator>
+        <L_MODIFIER>Modifier</L_MODIFIER>
+        <Lab_AdditiveConstant>AdditiveConstant</Lab_AdditiveConstant>
+        <DaMaoTab>DaMao</DaMaoTab>
+        <Lab_Numerator>Numerator</Lab_Numerator>
+        <Lab_PressureValue>PressureValue</Lab_PressureValue>
+        <primaryCode>primaryCode</primaryCode>
+        <OACheck>OA</OACheck>
+        <Lab_MassUnit>MassUnit</Lab_MassUnit>
+        <L_MODIFYTIME>ModifyTime</L_MODIFYTIME>
+        <Lab_Exponent>Exponent</Lab_Exponent>
+        <Lab_DecimalRounding>DecimalRounding</Lab_DecimalRounding>
+        <WuliuTab>Logistics</WuliuTab>
+        <Lab_TechnicalName>TechnicalName</Lab_TechnicalName>
+        <Lab_TempValue>TemperatureValue</Lab_TempValue>
+        <CaiWuCheck>GroupFinance</CaiWuCheck>
+        <Lab_TempUnit>TempUnit</Lab_TempUnit>
+        <BasicTab>Information</BasicTab>
+        <HRPCheck>HRP</HRPCheck>
+        <OATab>OA</OATab>
+        <DaMaoCheck>DamaoCheck</DaMaoCheck>
+        <Lab_ISOCode>ISOCode</Lab_ISOCode>
+        <Lab_UnitSystemID>UnitSystem</Lab_UnitSystemID>
+        <Lab_Decimalplaces>Decimalplaces</Lab_Decimalplaces>
+        <L_CREATOR>Creator</L_CREATOR>
+        <DianShangTab>E-commerce</DianShangTab>
+        <Lab_Technical>TechnicalCode</Lab_Technical>
+        <HRPTab>HRP</HRPTab>
+        <DianShangCheck>E-commerce</DianShangCheck>
+        <L_Code>Code</L_Code>
+        <L_CREATETIME>CreateTime</L_CREATETIME>
+        <Lab_MeasFamily>MeasFamily</Lab_MeasFamily>
+        <L_Name>Name</L_Name>
+        <Lab_PressureUnit>PressureUnit</Lab_PressureUnit>
+        <CaiWuTab>GroupFinance</CaiWuTab>
+        <CommercialMassUnit>CommercialMassUnit</CommercialMassUnit>
+        <SystemTab>SystemMessage</SystemTab>
+        <Lab_FloatPoint>FloatPoint</Lab_FloatPoint>
+        <ValueBaseCommt>ValueBaseCommt</ValueBaseCommt>
+        <WuliuCheck>logistics</WuliuCheck>
+    </UI>
+</StringTable>

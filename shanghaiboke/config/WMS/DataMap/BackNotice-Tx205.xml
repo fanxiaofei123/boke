@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="按退厂订单拣货" Key="BackNotice-Tx205" SrcDataObjectKey="LRP_BackNotice" TgtDataObjectKey="LRP_WMTx">
+    <RelateDataMapColletion>
+        <RelateDataMap Key="BackNotice-Tx212"/>
+    </RelateDataMapColletion>
+    <SourceTableCollection Height="1140" Width="319" X="70" Y="0">
+        <SourceTable Key="LRP_BackNotice_H" TableKey="LRP_BackNotice_H" TargetTableKey="LRP_WMTx_H">
+            <SourceField Definition="OwnerNo" TargetFieldKey="OwnerNo"/>
+            <SourceField Definition="OwnerId" TargetFieldKey="OwnerId"/>
+            <SourceField Definition="No" TargetFieldKey="NoticeNo"/>
+            <SourceField Definition="No" TargetFieldKey="RefNo"/>
+            <SourceField Definition="No" TargetFieldKey="SrcRefOrderNo" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="OID" TargetFieldKey="SrcRefSOID" TargetTableKey="LRP_WMTx_L"/>
+            <SourceField Definition="WarehouseCenterId" TargetFieldKey="WarehouseCenterId"/>			
+            <SourceField Definition="205" TargetFieldKey="TxTypeCode" Type="Const"/>
+            <SourceField Definition="200" TargetFieldKey="Status" Type="Const"/>
+            <SourceField Definition="GetSessionPara('TxType_205')" TargetFieldKey="TxTypeId" Type="Formula"/>
+			<SourceField Definition="ServerDate()" TargetFieldKey="TxDateTime" Type="Formula"/>
+        </SourceTable>
+        <SourceTable IsPrimary="true" Key="LRP_BackNotice_L" TableKey="LRP_BackNotice_L" TargetTableKey="LRP_WMTx_L">
+            <SourceField Definition="Qty" TargetFieldKey="Qty"/>
+			<SourceField Definition="BasicQty" EdgeType="Focus" TargetFieldKey="BasicQty"/>
+            <SourceField Definition="MaterialId" TargetFieldKey="MaterialId"/>
+            <SourceField Definition="MaterialUnit" TargetFieldKey="MaterialUnit"/>
+            <SourceField Definition="BatchNo" TargetFieldKey="SrcBatchNo"/>
+            <SourceField Definition="ManufDate" TargetFieldKey="SrcManufDate"/>
+            <SourceField Definition="ExpireDate" TargetFieldKey="SrcExpireDate"/>
+            <SourceField Definition="RecvDate" TargetFieldKey="SrcRecvDate"/>
+            <SourceField Definition="ProjectId" TargetFieldKey="SrcProjectId"/>
+            <SourceField Definition="StrUserDef1" TargetFieldKey="SrcStrUserDef1"/>
+            <SourceField Definition="StrUserDef2" TargetFieldKey="SrcStrUserDef2"/>
+            <SourceField Definition="StrUserDef3" TargetFieldKey="SrcStrUserDef3"/>
+            <SourceField Definition="StrUserDef4" TargetFieldKey="SrcStrUserDef4"/>
+            <SourceField Definition="StrUserDef5" TargetFieldKey="SrcStrUserDef5"/>
+            <SourceField Definition="DictUserDef1" TargetFieldKey="SrcDictUserDef1"/>
+            <SourceField Definition="DictUserDef2" TargetFieldKey="SrcDictUserDef2"/>
+            <SourceField Definition="DictUserDef3" TargetFieldKey="SrcDictUserDef3"/>
+            <SourceField Definition="DictUserDef4" TargetFieldKey="SrcDictUserDef4"/>
+            <SourceField Definition="DictUserDef5" TargetFieldKey="SrcDictUserDef5"/>
+            <SourceField Definition="DateUserDef1" TargetFieldKey="SrcDateUserDef1"/>
+            <SourceField Definition="DateUserDef2" TargetFieldKey="SrcDateUserDef2"/>
+            <SourceField Definition="NumUserDef1" TargetFieldKey="SrcNumUserDef1"/>
+            <SourceField Definition="NumUserDef2" TargetFieldKey="SrcNumUserDef2"/>
+            <SourceField Definition="NumUserDef3" TargetFieldKey="SrcNumUserDef3"/>
+            <SourceField Definition="MaterialStatusId" TargetFieldKey="SrcMaterialStatusId"/>
+			<SourceField Definition="BatchNo" TargetFieldKey="DestBatchNo"/>
+            <SourceField Definition="ManufDate" TargetFieldKey="DestManufDate"/>
+            <SourceField Definition="ExpireDate" TargetFieldKey="DestExpireDate"/>
+            <SourceField Definition="RecvDate" TargetFieldKey="DestRecvDate"/>
+            <SourceField Definition="ProjectId" TargetFieldKey="DestProjectId"/>
+            <SourceField Definition="StrUserDef1" TargetFieldKey="DestStrUserDef1"/>
+            <SourceField Definition="StrUserDef2" TargetFieldKey="DestStrUserDef2"/>
+            <SourceField Definition="StrUserDef3" TargetFieldKey="DestStrUserDef3"/>
+            <SourceField Definition="StrUserDef4" TargetFieldKey="DestStrUserDef4"/>
+            <SourceField Definition="StrUserDef5" TargetFieldKey="DestStrUserDef5"/>
+            <SourceField Definition="DictUserDef1" TargetFieldKey="DestDictUserDef1"/>
+            <SourceField Definition="DictUserDef2" TargetFieldKey="DestDictUserDef2"/>
+            <SourceField Definition="DictUserDef3" TargetFieldKey="DestDictUserDef3"/>
+            <SourceField Definition="DictUserDef4" TargetFieldKey="DestDictUserDef4"/>
+            <SourceField Definition="DictUserDef5" TargetFieldKey="DestDictUserDef5"/>
+            <SourceField Definition="DateUserDef1" TargetFieldKey="DestDateUserDef1"/>
+            <SourceField Definition="DateUserDef2" TargetFieldKey="DestDateUserDef2"/>
+            <SourceField Definition="NumUserDef1" TargetFieldKey="DestNumUserDef1"/>
+            <SourceField Definition="NumUserDef2" TargetFieldKey="DestNumUserDef2"/>
+            <SourceField Definition="NumUserDef3" TargetFieldKey="DestNumUserDef3"/>
+            <SourceField Definition="MaterialStatusId" TargetFieldKey="DestMaterialStatusId"/>
+            <SourceField Definition="StoreroomId" TargetFieldKey="SrcStoreroomId"/>
+            <SourceField Definition="StoreareaId" TargetFieldKey="SrcStoreareaId"/>
+            <SourceField Definition="LocationId" TargetFieldKey="SrcLocationId"/>
+            <SourceField Definition="HandingUnitNo" TargetFieldKey="SrcHandingUnitNo"/>
+            <SourceField Definition="OID" TargetFieldKey="DestRefLineOID"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="1170" Width="287" X="444" Y="0">
+        <TargetTable Key="LRP_WMTx_H" TableKey="LRP_WMTx_H">
+            <TargetField Definition="OwnerNo"/>
+            <TargetField Definition="OwnerId"/>
+            <TargetField Definition="NoticeNo"/>
+            <TargetField Definition="RefNo"/>
+            <TargetField Definition="WarehouseCenterId"/>
+            <TargetField Definition="TxTypeCode"/>
+            <TargetField Definition="TxTypeId"/>
+            <TargetField Definition="Status"/>
+            <TargetField Definition="TxDateTime"/>
+        </TargetTable>
+        <TargetTable IsPrimary="true" Key="LRP_WMTx_L" TableKey="LRP_WMTx_L">
+            <TargetField Definition="SrcRefSOID"/>
+            <TargetField Definition="SrcRefOrderNo"/>
+            <TargetField Definition="Qty"/>
+            <TargetField Definition="BasicQty">
+                <Feedback Condition="LRP_WMTx_H.Status &gt;= 900" DataObjectKey="LRP_BackNotice" FieldKey="PickQty" OpSign="AddDelta" TableKey="LRP_BackNotice_L">
+                    <PostTrigger/>
+                </Feedback>
+            </TargetField>
+            <TargetField Definition="MaterialId"/>
+            <TargetField Definition="MaterialUnit"/>
+            <TargetField Definition="SrcBatchNo"/>
+            <TargetField Definition="SrcRecvDate"/>
+            <TargetField Definition="SrcManufDate"/>
+            <TargetField Definition="SrcExpireDate"/>
+            <TargetField Definition="SrcProjectId"/>
+            <TargetField Definition="SrcStrUserDef1"/>
+            <TargetField Definition="SrcStrUserDef2"/>
+            <TargetField Definition="SrcStrUserDef3"/>
+            <TargetField Definition="SrcStrUserDef4"/>
+            <TargetField Definition="SrcStrUserDef5"/>
+            <TargetField Definition="SrcDictUserDef1"/>
+            <TargetField Definition="SrcDictUserDef2"/>
+            <TargetField Definition="SrcDictUserDef3"/>
+            <TargetField Definition="SrcDictUserDef4"/>
+            <TargetField Definition="SrcDictUserDef5"/>
+            <TargetField Definition="SrcDateUserDef1"/>
+            <TargetField Definition="SrcDateUserDef2"/>
+            <TargetField Definition="SrcNumUserDef1"/>
+            <TargetField Definition="SrcNumUserDef2"/>
+            <TargetField Definition="SrcNumUserDef3"/>
+			<TargetField Definition="SrcMaterialStatusId"/>
+			<TargetField Definition="DestBatchNo"/>
+            <TargetField Definition="DestRecvDate"/>
+            <TargetField Definition="DestManufDate"/>
+            <TargetField Definition="DestExpireDate"/>
+            <TargetField Definition="DestProjectId"/>
+            <TargetField Definition="DestStrUserDef1"/>
+            <TargetField Definition="DestStrUserDef2"/>
+            <TargetField Definition="DestStrUserDef3"/>
+            <TargetField Definition="DestStrUserDef4"/>
+            <TargetField Definition="DestStrUserDef5"/>
+            <TargetField Definition="DestDictUserDef1"/>
+            <TargetField Definition="DestDictUserDef2"/>
+            <TargetField Definition="DestDictUserDef3"/>
+            <TargetField Definition="DestDictUserDef4"/>
+            <TargetField Definition="DestDictUserDef5"/>
+            <TargetField Definition="DestDateUserDef1"/>
+            <TargetField Definition="DestDateUserDef2"/>
+            <TargetField Definition="DestNumUserDef1"/>
+            <TargetField Definition="DestNumUserDef2"/>
+            <TargetField Definition="DestNumUserDef3"/>
+            <TargetField Definition="DestMaterialStatusId"/>
+            <TargetField Definition="SrcStoreroomId"/>
+            <TargetField Definition="SrcStoreareaId"/>
+            <TargetField Definition="SrcLocationId"/>
+            <TargetField Definition="SrcHandingUnitNo"/>
+            <TargetField Definition="DestRefLineOID"/>
+        </TargetTable>
+    </TargetTableCollection>
+    <FeedbackCollection>
+        <FeedbackObject Height="270" ObjectKey="LRP_BackNotice" Width="319" X="811" Y="564">
+            <FeedbackTable TableKey="LRP_BackNotice_L">
+                <FeedbackField FieldKey="PickQty"/>
+            </FeedbackTable>
+        </FeedbackObject>
+    </FeedbackCollection>
+</Map>

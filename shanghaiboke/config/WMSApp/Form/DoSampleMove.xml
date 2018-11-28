@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DoSampleMove" Caption="样品移位" HasNavigationBar="false" Authenticate="false">
+    <DataSource>
+        <DataObject Key="DoSampleMove" PrimaryTableKey="LRP_WMTx_L">
+            <TableCollection>
+                <Table Key="LRP_WMTx_L" Caption="样品物料明细" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="MaterialId" Caption="物料ID" DataType="Long"/>
+                    <Column Key="MaterialUnit" Caption="单位" DataType="Varchar" Length="10"/>
+                    <Column Key="SrcBatchNo" Caption="批号" DataType="Varchar" Length="100"/>
+                    <Column Key="SampleMoveQty" Caption="样品移位量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="Qty" Caption="数量" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="SrcLocationId" Caption="储位" DataType="Long"/>
+                    <Column Key="MtlName" Caption="物料名称" DataType="Varchar" Length="200"/>
+                    <Column Key="MtlCode" Caption="物料代码" DataType="Varchar" Length="100"/>
+                    <Column Key="SrcLocationName" Caption="源储位名称" DataType="Varchar" Length="200"/>
+                    <Column Key="DestLocationName" Caption="目标储位名称" DataType="Varchar"/>
+                    <Column Key="SrcLocCode" Caption="源储位代码" DataType="Varchar"/>
+                    <Column Key="DestLocCode" Caption="目标储位代码" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('OID');"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[ select 
+    l.OID,
+	l.SOID,
+	l.MaterialId,
+	l.MaterialUnit,
+    l.SrcBatchNo,
+    l.Qty,
+    l.SrcLocationId,
+    m.Name as MtlName,
+    m.Code as MtlCode,
+	srcloc.code as SrcLocCode,
+	srcloc.Name as SrcLocationName,
+	destloc.code as DestLocCode,
+	destloc.Name as DestLocationName
+	from LRP_WMTx_L l 
+	left join LRP_Material m on m.oid = l.MaterialId 
+	left join LRP_Location srcloc on srcloc.oid = l.SrcLocationId 
+	left join LRP_Location destloc on destloc.oid = l.DestLocationId 
+    where
+        l.SOID = ? 
+	Order by srcloc.Code DESC
+    ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#e6e6e6"/>
+                <LinearLayoutPanel Caption="Title3" Key="Title" Orientation="Horizontal" X="0" Y="0" Padding="5px">
+                    <Format BackColor="#f14c52"/>
+                    <Button Key="Cancel" Caption="取消" Height="auto" Width="60px">
+                        <Format HAlign="Left" ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									ShowConfirm('是否放弃本次移位？', 'YES_NO', 
+										{
+											YES: {
+													Back();
+												}, 
+											NO: {} 
+										}
+												)
+								]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="OrderTitle3" Caption="移位" Height="auto" Weight="1.0">
+                        <Format HAlign="Center" ForeColor="#ffffff">
+                            <Font Size="20"/>
+                        </Format>
+                    </Label>
+                    <Button Key="Comfirm" Caption="完成" Height="auto" Width="60px">
+                        <Format HAlign="Right" ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+									var count = GetRowCount('list',false);
+									var b = true;
+									var oid = GetPara('OID');
+									if(count > 0){
+										InvokeService("LRP_BillStatusChange", false, false,"LRP_WMTx",oid,900,90);
+										ShowToast("样品移位完成");
+										Parent.LoadData();
+										Back();
+									}
+									
+									]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <TableView Caption="扫描明细" Key="TableView2" X="0" Y="1" Padding="5px">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="row6" SelectColor="#cccccc" SeparatorColor="#e6e6e6" SeparatorStyle="none none solid none">
+                            <GridLayoutPanel Key="EnterCode" Caption="扫描">
+                                <Format>
+                                    <Font Size="20"/>
+                                </Format>
+                                <TextEditor Key="TextMaterialCode" Caption="扫描物料条码" X="1" Y="1" Enable="True" PromptText="扫描物料条码">
+                                    <Format HAlign="Left"/>
+                                    <KeyEnter>
+                                        <![CDATA[
+										ScanMaterial();
+										
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Image Key="GetMaterialCode" X="3" Y="1" Enable="true" Image="12.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true" Padding="10px">
+                                    <OnClick>
+                                        <![CDATA[ScanMaterial();]]>
+                                    </OnClick>
+                                </Image>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="35px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="35px"/>
+                                    <ColumnDef Width="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row2" SelectColor="#cccccc" SeparatorColor="#e6e6e6" SeparatorStyle="none none solid none">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Caption="GridLayoutPanel3">
+                                <TextEditor Key="TextSrcLoc" Caption="扫描源储位" X="1" Y="1" Enable="true" PromptText="扫描源储位">
+                                    <Format HAlign="Left"/>
+                                    <KeyEnter>
+                                        <![CDATA[
+										ScanLoc();
+										
+									  ]]>
+                                    </KeyEnter>
+                                </TextEditor>
+                                <Image Key="GetSrcLoc" X="3" Y="1" Enable="true" Image="12.png" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true" Padding="10px">
+                                    <OnClick>
+                                        <![CDATA[ScanLoc();]]>
+                                    </OnClick>
+                                </Image>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="35px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="5px"/>
+                                    <ColumnDef Width="35px"/>
+                                    <ColumnDef Width="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <TableView Caption="物料明细" Key="TableView1" X="0" Y="2" Padding="5px">
+                    <Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+                        <TableRow Key="list" RowType="Detail" TableKey="LRP_WMTx_L" SelectColor="#dddddd" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2">
+                            <GridLayoutPanel Key="GridLayoutPanel2" Caption="GridLayoutPanel2">
+                                <Label Key="MtlCode" Caption="物料代码" X="1" Y="0" XSpan="2">
+                                    <DataBinding ColumnKey="MtlCode"/>
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <Label Key="MtlName" Caption="无物料名称" X="4" Y="0" XSpan="3">
+                                    <DataBinding ColumnKey="MtlName"/>
+                                    <Format HAlign="Left"/>
+                                </Label>
+                                <TextEditor Key="SrcBatchNo" Caption="批号" BuddyKey="Lab_SrcBatchNo" X="9" Y="0" Enable="false">
+                                    <DataBinding ColumnKey="SrcBatchNo"/>
+                                    <Format HAlign="Left"/>
+                                </TextEditor>
+                                <Label Key="Lab_SrcBatchNo" Caption="批号：" X="8" Y="0"/>
+                                <TextEditor Key="SrcLocationName" Caption="源储位名称" BuddyKey="Lab_SrcLocationName" X="2" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="SrcLocationName"/>
+                                    <Format HAlign="Left"/>
+                                </TextEditor>
+                                <Label Key="Lab_SrcLocationName" Caption="源：" X="1" Y="1"/>
+                                <NumberEditor Key="Qty" Caption="数量" BuddyKey="Lab_Qty" X="5" Y="1" Enable="false" Scale="0">
+                                    <DataBinding ColumnKey="Qty"/>
+                                    <Format HAlign="Left"/>
+                                </NumberEditor>
+                                <Label Key="Lab_Qty" Caption="数量：" X="4" Y="1"/>
+                                <TextEditor Key="MaterialUnit" X="6" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="MaterialUnit"/>
+                                </TextEditor>
+                                <TextEditor Key="DestLocationName" Caption="目标储位名称" BuddyKey="Lab_DestLocationName" X="9" Y="1" Enable="false">
+                                    <DataBinding ColumnKey="DestLocationName"/>
+                                </TextEditor>
+                                <Label Key="Lab_DestLocationName" Caption="目标：" X="8" Y="1"/>
+                                <Label Key="SrcLocCode" Caption="SrcLocCode" X="7" Y="0" Visible="false">
+                                    <DataBinding ColumnKey="SrcLocCode"/>
+                                </Label>
+                                <Label Key="DestLocCode" Caption="DestLocCode" X="7" Y="0" Visible="false">
+                                    <DataBinding ColumnKey="DestLocCode"/>
+                                </Label>
+                                <Label Key="OID" Caption="OID" X="7" Y="0" Visible="false">
+                                    <DataBinding ColumnKey="OID"/>
+                                </Label>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="35px"/>
+                                    <RowDef Height="35px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="33%"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="20%"/>
+                                    <ColumnDef Width="13%"/>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="30px"/>
+                                    <ColumnDef Width="33%"/>
+                                    <ColumnDef Width="10px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection>
+                    <RowDef Height="50px"/>
+                    <RowDef Height="120px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="ScanLoc">
+            <![CDATA[
+				if(TextSrcLoc <> ''){
+					var flag = false;
+					var count = GetRowCount('list',false);
+					var i = 0;
+					while(i < count){
+						if(GetCellValue('list', i,'SrcLocCode') == TextSrcLoc ){
+						
+								SetFocusRow('list',i);
+								SetRowIndex('list',i);
+								ScrollTo('list',i);
+								
+								flag=true;
+								break;
+						}
+						i=i+1;
+					}
+					if(flag==false){
+						ShowToast("移位明细中找不到该代码的源储位。");
+					}
+				}
+				SetFocus('TextSrcLoc');
+			]]>
+        </Macro>
+        <Macro Key="ScanMaterial">
+            <![CDATA[				
+				if(TextMaterialCode <> ''){
+					var flag = false;
+					var count = GetRowCount('list',false);
+					var i = 0;
+					while(i < count){
+						if(GetCellValue('list', i,'MtlCode') == TextMaterialCode ){
+						
+								SetFocusRow('list',i);
+								SetRowIndex('list',i);
+								ScrollTo('list',i);
+								
+								flag=true;
+								break;
+						}
+						i=i+1;
+					}
+					if(flag==false){
+						ShowToast("移位明细中找不到该条码物料。");
+					}
+				}
+				SetFocus('TextMaterialCode');
+			]]>
+        </Macro>
+    </MacroCollection>
+    <FormParaCollection>
+        <FormPara Formula="Para('OID')" Key="OID" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="样品移位" Location="Center">
+            <Label Key="TitleCenter" Caption="样品移位" Width="pref">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="LRP_IncomeStatement" Caption="收入对账单" NoPrefix="IS" PrimaryTableKey="LRP_IncomeStatement_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_IncomeStatement_H" Caption="收入对账单头">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+			
+            <Column Key="No" Caption="对账单号" DataType="Varchar" Length="100" SortType="Desc"/>
+            <Column Key="CompanyCodeId" Caption="公司代码id" DataType="Long"/>
+            <Column Key="StatementName" Caption="账单名称" DataType="Varchar" Length="100"/>
+            <Column Key="OwnerId" Caption="货主id" DataType="Long"/>
+            <Column Key="SettlementId" Caption="结算方id" DataType="Long"/>
+            <Column Key="OrderDate" Caption="账单日期" DataType="Date"/>
+            <Column Key="FinishDate" Caption="完成日期" DataType="Date"/>
+            <Column Key="TotalAmount" Caption="总金额" DataType="Numeric" DefaultValue="0" Precision="18" Scale="6"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar" Length="1000"/>
+        </Table>
+        <Table Key="LRP_IncomeStatement_L" Caption="收入对账单明细" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="SEQUENCE" Caption="序号" DataType="Integer"/>
+			
+            <Column Key="MapKey" Caption="数据映射key" DataType="Varchar" Length="100"/>
+            <Column Key="SrcOID" Caption="来源单据明细ID" DataType="Long"/>
+            <Column Key="SrcSOID" Caption="来源单据头id" DataType="Long"/>
+			
+            <Column Key="IncomeLineId" Caption="收入明细id" DataType="Long"/>
+            <Column Key="AdjustAmount" Caption="调整后金额" DataType="Numeric" Precision="18" Scale="6"/>
+        </Table>
+    </TableCollection>
+	<PreSaveProcess>
+        <Process>
+            <![CDATA[LRP_IncomeStatement_PreSave()]]>
+        </Process>
+    </PreSaveProcess>
+</DataObject>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="配备交接管理" Key="HandoverManageCustomBill">
+        <EntryItem Caption="配备交接单" FormKey="CHCS_HandoverView" Key="CHCS_HandoverView" Type="Form"/>
+        <EntryItem Caption="满配交接单" FormKey="CHCS_Full_Match_OrderView" Key="CHCS_Full_Match_OrderView" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
+    </Entry>
+</Entry>

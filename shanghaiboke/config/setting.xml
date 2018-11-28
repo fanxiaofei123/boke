@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Setting>
+    <Cluster Type="One2Set"/>
+	<Entry Style="Tree"/>
+	<!-- 回调函数，返回机构中的下拉选项 -->
+	<Session SessionParaProcess="com.bokesoft.lrp_v3.mid.common.AfterLoginServiceProcess" GuestAuthenticateProvider="com.bokesoft.lrp_v3.mid.tmsdriverapp.MobileLoginService" Timeout="3600"/>
+	<!-- 自定义的登入界面,方法返回true 显示机构 -->
+	<!--Login NormalAppLogin="com.bokesoft.yigo.fxapp.ui.auth.SessionParaLogin"/-->
+	<Login MultiLang="true"/>
+</Setting>

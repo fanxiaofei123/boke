@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Solution Caption="仓储物流云平台" Key="trunk_lrp_v3" StartProject="Basic" EnableMultiLang="true">
+    <ProjectCollection>
+        <Project Caption="基本资料" Key="Basic"/>
+        <Project Caption="基本资料" Key="BK_Basic"/>
+        <Project Caption="预算管理" Key="BudgetManagement"/>
+        <Project Caption="航班计划" Key="CHCS_FlightPlan"/>
+        <Project Caption="川航基础资料" Key="CH_Basic"/>
+        <Project Caption="公共模块" Key="Common"/>
+        <Project Caption="配餐管理" Key="FoodDistributionManagement"/>
+        <Project Caption="点餐管理" Key="MealManagement"/>
+        <Project Caption="供应商管理" Key="SupplierManagement"/>
+        <Project Caption="餐具管理" Key="TablewareManagement"/>
+        <Project Caption="系统配置" Key="SystemConfig"/>
+        <Project Caption="配备交接管理" Key="HandoverManage"/>
+    </ProjectCollection>
+    <InplaceToolbarCollection>
+        <InplaceToolbar Description="BPM融合" Handler="com.bokesoft.yes.bpm.BPMInplaceToolBarCallback" Tag="BPM"/>
+        <InplaceToolbar Description="提交工作项" Handler="com.bokesoft.yes.bpm.LoadWorkitemInplaceToolBarCallback" Tag="WORKITEM"/>
+    </InplaceToolbarCollection>
+    <StartItemCollection>
+        <StartItem Platform="All" StartForm="WarehouseKeeperRoot" LoginForm="WarehouseKeeperLogin"/>
+    </StartItemCollection>
+    <LangConfig>
+        <Lang Description="中文" Key="zh-CN" Suffix="zh_CN"/>
+        <Lang Description="English" Key="en-US" Suffix="en_US"/>
+    </LangConfig>
+</Solution>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Label1>No order for pick</Label1>
+        <OrderTitle>OrderTitle</OrderTitle>
+    </Opt>
+    <UI>
+        <Label1>No order for pick</Label1>
+        <OrderTitle>pickorder</OrderTitle>
+    </UI>
+    <ListViewColumn>
+        <No>No</No>
+        <OwnerName>Owner</OwnerName>
+        <PickReceive>receive</PickReceive>
+        <SelectField>SelectField</SelectField>
+        <TxTypeCode>TxTypeCode</TxTypeCode>
+        <OID>OID</OID>
+        <CREATETIME>CreateTime</CREATETIME>
+        <NoticeNo>NoticeNO</NoticeNo>
+    </ListViewColumn>
+</StringTable>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="包装入库单" Key="LRP_PackingInbound" NoPrefix="PI" PrimaryTableKey="LRP_PackingInbound_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="包装入库单头" Key="LRP_PackingInbound_H" SourceType="DataObject">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="入库时间" DataType="DateTime" Key="InboundDateTime"/>
+            <Column Caption="备注" DataType="Varchar" Expand="true" Key="Remark" Length="1000"/>
+            <Column Caption="仓储中心id" DataType="Long" Key="WarehouseCenterId"/>
+        </Table>
+        <Table Caption="包装入库单明细" Key="LRP_PackingInbound_L" TableMode="Detail" SourceType="DataObject">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="序号" Key="SEQUENCE" DataType="Integer"/>
+            <Column Caption="物料" DataType="Long" Key="MaterialId"/>
+			<Column Caption="物料条码" DataType="Varchar" Key="MaterialBarCode" Length="100"/>
+            <Column Caption="数量" DataType="Numeric" DefaultValue="0" Precision="18" Scale="6" Key="Qty"/>            
+            <Column Caption="仓间" DataType="Long" Key="StoreroomId"/>
+            <Column Caption="库区" DataType="Long" Key="StoreareaId"/>
+            <Column Caption="储位" DataType="Long" Key="LocationId"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

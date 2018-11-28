@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <lab_mCode_C>MaterilId</lab_mCode_C>
+		<Qurey>Qurey</Qurey>
+		<OrderTitle>QueryStock</OrderTitle>
+		<reset>Reset</reset>
+		<Lab_loc>Location</Lab_loc>
+		<Label1>Location</Label1>
+		<Lab_Chname>Chname</Lab_Chname>
+		<Lab_Englishname>Englishname</Lab_Englishname>
+		<Picno>Picno</Picno>
+    </UI>
+    <ListViewColumn>
+        <MaterialId>MaterialID</MaterialId>
+        <OnhandQty>OnhandQty</OnhandQty>
+        <OwnerId>OwnerId</OwnerId>
+        <WarehouseCenterId>WarehouseCenterID</WarehouseCenterId>
+        <LocationId>LocationID</LocationId>
+        <StoreareaId>StoreareId</StoreareaId>
+        <Picture_No>PictureNo</Picture_No>
+        <StoreroomId>StoreroomId</StoreroomId>
+        <OID>OID</OID>
+    </ListViewColumn>
+    <Error>
+        <WarehouseCenterId_C>WarehouseCenterId</WarehouseCenterId_C>
+        <OwnerId_C>OwnerId_c</OwnerId_C>
+        <MaterialId_C>MaterilId</MaterialId_C>
+    </Error>
+    <Tip>
+        <WarehouseCenterId_C>Warehouse</WarehouseCenterId_C>
+        
+        <lab_MaterialId_C>lab_MaterialId</lab_MaterialId_C>
+        <OwnerId_C>OwnerId</OwnerId_C>
+        <MaterialId_C>Material_c</MaterialId_C>
+        <Qurey>Query</Qurey>
+        <lab_OwnerId_C>Lab_OwnerId</lab_OwnerId_C>
+        <lab_WarehouseCenterId_C>WarehouseCenterId_c</lab_WarehouseCenterId_C>
+    </Tip>
+    <Prompt>
+        
+    </Prompt>
+</StringTable>

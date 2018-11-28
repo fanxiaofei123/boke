@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataMigration Caption="出库迁移库存" Key="Chukudan2InventoryList" SrcDataObjectKey="Chukudan" TgtDataObjectKey="InventoryList" StatusFieldKey="Status" StatusValue="statusKey3">
+    <SourceTableCollection Height="210" Width="224" X="30" Y="30">
+        <SourceTable TableKey="ChukudanDetail" IsPrimary="true">
+            <SourceField Definition="Warehouse" TargetFieldKey="Warehouse" TargetTableKey="InventoryList" OpSign="Assign"/>
+            <SourceField Definition="Mateial" TargetFieldKey="Material" TargetTableKey="InventoryList" OpSign="Assign"/>
+            <SourceField Definition="Amount" IsNegtive="true" TargetFieldKey="Amount" TargetTableKey="InventoryList"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="210" Width="213" X="309" Y="30">
+        <TargetTable TableKey="InventoryList">
+            <TargetField FieldKey="Warehouse"/>
+            <TargetField FieldKey="Material"/>
+            <TargetField FieldKey="Amount"/>
+        </TargetTable>
+    </TargetTableCollection>
+</DataMigration>

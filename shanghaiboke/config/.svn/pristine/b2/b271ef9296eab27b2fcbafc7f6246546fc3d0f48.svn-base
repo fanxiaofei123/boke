@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="CHCS_Special_Requirement_Set" Caption="配餐特殊要求设置" PrimaryTableKey="CHCS_Special_Requirement_Set" SecondaryType="Dict" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="CHCS_Special_Requirement_Set" Caption="配餐特殊要求设置">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+            <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+            <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
+            <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+            <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+            <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+            <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+            <Column Key="CREATOR" Caption="创建人" DataType="Long"/>
+            <Column Key="CREATETIME" Caption="创建时间" DataType="DateTime"/>
+            <Column Key="MODIFIER" Caption="修改人" DataType="Long"/>
+            <Column Key="MODIFYTIME" Caption="修改时间" DataType="DateTime"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar" Length="200"/>
+            <Column Key="Price" Caption="价格" DataType="Numeric" Precision="16" Scale="2"/>
+            <Column Key="Meals_Provide_Description" Caption="配餐说明" DataType="Varchar" Length="200"/>
+            <Column Key="Meal_Requirement" Caption="餐谱要求" DataType="Varchar" Length="200"/>
+        </Table>
+        <Table Key="CHCS_Terminal_Element" Caption="航站要素" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Airport" Caption="机场" DataType="Long"/>
+        </Table>
+        <Table Key="CHCS_Verdor" Caption="航食公司" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Verdor" Caption="航食公司" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

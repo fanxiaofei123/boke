@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <V_OwnerAccountRecordsView-Abbr>OwnerAccountRecordsView</V_OwnerAccountRecordsView-Abbr>
+	 
+        <L_No>No</L_No>
+		<L_OwnerId>OwnerId</L_OwnerId>
+        <L_OwnerUserId>OwnerUserId</L_OwnerUserId>
+        <L_TxType>TxType</L_TxType>
+        <L_Action>Action</L_Action>
+		<Lab_Status1>Status</Lab_Status1>
+        <L_CREATETIME>CreateTime</L_CREATETIME>
+		<L_CREATETIME_Comp2>To</L_CREATETIME_Comp2>
+    </UI>
+	<ListViewColumn>
+        <OID>OID</OID>
+        <Select>Select</Select>
+        <Status>Status</Status>
+        <No_LV>No</No_LV>
+        <OwnerId_LV>OwnerId</OwnerId_LV>
+        <OwnerUserId_LV>OwnerUserId</OwnerUserId_LV>
+        <Currency_LV>Currency</Currency_LV>
+        <BeforeMoney_LV>BeforeMoney</BeforeMoney_LV>
+        <AfterMoney_LV>AfterMoney</AfterMoney_LV>
+        <TxMoney_LV>TxMoney</TxMoney_LV>
+        <TxType_LV>TxType</TxType_LV>
+        <FreezeMoney_LV>FreezeMoney</FreezeMoney_LV>
+        <Action_LV>Action</Action_LV>
+        <ExtraMessage_LV>ExtraMessage</ExtraMessage_LV>
+	</ListViewColumn>
+	<Items-TxType>
+		<Item-0>income</Item-0>
+		<Item-1>expenditure</Item-1>
+	</Items-TxType>
+	<Items-TxType_LV>
+		<Item-0>income</Item-0>
+		<Item-1>expenditure</Item-1>
+	</Items-TxType_LV>
+</StringTable>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MyPoints">
+    <DataSource>
+        <DataObject Key="MyPoints" Caption="我的积分" Authenticate="false">
+            <TableCollection>
+                <Table Key="MyPoints" Caption="我的积分" SourceType="Query" TableMode="Detail">
+                    <Column Key="OID" Caption="兑换项目OID" DataType="Long"/>
+                    <Column Key="ImageUrl" Caption="项目图片" DataType="Varchar"/>
+                    <Column Key="InfoUrl" Caption="详细信息路径" DataType="Varchar"/>
+                    <Column Key="Points" Caption="积分数" DataType="Numeric" Precision="18" Scale="0" DefaultValue=""/>
+                    <Column Key="EffectDateTime" Caption="生效日期" DataType="DateTime"/>
+                    <Column Key="ExpireDateTime" Caption="失效日期" DataType="DateTime"/>
+                    <ParameterCollection>
+                        <Parameter DataType="DateTime" Formula="ServerDBDate();"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT OID,
+  ImageUrl,
+  InfoUrl,
+  Points,
+  EffectDateTime,
+  ExpireDateTime
+FROM LRP_UPExchangeItem_H
+WHERE Status = 200 and
+? BETWEEN EffectDateTime AND ExpireDateTime]]>
+                    </Statement>
+                </Table>
+                <Table Key="UserPoints" Caption="用户积分" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="UserId" Caption="货主用户" DataType="Long"/>
+                    <Column Key="AvailablePoints" Caption="可用积分" DataType="Numeric" Precision="18" Scale="0" DefaultValue="0"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetUserOperator();"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT * FROM LRP_UserPoints WHERE UserId = ?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#ffffff"/>
+                <TableView Key="main" X="0" Y="0">
+                    <TableRowCollection>
+                        <TableRow Key="r2" Style="Tiled">
+                            <GridLayoutPanel Key="LogisticsServiceList" Height="pref">
+                                <Format BackColor="#f2f2f2"/>
+                                <Label Key="Notes" Caption="积分有效期从获得日开始至失效日期，预期将自动作废，请您及时兑换" X="1" Y="1" SingleLine="false"/>
+                                <RowDefCollection>
+                                    <RowDef Height="10px"/>
+                                    <RowDef Height="60px"/>
+                                    <RowDef Height="10px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection>
+                                    <ColumnDef Width="10px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="10px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row3" SeparatorStyle="none solid">
+                            <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                                <Image Key="PointsImage" Caption="可用积分" X="1" Y="2" Image="points.jpg" SourceType="Resource" Stretch="true" Padding="5px"/>
+                                <NumberEditor Key="AvailablePoints" Caption="可用积分:" BuddyKey="Lab_AvailablePoints" X="3" Y="1" Enable="false" IntegerValue="true" ShowZero="true" YSpan="3">
+                                    <DataBinding DefaultValue="0" ColumnKey="AvailablePoints" TableKey="UserPoints"/>
+                                    <Format ForeColor="#b31a1a">
+                                        <Font Bold="true"/>
+                                    </Format>
+                                </NumberEditor>
+                                <Label Key="Lab_AvailablePoints" Caption="可用积分:" X="2" Y="2"/>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="35px"/>
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="35px"/>
+                                    <ColumnDef Width="80px"/>
+                                    <ColumnDef Width="80px"/>
+                                    <ColumnDef Width="50%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row5" RowType="Detail" TableKey="MyPoints">
+                            <GridLayoutPanel Key="GridLayoutPanel3" Caption="GridLayoutPanel3">
+                                <Image Key="ImageUrl" Caption="积分兑换券图片" X="1" Y="1" Height="pref" Stretch="true" Weight="0.4" Width="pref">
+                                    <DataBinding ColumnKey="ImageUrl"/>
+                                    <OnClick>
+                                        <![CDATA[
+										SetPara('userID',GetUserOperator());
+										SetPara('exchangeItemOID', GetCellValue('row5', -1, 'OID'));
+										SetPara('availablePoints', AvailablePoints);
+										SetPara('exchangeQty', 1.0);
+                                        SetValue('remark2', "将花费"&GetCellValue('row5', -1, 'Points')&"积分，是否确定兑换？", false);
+                                                        
+										PopView('exchange');
+										]]>
+                                    </OnClick>
+                                </Image>
+                                <Label Key="OID" Caption="兑换项目oid" Visible="false" X="0" Y="1">
+                                    <DataBinding ColumnKey="OID"/>
+                                </Label>
+                                <Label Key="Points" Caption="积分" X="0" Y="1" Visible="false" Height="pref" Width="pref">
+                                    <DataBinding ColumnKey="Points"/>
+                                </Label>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="5px"/>
+                                    <RowDef Height="70px"/>
+                                    <RowDef Height="5px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="20px"/>
+                                    <ColumnDef Width="100%"/>
+                                    <ColumnDef Width="20px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <GridLayoutPanel Key="LogisticsService22" Height="pref" X="0" Y="1">
+                    <Label Key="PointsRemark" Caption="什么是积分" X="1" Y="1">
+                        <Format ForeColor="#000000" HAlign="Left">
+                            <Font Size="18"/>
+                        </Format>
+                    </Label>
+                    <TextArea Caption="备注" Enable="False" Key="Remark" X="1" Y="2" HAlign="Left" BorderStyle="none">
+                        <DataBinding DefaultValue="积分是用户在小蜜蜂物流消费获得的奖励，可在小蜜蜂积分平台兑换礼品等。目前积分可兑换优惠券(限在线支付可用),更多礼品即将推出，敬请期待！积分政策从2017年6月1日开始实行，此日期后的消费均赠送积分。"/>
+                        <Format HAlign="Left">
+                            <Font Size="14"/>
+                        </Format>
+                    </TextArea>
+                    <RowDefCollection>
+                        <RowDef Height="10px"/>
+                        <RowDef Height="35px"/>
+                        <RowDef Height="120px"/>
+                        <RowDef Height="10px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="10px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="170px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <Block Root="false" Key="block_spec_sel">
+            <PopView Key="exchange" Area="center">
+                <GridLayoutPanel Key="pop_spec_sel_panel" Height="170px" Width="auto">
+                    <Format BackColor="#ffffff"/>
+                    <Button Key="spec_pop_esc" Caption="不兑换" Enable="True" X="0" Y="3" XSpan="3" BorderStyle="solid" BorderColor="#808080" BorderRadius="4" HasBorder="true">
+                        <Format ForeColor="#b3b3b3" BackColor="#ffffff"/>
+                        <OnClick>
+                            <![CDATA[
+
+							ClosePop('exchange');
+							]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="spec_pop_ok" Caption="兑换" Enable="True" X="3" Y="3" XSpan="3" BorderStyle="solid" BorderColor="#808080" BorderRadius="4" HasBorder="true">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52"/>
+                        <OnClick>
+                            <![CDATA[
+							var userID=Para('userID');
+							var exchangeItemOID=Para('exchangeItemOID');
+							var availablePoints=Para('availablePoints');
+							var exchangeQty=Para('exchangeQty');
+							InvokeService("LRP_PointsExchange", false, false, userID,exchangeItemOID,availablePoints,exchangeQty);
+							ShowToast("您已兑换成功！");
+							ClosePop('exchange');
+							]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="remark2" X="1" Y="1" XSpan="4">
+                        <Format HAlign="Center"/>
+                    </Label>
+                    <RowDefCollection>
+                        <RowDef Height="10px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="10px"/>
+                        <RowDef Height="40px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="40px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="40px"/>
+                        <ColumnDef Width="10px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <OnClose>
+                    <![CDATA[
+					]]>
+                </OnClose>
+            </PopView>
+        </Block>
+        <ViewCollection>
+            <View Key="All"/>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+        LoadData();
+        ]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle" Caption="我的积分" Location="Center">
+            <Label Key="TitleCenter" Caption="我的积分" Width="pref">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

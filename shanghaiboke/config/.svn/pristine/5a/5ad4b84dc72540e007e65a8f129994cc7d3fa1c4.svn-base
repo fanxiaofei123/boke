@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_SelectCoupon" Platform="">
+    <DataSource>
+        <DataObject Caption="优惠券" Key="LRP_CouponView" PrimaryTableKey="LRP_CouponView">
+            <TableCollection>
+                <Table Caption="可用优惠券" Key="LRP_CouponView" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="券OID" DataType="Long"/>
+                    <Column Key="CROID" Caption="券记录OID" DataType="Long"/>
+                    <Column Key="CRNo" Caption="券号" DataType="Varchar" Length="100"/>
+                    <Column Key="Name" Caption="券名称" DataType="Varchar" Length="100"/>
+                    <Column Key="CouponTypeId" Caption="券类型" DataType="Long"/>
+                    <Column Key="CalculationMethod" Caption="计算方式" DataType="Integer"/>
+                    <Column Key="Description" Caption="描述" DataType="Varchar" Length="100"/>
+                    <Column Key="EffectiveDateTime" Caption="生效日期时间" DataType="DateTime"/>
+                    <Column Key="ExpireDateTime" Caption="失效日期时间" DataType="DateTime"/>
+                    <Column Key="ImageUrl" Caption="图片路径" DataType="Varchar" Length="100"/>
+                    <Statement>
+                        <![CDATA[select d.*,h.oid as CROID,h.no as CRNo from LRP_CouponRecords h join LRP_Coupon d on h.couponid=d.oid ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Label Key="Lab_nocoupon" Caption="当前无优惠券" X="0" Y="0" Visible="GetRowCount('Couponlist')==0">
+                    <Format ForeColor="#000000" HAlign="Center">
+                        <Font Size="26"/>
+                    </Format>
+                </Label>
+                <ListView Caption="优惠券" Key="Couponlist" TableKey="LRP_CouponView" RowHeight="60" Enable="false" X="0" Y="0">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="CROID" Caption="CROID" DataColumnKey="CROID" Visible="false"/>
+                        <ListViewColumn Key="Name" DataColumnKey="Name" Enable="false">
+                            <Format HAlign="Left">
+                                <Font Size="15"/>
+                            </Format>
+                        </ListViewColumn>
+                        <ListViewColumn Key="CRNo" DataColumnKey="CRNo" Enable="false">
+                            <Format ForeColor="#969696" HAlign="Left">
+                                <Font Size="13"/>
+                            </Format>
+                        </ListViewColumn>
+                    </ListViewColumnCollection>
+                    <RowClick>
+                        <![CDATA[Parent.SetValue('txt_couponid',CROID);Parent.SetValue('lab_coupon',"    "+Name);Close();]]>
+                    </RowClick>
+                    <ListViewRow SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2" TopMargin="1px"/>
+                </ListView>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="50px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="All">
+                <ComponentView Key="Couponlist">
+                    <GridLayout Key="Couponlist">
+                        <LayoutSpan Key="Name" X="1" Y="0" XSpan="2"/>
+                        <LayoutSpan Key="CRNo" X="1" Y="1" XSpan="2"/>
+                        <RowDefCollection>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="5%"/>
+                            <ColumnDef Width="45%"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="5%"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData()
+		]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Coupon_bar" Caption="优惠券" Location="Center">
+            <Label Key="Coupon" Caption="优惠券" Height="auto" Weight="1.0" Stretch="true">
+                <Format ForeColor="#eeeeee" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+        <BarItem Key="Centertitle" Caption="不用优惠券" Location="Right">
+            <Button Key="TitleRight" Caption="不用优惠券" Width="120px">
+                <Format ForeColor="#eeeeee" BackColor="transparent" HAlign="Right" HighlightColor="Transparent">
+                    <Font Size="14"/>
+                </Format>
+                <OnClick>
+                    <![CDATA[
+					 Parent.SetValue('txt_couponid','');Parent.SetValue('lab_coupon','');Close();
+				]]>
+                </OnClick>
+            </Button>
+        </BarItem>
+    </NavigationBar>
+</Form>

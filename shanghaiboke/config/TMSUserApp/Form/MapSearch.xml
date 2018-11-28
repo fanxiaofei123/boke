@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MapSearch" HasNavigationBar="false">
+	<DataSource>
+     <DataObject Caption="详细路线" Key="LRP_TransportOrder">
+            <TableCollection>
+                <Table Caption="详细路线" Key="LRP_TransportOrderRoute_L" DBTableName="LRP_TransportOrderRoute_L" SourceType="Query" Persist="false">  				
+                    <Column Caption="地点名" DataType="Varchar" Key="AddressName" Length="100"/>
+                    <Column Caption="地址" DataType="Varchar" Key="Address" Length="40"/>
+					<Column Key="Longitude" Caption="经度" DataType="Numeric" Precision="18" Scale="6"/>
+                    <Column Key="Latitude" Caption="纬度" DataType="Numeric" Precision="18" Scale="6"/>
+					<Column Key="ProvinceId" Caption="省" DataType="Long"/>
+                    <Column Key="CityId" Caption="市" DataType="Long"/>
+                  <TableFilter>
+                      <![CDATA[AddressName='-1']]>
+                  </TableFilter>
+			   </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <TableView Key="info_table" X="0" Y="0">
+                    <TableRowCollection>
+                        <TableRow Key="r1" RowType="Fix" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2">
+							<LinearLayoutPanel Key="opt_panel" Orientation="Horizontal" Height="50px" BorderStyle="solid none">
+								<ComboBox Key="City" Caption="城市" PromptText="城市" SourceType="Formula" Enable="false" Weight="0" Height="pref" Width="pref" BorderColor="#e6e6e6" BorderRadius="0" HasBorder="true">
+								   <Format ForeColor="#969696">
+										<Font Size="16"/>
+								   </Format>
+								   <DataBinding Required="true">
+										<ValueChanged>
+											<![CDATA[
+											if(GetValue('spec_sel_m') != ""){
+												ReplaceTable('LRP_TransportOrderRoute_L', InvokeService("LRP_MapMatching", false, false,GetValue("spec_sel_m"),GetValue('City'),Root.GetPara('UserDispatchOrg')));  
+												RefreshControl('info_table');
+											}
+											]]>
+										</ValueChanged>
+									</DataBinding>
+									<FormulaItems>
+										<![CDATA[DBNamedQuery('SelectCity',Root.GetPara('UserDispatchOrg'))]]>
+									</FormulaItems>
+								</ComboBox>
+								<TextEditor Key="spec_sel_m" Caption="请输入收货地址" PromptText="请输入收货地址" Weight="1" Width="0px" Height="auto" BorderStyle="none">
+                                    <Format ForeColor="#969696">
+										<Font Size="16"/>
+								   </Format>
+									<DataBinding >
+										<ValueChanged>
+                                        <![CDATA[   
+											if(GetValue('spec_sel_m') != ""){
+												ReplaceTable('LRP_TransportOrderRoute_L', InvokeService("LRP_MapMatching", false, false,GetValue("spec_sel_m"),GetValue('City'),Root.GetPara('UserDispatchOrg')));  
+												RefreshControl('info_table');
+											 }
+										  ]]>
+										</ValueChanged>
+                                    </DataBinding>
+                                </TextEditor>
+								<Button Key="spec_pop_esc" Caption="取消" Enable="True" Width="80px" BorderStyle="solid">
+									<Format BackColor="#ffffff" ForeColor="#969696">
+										<Font Size="16"/>
+									</Format>
+									<OnClick>
+										<![CDATA[
+											Close();
+										]]>
+									</OnClick>
+								</Button>
+							</LinearLayoutPanel>
+						</TableRow>				
+						<TableRow Key="r3" RowType="Detail" TableKey="LRP_TransportOrderRoute_L" SeparatorStyle="none none solid none" SeparatorColor="#b8becc">
+							<GridLayoutPanel Key="product_panel" Height="60px">
+								<RowDefCollection>
+								<RowDef Height="5px"/>
+								<RowDef Height="30px"/>
+								<RowDef Height="20px"/>
+								<RowDef Height="5px"/>
+							</RowDefCollection>
+							<ColumnDefCollection>
+								<ColumnDef Width="10px"/>
+								<ColumnDef Width="100%"/>
+								<ColumnDef Width="10px"/>
+							</ColumnDefCollection>
+								<Label Key="Name" Caption="地点名" X="1" Y="1">
+									<Format ForeColor="#969696">
+										<Font Size="20"/>
+									</Format>
+									<DataBinding ColumnKey="AddressName">
+									</DataBinding>
+								</Label>
+								<Label Key="Address" Caption="地址" X="1" Y="2">
+									<Format HAlign="Left" ForeColor="#dde0e7">
+										<Font Size="16"/>
+									</Format>
+									<DataBinding ColumnKey="Address">
+									</DataBinding>
+								</Label>
+								<Label Key="Latitude" Caption="纬度" Visible="false" X="1" Y="3">
+									<Format>
+										<Font Size="16"/>
+									</Format>
+									<DataBinding ColumnKey="Latitude">
+									</DataBinding>
+								</Label>
+								<Label Key="Longitude" Caption="经度" Visible="false" X="1" Y="4">
+									<Format HAlign="Left">
+										<Font Size="14"/>
+									</Format>
+									<DataBinding ColumnKey="Longitude">
+									</DataBinding>
+								</Label>
+								<Dict Key="ProvinceId" Caption="省" X="1" Y="3" Visible="false" Enable="false" ItemKey="LRP_Province">
+									<Format HAlign="Left">
+										<Font Size="14"/>
+									</Format>
+									<DataBinding ColumnKey="ProvinceId" TableKey="CurrentOrder"/>
+								</Dict>
+								<Dict Key="CityId"  Caption="市" X="1" Y="4" Visible="false" Enable="false" ItemKey="LRP_City">
+									<Format HAlign="Left">
+										<Font Size="14"/>
+									</Format>
+									<DataBinding ColumnKey="CityId" TableKey="CurrentOrder"/>
+								</Dict>
+							</GridLayoutPanel>
+							<RowClick>
+									<![CDATA[
+									var districtId = InvokeService("LRP_GetRegion", false, false,Longitude,Latitude);
+									Parent.SetValue('spec_sel_m',Name);
+									if(Address != "无"){
+										Parent.SetValue('Address',Address);
+										}else{
+										Parent.SetValue('Address',"");
+										}
+									Parent.SetValue('Latitude',Latitude);
+									Parent.SetValue('Longitude',Longitude);
+									Parent.SetValue('ProvinceId',ProvinceId);
+									Parent.SetValue('CityId',CityId);
+									Parent.SetValue('DistrictId',districtId);
+									SendSignal('MapSession');
+									Close();
+									]]>
+							</RowClick>
+						</TableRow>
+					</TableRowCollection>
+                </TableView>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+	<QueryCollection>
+		 <Query Description="查询城市" Key="SelectCity">
+            <Statement>
+                <![CDATA[select d.cityid as d,c.name as c from LRP_DispatchOrg_City  d left join lrp_city c on d.cityid=c.oid where d.soid = ?]]>
+            </Statement>
+			<ParameterCollection>
+				<Parameter DataType="Long"/>
+			</ParameterCollection>
+        </Query>
+    </QueryCollection>
+	<OnLoad>
+        <![CDATA[
+			LoadData();
+		]]>
+    </OnLoad>
+	<OnPostShow>
+        <![CDATA[
+		SetValue('City',Para('mapCity'));
+		]]>
+    </OnPostShow>
+</Form>

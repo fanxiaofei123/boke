@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="包装方案匹配单" Key="LRP_PackingStrategyMatch" PrimaryTableKey="LRP_PackingStrategyMatch_H" NoPrefix="PSM" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="LRP_PackingStrategyMatch_H" Caption="包装方案匹配单头" DBTableName="LRP_PackingStrategyMatch_H">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="版本号" DataType="Integer" Key="VERID"/>
+            <Column Caption="明细版本号" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="启用状态" DataType="Integer" Key="Enable"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="字典父亲OID" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="创建人员" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人员" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Key="No" Caption="匹配单号" DataType="Varchar" Length="100"/>
+            <Column Key="Name" Caption="匹配单名称" DataType="Varchar" Length="100"/>
+            <Column Key="Remark" Caption="备注" DataType="Varchar" Length="200"/>
+            <Column Key="MaterialTypeID" Caption="对应的物料类型" DataType="Long"/>
+        </Table>
+        <Table Key="LRP_PackingStrategyMatch_L" Caption="匹配明细" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="始发地高温上限" DataType="Numeric" Key="SrcMaxTempUpper" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="始发地高温下限 " DataType="Numeric" Key="SrcMaxTempLower" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="始发地低温上限 " DataType="Numeric" Key="SrcMinTempUpper" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="始发地低温下限 " DataType="Numeric" Key="SrcMinTempLower" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="目的地高温上限" DataType="Numeric" Key="DestMaxTempUpper" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="目的地高温下限" DataType="Numeric" Key="DestMaxTempLower" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="目的地低温上限" DataType="Numeric" Key="DestMinTempUpper" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="目的地低温下限" DataType="Numeric" Key="DestMinTempLower" Precision="16" Scale="3" DefaultValue="-9999"/>
+            <Column Caption="包装方案" DataType="Long" Key="PackingStrategyID"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>

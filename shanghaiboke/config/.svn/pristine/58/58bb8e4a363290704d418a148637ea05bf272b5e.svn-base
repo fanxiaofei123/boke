@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Tx301Receive" FormType="View">
+    <DataSource>
+        <DataObject Key="Tx301Receive" PrimaryTableKey="Tx301Receive">
+            <TableCollection>
+                <Table Caption="领取移位任务" Key="Tx301Receive" SourceType="Query" TableMode="Detail" Persist="false">
+                    <Column Caption="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="移位单号" DataType="Varchar" Key="No"/>
+                    <Column Caption="货主" DataType="Long" Key="OwnerId"/>
+                    <Column Caption="移位单创建日期时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="货主单号" DataType="Varchar" Key="OwnerNo"/>
+                    <Statement>
+                        <![CDATA[
+						select OID,No,OwnerId,CreateTime,OwnerNo from LRP_WMTx_H where WarehouseKeeperId=0 and Status=200 and TxTypeCode='301'
+						]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Key="UpdateTx301" Description="为选中移位单更新当前仓管员">
+            <Statement>
+                <![CDATA[
+				update LRP_WMTx_H set WarehouseKeeperId = ? , AcceptTaskDateTime = ? where oid = ?
+				]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="DateTime"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <ListView Key="listConfirm" Caption="移位任务" TableKey="Tx301Receive" RowHeight="70" X="0" Y="0"  SeparatorStyle="solid none solid none" Padding="5px">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" ColumnType="TextEditor" Visible="false"/>
+                        <ListViewColumn Key="No" Caption="移位单号" DataColumnKey="No" ColumnType="TextEditor"/>
+                        <ListViewColumn Key="OwnerId" Caption="货主" DataColumnKey="OwnerId" ColumnType="Dict" ItemKey="LRP_Owner"/>
+                        <ListViewColumn Key="CreateTime" Caption="移位单创建日期时间" DataColumnKey="CreateTime" ColumnType="DatePicker">
+                             <Format HAlign="left"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="OwnerNo" Caption="货主单号" DataColumnKey="OwnerNo" ColumnType="TextEditor"/>
+                        <ListViewColumn Key="PickReceive" Caption="领取" ColumnType="Button" BorderStyle="none">
+                            <OnClick>
+                                <![CDATA[
+									DBNamedUpdate('UpdateTx301',GetOperator(),ServerDate(),OID);
+									ShowToast("领取成功。");
+									Back();
+									LoadData();ShowData();
+								]]>
+                            </OnClick>
+                            <Format ForeColor="#ffffff" BackColor="#f14c52">
+                                <Font Size="16"/>
+                            </Format>
+                        </ListViewColumn>
+                    </ListViewColumnCollection>
+                    <RowClick>
+                        <![CDATA[
+							Open('Tx301Detail',OID);      
+						]]>
+                    </RowClick>
+                </ListView>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+        <ViewCollection>
+            <View Key="Confirm">
+                <ComponentView Key="listConfirm">
+                    <GridLayout Key="listConfirm">
+                        <LayoutSpan Key="No" X="0" Y="0"/>
+                        <LayoutSpan Key="OwnerId" X="1" Y="0"/>
+                        <LayoutSpan Key="CreateTime" X="0" Y="1"/>
+                        <LayoutSpan Key="OwnerNo" X="1" Y="1"/>
+                        <LayoutSpan Key="PickReceive" X="2" Y="0" YSpan="2"/>
+                        <RowDefCollection>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="70%"/>
+                            <ColumnDef Width="30%"/>
+                            <ColumnDef Width="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayout>
+                </ComponentView>
+            </View>
+        </ViewCollection>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData();
+        ]]>
+    </OnLoad>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="领取移位任务" Location="Center">
+            <Label Key="TitleCenter" Caption="领取移位任务" Width="150px">
+                <Format ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

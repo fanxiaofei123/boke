@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_T_IncomeContract_LRPView" Caption="运输收入合约序事簿" FormType="View" AbbrCaption="运输收入合约序事簿">
+    <DataSource>
+        <DataObject Key="V_T_IncomeContract_LRPView" Caption="运输收入合约序事簿" PrimaryTableKey="LRP_T_IncomeContract_H">
+            <TableCollection>
+                <Table Key="LRP_T_IncomeContract_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="MapCount" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="No" Caption="合约号" DataType="Varchar" Length="100"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+                    <Column Key="OwnerId" Caption="货主" DataType="Long"/>
+                    <Column Key="SettlementId" Caption="结算方" DataType="Long"/>
+                    <Column Key="DispatchOrgId" Caption="调度组织" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="OwnerNo" Caption="货主合约号" DataType="Varchar"/>
+                    <Column Key="EffectiveDate" Caption="生效日期" DataType="Date"/>
+                    <Column Key="ExpireDate" Caption="截止日期" DataType="Date"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Icon="new.png">
+            <Action>
+                <![CDATA[New('V_T_IncomeContract_LRP')]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchConfirm" Caption="确认" RefKey="BatchConfirm"/>
+        <Operation Key="BatchConfirm-R" Caption="撤销确认" RefKey="BatchConfirm-R"/>
+        <Operation Key="BatchCancel" Caption="作废" RefKey="BatchCancel"/>
+        <Operation Key="BatchCancel-R" Caption="撤销作废" RefKey="BatchCancel-R"/>
+        <Operation Caption="删除" Key="BatchDelete">
+            <Action>
+                <![CDATA[
+				if(CheckListNoSelect()){
+					Confirm(LocaleString('CommonDef','key35'),'OK','OK:{}');
+					return true;
+				}
+				if(!CheckListSelectStatus(',100,')){
+                        Confirm(LocaleString('CommonDef','key36'),'OK','OK:{}');
+						return true;	
+                }						
+				Confirm(LocaleString('CommonDef','key37'),'YES_NO',{
+				YES:{BatchDeleteData('LRP_T_IncomeContract', 'LRP_T_IncomeContract_H');LoadData();ShowData();
+						},
+				NO:{}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <FlexFlowLayoutPanel Key="base_split" Caption="FlexFlowLayoutPanel">
+                        <GridLayoutPanel Key="query" Height="100%" Padding="5px" Caption="查询字段" BottomPadding="5px">
+                            <Label Key="Lab_No_C" Caption="合约号" X="0" Y="0"/>
+                            <TextEditor Key="No_C" Caption="合约号" BuddyKey="Lab_No_C" X="1" Y="0" TabOrder="10" XSpan="3">
+                                <Condition ColumnKey="No" TableKey="LRP_T_IncomeContract_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name_C" Caption="合约名称" X="0" Y="1"/>
+                            <TextEditor Key="Name_C" Caption="合约名称" BuddyKey="Lab_Name_C" X="1" Y="1" TabOrder="30" XSpan="3">
+                                <Condition ColumnKey="Name" TableKey="LRP_T_IncomeContract_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_OwnerId_C" Caption="货主" X="5" Y="0"/>
+                            <Dict Key="OwnerId_C" Caption="货主" BuddyKey="Lab_OwnerId_C" X="6" Y="0" AllowMultiSelection="true" ItemKey="LRP_Owner" TabOrder="20" XSpan="3">
+                                <Condition ColumnKey="OwnerId" TableKey="LRP_T_IncomeContract_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_SettlementId_C" Caption="结算方" X="5" Y="1"/>
+                            <Dict Key="SettlementId_C" Caption="结算方" BuddyKey="Lab_SettlementId_C" X="6" Y="1" AllowMultiSelection="true" ItemKey="Customer" TabOrder="40" XSpan="3">
+                                <Condition ColumnKey="SettlementId" TableKey="LRP_T_IncomeContract_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_DispatchOrgId_C" Caption="调度组织" X="0" Y="2"/>
+                            <Dict Key="DispatchOrgId_C" Caption="调度组织" BuddyKey="Lab_DispatchOrgId_C" X="1" Y="2" AllowMultiSelection="true" ItemKey="LRP_DispatchOrg" TabOrder="50" XSpan="3">
+                                <Condition ColumnKey="DispatchOrgId" TableKey="LRP_T_IncomeContract_H" CondSign="in"/>
+                            </Dict>
+                            <Button Key="Query" Caption="查询" X="10" Y="0" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								DealCondition();LoadData();ShowData();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="cancel" Caption="重置" X="10" Y="1" Enable="true">
+                                <OnClick>
+                                    <![CDATA[
+								ResetCondition();	
+								]]>
+                                </OnClick>
+                            </Button>
+                            <ComboBox Key="Status_C" Caption="状态" BuddyKey="Lab_Status_C" X="6" Y="2" TabOrder="60" XSpan="3">
+                                <Condition ColumnKey="Status" TableKey="LRP_T_IncomeContract_H" CondSign="="/>
+                                <Item Caption="已输入" Key="prepared" Value="100"/>
+                                <Item Caption="已确认" Key="confirmed" Value="200"/>
+                                <Item Caption="已作废" Key="cancelled" Value="20"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status_C" Caption="状态" X="5" Y="2"/>
+                            <TextEditor Key="DataObjectKey" Caption="DataObjectKey" X="10" Y="2" Visible="false" Enable="false">
+                                <DataBinding DefaultValue="LRP_T_IncomeContract"/>
+                            </TextEditor>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="55px"/>
+                                <ColumnDef Width="25%"/>
+                                <ColumnDef Width="30px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </FlexFlowLayoutPanel>
+                    <ListView Key="ListView0" PageLoadType="DB" TableKey="LRP_T_IncomeContract_H">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" ColumnType="TextEditor" DataColumnKey="OID" TableKey="LRP_T_IncomeContract_H" Visible="false" Width="73px"/>
+                            <ListViewColumn Key="Select" Caption="选择" ColumnType="CheckBox" Enable="true" IsSelect="true"/>
+                            <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                            <ListViewColumn Key="No" Caption="合约号" ColumnType="HyperLink" DataColumnKey="No">
+                                <OnClick>
+                                    <![CDATA[Open('V_T_IncomeContract_LRP', OID);]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="Name_LV" Caption="合约名称" ColumnType="TextEditor" DataColumnKey="Name"/>
+                            <ListViewColumn Key="OwnerId_LV" Caption="货主" ColumnType="Dict" DataColumnKey="OwnerId" ItemKey="LRP_Owner"/>
+                            <ListViewColumn Key="OwnerNo" Caption="货主合约号" ColumnType="TextEditor" DataColumnKey="OwnerNo"/>
+                            <ListViewColumn Key="SettlementId_LV" Caption="结算方" ColumnType="Dict" DataColumnKey="SettlementId" ItemKey="Customer"/>
+                            <ListViewColumn Key="DispatchOrgId_LV" Caption="调度组织" ColumnType="Dict" DataColumnKey="DispatchOrgId" ItemKey="LRP_DispatchOrg"/>
+                            <ListViewColumn Key="EffectiveDate" Caption="生效日期" DataColumnKey="EffectiveDate" ColumnType="DatePicker"/>
+                            <ListViewColumn Key="ExpireDate" Caption="截止日期" DataColumnKey="ExpireDate" ColumnType="DatePicker"/>
+                        </ListViewColumnCollection>
+                        <RowDblClick>
+                            <![CDATA[Open('V_T_IncomeContract_LRP', OID)]]>
+                        </RowDblClick>
+                    </ListView>
+                    <SplitSize Size="125px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

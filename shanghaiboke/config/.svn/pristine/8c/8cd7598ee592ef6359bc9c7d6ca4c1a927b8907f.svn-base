@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="AbsenceRequest" FormType="Entity" Platform="">
+    <DataSource>
+        <DataObject Key="AbsenceRequest" PrimaryTableKey="LRP_AbsenceRequest" NoPrefix="ABR" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="LRP_AbsenceRequest" Caption="请假单">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建用户ID" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改用户ID" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Key="No" Caption="请假单号" DataType="Varchar" Length="100"/>
+                    <Column Key="DriverID" Caption="请假人" DataType="Long"/>
+                    <Column Key="StartDate" Caption="起始日期" DataType="DateTime"/>
+                    <Column Key="EndDate" Caption="结束日期" DataType="DateTime"/>
+                    <Column Key="Days" Caption="天数" DataType="Integer"/>
+                    <Column Key="AbsenceType" Caption="请假类型" DataType="Integer"/>
+                    <Column Key="AbsenceReason" Caption="请假理由" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root" Height="auto" Orientation="Vertical">
+                <Format BackColor="#f1f3f8"/>
+                <GridLayoutPanel Key="GridLayoutPanel_quick1" Caption="请假" X="0" Y="0">
+                    <Label Key="lbl_StartDate" Caption="起始日期：" X="1" Y="1" Height="auto">
+                        <Format>
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <DatePicker Key="StartDate" X="3" Y="1" XSpan="2">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="StartDate" Required="true"/>
+                        <Format BackColor="Transparent" ForeColor="#000000">
+                            <Font Size="16" Name="Microsoft YaHei"/>
+                        </Format>
+                    </DatePicker>
+                    <DatePicker Key="EndDate" Caption="截止日期" BuddyKey="Lab_EndDate" X="3" Y="3" XSpan="2">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="EndDate" Required="true"/>
+                        <Format BackColor="Transparent" ForeColor="#000000">
+                            <Font Size="16" Name="Microsoft YaHei"/>
+                        </Format>
+                    </DatePicker>
+                    <Label Key="Lab_EndDate" Caption="截止日期：" X="1" Y="3">
+                        <Format>
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <NumberEditor Key="Days" Caption="请假天数" BuddyKey="Lab_Days" X="3" Y="5" XSpan="2" Scale="0">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="Days" Required="true"/>
+                        <Format ForeColor="#000000" HAlign="Center">
+                            <Font Size="16" Name="Microsoft YaHei"/>
+                        </Format>
+                    </NumberEditor>
+                    <Label Key="Lab_Days" Caption="请假天数：" X="1" Y="5">
+                        <Format>
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <ComboBox Key="ComboBox1" Caption="请假类型" BuddyKey="Lab_ComboBox1" X="3" Y="7" XSpan="2" IntegerValue="true">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="AbsenceType" Required="true"/>
+                        <Format ForeColor="#000000" HAlign="Center">
+                            <Font Size="16" Name="Microsoft YaHei"/>
+                        </Format>
+                        <Item Caption="事假" Key="0" Value="0"/>
+                        <Item Caption="病假" Key="1" Value="1"/>
+                        <Item Caption="年假" Key="2" Value="2"/>
+                        <Item Caption="婚假" Key="3" Value="3"/>
+                        <Item Caption="产假" Key="4" Value="4"/>
+                        <Item Caption="护理假" Key="5" Value="5"/>
+                        <Item Caption="丧假" Key="6" Value="6"/>
+                        <Item Caption="补假" Key="7" Value="7"/>
+                        <Item Caption="其它" Key="8" Value="8"/>
+                    </ComboBox>
+                    <Label Key="Lab_ComboBox1" Caption="请假类型：" X="1" Y="7">
+                        <Format>
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <TextEditor Key="AbsenceReason" Caption="请假理由" BuddyKey="Lab_AbsenceReason" X="3" Y="9" XSpan="2">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="AbsenceReason" Required="true"/>
+                        <Format ForeColor="#000000" HAlign="Center">
+                            <Font Size="16" Name="Microsoft YaHei"/>
+                        </Format>
+                    </TextEditor>
+                    <Label Key="Lab_AbsenceReason" Caption="请假理由：" X="1" Y="9">
+                        <Format>
+                            <Font Size="16"/>
+                        </Format>
+                    </Label>
+                    <Dict Key="DriverID" Caption="司机" X="1" Y="11" Visible="false" ItemKey="LRP_Driver">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="DriverID" DefaultFormulaValue="GetOperator();"/>
+                    </Dict>
+                    <ComboBox Key="Status" Caption="状态" X="3" Y="11" SourceType="Status" Visible="false">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="Status" DefaultValue="100"/>
+                    </ComboBox>
+                    <TextEditor Key="No" Caption="编号" X="4" Y="11" Visible="false">
+                        <DataBinding TableKey="LRP_AbsenceRequest" ColumnKey="No"/>
+                    </TextEditor>
+                    <Label Key="Label1" Caption="Label1" X="1" Y="2" XSpan="4">
+                        <Format BackColor="#e6e6e6"/>
+                    </Label>
+                    <Label Key="Label2" Caption="Label2" X="1" Y="4" XSpan="4">
+                        <Format BackColor="#e6e6e6"/>
+                    </Label>
+                    <Label Key="Label3" Caption="Label3" X="1" Y="6" XSpan="4">
+                        <Format BackColor="#e6e6e6"/>
+                    </Label>
+                    <Label Key="Label4" Caption="Label4" X="1" Y="8" XSpan="4">
+                        <Format BackColor="#e6e6e6"/>
+                    </Label>
+                    <Label Key="Label5" Caption="Label5" X="1" Y="10" XSpan="4">
+                        <Format BackColor="#e6e6e6"/>
+                    </Label>
+                    <RowDefCollection>
+                        <RowDef Height="20px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="2px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="2px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="2px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="2px"/>
+                        <RowDef Height="40px"/>
+                        <RowDef Height="2px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="40px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="10px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <LinearLayoutPanel Key="opt_panel" X="0" Y="1" Orientation="Horizontal" BorderStyle="solid none">
+                    <Button Key="order" Caption="确认" Enable="True" Width="pref" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff">
+                            <Font Size="20"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[
+							SaveData();Parent.LoadData();Close();
+							]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="50px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="Centertitle2" Caption="请假" Location="Center">
+            <Label Key="TitleCenter" Caption="请假" Width="60px">
+                <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Center">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

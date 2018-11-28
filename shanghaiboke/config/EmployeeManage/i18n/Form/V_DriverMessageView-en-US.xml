@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<V_DriverMessageView-Abbr>DriverMessageView</V_DriverMessageView-Abbr>
+		
+        <L_No>No</L_No>
+        <L_DriverId>DriverId</L_DriverId>
+        <L_RefNo>RefNo</L_RefNo>
+        <L_IsRead>IsRead</L_IsRead>
+        <L_CREATETIME>CreateTime</L_CREATETIME>
+		<L_CREATETIME_1>To</L_CREATETIME_1>
+    </UI>
+	<ListViewColumn>
+		<OID>OID</OID>
+		<Select>Select</Select>
+		<No>No</No>
+		<DriverId>DriverId</DriverId>
+		<RefNo>RefNo</RefNo>
+		<IsRead>IsRead</IsRead>
+		<Message>Message</Message>
+		<CREATETIME>CreateTime</CREATETIME>
+	</ListViewColumn>
+    <Items-IsRead_C>
+	   <Item-0>Unread</Item-0>
+	   <Item-1>Read</Item-1>
+	</Items-IsRead_C>
+</StringTable>

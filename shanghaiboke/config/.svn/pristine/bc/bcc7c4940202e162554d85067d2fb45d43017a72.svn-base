@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="SelectMyRoute" Authenticate="True">
+	<NavigationBar BackColor="#f14c52">
+		<BarItem Key="OrderTitle_bar" Caption="选择常用路线" Location="Center">
+			<Label Key="OrderTitle" Caption="选择常用路线" Height="auto" Weight="1.0" Stretch="true">
+				<Format HAlign="Center" ForeColor="#ffffff">
+					<Font Size="20"/>
+				</Format>
+			</Label>
+		</BarItem>
+		<BarItem Key="Centertitle" Caption="管理" Location="Right">
+		<Button Key="TitleRight" Caption="管理" Width="60px">
+		    <Format ForeColor="#ffffff" BackColor="transparent" HAlign="Right">
+                <Font Size="16"/>
+            </Format>
+			<OnClick>
+                 <![CDATA[
+					 Show("MyRoute");
+				]]>
+            </OnClick>
+		</Button>
+		</BarItem>
+	</NavigationBar>
+    <DataSource>
+        <DataObject Caption="选择常用路线" Key="LRP_OwnerUserRouteSelect" PrimaryTableKey="LRP_OwnerUserRoute_H">
+            <TableCollection>
+                <Table Caption="用户常用路线头" Key="LRP_OwnerUserRoute_H" DBTableName="LRP_OwnerUserRoute_H" SourceType="Query" Persist="false">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+                    <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+                    <Column Caption="货主用户" DataType="Long" Key="OwnerUserId"/>
+                    <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+                    <Column Caption="路线名称" DataType="Varchar" Key="RouteName" Length="40"/>
+					<Column Caption="起点名称" DataType="Varchar" Key="StartName" Length="100"/>
+					<Column Caption="起运省" DataType="Long" Key="StartProvinceId"/>
+					<Column Caption="起运市" DataType="Long" Key="StartCityId"/>
+					<Column Caption="起运区县" DataType="Long" Key="StartDistrictId"/>			
+					<Column Caption="起运地址" Key="StartAddress" DataType="Varchar" Length="100"/>
+					<Column Caption="起运联系人" Key="StartContactor" DataType="Varchar" Length="100"/>
+					<Column Caption="起运联系人手机" Key="StartContactMobile" DataType="Varchar" Length="100"/>
+                    <Column Caption="终点名称" DataType="Varchar" Key="DestName" Length="100"/>
+                    <Column Caption="终点省" DataType="Long" Key="DestProvinceId"/>
+                    <Column Caption="终点市" DataType="Long" Key="DestCityId"/>
+                    <Column Caption="终点区县" DataType="Long" Key="DestDistrictId"/>
+                    <Column Caption="终点地址" Key="DestAddress" DataType="Varchar" Length="100"/>
+                    <Column Caption="终点联系人" Key="DestContactor" DataType="Varchar" Length="100"/>
+                    <Column Caption="终点联系人手机" Key="DestContactMobile" DataType="Varchar" Length="100"/>
+                    <TableFilter>
+                        <![CDATA[LRP_OwnerUserRoute_H.OwnerUserId=?]]>
+                    </TableFilter>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetUserOperator()"/>
+                    </ParameterCollection>
+                </Table>
+            </TableCollection>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+	<EventHandlerCollection>
+		<EventHandler Key="RouteChanged" Trigger="Show" MergeEvent="True">
+			<![CDATA[LoadData()]]>
+		</EventHandler>
+	</EventHandlerCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+				<Format BackColor="#f1f3f8"/>
+				<TableView Key="RouteName_table" X="0" Y="0">
+					<Format BackColor="#f1f3f8"/>
+                    <TableRowCollection>
+						<TableRow Key="r1" SeparatorStyle="none none none none" Style="List" RowType="Detail" SeparatorColor="#dde0e7" TableKey="LRP_OwnerUserRoute_H">
+							<GridLayoutPanel Key="GridLayoutPanel3" Caption="GridLayoutPanel1">
+								<Label Key="OID" Width="80px" Height="auto" X="0" Y="0" Visible="false">
+									<DataBinding ColumnKey="OID"/>
+								</Label>
+								<Label Key="RouteName" Caption="" Width="80px" Height="auto" X="1" Y="0" XSpan="2">
+									<Format HAlign="Left" ForeColor="#969696">
+										<Font Size="20"/>
+									</Format>
+									<DataBinding ColumnKey="RouteName"/>
+								</Label>
+								<Label Key="StartName" Caption="地址名称" Width="80px" Visible="false" Height="auto" X="1" Y="0">
+									<DataBinding ColumnKey="StartName"/>
+								</Label>
+								<Label Key="StartAddress" Caption="起始地址" Width="80px" Visible="false" Height="auto" X="1" Y="0">
+									<DataBinding ColumnKey="StartAddress"/>
+								</Label>
+								<Label Key="Address" Caption="" Width="80px" Height="auto" X="1" Y="1" XSpan="4">
+									<DataBinding  DefaultFormulaValue="'始发地：'&amp;IIF(StartAddress=='',StartName,StartName&amp;'('&amp;StartAddress&amp;')')"/>
+									<Format HAlign="Left" ForeColor="#dde0e7">
+										<Font Size="16"/>
+									</Format>
+								</Label>
+								<Label Key="lbl" Caption="" Width="80px" Height="auto" X="0" Y="2" XSpan="6">
+									<Format BackColor="#f1f3f8"/>
+								</Label>
+								<RowDefCollection>
+									<RowDef Height="30px"/>
+									<RowDef Height="30px"/>
+									<RowDef Height="10px"/>
+								</RowDefCollection>
+								<ColumnDefCollection>
+									<ColumnDef Width="20px"/>
+									<ColumnDef Width="20px"/>
+									<ColumnDef Width="50%"/>
+									<ColumnDef Width="20px"/>
+									<ColumnDef Width="50%"/>
+									<ColumnDef Width="20px"/>
+								</ColumnDefCollection>
+							</GridLayoutPanel>
+							<RowClick>
+								<![CDATA[
+									var ht = DBNamedQuery('headQuery', OID);
+									var dt = DBNamedQuery('detailQuery', OID);
+									
+									Parent.SetValue('SendOrgId',ht.StartName);
+									Parent.SetValue('SendAddress',ht.StartAddress);
+									Parent.SetValue('SendProvinceId',ht.StartProvinceId);
+									Parent.SetValue('SendCityId',ht.StartCityId);
+									Parent.SetValue('SendDistrictId',ht.StartDistrictId);
+									Parent.SetValue('SendContact',ht.StartContactor);
+									Parent.SetValue('SendTel',ht.StartContactMobile);
+									Parent.SetValue('SendLatitude',ht.StartLatitude);
+									Parent.SetValue('SendLongitude',ht.StartLongitude);
+									Parent.SetValue('DestOrgId',ht.DestName);
+									Parent.SetValue('DestAddress',ht.DestAddress);
+									Parent.SetValue('DestContact',ht.DestContactor);
+									Parent.SetValue('DestTel',ht.DestContactMobile);
+									Parent.SetValue('DestProvinceId',ht.DestProvinceId);
+									Parent.SetValue('DestCityId',ht.DestCityId);
+									Parent.SetValue('DestDistrictId',ht.DestDistrictId);
+									Parent.SetValue('DestLatitude',ht.DestLatitude);
+									Parent.SetValue('DestLongitude',ht.DestLongitude);
+									
+									dt.beforefirst();
+									var i=0;
+									Parent.ClearAllRows('list');
+									while(dt.next()){
+										Parent.InsertRow('list');
+										Parent.SetCellValue('list',i,'OrgId',dt.AddressName);
+										Parent.SetCellValue('list',i,'Address',dt.Address);
+										Parent.SetCellValue('list',i,'ProvinceId',dt.ProvinceId);
+										Parent.SetCellValue('list',i,'CityId',dt.CityId);
+										Parent.SetCellValue('list',i,'DistrictId',dt.DistrictId);
+										Parent.SetCellValue('list',i,'Latitude',dt.Latitude);
+										Parent.SetCellValue('list',i,'Longitude',dt.Longitude);
+										Parent.SetCellValue('list',i,'Contact',dt.Contact);
+										Parent.SetCellValue('list',i,'Tel',dt.Tel);
+										i=i+1;
+									}
+								var distance = Parent.InvokeService("LRP_Distance",true,false,ht.StartLongitude,ht.StartLatitude,"10",0);
+								if(distance != -1){
+									var d = distance/1000 ;
+									Parent.SetValue('spec_sel_Mileage',d);
+									}
+									var firstPrice = root.GetPara('FirstPrice');
+								    var firstMileage = root.GetPara('FirstMileage');
+									var additionalMileagePrice = root.GetPara('AdditionalMileagePrice');
+									var price = InvokeService("LRP_SpecialCarCharge",true,false,d,firstPrice,firstMileage,additionalMileagePrice);
+									Parent.SetValue('spec_sel_fee',price);
+										
+									Close();
+								]]>
+							</RowClick> 
+						</TableRow> 
+					</TableRowCollection>
+				</TableView>
+				<GridLayoutPanel Key="opt_panel" X="0" Y="1">
+                    <Format BackColor="#f1f3f8"/>
+                    <Button Key="order" Caption="新增一个常用路线" Enable="True" Height="auto" BorderStyle="none" X="1" Y="0">
+                        <Format ForeColor="#ffffff" BackColor="#f14c52">
+                            <Font Size="16"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[New('MyNewRoute')]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection>
+                        <RowDef Height="45px"/>
+                        <RowDef Height="10px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="20px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+					<RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+			LoadData()
+		]]>
+    </OnLoad>
+	<QueryCollection>
+		<Query Key="detailQuery" Description="">
+			<Statement>
+				<![CDATA[select * from LRP_OwnerUserRoute_L where soid=? order by sequence]]>
+			</Statement>
+		</Query>
+		<Query Key="headQuery" Description="">
+			<Statement>
+				<![CDATA[select * from LRP_OwnerUserRoute_H where oid=?]]>
+			</Statement>
+		</Query>
+	</QueryCollection>
+</Form>

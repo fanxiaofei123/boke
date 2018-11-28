@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_PlatformReservationView" Caption="月台预约单序事簿" FormType="View">
+    <DataSource>
+        <DataObject Key="V_PlatformReservationView" Caption="月台预约单序事簿" PrimaryTableKey="LRP_PlatformReservation">
+            <TableCollection>
+                <Table Key="LRP_PlatformReservation" Caption="月台预约单" SourceType="Query" Persist="false" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="No" Caption="预约单号" DataType="Varchar"/>
+                    <Column Key="ReservationType" Caption="预约类型" DataType="Integer"/>
+                    <Column Key="PlatformId" Caption="月台" DataType="Long"/>
+                    <Column Key="CarrierId" Caption="承运商" DataType="Long"/>
+                    <Column Key="RefNo" Caption="相关单号" DataType="Varchar"/>
+                    <Column Key="Driver" Caption="司机" DataType="Varchar"/>
+                    <Column Key="CertificateNo" Caption="证件号" DataType="Varchar"/>
+                    <Column Key="TruckLicenseNo" Caption="车牌号" DataType="Varchar"/>
+                    <Column Key="ReservationDate" Caption="预约日期" DataType="Date"/>
+                    <Column Key="StartTime" Caption="预约开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="预约结束时间" DataType="DateTime"/>
+                    <Column Key="DriverMobile" Caption="手机号" DataType="Varchar"/>
+                    <Column Key="EnterTime" Caption="入场时间" DataType="DateTime"/>
+                    <Column Key="ExitTime" Caption="离场时间" DataType="DateTime"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New('V_PlatformReservation')	]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Height="100%" Key="main" Padding="5px">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Height="100%" Key="base_split" Orientation="Vertical" X="0" Y="1">
+                    <GridLayoutPanel Caption="查询字段" Height="100%" Key="query" Padding="5px">
+                        <TextEditor Caption="DataObjectKey" Enable="false" Key="DataObjectKey" Visible="false" X="10" Y="4">
+                            <DataBinding DefaultValue="LRP_PlatformReservation"/>
+                        </TextEditor>
+                        <Label Key="Lab_PlatformNo" Caption="预约单号" X="0" Y="0"/>
+                        <TextEditor Key="PlatformNo" Caption="预约单号" BuddyKey="Lab_PlatformNo" X="1" Y="0" XSpan="3">
+                            <Condition CondSign="like" TableKey="LRP_PlatformReservation"/>
+                        </TextEditor>
+                        <Label Key="Lab_RefNo" Caption="相关单号" X="0" Y="1"/>
+                        <TextEditor Key="RefNo" Caption="相关单号" BuddyKey="Lab_RefNo" X="1" Y="1" XSpan="3">
+                            <Condition ColumnKey="RefNo" CondSign="like" TableKey="LRP_PlatformReservation"/>
+                        </TextEditor>
+                        <Label Caption="状态" Key="L_Status_C" X="5" Y="3"/>
+                        <CheckListBox BuddyKey="L_Status" Caption="状态" Key="Status_C" X="6" XSpan="3" Y="3">
+                            <Condition ColumnKey="Status" CondSign="in" TableKey="LRP_PlatformReservation"/>
+                            <Item Caption="已输入" Key="prepared" Value="100"/>
+                            <Item Caption="已入场" Key="Admission" Value="400"/>
+                            <Item Caption="已完成" Key="finished" Value="900"/>
+                        </CheckListBox>
+                        <Label Key="Lab_ReservationDate_from" Caption="预约日期时间" X="0" Y="2"/>
+                        <Label Key="Lab_ReservationDate_To" Caption="至" X="5" Y="2"/>
+                        <DatePicker Key="ReservationDate_from" Caption="预约日期时间" BuddyKey="Lab_ReservationDate_from" X="1" Y="2" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 00:00:00'"/>
+                            <Condition ColumnKey="StartTime" CondSign="&gt;=" TableKey="LRP_PlatformReservation"/>
+                        </DatePicker>
+                        <Button Caption="查询" Enable="true" Key="Query" X="10" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();	
+								]]>
+                            </OnClick>
+                        </Button>
+                        <DatePicker Key="ReservationDate_To" Caption="至" BuddyKey="Lab_ReservationDate_To" X="6" Y="2" XSpan="3">
+                            <DataBinding DefaultFormulaValue="Format(ServerDate(),'yyyy-MM-dd')&amp;' 23:59:59'"/>
+                            <Condition ColumnKey="EndTime" CondSign="&lt;=" TableKey="LRP_PlatformReservation"/>
+                        </DatePicker>
+                        <Dict Key="PlatformId" Caption="月台" BuddyKey="Lab_PlatformId" X="6" Y="1" ItemKey="LRP_Platform" XSpan="3">
+                            <Condition ColumnKey="PlatformId" CondSign="=" TableKey="LRP_PlatformReservation"/>
+                        </Dict>
+                        <Label Key="Lab_PlatformId" Caption="月台" X="5" Y="1" Visible="false"/>
+                        <Button Caption="重置" Enable="true" Key="cancel" X="10" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();
+
+								]]>
+                            </OnClick>
+                        </Button>
+                        <TextEditor Key="Driver" Caption="司机" BuddyKey="Lab_Driver" X="1" Y="3" XSpan="3">
+                            <Condition ColumnKey="Driver" CondSign="like" TableKey="LRP_PlatformReservation" NeedReset="false"/>
+                        </TextEditor>
+                        <Label Key="Lab_Driver" Caption="司机" X="0" Y="3"/>
+                        <TextEditor Key="CertificateNo" Caption="证件号" BuddyKey="Lab_CertificateNo" X="1" Y="4" XSpan="3">
+                            <Condition ColumnKey="CertificateNo" CondSign="like" TableKey="LRP_PlatformReservation"/>
+                        </TextEditor>
+                        <Label Key="Lab_CertificateNo" Caption="证件号" X="0" Y="4"/>
+                        <ComboBox Key="ReservationType" Caption="预约类型" BuddyKey="Lab_ReservationType" X="6" Y="0" XSpan="3">
+                            <Condition ColumnKey="ReservationType" CondSign="=" TableKey="LRP_PlatformReservation"/>
+                            <Item Caption="入库收货" Key="1" Value="1"/>
+                            <Item Caption="退货收货" Key="2" Value="2"/>
+                            <Item Caption="出库发货" Key="3" Value="3"/>
+                            <Item Caption="退厂发货" Key="4" Value="4"/>
+                            <Item Caption="运输发货" Key="5" Value="5"/>
+                            <Item Caption="运输到货" Key="6" Value="6"/>
+                            <Item Caption="其它" Key="99" Value="99"/>
+                        </ComboBox>
+                        <Label Key="Lab_ReservationType" Caption="预约类型" X="5" Y="0"/>
+                        <TextEditor Key="DriverMobile" Caption="手机号" BuddyKey="Lab_DriverMobile" X="6" Y="4" XSpan="3">
+                            <Condition ColumnKey="DriverMobile" CondSign="like" TableKey="LRP_PlatformReservation"/>
+                        </TextEditor>
+                        <Label Key="Lab_DriverMobile" Caption="手机号" X="5" Y="4"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="77px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" TableKey="LRP_PlatformReservation">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="OID" Caption="对象标识" DataColumnKey="OID" ColumnType="TextEditor" Visible="false"/>
+                            <ListViewColumn Key="select" Caption="选择" ColumnType="CheckBox"/>
+                            <ListViewColumn Key="Status" Caption="状态" DataColumnKey="Status" ColumnType="ComboBox" SourceType="Status"/>
+                            <ListViewColumn Key="PlatformNo_L" Caption="预约单号" DataColumnKey="No" ColumnType="HyperLink" Width="130px">
+                                <OnClick>
+                                    <![CDATA[Open('V_PlatformReservation', OID);]]>
+                                </OnClick>
+                            </ListViewColumn>
+                            <ListViewColumn Key="ReservationType_L" Caption="预约类型" DataColumnKey="ReservationType" ColumnType="ComboBox" Width="100px">
+                                <Item Caption="入库收货" Key="1" Value="1"/>
+                                <Item Caption="退货收货" Key="2" Value="2"/>
+                                <Item Caption="出库发货" Key="3" Value="3"/>
+                                <Item Caption="退厂发货" Key="4" Value="4"/>
+                                <Item Caption="运输发货" Key="5" Value="5"/>
+                                <Item Caption="运输到货" Key="6" Value="6"/>
+                                <Item Caption="其它" Key="99" Value="99"/>
+                            </ListViewColumn>
+                            <ListViewColumn Key="PlatformId_L" Caption="月台" ColumnType="Dict" DataColumnKey="PlatformId" ItemKey="LRP_Platform"/>
+                            <ListViewColumn Key="RefNo_L" Caption="相关单号" ColumnType="TextEditor" DataColumnKey="RefNo" Width="130px"/>
+                            <ListViewColumn Key="CarrierId_L" Caption="承运商" ColumnType="Dict" DataColumnKey="CarrierId" Width="120px" ItemKey="LRP_Carrier"/>
+                            <ListViewColumn Key="Driver_L" Caption="司机" DataColumnKey="Driver" ColumnType="TextEditor" Width="100px"/>
+                            <ListViewColumn Key="CertificateNo_L" Caption="证件号" ColumnType="TextEditor" DataColumnKey="CertificateNo" Width="120px"/>
+                            <ListViewColumn Key="TruckLicenseNo" Caption="车牌号" ColumnType="TextEditor" DataColumnKey="TruckLicenseNo" Width="100px"/>
+                            <ListViewColumn Key="ReservationDate" Caption="预约日期" ColumnType="DatePicker" DataColumnKey="ReservationDate" Width="130px" Format="yyyy-MM-dd "/>
+                            <ListViewColumn Key="StartTime" Caption="预约开始时间" ColumnType="DatePicker" DataColumnKey="StartTime" Width="150px"/>
+                            <ListViewColumn Key="EndTime" Caption="预约结束时间" ColumnType="DatePicker" DataColumnKey="EndTime" Width="150px"/>
+                            <ListViewColumn Key="DriverMobile_L" Caption="手机号" ColumnType="TextEditor" DataColumnKey="DriverMobile" Width="120px"/>
+                            <ListViewColumn Key="EnterTime" Caption="入场时间" ColumnType="DatePicker" DataColumnKey="EnterTime" Width="150px"/>
+                            <ListViewColumn Key="ExitTime" Caption="离场时间" ColumnType="DatePicker" DataColumnKey="ExitTime" Width="150px"/>
+                        </ListViewColumnCollection>
+                    </ListView>
+                    <SplitSize Size="205px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="40px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

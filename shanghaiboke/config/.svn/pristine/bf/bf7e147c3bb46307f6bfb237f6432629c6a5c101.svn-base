@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Map" HasNavigationBar="false">
+	<EventHandlerCollection>
+		<EventHandler Key="MapSession" Trigger="NOW" MergeEvent="True">
+			<![CDATA[
+				var pos = NewJSONObject();
+				pos.latitude=GetValue('Latitude');
+				pos.longitude=GetValue('Longitude');
+				ShowMapByPosition('map',pos);
+				SetMapCurLocation('map',pos);
+			]]>
+		</EventHandler>
+	</EventHandlerCollection> 
+    <MacroCollection>
+        <Macro Key="ShowPosition">
+            <![CDATA[ 
+					var location = GetMapCurLocation('map');
+					var pos=NewJSONObject();
+					pos.latitude=location.get('latitude');
+					pos.longitude=location.get('longitude');
+					var maplocation = GetMapPositionInfo('map',pos);
+					if(maplocation.get('city')==GetDictValue('LRP_City',City,'LRP_City.Name')||GetValue('City')==''){
+						SetValue('Address',maplocation.get('address'));
+						SetValue('Latitude',location.get('latitude'));
+						SetValue('Longitude',location.get('longitude'));
+						SetValue('ProvinceId',DBNamedQueryValue('QueryProvince',maplocation.get('province')));
+						SetValue('CityId',DBNamedQueryValue('QueryCity',maplocation.get('city')));
+						SetValue('DistrictId',DBNamedQueryValue('QueryDistrict',maplocation.get('district')));
+						var name = InvokeService("LRP_GetNameByGPS",false,false,pos.latitude,pos.longitude);
+						SetValue('spec_sel_m',name);
+					}else{
+						var table=InvokeService("LRP_MapMatching", false, false,GetDictValue('LRP_City',City, 'LRP_City.Name'),GetValue('City'),Root.GetPara('UserDispatchOrg'));
+						var position=NewJSONObject();
+						position.latitude=table.Latitude;
+						position.longitude=table.Longitude;
+						ShowMapByPosition('map',position);
+						SetMapCurLocation('map',location);
+						SetValue('Address',table.Address);
+						SetValue('Latitude',table.Latitude);
+						SetValue('Longitude',table.Longitude);
+						SetValue('ProvinceId',table.ProvinceId);
+						SetValue('CityId',table.CityId);
+						var districtId = InvokeService("LRP_GetRegion", false, false,table.Longitude,table.Latitude);
+						SetValue('DistrictId',districtId);
+						SetValue('spec_sel_m',table.AddressName);
+					}
+			]]>
+        </Macro>
+		<Macro Key="SetValueToControl">
+            <![CDATA[ 
+					var location = GetBDLocation();
+					if(location==null){	
+						ShowToast("定位当前位置失败！");
+						return true;
+					}
+					var pos = NewJSONObject();
+					pos.latitude=location.get('latitude');
+					pos.longitude=location.get('longitude');
+					var maplocation = GetMapPositionInfo('map',pos);
+					if(maplocation.get('city')==GetDictValue('LRP_City',City,'LRP_City.Name')||GetValue('City')==''){
+						ShowMapByPosition('map',pos);
+						SetMapCurLocation('map',pos);
+						SetValue('Address',maplocation.get('address'));
+						SetValue('Latitude',location.get('latitude'));
+						SetValue('Longitude',location.get('longitude'));
+						SetValue('ProvinceId',DBNamedQueryValue('QueryProvince',maplocation.get('province')));
+						SetValue('CityId',DBNamedQueryValue('QueryCity',maplocation.get('city')));
+						SetValue('DistrictId',DBNamedQueryValue('QueryDistrict',maplocation.get('district')));
+						var name = InvokeService("LRP_GetNameByGPS",false,false,pos.latitude,pos.longitude);
+						SetValue('spec_sel_m',name);
+					}else{
+						var table=InvokeService("LRP_MapMatching", false, false,GetDictValue('LRP_City',City,'LRP_City.Name'),GetValue('City'),Root.GetPara('UserDispatchOrg'));
+						var position=NewJSONObject();
+						position.latitude=table.Latitude;
+						position.longitude=table.Longitude;
+						ShowMapByPosition('map',position);
+						SetMapCurLocation('map',position);
+						SetValue('Address',table.Address);
+						SetValue('Latitude',table.Latitude);
+						SetValue('Longitude',table.Longitude);
+						SetValue('ProvinceId',table.ProvinceId);
+						SetValue('CityId',table.CityId);
+						var districtId = InvokeService("LRP_GetRegion", false, false,table.Longitude,table.Latitude);
+						SetValue('DistrictId',districtId);
+						SetValue('spec_sel_m',table.AddressName);
+					}
+			]]>
+        </Macro>
+    </MacroCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="title">
+				<TableView Key="root" X="0" Y="0">
+					<Format BackColor="#f0f2f7">
+					</Format>
+					<TableRowCollection>
+						<TableRow Key="r1" RowType="Fix" SeparatorStyle="none none solid none" SeparatorColor="#e6eaf2">
+							<LinearLayoutPanel Key="opt_panel" Orientation="Horizontal" Height="50px">
+								<ComboBox Key="City" Caption="城市" PromptText="城市" SourceType="Formula" Weight="0" Height="auto" Width="80px" BorderColor="#e6e6e6" Clearable="false" >
+								   <Format ForeColor="#969696">
+										<Font Size="16"/>
+								   </Format>
+								   <DataBinding Required="true">
+										<ValueChanged>
+											<![CDATA[
+											if(GetValue('City') == ""){
+												return true;
+											}
+											SetValueToControl();
+											]]>
+										</ValueChanged>
+									</DataBinding>
+									<FormulaItems>
+						                <![CDATA[DBNamedQuery('QuerySelectCity',Root.GetPara('UserDispatchOrg'))]]>
+					                </FormulaItems>
+								</ComboBox>
+								<Label Key="spec_Adress" Caption="请输入收货地址" Width="auto" Height="auto" Weight="1" BorderStyle="none">
+                                    <Format BackColor="#ffffff" ForeColor="#969696">
+										<Font Size="16"/>
+									</Format>
+                                </Label>
+								<Button Key="spec_pop_esc" Caption="取消" Enable="True" Width="80px" Height="auto" >
+									<Format BackColor="#ffffff" ForeColor="#969696">
+										<Font Size="16"/>
+									</Format>
+									<OnClick>
+										<![CDATA[
+											Close();
+										]]>
+									</OnClick>
+								</Button>
+							</LinearLayoutPanel>
+							<RowClick>
+								<![CDATA[PushPara('mapCity',City);Show('MapSearch')]]>
+							</RowClick>
+						</TableRow>
+					</TableRowCollection>
+				</TableView>
+				<LinearLayoutPanel Key="r2" X="0" Y="1"  Orientation="Horizontal"  >
+					<Map Key="map" Caption="地图">
+						<Paras>
+							<Para Key="MyLocationEnabled" Value="true"/>
+							<Para Key="SelectCenter" Value="false"/>
+						</Paras>
+						<MapEventCollection>
+							<MapEvent Key="OnBlankClick">
+								<![CDATA[
+									ShowPosition();
+								]]>
+							</MapEvent>
+							<MapEvent Key="OnPOIClick">
+								<![CDATA[
+									ShowPosition();
+								]]>
+							</MapEvent>
+						</MapEventCollection>
+					</Map>
+                </LinearLayoutPanel>
+				<TableView Key="foot" X="0" Y="2">
+					<Format BackColor="#f0f2f7">
+					</Format>
+					<TableRowCollection>
+						<TableRow Key="r3">
+							<GridLayoutPanel Key="detail_panel1" Height="auto">
+								<Label Key="spec_sel_m" X="0" Y="0" XSpan="2">
+									<Format BackColor="#ffffff" ForeColor="#969696">
+										<Font Size="16"/>
+									</Format>
+								</Label>
+								<Label Key="Address" X="0" Y="1" XSpan="2">
+									<Format BackColor="#ffffff" ForeColor="#969696">
+										<Font Size="10"/>
+									</Format>
+								</Label>
+								<Label Key="Latitude" Caption="经度" Visible="false" X="0" Y="0">
+									<Format>
+										<Font Size="16"/>
+									</Format>
+								</Label>
+								<Label Key="Longitude" Caption="纬度" Visible="false" X="0" Y="0">
+									<Format HAlign="Left">
+										<Font Size="14"/>
+									</Format>
+								</Label>
+								<Dict Key="ProvinceId" Caption="省" X="0" Y="0" ItemKey="LRP_Province" Visible="false" Enable="false">
+									<Format HAlign="Left">
+										<Font Size="14"/>
+									</Format>
+								</Dict>
+								<Dict Key="CityId"  Caption="市" X="0" Y="0" ItemKey="LRP_City" Visible="false" Enable="false">
+									<Format HAlign="Left">
+										<Font Size="14"/>
+									</Format>
+								</Dict>
+								<Dict Key="DistrictId" Caption="区县" X="0" Y="0" ItemKey="LRP_District" Visible="false" Enable="false">
+									<Format HAlign="Left">
+										<Font Size="14"/>
+									</Format>
+								</Dict>
+								<Button Key="Confirm_btn" Caption="确认" X="2" Y="0" XSpan="2" YSpan="2">
+									<Format ForeColor="#ffffff" BackColor="#f14c52">
+										<Font Size="16"/>
+									</Format>
+									<OnClick>
+										<![CDATA[
+											Parent.SetValue('spec_sel_m',spec_sel_m);
+											if(Address != "无"){
+												Parent.SetValue('Address',Address);
+											}else{
+												Parent.SetValue('Address',"");
+											}
+											Parent.SetValue('Latitude',Latitude);
+											Parent.SetValue('Longitude',Longitude);
+											Parent.SetValue('ProvinceId',ProvinceId);
+											Parent.SetValue('CityId',CityId);
+											Parent.SetValue('DistrictId',DistrictId);
+											if(Para('RItype')==1){
+												 SendSignal('CloseSelect');
+											}
+											Close();
+										]]>
+									</OnClick>
+								</Button>
+								<RowDefCollection>
+									<RowDef Height="30px"/>
+									<RowDef Height="20px"/>
+								</RowDefCollection>
+								<ColumnDefCollection> 
+									<ColumnDef Width="70px"/>
+									<ColumnDef Width="90%"/>
+									<ColumnDef Width="40px"/>
+									<ColumnDef Width="10%"/> 
+								</ColumnDefCollection>
+							</GridLayoutPanel>
+						</TableRow>
+					</TableRowCollection>
+				</TableView> 
+                <RowDefCollection>
+					<RowDef Height="50px"/>
+                    <RowDef Height="100%"/>
+					<RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+	<QueryCollection>
+		<Query Key="QueryProvince" Description="">
+			<Statement>
+				<![CDATA[select OID from LRP_Province where NAME =?]]>
+			</Statement>
+			<ParameterCollection>
+				<Parameter DataType="Varchar"/>
+			</ParameterCollection>
+		</Query>
+		<Query Key="QuerySelectCity" Description="查询城市">
+            <Statement>
+                <![CDATA[select d.cityid as d,c.name as c from LRP_DispatchOrg_City  d left join lrp_city c on d.cityid=c.oid where d.soid = ?]]>
+            </Statement>
+            <ParameterCollection>
+            	<Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+		<Query Key="QueryCity" Description="">
+			<Statement>
+				<![CDATA[select OID from LRP_City where NAME =?]]>
+			</Statement>
+			<ParameterCollection>
+				<Parameter DataType="Varchar"/>
+			</ParameterCollection>
+		</Query>
+		<Query Key="QueryDistrict" Description="">
+			<Statement>
+				<![CDATA[select OID from LRP_District where NAME =?]]>
+			</Statement>
+			<ParameterCollection>
+				<Parameter DataType="Varchar"/>
+			</ParameterCollection>
+		</Query>
+	</QueryCollection>
+	<OnPostShow>
+        <![CDATA[
+			SetSelectIndex('City',0,false);
+		]]>
+    </OnPostShow>
+</Form>

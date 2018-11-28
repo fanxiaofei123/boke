@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="DriverChargeStandards" Authenticate="false">
+    <Body>
+        <Block>
+            <TableView Key="main" TopMargin="20px">
+                <Format BackColor="#f0f2f7"/>
+                <TableRowCollection>
+                    <TableRow Key="r0" SeparatorStyle="solid solid solid solid" SeparatorColor="#e6eaf2">
+                        <GridLayoutPanel Key="header0" Height="220px" Padding="20px" HasBorder="True">
+                            <Format BackColor="#f0f2f7"/>
+                            <Label Key="CarType" Caption="车型" X="0" XSpan="2" Y="0">
+                                <Format HAlign="Center" ForeColor="#000000" BackColor="#ff5000">
+                                    <Font Size="20"/>
+                                </Format>
+                            </Label>
+                            <Label Key="FirstCharge" Caption="起步价" X="2" XSpan="2" Y="0">
+                                <Format HAlign="Center" ForeColor="#000000" BackColor="#ff5000">
+                                    <Font Size="20"/>
+                                </Format>
+                            </Label>
+                            <Label Key="OverCharge" Caption="超里程费" X="4" XSpan="2" Y="0">
+                                <Format HAlign="Center" ForeColor="#000000" BackColor="#ff5000">
+                                    <Font Size="20"/>
+                                </Format>
+                            </Label>
+                            <Label Key="CarType1" Caption="车型" X="0" XSpan="2" Y="1">
+                                <DataBinding DefaultValue="小型面包"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="FirstCharge1" Caption="起步价" X="2" XSpan="2" Y="1">
+                                <DataBinding DefaultValue="30.0元/5公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="OverCharge1" Caption="超里程费" X="4" XSpan="2" Y="1">
+                                <DataBinding DefaultValue="3.0元/公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="CarType2" Caption="车型" X="0" XSpan="2" Y="2">
+                                <DataBinding DefaultValue="金杯"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="FirstCharge2" Caption="起步价" X="2" XSpan="2" Y="2">
+                                <DataBinding DefaultValue="45.0元/5公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="OverCharge2" Caption="超里程费" X="4" XSpan="2" Y="2">
+                                <DataBinding DefaultValue="4.0元/公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="CarType3" Caption="车型" X="0" XSpan="2" Y="3">
+                                <DataBinding DefaultValue="依维柯"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="FirstCharge3" Caption="起步价" X="2" XSpan="2" Y="3">
+                                <DataBinding DefaultValue="60.0元/5公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="OverCharge3" Caption="超里程费" X="4" XSpan="2" Y="3">
+                                <DataBinding DefaultValue="5.0元/公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="CarType4" Caption="车型" X="0" XSpan="2" Y="4">
+                                <DataBinding DefaultValue="厢货"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="FirstCharge4" Caption="起步价" X="2" XSpan="2" Y="4">
+                                <DataBinding DefaultValue="75.0元/5公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="OverCharge4" Caption="超里程费" X="4" XSpan="2" Y="4">
+                                <DataBinding DefaultValue="7.0元/公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="CarType5" Caption="车型" X="0" XSpan="2" Y="5">
+                                <DataBinding DefaultValue="小型平板"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="FirstCharge5" Caption="起步价" X="2" XSpan="2" Y="5">
+                                <DataBinding DefaultValue="85.0元/5公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="OverCharge5" Caption="超里程费" X="4" XSpan="2" Y="5">
+                                <DataBinding DefaultValue="7.0元/公里"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <RowDefCollection>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="30%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="30%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="30%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r1" SeparatorStyle="solid solid solid solid" SeparatorColor="#e6eaf2">
+                        <GridLayoutPanel Key="header1" Height="220px" Padding="20px">
+                            <Format BackColor="#f0f2f7"/>
+                            <TextArea Caption="备注" Enable="False" Key="Remark" X="0" Y="0" HAlign="Left">
+                                <DataBinding DefaultValue="●小型面包、金杯、依维柯、厢货等卸货等候时间免费一个小时，超过1小时后每15分钟加收20元，不足15分钟按15分钟计"/>
+                            </TextArea>
+                            <TextArea Caption="备注2" Enable="False" Key="Remark2" X="0" Y="1" HAlign="Left">
+                                <DataBinding DefaultValue="●以上费用已包含邮费及运输服务费"/>
+                            </TextArea>
+                            <RowDefCollection>
+                                <RowDef Height="120px"/>
+                                <RowDef Height="50px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection>
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="r2" SeparatorStyle="solid solid solid solid" X="0" Y="1" SeparatorColor="#e6eaf2">
+                        <GridLayoutPanel Key="header2" Height="260px" Padding="20px" HasBorder="True">
+                            <Format BackColor="#f0f2f7"/>
+                            <Label Key="AddCharge" Caption="附加费用" X="0" XSpan="4" Y="0">
+                                <Format HAlign="Center" ForeColor="#000000" BackColor="#ff5050">
+                                    <Font Size="20"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Name" Caption="事件名" X="0" XSpan="2" Y="1">
+                                <DataBinding DefaultValue="需要搬运"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Instruction" Caption="说明" X="2" XSpan="2" Y="1">
+                                <DataBinding DefaultValue="客户与司机自行商议"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Name1" Caption="事件名" X="0" XSpan="2" Y="2">
+                                <DataBinding DefaultValue="携带宠物"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Instruction1" Caption="说明" X="2" XSpan="2" Y="2">
+                                <DataBinding DefaultValue="不收费"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Name2" Caption="事件名" X="0" XSpan="2" Y="3">
+                                <DataBinding DefaultValue="生鲜运输"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Instruction2" Caption="说明" X="2" XSpan="2" Y="3">
+                                <DataBinding DefaultValue="不收费"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Name3" Caption="事件名" X="0" XSpan="2" Y="4">
+                                <DataBinding DefaultValue="高速路、停车场"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <Label Key="Instruction3" Caption="说明" X="2" XSpan="2" Y="4">
+                                <DataBinding DefaultValue="收取实际产生的费用"/>
+                                <Format HAlign="Center">
+                                    <Font Size="15"/>
+                                </Format>
+                            </Label>
+                            <RowDefCollection>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="45%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="45%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+    </Body>
+    <NavigationBar BackColor="#f14c52" Style="Custom">
+        <BarItem Key="TitleCenter_bar" Caption="服务标准" Location="Center">
+            <Label Key="TitleCenter" Caption="服务标准" Width="100%">
+                <Format HAlign="Center" ForeColor="#ffffff">
+                    <Font Size="20"/>
+                </Format>
+            </Label>
+        </BarItem>
+    </NavigationBar>
+</Form>

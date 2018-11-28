@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="挂车" FormType="Dict" Key="V_Trailer_LRP">
+    <DataSource RefObjectKey="LRP_Trailer"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <TextEditor BuddyKey="L_Code" Caption="代码" Enable="!ReadOnly()" Key="Code" Tip="「代码」不可为空" X="1" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Code" Required="true" TableKey="LRP_Trailer"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="L_Name" Caption="名称" Enable="!ReadOnly()" Key="Name" Tip="「名称」不可为空" X="6" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Name" Required="true" TableKey="LRP_Trailer"/>
+                        </TextEditor>
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+						<TextEditor Caption="车牌号" Key="LicenseNo" Tip="「车牌号」不可为空" X="1" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="LicenseNo" TableKey="LRP_Trailer" Required="true"/>
+                        </TextEditor>
+                        <ComboBox Caption="所有权" Key="OwnershipType" X="6" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="OwnershipType" TableKey="LRP_Trailer" DefaultValue="1"/>
+                            <Item Caption="自有" Key="1" Value="1"/>
+                            <Item Caption="挂靠" Key="2" Value="2"/>
+                            <Item Caption="社会" Key="3" Value="3"/>
+                        </ComboBox>
+                        <Label Caption="车牌号" Key="L_LicenseNo" X="0" Y="1"/>
+                        <Label Caption="所有权" Key="L_OwnershipType" X="5" Y="1"/>
+						
+						<Dict Caption="车辆类型" ItemKey="LRP_TruckType" Key="TruckTypeId" X="1" XSpan="3" Y="2">
+                            <DataBinding ColumnKey="TruckTypeId" TableKey="LRP_Trailer"/>
+                        </Dict>
+                        <Label Caption="车辆类型" Key="L_TruckTypeId" X="0" Y="2"/>
+                        <TextEditor Caption="品牌型号" Key="BrandModel" X="6" XSpan="3" Y="2">
+                            <DataBinding ColumnKey="BrandModel" TableKey="LRP_Trailer"/>
+                        </TextEditor>
+                        <Label Caption="品牌型号" Key="L_BrandModel" X="5" Y="2"/>
+						
+						<NumberEditor Caption="载重" Key="LoadWeight" Precision="15" Scale="3" X="6" XSpan="3" Y="3">
+                            <DataBinding ColumnKey="LoadWeight" TableKey="LRP_Trailer"/>
+                        </NumberEditor>
+                        <Label Caption="载重" Key="L_LoadWeight" X="5" Y="3"/>
+                        <NumberEditor Caption="容积" Key="LoadCubage" Precision="15" Scale="3" X="1" XSpan="3" Y="3">
+                            <DataBinding ColumnKey="LoadCubage" TableKey="LRP_Trailer"/>
+                        </NumberEditor>
+                        <Label Caption="容积" Key="L_LoadCubage" X="0" Y="3"/>
+						<ComboBox Caption="车辆状态" Key="TruckStatus" X="1" XSpan="3" Y="4">
+                            <DataBinding ColumnKey="TruckStatus" TableKey="LRP_Trailer" DefaultValue="1"/>
+                            <Item Caption="可用" Key="1" Value="1"/>
+                            <Item Caption="维修中" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Caption="车辆状态" Key="L_TruckStatus" X="0" Y="4"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_Trailer"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Format="yyyy-MM-dd HH:mm:ss" Key="CREATETIME" OnlyDate="false" X="1" Y="1">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Trailer"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="2">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_Trailer"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Format="yyyy-MM-dd HH:mm:ss" Key="MODIFYTIME" OnlyDate="false" X="1" Y="3">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_Trailer"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="1"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="2"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="3"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <CopyGridRow>CopyNewRow</CopyGridRow>
+        <Cancel>Cancel</Cancel>
+        <Putaway>Putaway</Putaway>
+        <Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+        <Finish-R>Finish-R</Finish-R>
+        <Finish>Finish</Finish>
+    </Opt>
+    <UI>
+<V_Tx102>ReceivingByNoNotification</V_Tx102>
+        <Lab_TxTypeId>TxTypeId</Lab_TxTypeId>
+        <L_MODIFIER>MODIFIER</L_MODIFIER>
+        <SystemInfo>SystemInfo</SystemInfo>
+        <L_CREATOR>CREATOR</L_CREATOR>
+        <Description>Description</Description>
+        <detail_content2>Serial Number Detail</detail_content2>
+        <Lab_No>No</Lab_No>
+        <Lab_OwnerId>Shipper</Lab_OwnerId>
+        <first_head>Basic Info.</first_head>
+        <L_CREATETIME>CREATETIME</L_CREATETIME>
+        <Lab_TxDateTime>TxDateTime</Lab_TxDateTime>
+        <Lab_TxTypeCode>TxTypeCode</Lab_TxTypeCode>
+        <L_MODIFYTIME>MODIFYTIME</L_MODIFYTIME>
+        <Lab_Status>Status</Lab_Status>
+        <Lab_OwnerNo>Contract No</Lab_OwnerNo>
+        <Grid0>Material Detail</Grid0>
+        <Lab_Remark>Remark</Lab_Remark>
+        <Lab_WarehouseCenterId>Storage centre</Lab_WarehouseCenterId>
+        <sub_detail_grid>Serial Number Detail</sub_detail_grid>
+    </UI>
+    <GridColumn>
+        <WMTx_Status>Status</WMTx_Status>
+        <DestBatchNo>BatchNo</DestBatchNo>
+        <DestDictUserDef1>DictUserDef1</DestDictUserDef1>
+        <DestNumUserDef2>NumUserDef2</DestNumUserDef2>
+        <DestNumUserDef3>NumUserDef3</DestNumUserDef3>
+        <DestNumUserDef1>NumUserDef1</DestNumUserDef1>
+        <DestStrUserDef5>StrUserDef5</DestStrUserDef5>
+        <DestStrUserDef4>StrUserDef4</DestStrUserDef4>
+        <DestStrUserDef3>StrUserDef3</DestStrUserDef3>
+        <DestStoreareaId>DestStoreareaId</DestStoreareaId>
+        <DestLocationId>DestLocationId</DestLocationId>
+        <DestDictUserDef5>DictUserDef5</DestDictUserDef5>
+        <DestDictUserDef4>DictUserDef4</DestDictUserDef4>
+        <DestDictUserDef3>DictUserDef3</DestDictUserDef3>
+        <DestDictUserDef2>DictUserDef2</DestDictUserDef2>
+        <Qty>Qty</Qty>
+        <MaterialUnit>UnitId</MaterialUnit>
+        <DestStrUserDef2>StrUserDef2</DestStrUserDef2>
+        <DestExpireDate>ExpireDate</DestExpireDate>
+        <DestStrUserDef1>StrUserDef1</DestStrUserDef1>
+        <SerialNo>SerialNumber</SerialNo>
+        <MaterialId>Material</MaterialId>
+        <Qty_1>Qty</Qty_1>
+        <DestStoreroomId>DestStoreroomId</DestStoreroomId>
+        <Picture_No>Picture No</Picture_No>
+        <DestMaterialStatusId>MaterialStatus</DestMaterialStatusId>
+        <DestHandingUnitNo>DestHandingUnitNo</DestHandingUnitNo>
+        <DestProjectId>ProjectId</DestProjectId>
+        <BasicQty>BasicUnitQty</BasicQty>
+        <DestManufDate>ManufDate</DestManufDate>
+        <DestDateUserDef2>DateUserDef2</DestDateUserDef2>
+        <Select>Select</Select>
+        <DestDateUserDef1>DateUserDef1</DestDateUserDef1>
+        <DestRecvDate>RecvDate</DestRecvDate>
+        <EnglishName>English Name</EnglishName>
+    </GridColumn>
+    <Cell>
+        <Qty>Qty>0</Qty>
+    </Cell>
+</StringTable>

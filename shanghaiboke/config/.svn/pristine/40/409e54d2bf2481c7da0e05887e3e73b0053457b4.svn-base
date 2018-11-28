@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="城市" FormType="Dict" Key="V_City_LRP">
+    <DataSource RefObjectKey="LRP_City"/>
+    <UICheckRuleCollection>
+        <UICheckRule Description="区县代码不能重复" ErrorInfo="区县代码不能重复">
+            <![CDATA[
+					
+							!CheckDuplicate("D_Code"); 
+						
+		]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                <TabPanel Caption="TabPanel0" Key="TabPanel0">
+                    <GridLayoutPanel Caption="基本信息" Key="BasicTab" Padding="10px">
+                        <TextEditor BuddyKey="L_Code" Caption="代码" Enable="!ReadOnly()" Key="Code" Tip="「代码」不可为空" X="1" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="LRP_City" Required="true"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="L_Name" Caption="名称" Enable="!ReadOnly()" Key="Name" Tip="「名称」不可为空" X="6" XSpan="3" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="LRP_City" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="代码" Key="L_Code" X="0" Y="0"/>
+                        <Label Caption="名称" Key="L_Name" X="5" Y="0"/>
+                        <Dict BuddyKey="Lab_ProvinceId" Caption="省" ItemKey="LRP_Province" Key="ProvinceId" Tip="「省」不可为空" X="6" XSpan="3" Y="1">
+                            <DataBinding ColumnKey="ProvinceId" TableKey="LRP_City" Required="true"/>
+                        </Dict>
+                        <Label Caption="省" Key="Lab_ProvinceId" X="5" Y="1"/>
+                        <TextEditor Key="English_Name" Caption="英文名称" BuddyKey="Lab_English_Name" X="1" Y="1" XSpan="3">
+                            <DataBinding ColumnKey="English_Name" TableKey="LRP_City"/>
+                        </TextEditor>
+                        <Label Key="Lab_English_Name" Caption="英文名称" X="0" Y="1"/>
+                        <TextEditor Key="Abbreviation" Caption="简称" BuddyKey="Lab_Abbreviation" X="1" Y="2" XSpan="3">
+                            <DataBinding ColumnKey="Abbreviation" TableKey="LRP_City"/>
+                        </TextEditor>
+                        <Label Key="Lab_Abbreviation" Caption="简称" X="0" Y="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="75px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="75px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                            <ColumnDef Width="25%"/>
+                            <ColumnDef Width="55px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SystemTab" Padding="10px">
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="0">
+                            <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="LRP_City"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" X="3" Y="0">
+                            <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_City"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="1">
+                            <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="LRP_City"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" X="3" Y="1">
+                            <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="LRP_City"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="2" Y="0"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="1"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="2" Y="1"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <TabPanel Caption="区县明细" Key="TabPanel1">
+                    <Grid Caption="区县明细" Key="Grid0" Visible="false">
+                        <GridColumnCollection>
+                            <GridColumn Caption="代码" Key="column0" Width="80px"/>
+                            <GridColumn Caption="名称" Key="column1" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" TableKey="LRP_District">
+                                <GridCell Caption="代码" CellType="TextEditor" Key="D_Code">
+                                    <DataBinding ColumnKey="Code"/>
+                                </GridCell>
+                                <GridCell Caption="名称" CellType="TextEditor" Key="D_Name">
+                                    <DataBinding ColumnKey="Name"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+                <SplitSize Size="220px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+</Form>

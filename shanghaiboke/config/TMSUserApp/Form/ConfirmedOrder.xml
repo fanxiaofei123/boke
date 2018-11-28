@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="ConfirmedOrder" Caption="" Authenticate="True">
+ <NavigationBar BackColor="#f14c52">
+ 	   <LeftButton>
+	    <![CDATA[
+		  PushPara('CurrentOrderOID',Para('oid1'));
+          Show('CurrentOrder');
+		]]>
+	    </LeftButton> 
+		<BarItem Key="Centertitle" Caption="订单确认" Location="Center">
+		<Label Key="TitleCenter" Caption="订单确认" Width="60px">
+		    <Format BackColor="#f14c52" ForeColor="#ffffff" HAlign="Center">
+                <Font Size="20"/>
+            </Format>
+		</Label>
+		</BarItem>
+	</NavigationBar>
+     <DataSource RefObjectKey="LRP_TransportOrder"/>
+      <Body>
+        <Block>
+            <GridLayoutPanel Key="root">
+                <Format BackColor="#ffffff"/>
+                <TableView Key="info_table" X="0" Y="0">
+                    <TableRowCollection>
+					<TableRow Key="r0" TopMargin="5px" SeparatorStyle="solid none none none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_panela" Orientation="Horizontal" Height="40px" LeftPadding="10px">
+                                <Label Key="Time" Caption="用车时间" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <DatePicker Key="lbl_spec_sel_tipp" Width="0px" Enable="false" Weight="1.0" Height="auto" Format="yyyy-MM-dd HH:mm:ss" TopMargin="1px">
+                                    <Format HAlign="Left" BackColor="#ffffff">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </DatePicker>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r1" SeparatorStyle="none none none none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pa" Orientation="Horizontal" Height="30px" LeftPadding="10px">
+                                <Label Key="Type" Caption="车型" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_sel_ti" Width="0px" Weight="1.0" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r2" TopMargin="5px" RowType="Detail" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_panel" Orientation="Horizontal" Height="30px" LeftPadding="10px">
+                                 <Label Key="Service" Caption="额外服务" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_sel_tip" Width="0px" Weight="1.0" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label> 
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r3" TopMargin="5px" SeparatorStyle="solid none none none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sell" Orientation="Horizontal" Height="35px" LeftPadding="10px">
+                                <Label Key="SendOrgId" Caption="始发地" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_see" Weight="1.0" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+						<TableRow Key="list" TopMargin="2.5px" SeparatorStyle="none none none none" RowType="Detail" SeparatorColor="#b8becc">
+							<LinearLayoutPanel Key="LinearLayoutPane3" Height="28px" LeftPadding="10px" Caption="LinearLayoutPane3">
+								<Label Key="OrgId" Caption="途经地" Width="120px" Height="auto">
+								    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+								</Label>
+								<Label Key="lbl_spec_seg" Weight="1.0" Height="auto" BorderStyle="none">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+							</LinearLayoutPanel>
+						</TableRow> 
+                        <TableRow Key="r4" TopMargin="5px" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spet" Orientation="Horizontal" Height="35px" LeftPadding="10px">
+                                <Label Key="order1" Caption="目的地" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_see1" Weight="1.0" Height="auto" BorderStyle="none">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r5" TopMargin="5px" SeparatorStyle="solid none none none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane9" Orientation="Horizontal" Height="30px" LeftPadding="10px">
+                                <Label Key="LoadWeight" Caption="重量" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="spec_sel_LoadWeight" Weight="1.0" Height="auto" BorderStyle="none">
+                                    <Format ForeColor="#f14c52">
+                                        <Font Size="16"/>
+                                    </Format>    
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r6" TopMargin="5px" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane10" Orientation="Horizontal" Height="30px" LeftPadding="10px">
+                                <Label Key="LoadCubage" Caption="体积" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>    
+                                <Label Key="lbl_spec_sel_LoadCubage" Weight="1.0" Height="auto" BorderStyle="none">
+                                    <Format ForeColor="#f14c52">
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r7" TopMargin="5px" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane11" Orientation="Horizontal" Height="40px" LeftPadding="10px">
+                                <Label Key="Mileage" Caption="里程" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <NumberEditor Key="lbl_spec_sel_Mileage" Enable="false" Precision="5" Scale="1" Weight="1.0" Width="pref" Height="auto" BorderStyle="none">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </NumberEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r8" TopMargin="5px" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane12" Orientation="Horizontal" Height="32px" LeftPadding="10px">
+                                <Label Key="Payment" Caption="运费支付方式" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                    </Label>
+								 <ComboBox Key="spec_sel_Payment" Caption="运费支付方式" Height="auto" Enable="false" Width="120px">	
+										<Item Caption="发货时付款" Key="3" Value="3"/>
+                                        <Item Caption="收货时付款" Key="5" Value="5"/>
+                                        <Format HAlign="Left" ForeColor="#f14c52">
+                                            <Font Size="16"/>
+                                        </Format> 
+								</ComboBox>
+                                <Label Key="lbl_spec_sel_Payment" Width="0px" Weight="1.0" Height="auto"/>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r9" TopMargin="5px" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane13" Orientation="Horizontal" Height="30px" LeftPadding="10px">
+                                <Label Key="Remark" Caption="备注" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                                <Label Key="lbl_spec_sel_Remark" Enable="false" Weight="1.0" Height="auto" BorderStyle="none">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="r10" TopMargin="5px" SeparatorStyle="solid none none none" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane14" Orientation="Horizontal" Height="40px" LeftPadding="10px">
+                                <Label Key="EstimatedPrice" Caption="预估价格" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>    
+                                <NumberEditor Key="spec_sel_EstimatedPrice" Enable="false" Precision="5" Scale="1" Width="auto" Height="auto" BorderStyle="none">
+                                   <DataBinding DefaultFormulaValue="ToDecimal(GetValue('spec_sel_Price')) + ToDecimal(GetValue('spec_sel_ExtraService'))"/> 
+								   <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </NumberEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+						 <TableRow Key="r11" TopMargin="5px" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane15" Orientation="Horizontal" Height="40px" LeftPadding="10px">
+                                <Label Key="Price" Caption="运费" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>    
+                                <NumberEditor Key="spec_sel_Price" Enable="false" Precision="5" Scale="1" Width="auto" Height="auto" BorderStyle="none">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </NumberEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+						 <TableRow Key="r12" TopMargin="5px" SeparatorColor="#b8becc">
+                            <LinearLayoutPanel Key="spec_sel_pane16" Orientation="Horizontal" Height="40px" LeftPadding="10px">
+                                <Label Key="ExtraService" Caption="额外服务" Width="120px" Height="auto">
+                                    <Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </Label>    
+                                <NumberEditor Key="spec_sel_ExtraService" Enable="false" Precision="5" Scale="0" Width="auto" Height="auto" BorderStyle="none">
+                                     <DataBinding />
+									<Format>
+                                        <Font Size="16"/>
+                                    </Format>
+                                </NumberEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <LinearLayoutPanel Key="opt_panel" X="0" Y="1" Orientation="Horizontal" LeftPadding="20px" RightPadding="20px" BorderStyle="solid none">
+                    <Button Key="order" Caption="下单确认" Enable="True" Width="pref" Height="auto" Weight="1.0" BorderStyle="none">
+                        <Format BackColor="#f14c52" ForeColor="#ffffff"/>
+					 <OnClick>
+                                <![CDATA[
+							
+							
+							var orderOID = Para('oid1');
+							
+                            InvokeService("LRP_ConfirmOrder", false, false,"LRP_TransportOrder",orderOID,"LRP_TransportOrder_H");
+							          ShowToast("确认成功");
+									  PushPara('CurrentOrderOID',orderOID);
+                                       Show('CurrentOrder');
+									   SendSignal('SessionChanged');
+								]]>
+                     </OnClick>
+					 </Button>
+                </LinearLayoutPanel>
+                <RowDefCollection>
+                    <RowDef Height="100%"/>
+                    <RowDef Height="45px"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+	 <OnLoad>
+        <![CDATA[
+		SetValue('spec_sel_ExtraService',Para('number1'));	
+		SetValue('lbl_spec_sel_tipp',GetPara('Time1'));
+        SetValue('lbl_spec_see',GetPara('SendOrgId1'));
+        SetValue('lbl_spec_see1',GetPara('DestOrgId1'));
+		SetValue('spec_sel_LoadWeight',GetPara('OrderLoadWeight1'));
+		SetValue('lbl_spec_sel_LoadCubage',GetPara('spec_sel_LoadCubage1'));
+		SetValue('lbl_spec_sel_Mileage',GetPara('spec_sel_Mileage1'));
+		SetValue('spec_sel_Payment',GetPara('spec_sel_Payment1'));
+		SetValue('lbl_spec_sel_Remark',GetPara('spec_sel_Remark1'));
+		SetValue('spec_sel_Price',GetPara('spec_sel_fee1'));
+		if(GetPara('Serv1')!=''){
+		InsertRow('r2');
+		SetCellValue('r2',0,'lbl_spec_sel_tip',GetPara('Serv1'));
+		}
+		
+		var rowcount=Para('rowcount');
+		var i=0;
+        while(i<rowcount){
+            var orgid=Parent.GetCellValue('list',i,'OrgId');
+			InsertRow('list');
+            SetCellValue('list',i,'lbl_spec_seg',orgid);
+            i=i+1;
+            }
+
+IIF(GetPara('CarName1')=='',SetValue('lbl_spec_sel_ti','干线'),SetValue('lbl_spec_sel_ti',GetPara('CarName1')));
+		]]>
+    </OnLoad>
+	<FormParaCollection>
+	    <FormPara Formula="Para('LTL')" Key="LTL" Type="Formula"/>
+		<FormPara Formula="Para('Time1')" Key="Time1" Type="Formula"/>
+		<FormPara Formula="Para('SendOrgId1')" Key="SendOrgId1" Type="Formula"/>
+		<FormPara Formula="Para('SendAddress1')" Key="SendAddress1" Type="Formula"/>
+		<FormPara Formula="Para('SendContact1')" Key="SendContact1" Type="Formula"/>
+		<FormPara Formula="Para('SendTel1')" Key="SendTel1" Type="Formula"/>
+		<FormPara Formula="Para('DestOrgId1')" Key="DestOrgId1" Type="Formula"/>
+		<FormPara Formula="Para('DestAddress1')" Key="DestAddress1" Type="Formula"/>
+		<FormPara Formula="Para('DestContact1')" Key="DestContact1" Type="Formula"/>
+		<FormPara Formula="Para('DestTel1')" Key="DestTel1" Type="Formula"/>
+		<FormPara Formula="Para('OrderLoadWeight1')" Key="OrderLoadWeight1" Type="Formula"/>
+		<FormPara Formula="Para('spec_sel_LoadCubage1')" Key="spec_sel_LoadCubage1" Type="Formula"/>
+		<FormPara Formula="Para('spec_sel_Mileage1')" Key="spec_sel_Mileage1" Type="Formula"/>
+		<FormPara Formula="Para('spec_sel_Payment1')" Key="spec_sel_Payment1" Type="Formula"/>
+		<FormPara Formula="Para('spec_sel_Remark1')" Key="spec_sel_Remark1" Type="Formula"/>
+		<FormPara Formula="Para('Serv1')" Key="Serv1" Type="Formula"/>
+		<FormPara Formula="Para('CarName1')" Key="CarName1" Type="Formula"/>
+	</FormParaCollection>
+</Form>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="用户消息" Key="LRP_OwnerUserMessage" NoPrefix="OM" ZeroPrefix="9" PrimaryTableKey="LRP_OwnerUserMessage_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="用户消息头" Key="LRP_OwnerUserMessage_H">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+			
+            <Column Caption="货主用户" DataType="Long" Key="OwnerUserId"/>
+            <Column Caption="单号" DataType="Varchar" Key="No" Length="100"/>
+            <Column Caption="相关单号" DataType="Varchar" Key="RefNo" Length="40"/>
+            <Column Caption="消息内容" DataType="Varchar" Key="Message" Length="100"/>
+			<Column Caption="阅读状态" DataType="Integer" Key="IsRead" DefaultValue="0"/>		
+        </Table>        
+    </TableCollection>
+    <OIDFilter/>
+</DataObject>
