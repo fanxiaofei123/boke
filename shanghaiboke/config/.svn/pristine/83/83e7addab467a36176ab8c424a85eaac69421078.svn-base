@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_Backlog" Caption="待办事项" FormType="View">
+    <DataSource>
+        <DataObject Key="CHCS_Backlog" Caption="待办事项" PrimaryTableKey="CHCS_Backlog">
+            <TableCollection>
+                <Table Key="CHCS_Backlog" Caption="待办事项" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Todo_Date" Caption="日期" DataType="DateTime"/>
+                    <Column Key="Theme" Caption="主题" DataType="Varchar"/>
+                    <Column Key="Content" Caption="内容" DataType="Varchar"/>
+                    <Column Key="Priority" Caption="优先级" DataType="Varchar"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                    <ListView Caption="代办事项" Key="ListView1" PageLoadType="DB" TableKey="CHCS_Backlog">
+                        <ListViewColumnCollection>
+                            <ListViewColumn Key="column1" Caption="日期" ColumnType="DatePicker" DataColumnKey="Todo_Date" OnlyDate="true"/>
+                            <ListViewColumn Key="column2" Caption="主题" ColumnType="TextEditor" DataColumnKey="Theme"/>
+                            <ListViewColumn Key="column3" Caption="内容" ColumnType="TextEditor" DataColumnKey="Content"/>
+                            <ListViewColumn Key="column4" Caption="优先级" ColumnType="TextEditor" DataColumnKey="Priority"/>
+                            <ListViewColumn Key="column5" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status">
+                                <Item Caption="已读" Key="1" Value="1"/>
+                                <Item Caption="未读" Key="0" Value="0"/>
+                            </ListViewColumn>
+                        </ListViewColumnCollection>
+                    </ListView>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

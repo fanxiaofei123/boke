@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Report BottomMargin="15" Caption="调拨交接单" FormKey="CHCS_Transfer_Handover" Key="CHCS_Transfer_Handover" LeftMargin="25" PageHeight="842" PageID="A4" PageWidth="595" PaperHeight="297" PaperID="A4" PaperWidth="210" RightMargin="25" TopMargin="15">
+    <DataSource>
+        <Table Key="CHCS_Transfer_Handover_H" Caption="调拨交接单" SourceType="DataObject">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="状态" Key="Status"/>
+            <Field Caption="交接单号" Key="NO"/>
+            <Field Caption="交接日期" Key="BillDate"/>
+            <Field Caption="制单人" Key="Creator"/>
+            <Field Caption="制单日期" Key="CreateTime"/>
+            <Field Caption="修改人" Key="Modifier"/>
+            <Field Caption="修改日期" Key="Modifytime"/>
+            <Field Caption="航班日期" Key="FlightDate"/>
+            <Field Caption="航班号" Key="Flight_Number"/>
+            <Field Caption="飞机号" Key="Aircraft_Number"/>
+            <Field Caption="机型" Key="Aircraft_Type_Number"/>
+            <Field Caption="调入仓库" Key="In_Warehouse"/>
+            <Field Caption="调拨单编号" Key="Dispatch_Order_No"/>
+            <Field Caption="调出仓库" Key="Out_Warehouse"/>
+            <Field Caption="乘务员" Key="Steward"/>
+            <Field Caption="餐具在机上位置" Key="Dishex_Plane_Position"/>
+            <Field Caption="锁扣号" Key="Lock_Catch_Number"/>
+            <Field Caption="送出单位航机员" Key="Sending_Staff"/>
+            <Field Caption="接收单位航机员" Key="Receiving_Staff"/>
+        </Table>
+        <Table Key="CHCS_Transfer_Handover_L" Caption="调拨交接单明细" SourceType="DataObject">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="餐具种类" Key="TableWareID"/>
+            <Field Caption="实配数量" Key="Quantity"/>
+            <Field Caption="实收数量" Key="Act_Recv_Qty"/>
+            <Field Caption="紧急程度" Key="Urgency_Degree"/>
+            <Field Caption="单位" Key="Unit"/>
+            <Field Caption="备注" Key="Remark"/>
+        </Table>
+    </DataSource>
+    <Grid>
+        <Section Key="CHCS_Transfer_Handover" Type="Paragraph">
+            <Columns>
+                <Column Width="540"/>
+            </Columns>
+            <Rows>
+                <Row Height="50">
+                    <Cell Caption="调拨交接单">
+                        <Display>
+                            <Font Bold="true" Name="SimSun" Size="14"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Key="first_head" Type="Paragraph">
+            <Columns>
+                <Column Width="60"/>
+                <Column Width="60"/>
+                <Column Width="60"/>
+                <Column Width="60"/>
+                <Column Width="60"/>
+                <Column Width="60"/>
+                <Column Width="60"/>
+                <Column Width="60"/>
+                <Column Width="60"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell Caption="交接单号" Key="Lab_NO" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="交接单号" FieldKey="NO" IsMerged="true" IsMergedHead="true" Key="NO" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="交接日期" Key="Lab_BillDate" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="交接日期" FieldKey="BillDate" IsMerged="true" IsMergedHead="true" Key="BillDate" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="状态" Key="Lab_Status" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="状态" FieldKey="Status" IsMerged="true" IsMergedHead="true" Key="Status" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="List">
+                                <ListItem Text="已作废" Value="20"/>
+                                <ListItem Text="已输入" Value="100"/>
+                                <ListItem Text="竞价中" Value="150"/>
+                                <ListItem Text="已确认" Value="200"/>
+                                <ListItem Text="已提交" Value="110"/>
+                                <ListItem Text="已建波" Value="300"/>
+                                <ListItem Text="已入场" Value="400"/>
+                                <ListItem Text="处理中" Value="500"/>
+                                <ListItem Text="已拣货" Value="600"/>
+                                <ListItem Text="已配载" Value="710"/>
+                                <ListItem Text="已装货" Value="730"/>
+                                <ListItem Text="在途" Value="750"/>
+                                <ListItem Text="中途停靠" Value="800"/>
+                                <ListItem Text="已完成" Value="900"/>
+                                <ListItem Text="已签收" Value="920"/>
+                                <ListItem Text="拒收" Value="930"/>
+                                <ListItem Text="已回单" Value="940"/>
+                                <ListItem Text="已对账" Value="960"/>
+                                <ListItem Text="已输入" Value="10"/>
+                                <ListItem Text="处理中" Value="50"/>
+                                <ListItem Text="已完成" Value="90"/>
+                                <ListItem Text="已审核" Value="80"/>
+                            </Format>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="航班号" Key="Lab_Flight_Number" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="航班号" FieldKey="Flight_Number" IsMerged="true" IsMergedHead="true" Key="Flight_Number" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Flight"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="航班日期" Key="Lab_FlightDate" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="航班日期" FieldKey="FlightDate" IsMerged="true" IsMergedHead="true" Key="FlightDate" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="飞机号" Key="Lab_Aircraft_Number" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="飞机号" FieldKey="Aircraft_Number" IsMerged="true" IsMergedHead="true" Key="Aircraft_Number" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Aircraft"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="机型" Key="Lab_Aircraft_Type_Number" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="机型" FieldKey="Aircraft_Type_Number" IsMerged="true" IsMergedHead="true" Key="Aircraft_Type_Number" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Aircraft_Type"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="餐具在机上位置" Key="Lab_Dishex_Plane_Position" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="餐具在机上位置" FieldKey="Dishex_Plane_Position" IsMerged="true" IsMergedHead="true" Key="Dishex_Plane_Position" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="List"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="锁扣号" Key="Lab_Lock_Catch_Number" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="锁扣号" FieldKey="Lock_Catch_Number" IsMerged="true" IsMergedHead="true" Key="Lock_Catch_Number" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="调入仓库" Key="Lab_In_Warehouse" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="调入仓库" FieldKey="In_Warehouse" IsMerged="true" IsMergedHead="true" Key="In_Warehouse" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="List"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="调拨单编号" Key="Lab_Dispatch_Order_No" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="调拨单编号" FieldKey="Dispatch_Order_No" IsMerged="true" IsMergedHead="true" Key="Dispatch_Order_No" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="调出仓库" Key="Lab_Out_Warehouse" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="调出仓库" FieldKey="Out_Warehouse" IsMerged="true" IsMergedHead="true" Key="Out_Warehouse" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="List"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="乘务员" Key="Lab_Steward" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="乘务员" FieldKey="Steward" IsMerged="true" IsMergedHead="true" Key="Steward" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Employee"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="送出单位航机员" Key="Lab_Sending_Staff" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="送出单位航机员" FieldKey="Sending_Staff" IsMerged="true" IsMergedHead="true" Key="Sending_Staff" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Employee"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="接收单位航机员" Key="Lab_Receiving_Staff" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="接收单位航机员" FieldKey="Receiving_Staff" IsMerged="true" IsMergedHead="true" Key="Receiving_Staff" MergedColumnSpan="2" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Employee"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Key="SystemInfo" Type="Paragraph">
+            <Columns>
+                <Column Width="135"/>
+                <Column Width="135"/>
+                <Column Width="135"/>
+                <Column Width="135"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell Caption="制单人" Key="Lab_Creator" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="制单人" FieldKey="Creator" Key="Creator" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="Operator"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="制单日期" Key="Lab_CreateTime" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="制单日期" FieldKey="CreateTime" Key="CreateTime" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="修改人" Key="Lab_Modifier" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="修改人" FieldKey="Modifier" Key="Modifier" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="Operator"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="修改日期" Key="Lab_Modifytime" MergedColumnSpan="1" MergedRowSpan="1">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="修改日期" FieldKey="Modifytime" Key="Modifytime" MergedColumnSpan="1" MergedRowSpan="1" SourceType="Field" TableKey="CHCS_Transfer_Handover_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Key="Grid1" Type="Table">
+            <Columns>
+                <Column Width="77"/>
+                <Column Width="77"/>
+                <Column Width="77"/>
+                <Column Width="77"/>
+                <Column Width="77"/>
+                <Column Width="77"/>
+                <Column Width="78"/>
+            </Columns>
+            <Rows>
+                <Row Height="30" Type="DetailHead">
+                    <Cell Caption="选择">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="餐具种类">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="实配数量">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="实收数量">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="紧急程度">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单位">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="备注">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30" TableKey="CHCS_Transfer_Handover_L" Type="Detail">
+                    <Cell Caption="餐具种类" FieldKey="TableWareID" Key="TableWareID" SourceType="Field" TableKey="CHCS_Transfer_Handover_L">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="CHCS_Product"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="实配数量" FieldKey="Quantity" Key="Quantity" SourceType="Field" TableKey="CHCS_Transfer_Handover_L">
+                        <Display>
+                            <Format DataType="Number" FormatString="##,###.00"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="实收数量" FieldKey="Act_Recv_Qty" Key="Act_Recv_Qty" SourceType="Field" TableKey="CHCS_Transfer_Handover_L">
+                        <Display>
+                            <Format DataType="Number" FormatString="##,###.00"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="紧急程度" FieldKey="Urgency_Degree" Key="Urgency_Degree" SourceType="Field" TableKey="CHCS_Transfer_Handover_L">
+                        <Display>
+                            <Format DataType="List"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单位" FieldKey="Unit" Key="Unit" SourceType="Field" TableKey="CHCS_Transfer_Handover_L">
+                        <Display>
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="LRP_Lookup_L"/>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="备注" FieldKey="Remark" Key="Remark" SourceType="Field" TableKey="CHCS_Transfer_Handover_L">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" LeftColor="#000000" LeftStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell/>
+                </Row>
+            </Rows>
+        </Section>
+    </Grid>
+</Report>

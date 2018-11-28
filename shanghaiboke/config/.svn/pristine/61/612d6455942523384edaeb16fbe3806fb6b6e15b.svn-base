@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="CHCS_ImportVendor" Caption="引入供应商信息" FormType="View">
+    <DataSource RefObjectKey="CHCS_ImportVendor"/>
+    <OperationCollection>
+        <Operation Key="put" Caption="下推">
+            <Action>
+                <![CDATA[ViewMap("ImportVendor2Supplement", false);
+Close();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body PopHeight="600px" PopWidth="1000px">
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Caption="基本信息">
+                        <TextEditor Key="Code_LV" Caption="代码" BuddyKey="Lab_Code_LV" X="1" Y="0" Enable="false">
+                            <Condition ColumnKey="Code" TableKey="CHCS_ImportVendor" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Code_LV" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Name_LV" Caption="名称" BuddyKey="Lab_Name_LV" X="3" Y="0" Enable="false">
+                            <Condition ColumnKey="Name" TableKey="CHCS_ImportVendor" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Name_LV" Caption="名称" X="2" Y="0"/>
+                        <Button Key="Query" Caption="查询" X="5" Y="1">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="cancel" Caption="重置" X="5" Y="2">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <TextEditor Key="Abbreviation_LV" Caption="简称" BuddyKey="Lab_Abbreviation_LV" X="5" Y="0" Enable="false">
+                            <Condition ColumnKey="Abbreviation" TableKey="CHCS_ImportVendor" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_Abbreviation_LV" Caption="简称" X="4" Y="0"/>
+                        <RowDefCollection RowHeight="30" RowGap="6">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="20">
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1" Height="100%">
+                        <Grid Key="Grid1" Caption="供应商信息" Enable="false" PageLoadType="DB" Height="100%">
+                            <GridColumnCollection>
+                                <GridColumn Key="column2" Caption="代码" Width="80px"/>
+                                <GridColumn Key="column3" Caption="名称" Width="80px"/>
+                                <GridColumn Key="Abbreviation" Caption="简称" Width="80px"/>
+                                <GridColumn Key="Build_Year" Caption="建立年份" Width="80px"/>
+                                <GridColumn Key="Repair_Expansion_Records" Caption="返修/扩大记录" Width="100px"/>
+                                <GridColumn Key="Design_Production" Caption="设计产量" Width="80px"/>
+                                <GridColumn Key="Daily_Average_Meal" Caption="日均配餐量（份）" Width="100px"/>
+                                <GridColumn Key="Daily_Average_Flight" Caption="日均航班量（班）" Width="100px"/>
+                                <GridColumn Key="Distance_Plane_flat" Caption="距离机坪（米）" Width="100px"/>
+                                <GridColumn Key="Total_Area" Caption="总面积（㎡）" Width="80px"/>
+                                <GridColumn Key="Production_Area" Caption="生产面积（㎡）" Width="100px"/>
+                                <GridColumn Key="Storeroom_Area" Caption="库房面积" Width="80px"/>
+                                <GridColumn Key="Loading_And_Unloading_Port" Caption="装卸港口（个）" Width="100px"/>
+                                <GridColumn Key="Ice_Maker" Caption="制冰机（台）" Width="80px"/>
+                                <GridColumn Key="Lift_Truck" Caption="升降车（台）" Width="80px"/>
+                                <GridColumn Key="Dolly" Caption="小车（台）" Width="80px"/>
+                                <GridColumn Key="Tableware_Washing_Machine" Caption="餐具清洗机（台）" Width="100px"/>
+                                <GridColumn Key="Cleaning_Machine_For_Dining_Car" Caption="餐车清洗机（台）" Width="100px"/>
+                                <GridColumn Key="Employee" Caption="员工（人）" Width="80px"/>
+                                <GridColumn Key="Current_Business_Saturation" Caption="现业务饱和度" Width="100px"/>
+                                <GridColumn Key="Production_Workers" Caption="生产工人（人）" Width="100px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="CHCS_ImportVendor">
+                                    <GridCell Key="cell34" Caption="代码" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Code"/>
+                                    </GridCell>
+                                    <GridCell Key="cell35" Caption="名称" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Name"/>
+                                    </GridCell>
+                                    <GridCell Key="Abbreviation" Caption="简称" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Abbreviation"/>
+                                    </GridCell>
+                                    <GridCell Key="Build_Year" Caption="建立年份" CellType="DatePicker" OnlyDate="true">
+                                        <DataBinding ColumnKey="Build_Year"/>
+                                    </GridCell>
+                                    <GridCell Key="Repair_Expansion_Records" Caption="返修/扩大记录" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Repair_Expansion_Records"/>
+                                    </GridCell>
+                                    <GridCell Key="Design_Production" Caption="设计产量" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Design_Production"/>
+                                    </GridCell>
+                                    <GridCell Key="Daily_Average_Meal" Caption="日均配餐量（份）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Daily_Average_Meal"/>
+                                    </GridCell>
+                                    <GridCell Key="Daily_Average_Flight" Caption="日均航班量（班）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Daily_Average_Flight"/>
+                                    </GridCell>
+                                    <GridCell Key="Distance_Plane_flat" Caption="距离机坪（米）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Distance_Plane_flat"/>
+                                    </GridCell>
+                                    <GridCell Key="Total_Area" Caption="总面积（㎡）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Total_Area"/>
+                                    </GridCell>
+                                    <GridCell Key="Production_Area" Caption="生产面积（㎡）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Production_Area"/>
+                                    </GridCell>
+                                    <GridCell Key="Storeroom_Area" Caption="库房面积" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Storeroom_Area"/>
+                                    </GridCell>
+                                    <GridCell Key="Loading_And_Unloading_Port" Caption="装卸港口（个）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Loading_And_Unloading_Port"/>
+                                    </GridCell>
+                                    <GridCell Key="Ice_Maker" Caption="制冰机（台）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Ice_Maker"/>
+                                    </GridCell>
+                                    <GridCell Key="Lift_Truck" Caption="升降车（台）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Lift_Truck"/>
+                                    </GridCell>
+                                    <GridCell Key="Dolly" Caption="小车（台）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Dolly"/>
+                                    </GridCell>
+                                    <GridCell Key="Tableware_Washing_Machine" Caption="餐具清洗机（台）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Tableware_Washing_Machine"/>
+                                    </GridCell>
+                                    <GridCell Key="Cleaning_Machine_For_Dining_Car" Caption="餐车清洗机（台）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Cleaning_Machine_For_Dining_Car"/>
+                                    </GridCell>
+                                    <GridCell Key="Employee" Caption="员工（人）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Employee"/>
+                                    </GridCell>
+                                    <GridCell Key="Current_Business_Saturation" Caption="现业务饱和度" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Current_Business_Saturation"/>
+                                    </GridCell>
+                                    <GridCell Key="Production_Workers" Caption="生产工人（人）" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="Production_Workers"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid2" Caption="可服务机型" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID2" Caption="OID2" Width="80px" Visible="false"/>
+                                <GridColumn Key="Aircraft_Type" Caption="机型" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Aircraft_Type">
+                                    <GridCell Key="OID2" Caption="OID2" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Aircraft_Type" Caption="机型" CellType="Dict" ItemKey="CHCS_Aircraft_Type">
+                                        <DataBinding ColumnKey="Aircraft_Type"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid3" Caption="外航客户情况" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID3" Caption="OID3" Width="80px" Visible="false"/>
+                                <GridColumn Key="Code" Caption="代码" Width="80px"/>
+                                <GridColumn Key="Name" Caption="名称" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Customer">
+                                    <GridCell Key="OID3" Caption="OID3" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Code" Caption="代码" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Code"/>
+                                    </GridCell>
+                                    <GridCell Key="Name" Caption="名称" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Name"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid4" Caption="旅客特殊餐保障" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID3" Caption="OID4" Width="80px" Visible="false"/>
+                                <GridColumn Key="Passenger_Meal" Caption="旅客特殊餐食" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Passenger_Meal">
+                                    <GridCell Key="OID4" Caption="OID4" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Passenger_Meal" Caption="旅客特殊餐食" CellType="Dict" ItemKey="LRP_Lookup_L">
+                                        <DataBinding ColumnKey="Passenger_Meal"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid5" Caption="机组特殊餐保障" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID4" Caption="OID5" Width="80px" Visible="false"/>
+                                <GridColumn Key="Aircrew_Meal" Caption="机组特殊餐食" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Aircrew_Meal">
+                                    <GridCell Key="OID5" Caption="OID5" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Aircrew_Meal" Caption="机组特殊餐食" CellType="Dict" ItemKey="LRP_Lookup_L">
+                                        <DataBinding ColumnKey="Aircrew_Meal"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid6" Caption="公务舱点餐" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID6" Caption="OID6" Width="80px" Visible="false"/>
+                                <GridColumn Key="Main_Meal_Name" Caption="主餐名称" Width="80px"/>
+                                <GridColumn Key="Meat_Food" Caption="肉类食材" Width="80px"/>
+                                <GridColumn Key="Scheduled_Time_Start" Caption="可预定时间（起）" Width="80px"/>
+                                <GridColumn Key="Scheduled_Time_Stop" Caption="可预定时间（止）" Width="80px"/>
+                                <GridColumn Key="Picture_Business" Caption="图片" Width="80px"/>
+                                <GridColumn Key="Is_Increase_Cost_Business" Caption="是否增加费用" Width="80px"/>
+                                <GridColumn Key="Duration_of_Meals_Business_Start" Caption="餐食有效期（起）" Width="80px"/>
+                                <GridColumn Key="Duration_of_Meals_Business_Stop" Caption="餐食有效期（止）" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Business_Class_Meal">
+                                    <GridCell Key="OID6" Caption="OID6" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Main_Meal_Name" Caption="主餐名称" CellType="Dict" ItemKey="CHCS_Product">
+                                        <DataBinding ColumnKey="Main_Meal_Name"/>
+                                    </GridCell>
+                                    <GridCell Key="Meat_Food" Caption="肉类食材" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Meat_Food"/>
+                                    </GridCell>
+                                    <GridCell Key="Scheduled_Time_Start" Caption="可预定时间（起）" CellType="DatePicker">
+                                        <DataBinding ColumnKey="Scheduled_Time_Start"/>
+                                    </GridCell>
+                                    <GridCell Key="Scheduled_Time_Stop" Caption="可预定时间（止）" CellType="DatePicker">
+                                        <DataBinding ColumnKey="Scheduled_Time_Stop"/>
+                                    </GridCell>
+                                    <GridCell Key="Picture_Business" Caption="图片" CellType="Image">
+                                        <DataBinding ColumnKey="Picture_Business"/>
+                                    </GridCell>
+                                    <GridCell Key="Is_Increase_Cost_Business" Caption="是否增加费用" CellType="CheckBox">
+                                        <DataBinding ColumnKey="Is_Increase_Cost_Business"/>
+                                    </GridCell>
+                                    <GridCell Key="Duration_of_Meals_Business_Start" Caption="餐食有效期（起）" CellType="DatePicker" OnlyDate="true">
+                                        <DataBinding ColumnKey="Duration_of_Meals_Business_Start"/>
+                                    </GridCell>
+                                    <GridCell Key="Duration_of_Meals_Business_Stop" Caption="餐食有效期（止）" CellType="DatePicker" OnlyDate="true">
+                                        <DataBinding ColumnKey="Duration_of_Meals_Business_Stop"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid7" Caption="特殊点餐" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID7" Caption="OID7" Width="80px" Visible="false"/>
+                                <GridColumn Key="Special_Meal_Name" Caption="特餐名称" Width="80px"/>
+                                <GridColumn Key="Special_Scheduled_Time_Start" Caption="可预定时间（起）" Width="80px"/>
+                                <GridColumn Key="Special_Scheduled_Time_Stop" Caption="可预定时间（止）" Width="80px"/>
+                                <GridColumn Key="Picture_Special" Caption="图片" Width="80px"/>
+                                <GridColumn Key="Is_Increase_Cost_Special" Caption="是否增加费用" Width="80px"/>
+                                <GridColumn Key="Duration_of_Meals_Special_Start" Caption="餐食有效期（起）" Width="80px"/>
+                                <GridColumn Key="Duration_of_Meals_Special_Stop" Caption="餐食有效期（止）" Width="80px"/>
+                                <GridColumn Key="Serve_Food" Caption="供餐" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Special_Meal">
+                                    <GridCell Key="OID7" Caption="OID7" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Special_Meal_Name" Caption="特餐名称" CellType="Dict" ItemKey="CHCS_Product">
+                                        <DataBinding ColumnKey="Special_Meal_Name"/>
+                                    </GridCell>
+                                    <GridCell Key="Special_Scheduled_Time_Start" Caption="可预定时间（起）" CellType="DatePicker">
+                                        <DataBinding ColumnKey="Special_Scheduled_Time_Start"/>
+                                    </GridCell>
+                                    <GridCell Key="Special_Scheduled_Time_Stop" Caption="可预定时间（止）" CellType="DatePicker">
+                                        <DataBinding ColumnKey="Special_Scheduled_Time_Stop"/>
+                                    </GridCell>
+                                    <GridCell Key="Picture_Special" Caption="图片" CellType="Image">
+                                        <DataBinding ColumnKey="Picture_Special"/>
+                                    </GridCell>
+                                    <GridCell Key="Is_Increase_Cost_Special" Caption="是否增加费用" CellType="CheckBox">
+                                        <DataBinding ColumnKey="Is_Increase_Cost_Special"/>
+                                    </GridCell>
+                                    <GridCell Key="Duration_of_Meals_Special_Start" Caption="餐食有效期（起）" CellType="DatePicker" OnlyDate="true">
+                                        <DataBinding ColumnKey="Duration_of_Meals_Special_Start"/>
+                                    </GridCell>
+                                    <GridCell Key="Duration_of_Meals_Special_Stop" Caption="餐食有效期（止）" CellType="DatePicker" OnlyDate="true">
+                                        <DataBinding ColumnKey="Duration_of_Meals_Special_Stop"/>
+                                    </GridCell>
+                                    <GridCell Key="Serve_Food" Caption="供餐">
+                                        <DataBinding ColumnKey="Serve_Food"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid8" Caption="服务周期" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID8" Caption="OID8" Width="80px" Visible="false"/>
+                                <GridColumn Key="Week" Caption="时间" Width="80px"/>
+                                <GridColumn Key="Is_Service" Caption="是否提供服务" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Service_Cycle">
+                                    <GridCell Key="OID8" Caption="OID8" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Week" Caption="时间" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Week"/>
+                                    </GridCell>
+                                    <GridCell Key="Is_Service" Caption="是否提供服务" CellType="CheckBox">
+                                        <DataBinding ColumnKey="Is_Service"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid9" Caption="服务航班" Enable="false" PageLoadType="DB">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID9" Caption="OID9" Width="80px" Visible="false"/>
+                                <GridColumn Key="Flight" Caption="航班" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="36" TableKey="BK_Vendor_Service_Fight">
+                                    <GridCell Key="OID9" Caption="OID9" CellType="NumberEditor" Format="">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Flight" Caption="航班" CellType="Dict" ItemKey="CHCS_Flight">
+                                        <DataBinding ColumnKey="Flight"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="40%"/>
+                    <SplitSize Size="60%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[var vendor = GetPara("vendoroid");
+SetValue("Code_LV", GetDictValue("Vendor", vendor, "Code"));
+SetValue("Name_LV", GetDictValue("Vendor", vendor, "Name"));
+SetValue("Abbreviation_LV", GetDictValue("Vendor", vendor, "Abbreviation"));]]>
+    </OnPostShow>
+</Form>
