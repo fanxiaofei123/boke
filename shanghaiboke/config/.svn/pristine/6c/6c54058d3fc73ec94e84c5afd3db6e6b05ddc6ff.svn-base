@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<StringTable>
-    <UI>
-        <V_CouponType_LRP>CouponType</V_CouponType_LRP>
-		
-        <L_Code>Code</L_Code>
-		<L_Name>Name</L_Name>
-    </UI>
-</StringTable>

@@ -1,9 +1,0 @@
-
-DSNTag=
-Name=SQL
-ConnectionType=jdbc
-DBType=SqlServer
-Driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
-URL=jdbc:sqlserver://localhost:1433;databaseName=example;SelectMethod=cursor
-User=sa
-Password=root123

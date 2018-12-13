@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<StringTable>
-    <UI>
-        <Receive>Receive</Receive>
-        <ReplenishmentTask>ReplenishmentTask</ReplenishmentTask>
-        <history>history</history>
-        <TitleCenter>Replenishment</TitleCenter>
-    </UI>
-</StringTable>

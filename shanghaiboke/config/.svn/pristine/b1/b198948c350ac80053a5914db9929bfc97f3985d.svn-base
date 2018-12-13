@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Entry Caption="根" Key="root">
-    <Entry Caption="策略管理" Key="Strategy">
-            <EntryItem Caption="订单拣货策略" FormKey="V_NoticePickStategyView" Key="V_NoticePickStategyView" Type="Form"/>
-            <EntryItem Caption="波次拣货策略" FormKey="V_WavePickStrategyView" Key="V_WavePickStrategyView" Type="Form"/>
-            <EntryItem Caption="上架策略" FormKey="V_PutawayStrategyView" Key="V_PutawayStrategyView" Single="true" Type="Form"/>
-            <EntryItem Caption="补货策略" FormKey="V_ReplenishStrategyView" Key="V_ReplenishStrategyView" Type="Form"/>
-        </Entry>
-</Entry>

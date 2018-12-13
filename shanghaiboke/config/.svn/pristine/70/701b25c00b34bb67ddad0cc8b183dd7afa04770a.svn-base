@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<AppDef>
-    <StatusInfo>
-        <StatusInfoItem Key="LoginInfo" Caption="登录信息" FormulaCaption="
-		LocaleString('StatusInfoGroup','WH')+GetDictValue('LRP_WarehouseCenter',SessionPara('OrgID'),'Name')+'	'+LocaleString('StatusInfoGroup','DSP')+ GetDictValue('LRP_DispatchOrg',SessionPara('DispatchOrgID'),'Name')"/>
-    </StatusInfo>
-</AppDef>

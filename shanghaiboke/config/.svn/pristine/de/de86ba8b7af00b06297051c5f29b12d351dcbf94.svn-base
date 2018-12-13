@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Entry Caption="根" Key="root">
-    <Entry Caption="餐券管理" Key="MealCouponManagementCustomBill">
-        <EntryItem Caption="餐券配备单" FormKey="CHCS_MealCoupon_ProvideView" Key="CHCS_MealCoupon_ProvideView" Type="Form"/>
-    </Entry>
-</Entry>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Entry Caption="根" Key="root">
-    <Entry Caption="物流订单" Key="LogisticsOrder">
-        <EntryItem Caption="物流订单" FormKey="V_LogisticsOrderView" Key="V_LogisticsOrderView" Type="Form"/>
-		<EntryItem Caption="物流订单追踪" FormKey="V_LogisticsOrdeTracks" Key="V_LogisticsOrdeTracks" Type="Form"/>
-    </Entry>
-</Entry>

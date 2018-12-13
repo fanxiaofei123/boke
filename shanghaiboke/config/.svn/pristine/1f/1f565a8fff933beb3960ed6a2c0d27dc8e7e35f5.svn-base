@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<StringTable>
-    <UI>
-        <L_Name>Name</L_Name>
-        <IsAdmin>Admin or not?</IsAdmin>
-        <L_Code>Code</L_Code>
-		<L_Code>L_Code</L_Code>
-    </UI>
-</StringTable>
